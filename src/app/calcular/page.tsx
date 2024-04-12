@@ -19,7 +19,7 @@ export default function Page() {
           </article>
       </form>
 
-        <Table/>
+        {/* <Table/> */}
     </div>
   );
 }
