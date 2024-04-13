@@ -4,7 +4,7 @@ import { Table } from '@/components/Table';
 export default function Page() {
 
   return (
-    <div>
+    <main className='main-container'>
       <form>
           <article className='flex flex-col gap-y-5'>
               <h3 className='text-xl font-semibold'>Datos del recibo</h3>
@@ -20,6 +20,6 @@ export default function Page() {
       </form>
 
         {/* <Table/> */}
-    </div>
+    </main>
   );
 }
