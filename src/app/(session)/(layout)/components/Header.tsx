@@ -1,20 +1,22 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from '@nextui-org/react'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/navbar'
+import { Button } from '@nextui-org/button'
+import Link from 'next/link'
 import Logo from '@/public/img/logo.svg'
-import { ROUTE } from '@/app/routes'
+import { ROUTE } from '@/routes'
 
 export function Header() {
   return (
-    <Navbar position='static' className='w-[1600px] mx-auto max-w-full' maxWidth='full'>
+    <Navbar className='w-[1600px] mx-auto max-w-full' maxWidth='full'>
       <NavbarBrand className='space-x-unit-xs'>
         <Link href={ROUTE.HOME}>
           <Logo />
         </Link>
-        <p className='font-bold text-inherit'>CCSEC</p>
+        <span className='font-bold text-inherit'>CCSEC</span>
       </NavbarBrand>
 
       <NavbarContent justify='end'>
         <NavbarItem>
-          <Button as={Link} color='primary' href='#' variant='flat'>
+          <Button color='primary' variant='flat'>
             Iniciar sesión
           </Button>
         </NavbarItem>

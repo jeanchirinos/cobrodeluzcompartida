@@ -2,7 +2,7 @@ import { Button } from '@nextui-org/button'
 import { BillInfo } from './BillInfo'
 import { LightMetersInfo } from './LightMetersInfo'
 import { useState } from 'react'
-import { SetState } from '@/app/types'
+import { SetState } from '@/types'
 import { getResult } from '../../utils/calculateAmount'
 
 type Props = { setResult: SetState<Result> }
@@ -19,19 +19,27 @@ export function Form(props: Props) {
 
     const formData = new FormData(e.currentTarget)
 
-    const formProps = Object.fromEntries(formData) as {
+    const consumptions = Array.from(formData)
+      .filter(([key, value]) => key.startsWith('consumption_'))
+      .map(([key, value]) => ({
+        name: `Consumo ${key.split('_').at(-1)}`,
+        amount: value as string,
+      }))
+
+    const billDataPropsArray = Array.from(formData).filter(
+      ([key, value]) => !key.startsWith('consumption_')
+    )
+
+    const billData = Object.fromEntries(billDataPropsArray) as {
       consumption: string
       kwh: string
       totalMonth: string
       totalAmount: string
-      consumption1: string
     }
 
-    const { consumption1, ...rest } = formProps
-
     const result = getResult({
-      ...rest,
-      consumptions: [{ name: 'Consumo 1', amount: consumption1 }],
+      ...billData,
+      consumptions,
     })
 
     setResult(result)
