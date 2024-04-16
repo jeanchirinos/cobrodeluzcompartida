@@ -10,6 +10,7 @@
     "upd": "pnpm up --i --L"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
     "@nextui-org/react": "^2.2.10",
     "framer-motion": "^11.0.27",
     "next": "14.1.4",
@@ -17,7 +18,8 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^5.0.1"
+    "react-icons": "^5.0.1",
+    "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
