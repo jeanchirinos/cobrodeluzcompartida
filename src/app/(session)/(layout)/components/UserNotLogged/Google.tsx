@@ -8,7 +8,7 @@ export function Google() {
   const { openGoogleWindow } = useGoogle()
 
   return (
-    <Button fullWidth onPress={openGoogleWindow} startContent={<IconGoogle />}>
+    <Button onPress={openGoogleWindow} startContent={<IconGoogle />}>
       Continuar con Google
     </Button>
   )

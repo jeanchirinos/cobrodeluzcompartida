@@ -2,9 +2,9 @@ import { Input } from '@/components/Input'
 
 export function BillInfo() {
   return (
-    <section className='space-y-unit-xl'>
+    <section className='space-y-8'>
       <h3 className='text-large font-semibold'>Datos del recibo</h3>
-      <div className='flex flex-col gap-y-unit-lg'>
+      <div className='flex flex-col gap-y-6'>
         <Input name='consumption' label='Consumo kWh' placeholder='0.00' type='number' />
         <Input
           name='kwh'

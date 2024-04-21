@@ -9,7 +9,7 @@ import { Session } from './Session'
 export function Header() {
   return (
     <Navbar className='w-[1600px] mx-auto max-w-full' maxWidth='full'>
-      <NavbarBrand className='space-x-unit-xs grow-0'>
+      <NavbarBrand className='space-x-2 grow-0'>
         <Link href={ROUTE.HOME}>
           <Logo />
         </Link>

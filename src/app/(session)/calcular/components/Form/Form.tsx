@@ -58,7 +58,7 @@ export function Form(props: Props) {
 
   // RENDER
   return (
-    <form className='space-y-unit-2xl' onSubmit={handleSubmit} onChange={handleChange}>
+    <form className='space-y-10' onSubmit={handleSubmit} onChange={handleChange}>
       <BillInfo />
       <LightMetersInfo />
 

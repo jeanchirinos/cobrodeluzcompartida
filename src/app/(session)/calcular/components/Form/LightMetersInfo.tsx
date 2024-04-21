@@ -23,17 +23,17 @@ export function LightMetersInfo() {
   }
 
   return (
-    <section className='space-y-unit-xl'>
+    <section className='space-y-8'>
       <h3 className='text-large font-semibold'>Datos de los medidores (kWh)</h3>
-      <div className='space-y-unit-lg'>
-        <div className='flex flex-col gap-y-unit-lg'>
+      <div className='space-y-6'>
+        <div className='flex flex-col gap-y-6'>
           {consumptions.map(item => (
             <Input
               key={item}
               name={`consumption_${item}`}
               type='number'
               label={
-                <div className='flex space-x-unit-sm items-center'>
+                <div className='flex space-x-3 items-center'>
                   <span>Consumo {item}</span>
                   {consumptions.length > 1 && (
                     <Button

@@ -8,7 +8,7 @@ export default function Page() {
   const [result, setResult] = useState<Result>(null)
 
   return (
-    <main className='main-container flex gap-unit-4xl lg:gap-x-unit-5xl max-md:flex-col'>
+    <main className='main-container flex gap-14 lg:gap-x-16 max-md:flex-col'>
       <Form setResult={setResult} />
       <Results result={result} />
     </main>
