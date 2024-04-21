@@ -1,5 +1,4 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/navbar'
-import { Button } from '@nextui-org/button'
 import Link from 'next/link'
 import Logo from '@/public/img/logo.svg'
 import { ROUTE } from '@/routes'
@@ -17,9 +16,9 @@ export function Header() {
         <span className='font-bold text-inherit'>CCSEC</span>
       </NavbarBrand>
 
-      <NavbarContent className="hidden sm:flex gap-4" justify="start">
+      <NavbarContent className='hidden sm:flex gap-4' justify='start'>
         <NavbarItem>
-          <Link color="foreground" href={ROUTE.CALCULATE}>
+          <Link color='foreground' href={ROUTE.CALCULATE}>
             Calcular
           </Link>
         </NavbarItem>

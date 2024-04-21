@@ -41,7 +41,7 @@ export function getResult(params: Params) {
     amount: calculateAmountPerParticipant(Number(item.amount)),
   }))
 
-  const result = [{ name: 'Administrador', amount: adminAmount }, ...participantsAmounts]
+  const result = [{ name: 'Principal', amount: adminAmount }, ...participantsAmounts]
 
   return result
 }
