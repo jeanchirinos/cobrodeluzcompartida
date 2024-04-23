@@ -2,18 +2,18 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/navb
 import Link from 'next/link'
 import Logo from '@/public/img/logo.svg'
 import { ROUTE } from '@/routes'
-import { Suspense } from 'react'
 import { Skeleton } from '@nextui-org/skeleton'
 import { Session } from './Session'
+import { Suspense } from '@/components/other/CustomSuspense'
 
 export function Header() {
   return (
     <Navbar className='w-[1600px] mx-auto max-w-full' maxWidth='full'>
-      <NavbarBrand className='space-x-2 grow-0'>
-        <Link href={ROUTE.HOME}>
+      <NavbarBrand>
+        <Link href={ROUTE.HOME} className='flex gap-x-2 items-center'>
           <Logo />
+          <span className='font-bold text-inherit'>CCSEC</span>
         </Link>
-        <span className='font-bold text-inherit'>CCSEC</span>
       </NavbarBrand>
 
       <NavbarContent className='hidden sm:flex gap-4' justify='start'>
