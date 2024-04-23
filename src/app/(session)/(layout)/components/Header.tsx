@@ -9,7 +9,7 @@ import { Suspense } from '@/components/other/CustomSuspense'
 export function Header() {
   return (
     <Navbar className='w-[1600px] mx-auto max-w-full' maxWidth='full'>
-      <NavbarBrand>
+      <NavbarBrand className='grow-0'>
         <Link href={ROUTE.HOME} className='flex gap-x-2 items-center'>
           <Logo />
           <span className='font-bold text-inherit'>CCSEC</span>
