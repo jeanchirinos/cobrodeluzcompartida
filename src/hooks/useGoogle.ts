@@ -7,14 +7,12 @@ import { useEffect, useRef } from 'react'
 export function useGoogle() {
   // EFFECT
   useEffect(() => {
-    async function handleMessageFromAuthPage(e: MessageEvent<{ token: string }>) {
-      await udpdateGoogleSession(e.data.token)
-      openedWindow.current?.close()
-    }
-
-    window.addEventListener('message', handleMessageFromAuthPage)
-
-    return () => window.removeEventListener('message', handleMessageFromAuthPage)
+    // async function handleMessageFromAuthPage(e: MessageEvent<{ token: string }>) {
+    //   await udpdateGoogleSession(e.data.token)
+    //   openedWindow.current?.close()
+    // }
+    // window.addEventListener('message', handleMessageFromAuthPage)
+    // return () => window.removeEventListener('message', handleMessageFromAuthPage)
   }, [])
 
   // FUNCTIONS

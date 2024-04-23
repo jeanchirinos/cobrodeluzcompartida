@@ -1,6 +1,8 @@
 import { Image } from '@/components/Image'
 import { Menu, MenuContent, MenuTrigger } from '@/components/Menu'
+import { SubmitButton } from '@/components/SubmitButton'
 import { SessionLogged } from '@/controllers/AuthController/getSession'
+import { logout } from '@/controllers/AuthController/logout'
 
 type Props = { session: SessionLogged }
 
@@ -26,6 +28,12 @@ export function UserLogged(props: Props) {
             <span className='text-xs'>{session.email}</span>
           </div>
           <div className='flex flex-col any-*-[a]:w-full any-*-[a]:px-4 any-*-[a]:py-2' />
+
+          <form action={logout}>
+            <SubmitButton className='w-full justify-start rounded-none bg-transparent text-inherit hover:bg-foreground-100'>
+              Cerrar sesión
+            </SubmitButton>
+          </form>
         </MenuContent>
       </Menu>
     </div>
