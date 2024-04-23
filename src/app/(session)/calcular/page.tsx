@@ -1,16 +1,14 @@
-'use client'
-
-import { useState } from 'react'
-import { Form } from './components/Form/Form'
-import { Results } from './components/Results'
+import { Suspense } from '@/components/other/CustomSuspense'
+import { Calculate } from './components/Calculate/Calculate'
+import { SessionWarning } from './components/SessionWarning/SessionWarning'
 
 export default function Page() {
-  const [result, setResult] = useState<Result>(null)
-
   return (
-    <main className='main-container flex gap-14 lg:gap-x-16 max-md:flex-col'>
-      <Form setResult={setResult} />
-      <Results result={result} />
+    <main className='main-container flex flex-col gap-y-10'>
+      <Suspense>
+        <SessionWarning />
+      </Suspense>
+      <Calculate />
     </main>
   )
 }

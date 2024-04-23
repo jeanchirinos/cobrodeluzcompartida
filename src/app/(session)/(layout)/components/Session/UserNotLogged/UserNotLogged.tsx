@@ -4,6 +4,7 @@ import { Popover, PopoverTrigger, PopoverContent } from '@/components/Popover'
 import { Button } from '@nextui-org/button'
 import { Google } from './Google'
 import { Login } from './Login'
+import { $LOGIN_BUTTON } from '@/elements'
 
 export function UserNotLogged() {
   if (process.env.NODE_ENV === 'production') {
@@ -13,7 +14,7 @@ export function UserNotLogged() {
   return (
     <Popover>
       {/* @ts-ignore */}
-      <PopoverTrigger id='not-logged-menu-trigger' as={Button} color='primary' variant='flat'>
+      <PopoverTrigger id={$LOGIN_BUTTON} as={Button} color='primary' variant='flat'>
         Iniciar sesión
       </PopoverTrigger>
       <PopoverContent className='right-0 flex w-80 flex-col gap-y-2 overflow-hidden bg-content1 px-5 py-3 shadow-md'>

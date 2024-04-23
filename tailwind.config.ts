@@ -15,7 +15,7 @@ const tailwindPlugin = plugin(plugin => {
       width: '1600px',
       marginInline: 'auto',
       maxWidth: '100%',
-      paddingInline: '1rem',
+      paddingInline: '1.5rem',
     },
   })
 })
@@ -30,6 +30,6 @@ const config: Config = {
   ],
   theme: {},
   darkMode: 'class',
-  plugins: [nextuiPlugin, tailwindPlugin],
+  plugins: [nextuiPlugin, tailwindPlugin, require('@headlessui/tailwindcss')],
 }
 export default config

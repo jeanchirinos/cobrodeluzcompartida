@@ -1,4 +1,4 @@
-import { Header } from './(layout)/components/Header'
+import { Header } from './(layout)/components/Header/Header'
 
 export default function RootLayout(props: React.PropsWithChildren) {
   return (

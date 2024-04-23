@@ -5,13 +5,20 @@ export function BillInfo() {
     <section className='space-y-8'>
       <h3 className='text-large font-semibold'>Datos del recibo</h3>
       <div className='flex flex-col gap-y-6'>
-        <Input name='consumption' label='Consumo kWh' placeholder='0.00' type='number' />
+        <Input
+          name='consumption'
+          label='Consumo kWh'
+          placeholder='0'
+          type='number'
+          endContent='kWh'
+        />
         <Input
           name='kwh'
           label='kWh al precio de'
-          placeholder='0.00'
+          placeholder='0.0000'
           startContent='S/.'
           type='number'
+          step={0.0001}
         />
         <Input
           name='totalMonth'
@@ -19,6 +26,7 @@ export function BillInfo() {
           placeholder='0.00'
           startContent='S/.'
           type='number'
+          step={0.01}
         />
         <Input
           name='totalAmount'
@@ -26,6 +34,7 @@ export function BillInfo() {
           placeholder='0.00'
           startContent='S/.'
           type='number'
+          step={0.01}
         />
       </div>
     </section>
