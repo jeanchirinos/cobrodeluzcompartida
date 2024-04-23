@@ -41,7 +41,7 @@ export async function requestAll<Response>(
     body = JSON.stringify(config?.body)
   }
 
-  headers.append('app-api-key', getApiKey())
+  headers.append('X-API-KEY', getApiKey())
 
   let urlPath = url
 
