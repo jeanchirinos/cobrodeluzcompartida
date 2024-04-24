@@ -3,7 +3,9 @@ import { BillInfo } from './BillInfo'
 import { LightMetersInfo } from './LightMetersInfo'
 import { useState } from 'react'
 import { SetState } from '@/types'
-import { getResult } from '../../../utils/calculateAmount'
+import { getResult } from './utils/calculateAmount'
+import { $FORM_CALCULATE } from '@/elements'
+import { getFormData } from '../../utils/getFormData'
 
 type Props = { setResult: SetState<Result> }
 
@@ -28,39 +30,20 @@ export function Form(props: Props) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    const formData = new FormData(e.currentTarget)
-
-    // console.log({ a: formData.forEach((value, key) => console.log(key, value)) })
-
-    const consumptions = Array.from(formData)
-      .filter(([key, value]) => key.startsWith('consumption_'))
-      .map(([key, value]) => ({
-        name: `Consumo ${key.split('_').at(-1)}`,
-        amount: value as string,
-      }))
-
-    const billDataPropsArray = Array.from(formData).filter(
-      ([key, value]) => !key.startsWith('consumption_')
-    )
-
-    const billData = Object.fromEntries(billDataPropsArray) as {
-      consumption: string
-      kwh: string
-      totalMonth: string
-      totalAmount: string
-    }
-
-    const result = getResult({
-      ...billData,
-      consumptions,
-    })
+    const formData = getFormData()
+    const result = getResult(formData)
 
     setResult(result)
   }
 
   // RENDER
   return (
-    <form className='space-y-10 max-w-64' onChange={handleChange} onSubmit={handleSubmit}>
+    <form
+      className='space-y-10 max-w-64'
+      id={$FORM_CALCULATE}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+    >
       <BillInfo />
       <LightMetersInfo />
 
