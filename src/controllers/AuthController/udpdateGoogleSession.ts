@@ -1,6 +1,9 @@
 'use server'
 import { createAuthToken } from '../AuthController/utils/createAuthToken'
+import { createGroupWithSessionCookie } from '../GroupController/utils/createGroupWithSessionCookie'
 
 export async function udpdateGoogleSession(token: string) {
-  createAuthToken(token)
+  await createAuthToken(token)
+
+  createGroupWithSessionCookie()
 }

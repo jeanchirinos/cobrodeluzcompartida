@@ -3,7 +3,7 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { useTheme } from 'next-themes'
 import { IconCheck, IconDarkTheme, IconLightTheme, IconSystemTheme } from '@/icons'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Button } from '@nextui-org/button'
 
 const themes = [
@@ -25,7 +25,14 @@ const themes = [
 ]
 
 export function ThemeSwitcher() {
+  const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
 
   const selectedTheme = themes.find(t => t.id === theme) ?? themes[0]
 

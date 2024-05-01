@@ -1,11 +1,9 @@
 'use server'
 
-import { ROUTE } from '@/routes'
 import { sendData } from '@/utilities/actionRequest'
-import { isCurrentPath } from '@/utilities/serverUtilities'
-import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { createAuthToken } from './utils/createAuthToken'
+import { createGroupWithSessionCookie } from '../GroupController/utils/createGroupWithSessionCookie'
 
 export async function login(prevState: any, formData: FormData) {
   const schema = z.object({
@@ -16,13 +14,8 @@ export async function login(prevState: any, formData: FormData) {
   type Response = { token: string }
 
   async function onSuccess(data: Response) {
-    createAuthToken(data.token)
-
-    const pathIsHome = await isCurrentPath(ROUTE.HOME)
-
-    if (pathIsHome) {
-      redirect(ROUTE.CALCULATE)
-    }
+    await createAuthToken(data.token)
+    await createGroupWithSessionCookie()
   }
 
   return sendData({
