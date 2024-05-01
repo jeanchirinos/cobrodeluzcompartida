@@ -4,7 +4,7 @@ import { Popover, PopoverTrigger, PopoverContent } from '@/components/Popover'
 import { Button } from '@nextui-org/button'
 import { Google } from './Google'
 import { Login } from './Login'
-import { $LOGIN_BUTTON } from '@/elements'
+import { $LOGIN_BUTTON } from '@/constants/elements'
 
 export function UserNotLogged() {
   if (process.env.NODE_ENV === 'production') {

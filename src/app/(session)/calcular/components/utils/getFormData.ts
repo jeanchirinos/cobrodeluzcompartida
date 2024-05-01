@@ -1,4 +1,4 @@
-import { $FORM_CALCULATE } from '@/elements'
+import { $FORM_CALCULATE } from '@/constants/elements'
 
 export function getFormData() {
   const formCalculate = document.getElementById($FORM_CALCULATE) as HTMLFormElement

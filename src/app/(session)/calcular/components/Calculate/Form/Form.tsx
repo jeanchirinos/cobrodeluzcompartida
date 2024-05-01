@@ -4,7 +4,7 @@ import { LightMetersInfo } from './LightMetersInfo'
 import { useState } from 'react'
 import { SetState } from '@/types'
 import { getResult } from './utils/calculateAmount'
-import { $FORM_CALCULATE } from '@/elements'
+import { $FORM_CALCULATE } from '@/constants/elements'
 import { getFormData } from '../../utils/getFormData'
 
 type Props = { setResult: SetState<Result> }
