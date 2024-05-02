@@ -1,30 +1,28 @@
-import { $FORM_CALCULATE } from '@/constants/elements'
+import { $FORM_CALCULATE_ID } from '@/constants/elements'
 
 export function getFormData() {
-  const formCalculate = document.getElementById($FORM_CALCULATE) as HTMLFormElement
+  const formCalculate = document.getElementById($FORM_CALCULATE_ID) as HTMLFormElement
 
   const formData = new FormData(formCalculate)
 
   const consumptions = Array.from(formData)
-    .filter(([key, value]) => key.startsWith('consumption_'))
+    .filter(([key, value]) => key.startsWith('participant_consumption_'))
     .map(([key, value]) => ({
-      name: `Consumo ${key.split('_').at(-1)}`,
-      amount: value as string,
+      consumption_kwh: Number(value),
+      participant: {
+        alias: `Consumo ${key.split('_').at(-1)}`,
+        is_main: false,
+      },
     }))
 
   const billDataPropsArray = Array.from(formData).filter(
-    ([key, value]) => !key.startsWith('consumption_')
+    ([key, value]) => !key.startsWith('participant_consumption_')
   )
 
-  const billData = Object.fromEntries(billDataPropsArray) as {
-    consumption: string
-    kwh: string
-    totalMonth: string
-    totalAmount: string
-  }
+  const billData = Object.fromEntries(billDataPropsArray)
 
   return {
-    ...billData,
+    billData,
     consumptions,
   }
 }

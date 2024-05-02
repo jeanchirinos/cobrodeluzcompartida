@@ -1,6 +1,6 @@
 type Result =
   | null
   | {
-      name: string
+      alias: string
       amount: number
     }[]

@@ -7,8 +7,11 @@ import { Suspense } from '@/components/other/CustomSuspense'
 import { HeaderLink } from './HeaderLink'
 import { Link } from '@/components/Link'
 import { ThemeSwitcher } from '@/components/other/ThemeSwitcher'
+import { getSession } from '@/controllers/AuthController/getSession'
 
-export function Header() {
+export async function Header() {
+  const session = await getSession()
+
   return (
     <Navbar className='w-[1600px] mx-auto max-w-full' maxWidth='full'>
       <NavbarBrand className='grow-0'>
@@ -19,9 +22,15 @@ export function Header() {
       </NavbarBrand>
 
       <NavbarContent className='hidden sm:flex gap-4' justify='start'>
-        <HeaderLink size='sm' href={ROUTE.CALCULATE}>
-          Calcular
-        </HeaderLink>
+        {session ? (
+          <HeaderLink size='sm' href={ROUTE.GROUPS.INDEX}>
+            Grupos
+          </HeaderLink>
+        ) : (
+          <HeaderLink size='sm' href={ROUTE.CALCULATE}>
+            Calcular
+          </HeaderLink>
+        )}
       </NavbarContent>
 
       <NavbarContent justify='end'>

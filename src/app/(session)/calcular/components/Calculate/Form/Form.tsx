@@ -4,10 +4,11 @@ import { LightMetersInfo } from './LightMetersInfo'
 import { useState } from 'react'
 import { SetState } from '@/types'
 import { getResult } from './utils/calculateAmount'
-import { $FORM_CALCULATE } from '@/constants/elements'
+import { $FORM_CALCULATE_ID } from '@/constants/elements'
 import { getFormData } from '../../utils/getFormData'
+import { CreateRentalGroupRegisterBody } from '@/controllers/RentalGroupRegisterController/utils/types'
 
-type Props = { setResult: SetState<Result> }
+type Props = { setResult: SetState<CreateRentalGroupRegisterBody | null> }
 
 export function Form(props: Props) {
   const { setResult } = props
@@ -31,7 +32,7 @@ export function Form(props: Props) {
     e.preventDefault()
 
     const formData = getFormData()
-    const result = getResult(formData)
+    const result = getResult(formData as any)
 
     setResult(result)
   }
@@ -40,7 +41,7 @@ export function Form(props: Props) {
   return (
     <form
       className='space-y-10 max-w-64'
-      id={$FORM_CALCULATE}
+      id={$FORM_CALCULATE_ID}
       onChange={handleChange}
       onSubmit={handleSubmit}
     >

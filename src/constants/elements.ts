@@ -1,2 +1,2 @@
-export const $LOGIN_BUTTON = 'login-button'
-export const $FORM_CALCULATE = 'form-calculate'
+export const $BUTTON_LOGIN_ID = 'login-button'
+export const $FORM_CALCULATE_ID = 'form-calculate'

@@ -1,6 +1,7 @@
+import { CreateRentalGroupRegisterBody } from '@/controllers/RentalGroupRegisterController/utils/types'
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/table'
 
-type Props = { result: Result }
+type Props = { result: CreateRentalGroupRegisterBody | null }
 
 export function Results(props: Props) {
   const { result } = props
@@ -15,9 +16,9 @@ export function Results(props: Props) {
         </TableHeader>
         <TableBody emptyContent='Sin datos para mostrar'>
           {result
-            ? result.map(item => (
-                <TableRow key={item.name}>
-                  <TableCell>{item.name}</TableCell>
+            ? result.results.map(item => (
+                <TableRow key={item.participant.alias}>
+                  <TableCell>{item.participant.alias}</TableCell>
                   <TableCell>S/. {item.amount}</TableCell>
                 </TableRow>
               ))

@@ -3,7 +3,7 @@
 import { sendData } from '@/utilities/actionRequest'
 import { z } from 'zod'
 import { createAuthToken } from './utils/createAuthToken'
-import { createGroupWithSessionCookie } from '../GroupController/utils/createGroupWithSessionCookie'
+import { createGroupWithSessionCookie } from '../RentalGroupController/utils/createRentalGroupWithSessionCookie'
 
 export async function login(prevState: any, formData: FormData) {
   const schema = z.object({

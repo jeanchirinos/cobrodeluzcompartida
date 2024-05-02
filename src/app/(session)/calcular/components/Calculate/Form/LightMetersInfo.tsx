@@ -30,7 +30,7 @@ export function LightMetersInfo() {
           {consumptions.map(item => (
             <Input
               key={item}
-              name={`consumption_${item}`}
+              name={`participant_consumption_${item}`}
               type='number'
               endContent='kWh'
               label={

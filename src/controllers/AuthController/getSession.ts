@@ -14,6 +14,7 @@ export async function getSession() {
     auth: true,
     redirectIfUnauthorized: false,
     nullable: true,
+    cache: 'no-store',
   })
 
   return data
