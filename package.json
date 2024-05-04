@@ -23,7 +23,7 @@
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
     "typescript-cookie": "^1.0.6",
-    "zod": "^3.23.5",
+    "zod": "^3.23.6",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

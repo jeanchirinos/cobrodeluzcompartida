@@ -1,4 +1,11 @@
-import { Navbar, NavbarBrand, NavbarContent } from '@nextui-org/navbar'
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+} from '@nextui-org/navbar'
 import Logo from '@/public/img/logo.svg'
 import { ROUTE } from '@/routes'
 import { Skeleton } from '@nextui-org/skeleton'
@@ -14,14 +21,21 @@ export async function Header() {
 
   return (
     <Navbar className='w-[1600px] mx-auto max-w-full' maxWidth='full'>
-      <NavbarBrand className='grow-0'>
-        <Link href={ROUTE.HOME} className='flex gap-x-2 items-center font-bold text-inherit'>
-          <Logo />
-          <span>CCSEC</span>
-        </Link>
-      </NavbarBrand>
+      <NavbarContent className='!grow-0'>
+        <NavbarMenuToggle
+          // aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-label='Abrir/Cerrar menú'
+          className='sm:hidden'
+        />
+        <NavbarBrand>
+          <Link href={ROUTE.HOME} className='flex gap-x-2 items-center font-bold text-inherit'>
+            <Logo />
+            <span>CLC</span>
+          </Link>
+        </NavbarBrand>
+      </NavbarContent>
 
-      <NavbarContent className='hidden sm:flex gap-4' justify='start'>
+      <NavbarContent className='hidden sm:flex gap-x-4' justify='start'>
         {session ? (
           <HeaderLink size='sm' href={ROUTE.GROUPS.INDEX}>
             Grupos
@@ -39,6 +53,22 @@ export async function Header() {
           <Session />
         </Suspense>
       </NavbarContent>
+
+      <NavbarMenu className='!h-fit'>
+        {session ? (
+          <NavbarMenuItem>
+            <HeaderLink size='sm' href={ROUTE.GROUPS.INDEX}>
+              Grupos
+            </HeaderLink>
+          </NavbarMenuItem>
+        ) : (
+          <NavbarMenuItem>
+            <HeaderLink size='sm' href={ROUTE.CALCULATE}>
+              Calcular
+            </HeaderLink>
+          </NavbarMenuItem>
+        )}
+      </NavbarMenu>
     </Navbar>
   )
 }

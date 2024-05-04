@@ -7,4 +7,6 @@ export {
   MdMonitor as IconSystemTheme,
   MdOutlineDarkMode as IconDarkTheme,
   MdOutlineLightMode as IconLightTheme,
+  MdOutlineReceipt as IconReceipt,
+  MdOutlineSettings as IconSettings,
 } from 'react-icons/md'
