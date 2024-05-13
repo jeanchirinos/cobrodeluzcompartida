@@ -4,7 +4,7 @@ import { getData } from '@/utilities/actionRequest'
 
 export type SessionLogged = {
   auth: true
-  image: string
+  image_url: string
   fullname: string
   email: string
 }

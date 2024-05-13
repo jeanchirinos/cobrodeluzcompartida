@@ -8,7 +8,7 @@ export async function createRentalGroupRegister(args: {
   rentalGroupId: RentalGroup['id']
   body: CreateRentalGroupRegisterBody
 }) {
-  const { rentalGroupId, body } = args
+  // const { rentalGroupId, body } = args
 
   // return sendData({
   //   url: `rental-group-register-create/${rentalGroupId}`,

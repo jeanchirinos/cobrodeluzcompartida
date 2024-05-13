@@ -4,19 +4,34 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createRentalGroup } from '../createRentalGroup'
 import { createRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister'
+import { CreateRentalGroupRegisterBody } from '@/controllers/RentalGroupRegisterController/utils/types'
 
 export async function createGroupWithSessionCookie() {
   const temporalFormDataCookie = cookies().get(COOKIES_TEMPORAL_FORM_DATA)
 
   if (!temporalFormDataCookie) return redirect(ROUTE.GROUPS.INDEX)
 
-  const temporalFormData = JSON.parse(temporalFormDataCookie.value)
+  const temporalFormData = JSON.parse(temporalFormDataCookie.value) as CreateRentalGroupRegisterBody
+  const res = await createRentalGroup({
+    n_participant: temporalFormData.results.length,
+    return_participants: true,
+  })
 
-  const res = await createRentalGroup()
+  const resultsWithIds = temporalFormData.results.map((result, i) => ({
+    ...result,
+    participant: {
+      id: res.data.participants_ids[i].toString(),
+    },
+  }))
+
+  const formDataToCreateRentalGroupRegister = structuredClone(temporalFormData)
+  formDataToCreateRentalGroupRegister.results = resultsWithIds
 
   if (res.ok) {
-    // TODO: temporalFormData must follow the structure required
-    const response = await createRentalGroupRegister(temporalFormData)
+    const response = await createRentalGroupRegister({
+      body: formDataToCreateRentalGroupRegister,
+      rentalGroupId: res.data.id,
+    })
 
     cookies().delete(COOKIES_TEMPORAL_FORM_DATA)
 

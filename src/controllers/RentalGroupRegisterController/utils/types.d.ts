@@ -5,6 +5,7 @@ import { Result } from '@/models/Result'
 export type CreateRentalGroupRegisterBody = {
   billData: Omit<BillData, 'id' | 'rental_group_id'>
   results: (Pick<Result, 'consumption_kwh' | 'amount'> & {
-    participant: Pick<Participant, 'alias' | 'is_main'>
+    // todo
+    participant: Partial<Omit<Participant, 'key'>>
   })[]
 }

@@ -14,7 +14,7 @@ export function UserLogged(props: Props) {
       <Menu>
         <MenuTrigger className='flex items-center'>
           <Image
-            src={session.image}
+            src={session.image_url}
             alt='Perfil'
             width={32}
             height={32}

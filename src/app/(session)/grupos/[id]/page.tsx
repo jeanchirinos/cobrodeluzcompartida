@@ -19,7 +19,7 @@ export default async function Page(props: Props) {
 
   if (!rentalGroup || !rentalGroupRegister) return null
 
-  const { billData, results } = rentalGroupRegister
+  const { billData } = rentalGroupRegister
 
   return (
     <>
@@ -58,8 +58,6 @@ export default async function Page(props: Props) {
       <details open>
         <summary className='text-large font-semibold'>Resultados</summary>
       </details>
-
-      {/* <pre>{JSON.stringify(rentalGroupRegister, null, 2)}</pre> */}
     </>
   )
 }
