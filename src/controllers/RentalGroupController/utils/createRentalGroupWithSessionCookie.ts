@@ -12,10 +12,13 @@ export async function createGroupWithSessionCookie() {
   if (!temporalFormDataCookie) return redirect(ROUTE.GROUPS.INDEX)
 
   const temporalFormData = JSON.parse(temporalFormDataCookie.value) as CreateRentalGroupRegisterBody
+
   const res = await createRentalGroup({
     n_participant: temporalFormData.results.length,
     return_participants: true,
   })
+
+  if (!res.ok) return redirect(ROUTE.GROUPS.INDEX)
 
   const resultsWithIds = temporalFormData.results.map((result, i) => ({
     ...result,
@@ -30,13 +33,13 @@ export async function createGroupWithSessionCookie() {
   if (res.ok) {
     const response = await createRentalGroupRegister({
       body: formDataToCreateRentalGroupRegister,
-      rentalGroupId: res.data.id,
+      rentalGroupId: res.data.rental_group_id,
     })
 
     cookies().delete(COOKIES_TEMPORAL_FORM_DATA)
 
     if (response.ok) {
-      redirect(ROUTE.GROUPS.ID(res.data.id))
+      redirect(ROUTE.GROUPS.ID(res.data.rental_group_id))
     } else {
       redirect(ROUTE.GROUPS.INDEX)
     }

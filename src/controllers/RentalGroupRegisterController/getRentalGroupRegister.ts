@@ -60,6 +60,7 @@ export async function getRentalGroupRegister(args: Args): Promise<RentalGroupReg
           alias: 'Principal',
           is_main: true,
           key: '123456',
+          avatar_url: 'avatar1',
         },
       },
       {
@@ -73,6 +74,7 @@ export async function getRentalGroupRegister(args: Args): Promise<RentalGroupReg
           alias: 'Consumo 1',
           is_main: false,
           key: '789012',
+          avatar_url: 'avatar2',
         },
       },
       {
@@ -86,6 +88,7 @@ export async function getRentalGroupRegister(args: Args): Promise<RentalGroupReg
           alias: 'Consumo 2',
           is_main: false,
           key: '345678',
+          avatar_url: 'avatar3',
         },
       },
     ],

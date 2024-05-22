@@ -60,7 +60,7 @@ export function LightMetersInfo() {
           color='primary'
           variant='flat'
           fullWidth
-          startContent={<IconAdd />}
+          endContent={<IconAdd />}
           onClick={addConsumption}
         >
           Agregar consumo

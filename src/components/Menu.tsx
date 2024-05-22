@@ -1,19 +1,28 @@
-'use client'
-import { Menu as HeadlessMenu, Transition } from '@headlessui/react'
-import { Fragment, type ComponentProps } from 'react'
+import {
+  Menu as HeadlessMenu,
+  MenuButton as HeadlessMenuButton,
+  MenuItems as HeadlessMenuItems,
+  MenuItem as HeadlessMenuItem,
+  MenuSeparator as HeadlessMenuSeparator,
+  Transition,
+  type MenuProps,
+  type MenuButtonProps,
+  type MenuItemsProps,
+  type MenuItemProps,
+  type MenuSeparatorProps,
+} from '@headlessui/react'
 import { cnx } from '@/lib/utils'
 
-export function Menu(props: ComponentProps<typeof HeadlessMenu>) {
-  return <HeadlessMenu as='div' {...props} className={cnx('relative', props.className)} />
+export function Menu(props: MenuProps) {
+  return <HeadlessMenu {...props} />
 }
-export function MenuTrigger(props: ComponentProps<typeof HeadlessMenu.Button>) {
-  return <HeadlessMenu.Button {...props} />
+export function MenuTrigger(props: MenuButtonProps) {
+  return <HeadlessMenuButton {...props} />
 }
 
-export function MenuContent(props: ComponentProps<typeof HeadlessMenu.Items>) {
+export function MenuContent(props: MenuItemsProps) {
   return (
     <Transition
-      as={Fragment}
       enter='transition ease-out duration-200'
       enterFrom='opacity-0 translate-y-1'
       enterTo='opacity-100 translate-y-0'
@@ -21,21 +30,32 @@ export function MenuContent(props: ComponentProps<typeof HeadlessMenu.Items>) {
       leaveFrom='opacity-100 translate-y-0'
       leaveTo='opacity-0 translate-y-1'
     >
-      <HeadlessMenu.Items
+      <HeadlessMenuItems
         {...props}
+        anchor={{
+          to: 'bottom end',
+          gap: '0.5rem',
+        }}
         className={cnx(
-          'absolute mt-1 flex flex-col overflow-hidden rounded-md bg-content1 text-sm shadow-small',
-          props.className,
+          'flex flex-col rounded-md bg-content1 text-sm shadow-small z-50 w-fit',
+          props.className?.toString()
         )}
       >
         {props.children}
-      </HeadlessMenu.Items>
+      </HeadlessMenuItems>
     </Transition>
   )
 }
 
-export function MenuItem(props: ComponentProps<typeof HeadlessMenu.Item>) {
+export function MenuItem(props: MenuItemProps) {
+  return <HeadlessMenuItem {...props} />
+}
+
+export function MenuSeparator(props: MenuSeparatorProps) {
   return (
-    <HeadlessMenu.Item {...props} className={cnx('ui-active:bg-foreground-100', props.className)} />
+    <HeadlessMenuSeparator
+      {...props}
+      className={cnx('h-px bg-content2', props.className?.toString())}
+    />
   )
 }

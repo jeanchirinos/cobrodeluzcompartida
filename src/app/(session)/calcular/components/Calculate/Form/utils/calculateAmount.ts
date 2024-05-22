@@ -20,7 +20,7 @@ export function getResult(params: Params): CreateRentalGroupRegisterBody {
 
   const quantityOfConsumptions = consumptions.length + 1
 
-  const amountToAddedBeforeSubtotalWithIgv =
+  const amountToBeAddedBeforeSubtotalWithIgv =
     (Number(current_month_total) / IGV - Number(consumption_kwh) * Number(kwh_price)) /
     quantityOfConsumptions
 
@@ -34,7 +34,7 @@ export function getResult(params: Params): CreateRentalGroupRegisterBody {
   function calculateAmountPerParticipant(consumption_kwh: number) {
     return Number(
       (
-        (consumption_kwh * Number(kwh_price) + amountToAddedBeforeSubtotalWithIgv) * IGV +
+        (consumption_kwh * Number(kwh_price) + amountToBeAddedBeforeSubtotalWithIgv) * IGV +
         amountToAddAfterSubtotalWithIgv
       ).toFixed(1)
     )

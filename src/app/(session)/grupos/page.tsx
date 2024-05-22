@@ -3,13 +3,21 @@ import { getRentalGroups } from '@/controllers/RentalGroupController/getRentalGr
 import { ROUTE } from '@/routes'
 import { Card, CardHeader, CardFooter } from '@nextui-org/card'
 import { AvatarGroup, Avatar, AvatarIcon } from '@nextui-org/avatar'
+import { ButtonAction } from '@/components/Button/ButtonAction'
+import { createRentalGroup } from '@/controllers/RentalGroupController/createRentalGroup'
+import { IconAdd } from '@/icons'
 
 export default async function Page() {
   const rentalGroups = await getRentalGroups()
 
   return (
     <main className='main-container space-y-4'>
-      <h1 className='font-bold text-2xl'>Grupos</h1>
+      <header className='flex justify-between'>
+        <h1 className='font-bold text-2xl'>Grupos</h1>
+        <ButtonAction color='primary' action={createRentalGroup} endContent={<IconAdd />}>
+          Crear grupo
+        </ButtonAction>
+      </header>
       <div className='flex gap-4 flex-wrap'>
         {rentalGroups.map(group => (
           <Card
@@ -20,12 +28,12 @@ export default async function Page() {
           >
             <CardHeader className='pb-0 pt-2 px-4 flex-col items-start'>
               <p className='uppercase font-bold'>{group.name}</p>
-              <small className='text-default-500'>{group.participants} participantes</small>
+              <small className='text-default-500'>{group.n_participant} participantes</small>
             </CardHeader>
             <CardFooter className='justify-end'>
               <AvatarGroup isBordered size='sm' max={3}>
-                {Array.from({ length: group.participants }).map((_, index) => (
-                  <Avatar icon={<AvatarIcon />} key={index} />
+                {group.participants.map(p => (
+                  <Avatar icon={<AvatarIcon />} key={p.id} title={p.alias} />
                 ))}
               </AvatarGroup>
             </CardFooter>

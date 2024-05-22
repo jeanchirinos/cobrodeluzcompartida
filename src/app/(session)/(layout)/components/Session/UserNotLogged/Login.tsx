@@ -10,7 +10,7 @@ export function Login() {
 
   // RENDER
   return (
-    <form className='mt-4 flex max-w-xs flex-col gap-y-4' action={formAction}>
+    <form className='flex max-w-xs flex-col gap-y-4' action={formAction}>
       <Input type='email' name='email' label='Correo' autoFocus />
       <Input type='password' name='password' label='Contraseña' minLength={8} />
       <SubmitButton>Ingresar</SubmitButton>

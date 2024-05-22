@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { toast } from 'sonner'
 import { useFormState } from 'react-dom'
+import { toast } from 'sonner'
 
 export type Options = {
   onSuccess?: () => void
@@ -17,28 +17,30 @@ export function useFormAction(action: any, options?: Options) {
   const initialState = { ok: null, msg: '' } as { ok: boolean | null; msg: string }
 
   // HOOKS
-  const [stateAction, formAction] = useFormState(action, initialState)
+  const [actionState, formAction] = useFormState(action, initialState)
 
   // STATES
-  const [state, setState] = useState(initialState)
+  const [auxActionState, setState] = useState(initialState)
+  const [isPending, setIsPending] = useState(false)
 
-  const stateChangedRef = useRef(false)
+  // REFS
+  const actionStateChangedRef = useRef(false)
 
   // EFFECTS
   useEffect(() => {
-    setState(stateAction)
-
-    if (stateAction.ok !== null) stateChangedRef.current = true
-  }, [stateAction])
+    setState(actionState)
+    if (actionState.ok !== null) actionStateChangedRef.current = true
+  }, [actionState])
 
   useEffect(() => {
-    const { ok, msg } = state
+    const { ok, msg } = auxActionState
 
     if (ok === null) return
 
-    if (!stateChangedRef.current) return
+    if (!actionStateChangedRef.current) return
 
-    stateChangedRef.current = false
+    actionStateChangedRef.current = false
+    setIsPending(false)
 
     if (ok) {
       onSuccess?.()
@@ -53,7 +55,13 @@ export function useFormAction(action: any, options?: Options) {
         toast.error(msg)
       }
     }
-  }, [state, onSuccess, showSuccessToast, onError, showErrorToast])
+  }, [auxActionState, onSuccess, showSuccessToast, onError, showErrorToast])
 
-  return { state, setState, formAction }
+  return {
+    state: auxActionState,
+    setState,
+    formAction,
+    isPending,
+    setIsPending,
+  }
 }

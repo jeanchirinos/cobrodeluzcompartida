@@ -45,7 +45,7 @@ export default async function Page(props: Props) {
             ]}
           />
         </section>
-        <Button variant='shadow' color='primary' startContent={<IconAdd />}>
+        <Button variant='shadow' color='primary' endContent={<IconAdd />}>
           Agregar registro
         </Button>
       </header>

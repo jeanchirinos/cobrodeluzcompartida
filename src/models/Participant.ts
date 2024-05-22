@@ -3,4 +3,5 @@ export type Participant = {
   alias: string
   key: string
   is_main: boolean
+  avatar_url: string
 }

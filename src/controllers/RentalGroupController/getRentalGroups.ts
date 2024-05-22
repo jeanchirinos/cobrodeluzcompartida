@@ -1,29 +1,20 @@
 'use server'
 
+import { API_ROUTE } from '@/constants/api-routes'
+import { Participant } from '@/models/Participant'
 import { RentalGroup } from '@/models/RentalGroup'
 import { getData } from '@/utilities/actionRequest'
 
-export async function getRentalGroups() {
-  // const data = await getData<RentalGroup[]>('rental-groups', {
-  //   cache: 'no-store',
-  //   next: {
-  //     tags: ['rental-groups'],
-  //   },
-  // })
+type Response = RentalGroup & { n_participant: string; participants: Omit<Participant, 'key'>[] }
 
-  //TODO: Delete when API is ready
-  const data: RentalGroup[] = [
-    {
-      id: 1,
-      name: 'Grupo 1',
-      participants: 10,
+export async function getRentalGroups() {
+  const data = await getData<Response[]>(API_ROUTE.RENTAL_GROUP.INDEX, {
+    cache: 'no-store',
+    next: {
+      tags: ['rental-groups'],
     },
-    {
-      id: 2,
-      name: 'Grupo 2',
-      participants: 20,
-    },
-  ]
+    auth: true,
+  })
 
   return data
 }

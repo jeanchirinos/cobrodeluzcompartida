@@ -49,11 +49,17 @@ export async function requestAll<Response>(
     urlPath = getApiUrl(urlPath)
   }
 
+  // let res
+
+  // try {
   const res = await fetch(urlPath, {
     ...config,
     headers,
     body,
   })
+  // } catch (e) {
+  //   console.log(e)
+  // }
 
   let json
 

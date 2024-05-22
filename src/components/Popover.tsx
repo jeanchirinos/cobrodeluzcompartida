@@ -1,20 +1,26 @@
-'use client'
-import { Popover as HeadlessPopover, Transition } from '@headlessui/react'
-import { Fragment, type ComponentProps } from 'react'
+import {
+  Popover as HeadlessPopover,
+  PopoverButton as HeadlessPopoverButton,
+  PopoverPanel as HeadlessPopoverPanel,
+  type PopoverProps,
+  type PopoverButtonProps,
+  type PopoverPanelProps,
+  Transition,
+} from '@headlessui/react'
 import { cnx } from '@/lib/utils'
+import { Button } from '@nextui-org/react'
 
-export function Popover(props: ComponentProps<typeof HeadlessPopover>) {
-  return <HeadlessPopover {...props} className={cnx('relative', props.className)} />
+export function Popover(props: PopoverProps) {
+  return <HeadlessPopover {...props} className={cnx('z-50', props.className?.toString())} />
 }
 
-export function PopoverTrigger(props: ComponentProps<typeof HeadlessPopover.Button>) {
-  return <HeadlessPopover.Button {...props} />
+export function PopoverTrigger(props: PopoverButtonProps<typeof Button>) {
+  return <HeadlessPopoverButton {...props} as={Button} />
 }
 
-export function PopoverContent(props: ComponentProps<typeof HeadlessPopover.Panel>) {
+export function PopoverContent(props: PopoverPanelProps) {
   return (
     <Transition
-      as={Fragment}
       enter='transition ease-out duration-200'
       enterFrom='opacity-0 translate-y-1'
       enterTo='opacity-100 translate-y-0'
@@ -22,12 +28,16 @@ export function PopoverContent(props: ComponentProps<typeof HeadlessPopover.Pane
       leaveFrom='opacity-100 translate-y-0'
       leaveTo='opacity-0 translate-y-1'
     >
-      <HeadlessPopover.Panel
+      <HeadlessPopoverPanel
         {...props}
-        className={cnx('absolute mt-1 rounded-md', props.className)}
+        anchor={{
+          to: 'bottom end',
+          gap: '0.5rem',
+        }}
+        className={cnx('rounded-md', props.className?.toString())}
       >
         {props.children}
-      </HeadlessPopover.Panel>
+      </HeadlessPopoverPanel>
     </Transition>
   )
 }

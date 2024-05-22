@@ -22,11 +22,7 @@ export async function Header() {
   return (
     <Navbar className='w-[1600px] mx-auto max-w-full' maxWidth='full'>
       <NavbarContent className='!grow-0'>
-        <NavbarMenuToggle
-          // aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-label='Abrir/Cerrar menú'
-          className='sm:hidden'
-        />
+        <NavbarMenuToggle aria-label='Abrir/Cerrar menú' className='sm:hidden' />
         <NavbarBrand>
           <Link href={ROUTE.HOME} className='flex gap-x-2 items-center font-bold text-inherit'>
             <Logo />

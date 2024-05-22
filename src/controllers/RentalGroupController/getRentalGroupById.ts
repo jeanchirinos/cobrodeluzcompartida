@@ -15,7 +15,6 @@ export async function getRentalGroupById(id: string | number): Promise<RentalGro
   const data: RentalGroup | null = {
     id: 1,
     name: 'Grupo 1',
-    participants: 10,
   }
 
   return data
