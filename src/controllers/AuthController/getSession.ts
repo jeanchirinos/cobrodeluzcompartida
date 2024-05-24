@@ -1,6 +1,7 @@
 'use server'
 
 import { getData } from '@/utilities/actionRequest'
+import { waitFor } from '@/utilities/utilities'
 
 export type SessionLogged = {
   auth: true

@@ -39,7 +39,7 @@ export async function createGroupWithSessionCookie() {
     cookies().delete(COOKIES_TEMPORAL_FORM_DATA)
 
     if (response.ok) {
-      redirect(ROUTE.GROUPS.ID(res.data.rental_group_id))
+      redirect(ROUTE.GROUPS.REGISTERS(res.data.rental_group_id))
     } else {
       redirect(ROUTE.GROUPS.INDEX)
     }

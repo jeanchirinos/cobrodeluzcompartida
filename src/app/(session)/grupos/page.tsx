@@ -24,7 +24,7 @@ export default async function Page() {
             key={group.id}
             className='py-2 w-80 max-w-full gap-y-5'
             as={Link}
-            href={ROUTE.GROUPS.ID(group.id)}
+            href={ROUTE.GROUPS.REGISTERS(group.id)}
           >
             <CardHeader className='pb-0 pt-2 px-4 flex-col items-start'>
               <p className='uppercase font-bold'>{group.name}</p>

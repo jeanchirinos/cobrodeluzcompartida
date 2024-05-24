@@ -12,6 +12,7 @@ type Props = PageParamsAndSearchParamsPropsAlt<'id', GetRentalGroupRegisterParam
 
 export default async function Page(props: Props) {
   const rentalGroup = await getRentalGroupById(props.params.id)
+
   const rentalGroupRegister = await getRentalGroupRegister({
     params: { rentalGroupId: Number(props.params.id) },
     searchParams: props.searchParams,

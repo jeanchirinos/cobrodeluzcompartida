@@ -1,42 +1,43 @@
 'use client'
 
 import { Link } from '@/components/Link'
-import { IconReceipt, IconSettings } from '@/icons'
+import { IconParticipants, IconReceipt, IconSettings } from '@/icons'
+import { ROUTE } from '@/routes'
 import { Tabs as NextuiTabs, Tab } from '@nextui-org/tabs'
 import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 
 export function Tabs() {
   const params = useParams()
+  const { id } = params as { id: string }
 
   const selectedLayoutSegment = useSelectedLayoutSegment()
-  const selectedKey = selectedLayoutSegment ?? 'default'
 
   return (
     <NextuiTabs
       variant='underlined'
       aria-label='Opciones del grupo'
-      selectedKey={selectedKey}
+      selectedKey={selectedLayoutSegment}
       className='overflow-x-auto max-w-full'
     >
       <Tab
-        key='default'
+        key='registros'
         title={
           <div className='flex gap-x-2 items-center'>
             <IconReceipt /> Registros
           </div>
         }
         as={Link}
-        href={`/grupos/${params.id}`}
+        href={ROUTE.GROUPS.REGISTERS(id)}
       />
       <Tab
         key='participantes'
         as={Link}
         title={
           <div className='flex gap-x-2 items-center'>
-            <IconSettings /> Participantes
+            <IconParticipants /> Participantes
           </div>
         }
-        href={`/grupos/${params.id}/participantes`}
+        href={ROUTE.GROUPS.PARTICIPANTS(id)}
       />
       <Tab
         key='ajustes'
@@ -46,7 +47,7 @@ export function Tabs() {
             <IconSettings /> Ajustes
           </div>
         }
-        href={`/grupos/${params.id}/ajustes`}
+        href={ROUTE.GROUPS.SETTINGS.GENERAL(id)}
       />
     </NextuiTabs>
   )

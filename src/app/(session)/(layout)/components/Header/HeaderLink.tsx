@@ -1,34 +1,75 @@
 'use client'
 import { Link } from '@/components/Link'
 import { usePathname } from 'next/navigation'
-import { forwardRef } from 'react'
 import { cnx } from '@/lib/utils'
-import { NavbarItem } from '@nextui-org/navbar'
+import { NavbarItem, NavbarMenuItem } from '@nextui-org/navbar'
+import { ComponentProps, ComponentType } from 'react'
+import { $NAV_MENU_TOGGLE } from '@/constants/elements'
 
-type Props = React.ComponentProps<typeof Link> & {
-  hrefPattern?: string
+//
+type LinkItemProps = ComponentProps<typeof Link> & {
+  isActive: boolean
 }
 
-export const HeaderLink = forwardRef<HTMLAnchorElement, Props>(function HeaderLink(props, ref) {
-  const { hrefPattern, ...restProps } = props
+function LinkItem(props: LinkItemProps) {
+  const { isActive, ...restProps } = props
 
-  const pathname = usePathname()
+  return (
+    <Link size='sm' {...restProps} className={cnx(props.className, isActive && 'text-secondary')} />
+  )
+}
 
-  const isActive = () => {
-    if (hrefPattern) {
-      return Boolean(pathname.match(hrefPattern))
+//
+type WrappedComponentType = ComponentType<NavItemWithoutActiveProps>
+type WithActiveProps = ComponentProps<typeof Link> & { hrefPattern?: RegExp }
+
+function withActive(WrappedComponent: WrappedComponentType) {
+  const WithActive = (props: WithActiveProps) => {
+    const { hrefPattern, ...restProps } = props
+
+    const pathname = usePathname()
+
+    const isActive = () => {
+      if (hrefPattern) return hrefPattern.test(pathname)
+
+      return pathname === props.href
     }
 
-    return pathname === props.href
+    return <WrappedComponent {...restProps} isActive={isActive()} />
+  }
+
+  return WithActive
+}
+
+//
+type NavItemWithoutActiveProps = ComponentProps<typeof Link> & {
+  isActive: boolean
+}
+
+function NavItemWithoutActive(props: NavItemWithoutActiveProps) {
+  const { isActive, ...restProps } = props
+
+  return (
+    <NavbarItem isActive={isActive}>
+      <LinkItem {...restProps} isActive={isActive} />
+    </NavbarItem>
+  )
+}
+
+function NavMenuItemWithoutActive(props: NavItemWithoutActiveProps) {
+  const { isActive, ...restProps } = props
+
+  function closeMenu() {
+    document.getElementById($NAV_MENU_TOGGLE)?.click()
   }
 
   return (
-    <NavbarItem isActive={isActive()}>
-      <Link
-        {...restProps}
-        ref={ref}
-        className={cnx(props.className, isActive() && 'text-secondary')}
-      />
-    </NavbarItem>
+    <NavbarMenuItem isActive={isActive}>
+      <LinkItem {...restProps} isActive={isActive} onClick={closeMenu} />
+    </NavbarMenuItem>
   )
-})
+}
+
+//
+export const HeaderLinkNavItem = withActive(NavItemWithoutActive)
+export const HeaderLinkNavMenuItem = withActive(NavMenuItemWithoutActive)

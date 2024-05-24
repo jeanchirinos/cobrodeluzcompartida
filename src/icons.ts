@@ -8,5 +8,6 @@ export {
   MdOutlineDarkMode as IconDarkTheme,
   MdOutlineLightMode as IconLightTheme,
   MdOutlineReceipt as IconReceipt,
+  MdOutlinePeopleAlt as IconParticipants,
   MdOutlineSettings as IconSettings,
 } from 'react-icons/md'
