@@ -23,6 +23,7 @@
     "react-select": "^5.8.0",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
+    "type-fest": "^4.18.3",
     "typescript-cookie": "^1.0.6",
     "zod": "^3.23.8",
     "zustand": "^4.5.2"

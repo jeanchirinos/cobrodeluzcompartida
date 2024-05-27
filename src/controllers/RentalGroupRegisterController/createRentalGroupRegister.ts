@@ -1,7 +1,7 @@
 'use server'
 
 import { RentalGroup } from '@/models/RentalGroup'
-import { sendData } from '@/utilities/actionRequest'
+// import { sendData } from '@/utilities/actionRequest'
 import { CreateRentalGroupRegisterBody } from './utils/types'
 
 export async function createRentalGroupRegister(args: {

@@ -110,9 +110,9 @@ export async function actionRequestPost<Response>(...params: RequestParamsNotNul
 }
 
 // POST
-type Params<Response> = {
+type Params<Body, Response> = {
   url: string
-  body?: object
+  body?: Body
   schema?: z.ZodObject<ZodRawShape> | z.ZodEffects<any>
   revalidateTagParams?: Parameters<typeof revalidateTag>
   revalidatePathParams?: Parameters<typeof revalidatePath>
@@ -120,7 +120,7 @@ type Params<Response> = {
   auth?: boolean
 }
 
-export async function sendData<Response>(params: Params<Response>) {
+export async function sendData<Body extends object, Response>(params: Params<Body, Response>) {
   const { url, body, schema, onSuccess, revalidatePathParams, revalidateTagParams, auth } = params
 
   if (body && schema) {

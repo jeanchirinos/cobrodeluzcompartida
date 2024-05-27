@@ -1,19 +1,33 @@
 'use server'
 
+import { API_ROUTE } from '@/constants/api-routes'
 import { Participant } from '@/models/Participant'
 import { getData } from '@/utilities/actionRequest'
-import { getApiUrl } from '@/utilities/request'
+import { getUrlWithSearchParams } from '@/utilities/utilities'
 
-export async function getRentalGroupRegister(rentalGroupId: number) {
-  // const data = await getData<Participant[]>(`participants/${rentalGroupId}`, {
+type SearchParamsGetParticipants = {
+  rental_group_id: string
+}
+type ResponseGetParticipants = Participant[]
+
+type ArgsGetParticipantsFn = { rentalGroupId: string }
+
+export async function getParticipants(args: ArgsGetParticipantsFn) {
+  // const { url } = getUrlWithSearchParams<SearchParamsGetParticipants>({
+  //   hostname: API_ROUTE.PARTICIPANT.INDEX,
+  //   searchParams: { rental_group_id: args.rentalGroupId },
+  // })
+
+  // const participants = await getData<ResponseGetParticipants>(url, {
   //   cache: 'no-store',
   //   next: {
-  //     tags: ['participants'],
+  //     tags: [API_ROUTE.PARTICIPANT.INDEX],
   //   },
+  //   auth: true,
   // })
 
   //TODO: Delete when API is ready
-  const data: Participant[] = [
+  const participants: Participant[] = [
     {
       id: '1',
       alias: 'Principal',
@@ -37,5 +51,5 @@ export async function getRentalGroupRegister(rentalGroupId: number) {
     },
   ]
 
-  return data
+  return { participants }
 }

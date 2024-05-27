@@ -20,3 +20,5 @@ export type PageParamsAndSearchParamsPropsAlt<Params = {}, SearchParams = {}> = 
   params: Record<Params, string>
   searchParams: SearchParams
 }
+
+export type RouteId = string | number

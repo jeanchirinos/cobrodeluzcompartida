@@ -5,13 +5,16 @@ import { Participant } from '@/models/Participant'
 import { RentalGroup } from '@/models/RentalGroup'
 import { getData } from '@/utilities/actionRequest'
 
-type Response = RentalGroup & { n_participant: string; participants: Omit<Participant, 'key'>[] }
+type ResponseGetRentalGroups = (RentalGroup & {
+  n_participant: string
+  participants: Omit<Participant, 'key'>[]
+})[]
 
 export async function getRentalGroups() {
-  const data = await getData<Response[]>(API_ROUTE.RENTAL_GROUP.INDEX, {
+  const data = await getData<ResponseGetRentalGroups>(API_ROUTE.RENTAL_GROUP.INDEX, {
     cache: 'no-store',
     next: {
-      tags: ['rental-groups'],
+      tags: [API_ROUTE.RENTAL_GROUP.INDEX],
     },
     auth: true,
   })

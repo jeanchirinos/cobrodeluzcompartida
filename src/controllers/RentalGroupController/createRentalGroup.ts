@@ -6,14 +6,6 @@ import { sendData } from '@/utilities/actionRequest'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
-type CreateRentalGroup = {
-  name?: string
-  n_participant?: number
-  return_participants?: true
-}
-
-type Response = { rental_group_id: string; participants_ids: number[] }
-
 // type CreateRentalGroupReturnParticipantsParams = CreateRentalGroup & {return_participants: true}
 // type CreateRentalGroupReturnParticipantsResponse = Response & { participants_ids: number[] }
 
@@ -24,14 +16,19 @@ type Response = { rental_group_id: string; participants_ids: number[] }
 //   args: CreateRentalGroupReturnParticipantsParams
 // ): Promise<CreateRentalGroupReturnParticipantsResponse>
 
+type ArgsCreateRentalGroupFn = z.infer<typeof schema>
+
+type BodyCreateRentalGroup = z.infer<typeof schema>
+type ResponseCreateRentalGroup = { rental_group_id: string; participants_ids: number[] }
+
 const schema = z.object({
   name: z.string().email().optional(),
-  n_participant: z.string().min(8).optional(),
+  n_participant: z.number().min(8).optional(),
   return_participants: z.boolean().optional(),
 })
 
-export async function createRentalGroup(args?: CreateRentalGroup) {
-  const data = await sendData<Response>({
+export async function createRentalGroup(args?: ArgsCreateRentalGroupFn) {
+  const data = await sendData<BodyCreateRentalGroup, ResponseCreateRentalGroup>({
     url: API_ROUTE.RENTAL_GROUP.STORE,
     body: args,
     schema,

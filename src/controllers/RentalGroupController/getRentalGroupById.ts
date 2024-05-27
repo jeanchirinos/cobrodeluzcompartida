@@ -1,14 +1,17 @@
 'use server'
 
+// import { API_ROUTE } from '@/constants/api-routes'
 import { RentalGroup } from '@/models/RentalGroup'
-import { getData } from '@/utilities/actionRequest'
+// import { getData } from '@/utilities/actionRequest'
 
 export async function getRentalGroupById(id: string | number): Promise<RentalGroup | null> {
-  // const data = await getData<RentalGroup | null>(`rental-groups/${id}`, {
+  // export async function getRentalGroupById(id: string | number) {
+  // const data = await getData<RentalGroup | null>(API_ROUTE.RENTAL_GROUP.SHOW(id), {
   //   cache: 'no-store',
   //   next: {
-  //     tags: ['rental-group'],
+  //   tags: [API_ROUTE.RENTAL_GROUP.SHOW(id)],
   //   },
+  //   auth: true,
   // })
 
   //TODO: Delete when API is ready

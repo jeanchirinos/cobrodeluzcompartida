@@ -1,3 +1,5 @@
+import { RouteId } from './types'
+
 const ROOT = {
   HOME: '/',
   CALCULATE: '/calcular',
@@ -9,10 +11,10 @@ const AUTH = {
 
 const GROUPS = {
   INDEX: '/grupos',
-  REGISTERS: (id: string | number) => `/grupos/${id}/registros` as const,
-  PARTICIPANTS: (id: string | number) => `/grupos/${id}/participantes` as const,
+  REGISTERS: (id: RouteId) => `/grupos/${id}/registros` as const,
+  PARTICIPANTS: (id: RouteId) => `/grupos/${id}/participantes` as const,
   SETTINGS: {
-    GENERAL: (id: string | number) => `/grupos/${id}/ajustes/general` as const,
+    GENERAL: (id: RouteId) => `/grupos/${id}/ajustes/general` as const,
   },
 } as const
 

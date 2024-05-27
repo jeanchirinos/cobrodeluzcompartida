@@ -1,17 +1,24 @@
 'use server'
 
+import { API_ROUTE } from '@/constants/api-routes'
 import { sendData } from '@/utilities/actionRequest'
 import { z } from 'zod'
 
-export async function updateRentalGroup(prevState: any, formData: FormData) {
-  const schema = z.object({
-    name: z.string(),
-  })
+const schema = z.object({
+  name: z.string(),
+})
+
+type Args = z.infer<typeof schema> & {
+  id: string | number
+}
+
+export async function updateRentalGroup(args: Args) {
+  const { id, ...formData } = args
 
   return sendData({
-    url: `rental-group-update/${formData.get('id')}`,
+    url: API_ROUTE.RENTAL_GROUP.UPDATE(id),
     schema,
     body: formData,
-    revalidateTagParams: ['rental-group'],
+    revalidateTagParams: [API_ROUTE.RENTAL_GROUP.SHOW(id)],
   })
 }

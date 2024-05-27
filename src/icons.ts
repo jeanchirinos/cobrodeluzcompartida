@@ -1,13 +1,12 @@
-export { FcGoogle as IconGoogle } from 'react-icons/fc'
-export { GoCheck as IconCheck } from 'react-icons/go'
-export { IoIosWarning as IconWarning } from 'react-icons/io'
 export {
   MdAddCircleOutline as IconAdd,
-  MdOutlineDelete as IconDelete,
-  MdMonitor as IconSystemTheme,
+  MdCheck as IconCheck,
   MdOutlineDarkMode as IconDarkTheme,
+  MdOutlineDelete as IconDelete,
   MdOutlineLightMode as IconLightTheme,
-  MdOutlineReceipt as IconReceipt,
   MdOutlinePeopleAlt as IconParticipants,
+  MdOutlineReceipt as IconReceipt,
   MdOutlineSettings as IconSettings,
+  MdMonitor as IconSystemTheme,
 } from 'react-icons/md'
+export { FcGoogle as IconGoogle } from 'react-icons/fc'

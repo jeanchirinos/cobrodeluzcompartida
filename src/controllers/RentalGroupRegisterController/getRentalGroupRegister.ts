@@ -5,7 +5,7 @@ import { Participant } from '@/models/Participant'
 import { RentalGroup } from '@/models/RentalGroup'
 import { Result } from '@/models/Result'
 import { SearchParamsProps } from '@/types'
-import { getData } from '@/utilities/actionRequest'
+// import { getData } from '@/utilities/actionRequest'
 import { getApiUrl } from '@/utilities/request'
 
 export type GetRentalGroupRegisterParams = SearchParamsProps<'year' | 'month'>

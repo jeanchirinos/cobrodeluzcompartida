@@ -5,7 +5,7 @@ import { Button } from '@nextui-org/button'
 
 type Props = React.ComponentProps<typeof Button> & { innerRef?: React.Ref<HTMLButtonElement> }
 
-export function SubmitButton(props: Props) {
+export function ButtonFormSubmit(props: Props) {
   const { pending } = useFormStatus()
 
   const { children = 'Guardar', innerRef, ...otherProps } = props
