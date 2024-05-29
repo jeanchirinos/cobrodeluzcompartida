@@ -5,27 +5,26 @@ import { z } from 'zod'
 import { createAuthToken } from './utils/createAuthToken'
 import { createGroupWithSessionCookie } from '../RentalGroupController/utils/createRentalGroupWithSessionCookie'
 import { API_ROUTE } from '@/constants/api-routes'
+import { schemaLogin } from './login/schema'
 
-type Response = { token: string }
+type ArgsLoginFn = z.infer<typeof schemaLogin>
 
-const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-})
+type BodyLogin = z.infer<typeof schemaLogin>
+type ResponseLogin = { token: string }
 
-type Args = z.infer<typeof schema>
+export async function login(args: ArgsLoginFn) {
+  // export async function login(prevState: any, formData: FormData) {
 
-// export async function login(args: Args) {
-export async function login(prevState: any, formData: FormData) {
-  async function onSuccess(data: Response) {
+  async function onSuccess(data: ResponseLogin) {
     await createAuthToken(data.token)
     await createGroupWithSessionCookie()
   }
 
-  return sendData({
+  return sendData<BodyLogin, ResponseLogin>({
     url: API_ROUTE.AUTH.LOGIN,
-    schema,
-    body: formData,
+    schema: schemaLogin,
+    // body: formData,
+    body: args,
     onSuccess,
     auth: false,
   })

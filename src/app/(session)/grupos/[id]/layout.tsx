@@ -2,7 +2,7 @@ import { getRentalGroupById } from '@/controllers/RentalGroupController/getRenta
 import { Tabs } from './components/Tabs'
 
 export default async function Layout(props: React.PropsWithChildren & { params: { id: string } }) {
-  const rentalGroup = await getRentalGroupById(props.params.id)
+  const rentalGroup = await getRentalGroupById({ id: props.params.id })
 
   return (
     <main className='main-container space-y-6'>

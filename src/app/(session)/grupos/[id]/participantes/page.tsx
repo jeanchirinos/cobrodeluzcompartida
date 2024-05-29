@@ -1,3 +1,4 @@
+import { Image } from '@/components/Image'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { getParticipants } from '@/controllers/ParticipantController/getParticipants'
 import { PageProps } from '@/types'
@@ -7,7 +8,6 @@ type Props = PageProps<'id'>
 export default function Page(props: Props) {
   return (
     <>
-      <p>Participantes</p>
       <Suspense>
         <Participants getParticipantsArgs={{ rentalGroupId: props.params.id }} />
       </Suspense>
@@ -21,11 +21,11 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
   })
 
   return (
-    <ul>
+    <ul className='flex gap-5'>
       {participants.map(participant => (
-        <li key={participant.id}>
+        <li key={participant.id} className='flex flex-col gap-y-2 items-center'>
+          <Image src={participant.avatar_url} alt={participant.alias} width={250} height={250} />
           <p>{participant.alias}</p>
-          <img src={participant.avatar_url} alt={participant.alias} />
         </li>
       ))}
     </ul>

@@ -120,7 +120,9 @@ type Params<Body, Response> = {
   auth?: boolean
 }
 
-export async function sendData<Body extends object, Response>(params: Params<Body, Response>) {
+export async function sendData<Body extends object, Response extends {}>(
+  params: Params<Body, Response>
+) {
   const { url, body, schema, onSuccess, revalidatePathParams, revalidateTagParams, auth } = params
 
   if (body && schema) {
