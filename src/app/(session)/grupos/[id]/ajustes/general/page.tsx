@@ -1,6 +1,12 @@
-import { Button } from '@nextui-org/react'
+'use client'
+
+import { ButtonAction } from '@/components/Button/ButtonAction'
+import { deleteRentalGroup } from '@/controllers/RentalGroupController/deleteRentalGroup'
+import { useParams } from 'next/navigation'
 
 export default function Page() {
+  const params = useParams<{ id: string }>()
+
   return (
     <>
       <section className='flex flex-col gap-y-6'>
@@ -9,9 +15,13 @@ export default function Page() {
           <p>El proyecto se eliminará permanentemente, incluyendo sus registros.</p>
         </div>
 
-        <Button color='danger' className='w-fit'>
+        <ButtonAction
+          action={() => deleteRentalGroup({ id: params.id })}
+          color='danger'
+          className='w-fit'
+        >
           Eliminar
-        </Button>
+        </ButtonAction>
       </section>
     </>
   )

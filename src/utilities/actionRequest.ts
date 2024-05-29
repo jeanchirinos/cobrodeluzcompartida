@@ -90,7 +90,6 @@ export async function actionRequestPost<Response>(...params: RequestParamsNotNul
 
   const myConfig = {
     ...config,
-    method: 'POST',
     headers: { ...config.headers, ...headers },
   }
 
@@ -118,12 +117,22 @@ type Params<Body, Response> = {
   revalidatePathParams?: Parameters<typeof revalidatePath>
   onSuccess?: (data: Response) => Promise<void> | void
   auth?: boolean
+  method?: 'POST' | 'PUT' | 'DELETE'
 }
 
 export async function sendData<Body extends object, Response extends {}>(
   params: Params<Body, Response>
 ) {
-  const { url, body, schema, onSuccess, revalidatePathParams, revalidateTagParams, auth } = params
+  const {
+    url,
+    body,
+    schema,
+    onSuccess,
+    revalidatePathParams,
+    revalidateTagParams,
+    auth,
+    method = 'POST',
+  } = params
 
   if (body && schema) {
     const dataToValidate = body instanceof FormData ? getFormEntries(body) : body
@@ -144,6 +153,7 @@ export async function sendData<Body extends object, Response extends {}>(
   const res = await actionRequestPost<Response>(url, {
     body,
     auth,
+    method,
   })
 
   if (res.ok) {
