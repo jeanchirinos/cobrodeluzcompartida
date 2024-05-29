@@ -157,16 +157,16 @@ export async function sendData<Body extends object, Response extends {}>(
   })
 
   if (res.ok) {
+    if (onSuccess) {
+      await onSuccess(res.data)
+    }
+
     if (revalidatePathParams) {
       revalidatePath(...revalidatePathParams)
     }
 
     if (revalidateTagParams) {
       revalidateTag(...revalidateTagParams)
-    }
-
-    if (onSuccess) {
-      await onSuccess(res.data)
     }
   }
 

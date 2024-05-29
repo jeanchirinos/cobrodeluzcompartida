@@ -1,6 +1,7 @@
 'use server'
 
 import { API_ROUTE } from '@/constants/api-routes'
+import { ROUTE } from '@/routes'
 import { sendData } from '@/utilities/actionRequest'
 import { redirect } from 'next/navigation'
 
@@ -13,7 +14,7 @@ export async function deleteRentalGroup(args: ArgsDeleteRentalGroupFn) {
     url: API_ROUTE.RENTAL_GROUP.DESTROY(args.id),
     revalidateTagParams: [API_ROUTE.RENTAL_GROUP.INDEX],
     onSuccess() {
-      redirect(API_ROUTE.RENTAL_GROUP.INDEX)
+      redirect(ROUTE.GROUPS.INDEX)
     },
     method: 'DELETE',
   })
