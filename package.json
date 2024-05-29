@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.0.4",
-    "@headlessui/tailwindcss": "^0.2.0",
+    "@headlessui/tailwindcss": "^0.2.1",
     "@hookform/resolvers": "^3.4.2",
     "@nextui-org/react": "^2.4.0",
-    "framer-motion": "^11.2.6",
+    "framer-motion": "^11.2.9",
     "next": "14.2.3",
     "next-nprogress-bar": "^2.3.11",
     "next-themes": "^0.3.0",

@@ -6,19 +6,9 @@ import { sendData } from '@/utilities/actionRequest'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
-// type CreateRentalGroupReturnParticipantsParams = CreateRentalGroup & {return_participants: true}
-// type CreateRentalGroupReturnParticipantsResponse = Response & { participants_ids: number[] }
-
-// type CreateRentalGroupWithoutReturnParticipantsParams = CreateRentalGroup & {return_participants: false}
-// type CreateRentalGroupWithoutReturnParticipantsResponse = Response
-
-// export async function createRentalGroup(
-//   args: CreateRentalGroupReturnParticipantsParams
-// ): Promise<CreateRentalGroupReturnParticipantsResponse>
-
 type ArgsCreateRentalGroupFn = z.infer<typeof schema>
 
-type BodyCreateRentalGroup = z.infer<typeof schema>
+type BodyCreateRentalGroup = ArgsCreateRentalGroupFn
 type ResponseCreateRentalGroup = { rental_group_id: string; participants_ids: number[] }
 
 const schema = z.object({

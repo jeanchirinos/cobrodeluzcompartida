@@ -1,6 +1,7 @@
 export {
   MdAddCircleOutline as IconAdd,
   MdCheck as IconCheck,
+  MdClose as IconClose,
   MdOutlineDarkMode as IconDarkTheme,
   MdOutlineDelete as IconDelete,
   MdOutlineLightMode as IconLightTheme,

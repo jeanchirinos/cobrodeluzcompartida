@@ -11,10 +11,8 @@ export type SessionLogged = {
 
 export async function getSession() {
   const data = await getData<SessionLogged>('session', {
-    auth: true,
     redirectIfUnauthorized: false,
     nullable: true,
-    cache: 'no-store',
   })
 
   return data

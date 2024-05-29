@@ -34,7 +34,7 @@ export function PopoverContent(props: PopoverPanelProps) {
           to: 'bottom end',
           gap: '0.5rem',
         }}
-        className={cnx('rounded-md', props.className?.toString())}
+        className={cnx('rounded-md z-40', props.className?.toString())}
       >
         {props.children}
       </HeadlessPopoverPanel>

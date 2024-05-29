@@ -34,11 +34,17 @@ export async function getData<Response>(
 ) {
   const [url, config = {}] = params
 
-  const { redirectIfUnauthorized = true, nullable, authIsOptional } = config
+  const {
+    redirectIfUnauthorized = true,
+    nullable,
+    authIsOptional,
+    cache = 'no-store',
+    auth = true,
+  } = config
 
   const headers: HeadersInit = {}
 
-  if (config.auth ?? authIsOptional) {
+  if (auth ?? authIsOptional) {
     const jwt = cookies().get('jwt')
 
     try {
@@ -61,6 +67,7 @@ export async function getData<Response>(
   const myConfig = {
     ...config,
     redirectIfUnauthorized,
+    cache,
     headers: { ...config.headers, ...headers },
   }
 

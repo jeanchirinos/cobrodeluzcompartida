@@ -14,11 +14,9 @@ export async function getRentalGroupById(args: ArgsGetRentalGroupByIdFn) {
   const { id } = args
 
   const data = await getData<ResponseGetRentalGroupById>(API_ROUTE.RENTAL_GROUP.SHOW(id), {
-    cache: 'no-store',
     next: {
       tags: [API_ROUTE.RENTAL_GROUP.SHOW(id)],
     },
-    auth: true,
   })
 
   return data

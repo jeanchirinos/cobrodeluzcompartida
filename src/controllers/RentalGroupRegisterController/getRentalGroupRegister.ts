@@ -1,42 +1,42 @@
 'use server'
 
+import { API_ROUTE } from '@/constants/api-routes'
 import { BillData } from '@/models/BillData'
 import { Participant } from '@/models/Participant'
 import { RentalGroup } from '@/models/RentalGroup'
 import { Result } from '@/models/Result'
 import { SearchParamsProps } from '@/types'
-// import { getData } from '@/utilities/actionRequest'
-import { getApiUrl } from '@/utilities/request'
+import { getData } from '@/utilities/actionRequest'
+import { getUrlWithSearchParams } from '@/utilities/utilities'
 
 export type GetRentalGroupRegisterParams = SearchParamsProps<'year' | 'month'>
 
-type RentalGroupRegister = {
-  billData: BillData
-  results: (Result & { participant: Participant })[]
-}
-
-type Args = {
+type ArgsGetRentalGroupRegisterFn = {
   params: { rentalGroupId: RentalGroup['id'] }
   searchParams: GetRentalGroupRegisterParams
 }
 
-export async function getRentalGroupRegister(args: Args): Promise<RentalGroupRegister | null> {
+type ResponseGetRentalGroupRegister = {
+  billData: BillData
+  results: (Result & { participant: Participant })[]
+} | null
+
+export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn) {
   const { params, searchParams } = args
 
-  const newSearchParams = new URLSearchParams(searchParams).toString()
+  const { url } = getUrlWithSearchParams<GetRentalGroupRegisterParams>({
+    hostname: API_ROUTE.RENTAL_GROUP_REGISTER.SHOW(params.rentalGroupId),
+    searchParams,
+  })
 
-  const url = getApiUrl(`rental-group-register/${params.rentalGroupId}`)
-  url.search = newSearchParams
-
-  // const data = await getData<RentalGroupRegister | null>(url, {
-  //   cache: 'no-store',
+  // const data = await getData<ResponseGetRentalGroupRegister>(url, {
   //   next: {
-  //     tags: ['rental-group-register'],
+  //     tags: [url],
   //   },
   // })
 
   //TODO: Delete when API is ready
-  const data: RentalGroupRegister | null = {
+  const data: ResponseGetRentalGroupRegister = {
     billData: {
       id: '1',
       consumption_kwh: 211,
