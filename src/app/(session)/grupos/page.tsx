@@ -2,7 +2,7 @@ import { Link } from '@/components/Link'
 import { getRentalGroups } from '@/controllers/RentalGroupController/getRentalGroups'
 import { ROUTE } from '@/routes'
 import { Card, CardHeader, CardFooter } from '@nextui-org/card'
-import { AvatarGroup, Avatar, AvatarIcon } from '@nextui-org/avatar'
+import { AvatarGroup, Avatar } from '@nextui-org/avatar'
 import { ButtonAction } from '@/components/Button/ButtonAction'
 import { createRentalGroup } from '@/controllers/RentalGroupController/createRentalGroup'
 import { IconAdd } from '@/icons'
@@ -33,7 +33,7 @@ export default async function Page() {
             <CardFooter className='justify-end'>
               <AvatarGroup isBordered size='sm' max={3}>
                 {group.participants.map(p => (
-                  <Avatar icon={<AvatarIcon />} key={p.id} title={p.alias} />
+                  <Avatar src={p.avatar_url} key={p.id} title={p.alias} />
                 ))}
               </AvatarGroup>
             </CardFooter>
