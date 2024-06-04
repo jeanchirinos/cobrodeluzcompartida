@@ -16,7 +16,7 @@ export function Tabs() {
       isVertical
       aria-label='Opciones del grupo'
       selectedKey={selectedLayoutSegment}
-      className='overflow-x-auto max-w-full'
+      className='max-md:hidden'
       variant='light'
     >
       <Tab key='general' title='General' as={Link} href={ROUTE.GROUPS.SETTINGS.GENERAL(id)} />

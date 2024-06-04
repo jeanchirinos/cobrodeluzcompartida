@@ -13,7 +13,8 @@ export function UserNotLogged() {
   return (
     <Popover>
       <PopoverTrigger id={$BUTTON_LOGIN_ID} color='primary' variant='flat'>
-        Iniciar sesión
+        <span className='max-sm:hidden'>Iniciar sesión</span>
+        <span className='sm:hidden'>Ingresar</span>
       </PopoverTrigger>
       <PopoverContent className='flex w-80 flex-col gap-y-2 bg-content1 px-5 py-4'>
         <Login />

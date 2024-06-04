@@ -1,6 +1,5 @@
 'use client'
 
-// import { ButtonFormSubmit } from '@/components/Button/ButtonFormSubmit'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -44,8 +43,7 @@ export function UpdateGroup() {
         <p>Identificador único entre tus grupos de consumo</p>
       </div>
 
-      {/* <form className='flex gap-x-4' action={handleSubmit(onSubmit)}> */}
-      <form className='flex gap-x-4' onSubmit={handleSubmit(onSubmit)}>
+      <form className='flex gap-4 max-sm:flex-col' onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register('name')}
           errorMessage={errors.name?.message}
@@ -53,7 +51,6 @@ export function UpdateGroup() {
           placeholder={rentalGroup?.name}
         />
 
-        {/* <ButtonFormSubmit isDisabled={!isValid}>Guardar</ButtonFormSubmit> */}
         <Button type='submit' isDisabled={!isValid} isLoading={isSubmitting} color='primary'>
           Guardar
         </Button>

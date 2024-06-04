@@ -16,7 +16,7 @@ export default function RootLayout(props: React.PropsWithChildren) {
     <html lang='es' suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>{props.children}</Providers>
-        {/* <Analytics /> */}
+        <Analytics />
       </body>
     </html>
   )

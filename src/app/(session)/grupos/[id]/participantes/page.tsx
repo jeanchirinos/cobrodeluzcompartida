@@ -1,9 +1,9 @@
 import { Image } from '@/components/Image'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { getParticipants } from '@/controllers/ParticipantController/getParticipants'
-import { PageProps } from '@/types'
+import { CustomPageProps } from '@/types'
 
-type Props = PageProps<'id'>
+type Props = CustomPageProps<'id'>
 
 export default function Page(props: Props) {
   return (

@@ -10,7 +10,8 @@ export function Google() {
 
   return (
     <Button id={$BUTTON_LOGIN_ID} onPress={openGoogleWindow} startContent={<IconGoogle />}>
-      Continuar con Google
+      <span className='max-sm:hidden'>Continuar con Google</span>
+      <span className='sm:hidden'>Ingresar</span>
     </Button>
   )
 }

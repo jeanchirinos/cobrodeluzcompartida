@@ -40,7 +40,7 @@ export function DeleteGroup() {
       <Dialog dialog={myDialog} dialogTitle='Eliminar grupo'>
         <DialogBody>
           <p>
-            El grupo <b>{rentalGroup?.name}</b> y sus registros se eliminará permanentemente
+            El grupo <b>{rentalGroup?.name}</b> y sus registros se eliminarán permanentemente
           </p>
           <p className='mt-2'>¿ Estás seguro de que quieres eliminar el grupo ?</p>
         </DialogBody>

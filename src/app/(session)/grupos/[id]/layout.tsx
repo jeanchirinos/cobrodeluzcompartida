@@ -1,12 +1,12 @@
 import { getRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById'
 import { Tabs } from './components/Tabs'
 import { RentalGroupProvider } from './context/RentalGroupContext'
-// import { PropsWithChildren } from 'react'
-// import { PageProps } from '@/types'
+import { type PropsWithChildren } from 'react'
+import { type PagePropsParams } from '@/types'
 
-// type Props = PropsWithChildren & PageProps<'id'>
+type Props = PropsWithChildren & PagePropsParams<'id'>
 
-export default async function Layout(props: any) {
+export default async function Layout(props: Props) {
   const getRentalGroupByIdResponse = await getRentalGroupById({ id: props.params.id })
   const { rentalGroup } = getRentalGroupByIdResponse
 

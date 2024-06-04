@@ -1,6 +1,10 @@
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>
 
-export type PageProps<Params = {}, SearchParams = {}> = {
+export type PagePropsParams<Params extends string> = {
+  params: Record<Params, string>
+}
+
+export type CustomPageProps<Params = {}, SearchParams = {}> = {
   params: Record<Params, string>
   searchParams: Record<SearchParams, string | undefined>
 }
@@ -22,3 +26,5 @@ export type PageParamsAndSearchParamsPropsAlt<Params = {}, SearchParams = {}> = 
 }
 
 export type RouteId = string | number
+
+export type Hola = string
