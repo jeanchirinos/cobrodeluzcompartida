@@ -1,5 +1,4 @@
 import { Select } from '@/components/Select'
-import { getRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById'
 import {
   GetRentalGroupRegisterParams,
   getRentalGroupRegister,
@@ -11,14 +10,10 @@ import { Button } from '@nextui-org/button'
 type Props = PageParamsAndSearchParamsPropsAlt<'id', GetRentalGroupRegisterParams>
 
 export default async function Page(props: Props) {
-  const rentalGroup = await getRentalGroupById({ id: props.params.id })
-
   const rentalGroupRegister = await getRentalGroupRegister({
-    params: { rentalGroupId: Number(props.params.id) },
+    params: { rentalGroupId: props.params.id },
     searchParams: props.searchParams,
   })
-
-  if (!rentalGroup || !rentalGroupRegister) return null
 
   const { billData } = rentalGroupRegister
 

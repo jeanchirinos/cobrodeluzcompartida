@@ -13,5 +13,5 @@ type Props = React.ComponentProps<typeof NextUiInput>
 // }
 
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(props, ref) {
-  return <NextUiInput labelPlacement='outside' {...props} ref={ref} placeholder=' ' />
+  return <NextUiInput placeholder=' ' labelPlacement='outside' {...props} ref={ref} />
 })

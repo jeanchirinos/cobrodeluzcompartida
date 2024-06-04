@@ -1,20 +1,28 @@
 import { toast } from 'sonner'
-import { sendData } from './actionRequest'
+// import { sendData } from './actionRequest'
 import { Options } from '@/hooks/useFormAction'
 
-export function handleResponse(res: Awaited<ReturnType<typeof sendData>>, options?: Options) {
-  const { onSuccess, showSuccessToast = false, onError, showErrorToast = true } = options ?? {}
+//TODO: Remove @ts-ignore
+// export function handleResponse(res: Awaited<ReturnType<typeof sendData>>, options?: Options) {
+export function handleResponse<Response>(res: Response, options?: Options<Response>) {
+  const { showSuccessToast = false, onSuccess, onError, showErrorToast = true } = options ?? {}
 
+  if (!res) return
+
+  //@ts-ignore
   if (res.ok) {
-    onSuccess?.()
+    //@ts-ignore
+    onSuccess?.(res.data)
 
     if (showSuccessToast) {
+      // @ts-ignore
       toast.success(res.msg)
     }
   } else {
     onError?.()
 
     if (showErrorToast) {
+      // @ts-ignore
       toast.error(res.msg)
     }
   }

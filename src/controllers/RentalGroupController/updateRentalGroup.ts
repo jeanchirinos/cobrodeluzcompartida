@@ -4,20 +4,22 @@ import { API_ROUTE } from '@/constants/api-routes'
 import { RentalGroup } from '@/models/RentalGroup'
 import { sendData } from '@/utilities/actionRequest'
 import { z } from 'zod'
+import { schemaUpdateRentalGroup } from './updateRentalGroup/schema'
 
-const schema = z.object({
-  name: z.string(),
-})
-
-type ArgsUpdateRentalGroup = { body: Partial<z.infer<typeof schema>>; id: RentalGroup['id'] }
+type ArgsUpdateRentalGroup = {
+  body: z.infer<typeof schemaUpdateRentalGroup>
+  id: RentalGroup['id']
+}
 
 export async function updateRentalGroup(args: ArgsUpdateRentalGroup) {
   const { id, body } = args
 
   return sendData({
     url: API_ROUTE.RENTAL_GROUP.UPDATE(id),
-    schema,
+    schema: schemaUpdateRentalGroup,
     body,
     revalidateTagParams: [API_ROUTE.RENTAL_GROUP.SHOW(id)],
+    auth: true,
+    method: 'PUT',
   })
 }

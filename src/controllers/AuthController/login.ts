@@ -13,8 +13,6 @@ type BodyLogin = z.infer<typeof schemaLogin>
 type ResponseLogin = { token: string }
 
 export async function login(args: ArgsLoginFn) {
-  // export async function login(prevState: any, formData: FormData) {
-
   async function onSuccess(data: ResponseLogin) {
     await createAuthToken(data.token)
     await createGroupWithSessionCookie()
@@ -23,7 +21,6 @@ export async function login(args: ArgsLoginFn) {
   return sendData<BodyLogin, ResponseLogin>({
     url: API_ROUTE.AUTH.LOGIN,
     schema: schemaLogin,
-    // body: formData,
     body: args,
     onSuccess,
     auth: false,

@@ -114,7 +114,7 @@ type DialogFooterProps = (
   ComponentProps<'footer'>
 
 export function DialogFooter(props: DialogFooterProps) {
-  const { variant = '1', dialog, customHandleClick, mainButtonProps } = props
+  const { variant = '1', dialog, customHandleClick, mainButtonProps, ...restProps } = props
 
   const [isPending, setIsPending] = useState(false)
 
@@ -128,7 +128,7 @@ export function DialogFooter(props: DialogFooterProps) {
   }
 
   return (
-    <footer {...props} className={cnx('px-6 gap-x-4 flex justify-end mt-4', props.className)}>
+    <footer {...restProps} className={cnx('px-6 gap-x-4 flex justify-end mt-4', props.className)}>
       {variant === '1' && (
         <>
           <Button onPress={dialog?.close} variant='flat'>

@@ -3,14 +3,14 @@ import { useEffect, useRef, useState } from 'react'
 import { useFormState } from 'react-dom'
 import { toast } from 'sonner'
 
-export type Options = {
-  onSuccess?: () => void
+export type Options<Response> = {
+  onSuccess?: (data: Response) => void
   showSuccessToast?: boolean
   onError?: () => void
   showErrorToast?: boolean
 }
 
-export function useFormAction(action: any, options?: Options) {
+export function useFormAction<Response>(action: any, options?: Options<Response>) {
   const { onSuccess, showSuccessToast = true, onError, showErrorToast = true } = options ?? {}
 
   // VALUES
@@ -43,7 +43,8 @@ export function useFormAction(action: any, options?: Options) {
     setIsPending(false)
 
     if (ok) {
-      onSuccess?.()
+      // TODO
+      onSuccess?.({} as Response)
 
       if (showSuccessToast) {
         toast.success(msg)

@@ -22,11 +22,11 @@ export default async function Page() {
         {rentalGroups.map(group => (
           <Card
             key={group.id}
-            className='py-2 w-80 max-w-full gap-y-5'
+            className='py-1 w-80 max-w-full gap-y-5'
             as={Link}
             href={ROUTE.GROUPS.REGISTERS(group.id)}
           >
-            <CardHeader className='pb-0 pt-2 px-4 flex-col items-start'>
+            <CardHeader className='flex-col items-start'>
               <p className='uppercase font-bold'>{group.name}</p>
               <small className='text-default-500'>{group.n_participant} participantes</small>
             </CardHeader>
