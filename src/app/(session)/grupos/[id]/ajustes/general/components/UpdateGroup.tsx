@@ -5,10 +5,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { handleResponse } from '@/utilities/handleResponse'
 import { Input } from '@/components/Input'
-import { updateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup'
-import { useRentalGroupContext } from '../../../context/RentalGroupContext'
 import { schemaUpdateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/schema'
 import { Button } from '@nextui-org/react'
+import { updateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup'
+import { useRentalGroupContext } from '../../../context/RentalGroupContext'
 
 type FormInputsUpdateGroup = z.infer<typeof schemaUpdateRentalGroup>
 

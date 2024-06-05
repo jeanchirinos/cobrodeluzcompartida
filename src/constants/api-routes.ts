@@ -12,6 +12,7 @@ const AUTH = {
   LOGIN: 'login',
   SESSION: 'session',
   LOGOUT: 'logout',
+  GOOGLE_REDIRECT: 'auth/google/redirect',
 }
 
 //* RENTAL GROUP

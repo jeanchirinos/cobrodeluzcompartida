@@ -1,3 +1,4 @@
+export { FcGoogle as IconGoogle } from 'react-icons/fc'
 export {
   MdAddCircleOutline as IconAdd,
   MdCheck as IconCheck,
@@ -10,4 +11,3 @@ export {
   MdOutlineSettings as IconSettings,
   MdMonitor as IconSystemTheme,
 } from 'react-icons/md'
-export { FcGoogle as IconGoogle } from 'react-icons/fc'

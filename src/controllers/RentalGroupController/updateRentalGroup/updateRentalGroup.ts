@@ -4,7 +4,7 @@ import { API_ROUTE } from '@/constants/api-routes'
 import { RentalGroup } from '@/models/RentalGroup'
 import { sendData } from '@/utilities/actionRequest'
 import { z } from 'zod'
-import { schemaUpdateRentalGroup } from './updateRentalGroup/schema'
+import { schemaUpdateRentalGroup } from './schema'
 
 type ArgsUpdateRentalGroup = {
   body: z.infer<typeof schemaUpdateRentalGroup>

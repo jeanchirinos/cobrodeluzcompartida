@@ -10,13 +10,14 @@ import { ROUTE } from '@/routes'
 import { useRentalGroupContext } from '../../../context/RentalGroupContext'
 
 export function DeleteGroup() {
-  const params = useParams<{ id: string }>()
+  const { id } = useParams<{ id: string }>()
   const { push } = useRouter()
 
   const { rentalGroup } = useRentalGroupContext()
+  const deleteRentalGroupDialog = useDialog()
 
   async function customHandleClick() {
-    const res = await deleteRentalGroup({ id: params.id })
+    const res = await deleteRentalGroup({ id })
 
     handleResponse(res, {
       showSuccessToast: true,
@@ -26,26 +27,30 @@ export function DeleteGroup() {
     })
   }
 
-  const myDialog = useDialog()
-
+  // RENDER
   return (
     <section className='flex flex-col gap-y-6'>
       <div>
         <h3 className='text-lg font-bold'>Eliminar grupo</h3>
         <p>El proyecto se eliminará permanentemente, incluyendo sus registros.</p>
       </div>
-      <Button onClick={myDialog.open} className='w-fit' color='danger' variant='flat'>
+      <Button
+        onClick={deleteRentalGroupDialog.open}
+        className='w-fit'
+        color='danger'
+        variant='flat'
+      >
         Eliminar
       </Button>
-      <Dialog dialog={myDialog} dialogTitle='Eliminar grupo'>
+      <Dialog dialog={deleteRentalGroupDialog} dialogTitle='Eliminar grupo'>
         <DialogBody>
           <p>
-            El grupo <b>{rentalGroup?.name}</b> y sus registros se eliminarán permanentemente
+            El grupo <b>{rentalGroup.name}</b> y sus registros se eliminarán permanentemente
           </p>
           <p className='mt-2'>¿ Estás seguro de que quieres eliminar el grupo ?</p>
         </DialogBody>
         <DialogFooter
-          dialog={myDialog}
+          dialog={deleteRentalGroupDialog}
           variant='2'
           customHandleClick={customHandleClick}
           mainButtonProps={{
