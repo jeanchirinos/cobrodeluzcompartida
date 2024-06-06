@@ -14,25 +14,24 @@ export function UpdateGroup() {
   const { rentalGroup } = useRentalGroupContext()
 
   const { useFormHook } = useReactHookForm({
-    schema: schemaUpdateRentalGroup,
+    schema: schemaUpdateRentalGroup.refine(data => data.name !== rentalGroup.name, {
+      message: 'Ingresa un nombre diferente al actual',
+      path: ['name'],
+    }),
     defaultValues: {
       name: rentalGroup.name,
     },
+    mode: 'onChange',
   })
-  const { register, reset, resetField, watch } = useFormHook
+  const { register, clearErrors } = useFormHook
 
   const onSubmit: SubmitHandler<typeof schemaUpdateRentalGroup._type> = async data => {
     const res = await updateRentalGroup({ body: data, id: rentalGroup.id })
 
     handleResponse(res, {
-      onSuccess() {
-        reset()
-      },
       showSuccessToast: true,
     })
   }
-
-  const isDisabled = watch('name') === rentalGroup.name
 
   // RENDER
   return (
@@ -46,13 +45,11 @@ export function UpdateGroup() {
           useFormHook={useFormHook}
           register={register('name', {
             onBlur() {
-              resetField('name')
+              clearErrors()
             },
           })}
         />
-        <HookFormButton useFormHook={useFormHook} isDisabled={isDisabled}>
-          Renombrar
-        </HookFormButton>
+        <HookFormButton useFormHook={useFormHook}>Renombrar</HookFormButton>
       </Form>
     </div>
   )

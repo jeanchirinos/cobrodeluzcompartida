@@ -1,6 +1,6 @@
 'use client'
 
-import type { ComponentType, ComponentProps } from 'react'
+import { type ComponentType, type ComponentProps, forwardRef } from 'react'
 import type { UseFormRegisterReturn, UseFormReturn } from 'react-hook-form'
 import { Input } from '../Input'
 
@@ -12,7 +12,8 @@ type WithHookFormProps<T extends ComponentType> = ComponentProps<T> & {
 }
 
 export function withHookForm<T extends ComponentType>(WrappedComponent: WrappedComponentType<T>) {
-  const WithHookForm = (props: WithHookFormProps<T>) => {
+  // eslint-disable-next-line react/display-name
+  return forwardRef((props: WithHookFormProps<T>) => {
     const { useFormHook, register, ...restProps } = props
 
     const {
@@ -35,9 +36,34 @@ export function withHookForm<T extends ComponentType>(WrappedComponent: WrappedC
     } as ComponentProps<T>
 
     return <WrappedComponent {...componentProps} />
-  }
-
-  return WithHookForm
+  })
 }
+// const WithHookForm = (props: WithHookFormProps<T>) => {
+//   const { useFormHook, register, ...restProps } = props
+
+//   const {
+//     watch,
+//     formState: { errors },
+//   } = useFormHook
+
+//   const { name } = register
+
+//   const hookFormProps = {
+//     ...register,
+//     errorMessage: errors[name]?.message,
+//     isInvalid: errors[name],
+//     value: watch(name),
+//   }
+
+//   const componentProps = {
+//     ...hookFormProps,
+//     ...restProps,
+//   } as ComponentProps<T>
+
+//   return <WrappedComponent {...componentProps} />
+// }
+
+// return WithHookForm
+// }
 
 export const CustomInput = withHookForm<typeof Input>(Input)
