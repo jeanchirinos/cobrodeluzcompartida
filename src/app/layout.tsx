@@ -1,22 +1,14 @@
-import { type Metadata } from 'next'
 import { type PropsWithChildren } from 'react'
 import '../globals.css'
-import { Inter } from 'next/font/google'
 import { Providers } from './(providers)/providers'
 import { Analytics } from '@vercel/analytics/react'
 import { Toaster } from '@/components/other/CustomToaster'
 import { ProgressBar } from '@/components/other/ProgressBar'
+import { font } from './font'
 
-const font = Inter({ subsets: ['latin'] })
+export { metadata } from './metadata'
 
-export const metadata: Metadata = {
-  title: 'CCSEC',
-  description: 'Calcula el monto a pagar por el consumo de energía eléctrica de tus inquilinos.',
-}
-
-type Props = Required<PropsWithChildren>
-
-export default function RootLayout(props: Props) {
+export default function RootLayout(props: Required<PropsWithChildren>) {
   return (
     <html lang='es' suppressHydrationWarning>
       <body className={font.className}>

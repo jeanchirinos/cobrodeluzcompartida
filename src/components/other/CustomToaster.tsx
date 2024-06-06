@@ -9,9 +9,9 @@ export function Toaster() {
 
   return (
     <SonnerToaster
-      richColors
-      position='top-center'
       theme={theme}
+      position='top-center'
+      richColors
       className='!left-0 right-0 !w-[calc(100%-16px)] !transform-none'
       toastOptions={{
         classNames: {

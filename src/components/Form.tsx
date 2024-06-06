@@ -1,17 +1,16 @@
 'use client'
 
-import { useFormAction } from '@/hooks/useFormAction'
+import { ComponentProps } from 'react'
+import type { SubmitHandler, UseFormReturn } from 'react-hook-form'
 
-type Props = React.ComponentProps<'form'> & {
-  actionProps?: Parameters<typeof useFormAction>[1]
+type Props = Omit<ComponentProps<'form'>, 'onSubmit'> & {
+  onSubmit: SubmitHandler<any>
+  useFormHook: UseFormReturn<any>
 }
 
 export function Form(props: Props) {
-  const { actionProps, action } = props
+  const { useFormHook, onSubmit, ...restProps } = props
+  const { handleSubmit } = useFormHook
 
-  const { formAction } = useFormAction(action, actionProps)
-
-  const actionProp = action ? formAction : undefined
-
-  return <form {...props} action={actionProp} />
+  return <form {...restProps} onSubmit={handleSubmit(onSubmit)} />
 }

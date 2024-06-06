@@ -1,26 +1,19 @@
 'use client'
 
+import { type SubmitHandler } from 'react-hook-form'
 import { login } from '@/controllers/AuthController/login'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { handleResponse } from '@/utilities/handleResponse'
 import { schemaLogin } from '@/controllers/AuthController/login/schema'
-import { Input } from '@/components/Input'
-import { Button } from '@nextui-org/react'
-
-type FormInputsLogin = z.infer<typeof schemaLogin>
+import { Form } from '@/components/Form'
+import { CustomInput } from '@/components/ReactForm/withHookForm'
+import { HookFormButton } from '@/components/ReactForm/HookFormButton'
+import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
+import { handleResponse } from '@/utilities/handleResponse'
 
 export function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid, isSubmitting },
-  } = useForm<FormInputsLogin>({
-    resolver: zodResolver(schemaLogin),
-  })
+  const { useFormHook } = useReactHookForm({ schema: schemaLogin })
+  const { register } = useFormHook
 
-  const onSubmit: SubmitHandler<FormInputsLogin> = async data => {
+  const onSubmit: SubmitHandler<typeof schemaLogin._type> = async data => {
     const res = await login(data)
 
     handleResponse(res)
@@ -28,27 +21,22 @@ export function Login() {
 
   // RENDER
   return (
-    <form className='flex max-w-xs flex-col gap-y-4' onSubmit={handleSubmit(onSubmit)}>
-      <Input
+    <Form className='flex max-w-xs flex-col gap-y-4' onSubmit={onSubmit} useFormHook={useFormHook}>
+      <CustomInput
+        register={register('email')}
+        useFormHook={useFormHook}
         type='email'
         label='Correo'
         autoFocus
-        {...register('email')}
-        errorMessage={errors.email?.message}
-        isInvalid={errors.email}
+        placeholder='example@gmail.com'
       />
-
-      <Input
+      <CustomInput
+        register={register('password')}
+        useFormHook={useFormHook}
         type='password'
         label='Contraseña'
-        {...register('password')}
-        errorMessage={errors.password?.message}
-        isInvalid={errors.password}
       />
-
-      <Button type='submit' isDisabled={!isValid} isLoading={isSubmitting} color='primary'>
-        Ingresar
-      </Button>
-    </form>
+      <HookFormButton useFormHook={useFormHook}>Ingresar</HookFormButton>
+    </Form>
   )
 }

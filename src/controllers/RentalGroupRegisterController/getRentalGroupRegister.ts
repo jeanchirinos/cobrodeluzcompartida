@@ -1,13 +1,13 @@
 'use server'
 
-import { API_ROUTE } from '@/constants/api-routes'
+// import { API_ROUTE } from '@/constants/api-routes'
 import { BillData } from '@/models/BillData'
 import { Participant } from '@/models/Participant'
 import { RentalGroup } from '@/models/RentalGroup'
 import { Result } from '@/models/Result'
 import { SearchParamsProps } from '@/types'
-import { getData } from '@/utilities/actionRequest'
-import { getUrlWithSearchParams } from '@/utilities/utilities'
+// import { getData } from '@/utilities/actionRequest'
+// import { getUrlWithSearchParams } from '@/utilities/utilities'
 
 export type GetRentalGroupRegisterParams = SearchParamsProps<'year' | 'month'>
 
@@ -22,12 +22,12 @@ type ResponseGetRentalGroupRegister = {
 } | null
 
 export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn) {
-  const { params, searchParams } = args
+  // const { params, searchParams } = args
 
-  const { url } = getUrlWithSearchParams<GetRentalGroupRegisterParams>({
-    hostname: API_ROUTE.RENTAL_GROUP_REGISTER.SHOW(params.rentalGroupId),
-    searchParams,
-  })
+  // const { url } = getUrlWithSearchParams<GetRentalGroupRegisterParams>({
+  //   hostname: API_ROUTE.RENTAL_GROUP_REGISTER.SHOW(params.rentalGroupId),
+  //   searchParams,
+  // })
 
   // const data = await getData<ResponseGetRentalGroupRegister>(url, {
   //   next: {
