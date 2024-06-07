@@ -125,9 +125,7 @@ type Params<Body, Response> = {
   method?: 'POST' | 'PUT' | 'DELETE'
 }
 
-export async function sendData<Body extends object, Response extends {}>(
-  params: Params<Body, Response>
-) {
+export async function sendData<Body extends object, Response = {}>(params: Params<Body, Response>) {
   const {
     url,
     body,
