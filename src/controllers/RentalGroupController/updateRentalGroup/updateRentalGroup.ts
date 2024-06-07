@@ -19,7 +19,6 @@ export async function updateRentalGroup(args: ArgsUpdateRentalGroup) {
     schema: schemaUpdateRentalGroup,
     body,
     revalidateTagParams: [API_ROUTE.RENTAL_GROUP.SHOW(id)],
-    auth: true,
     method: 'PUT',
   })
 }

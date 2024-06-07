@@ -27,7 +27,7 @@
     "sonner": "^1.4.41",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.3.0",
-    "type-fest": "^4.19.0",
+    "type-fest": "^4.20.0",
     "typescript-cookie": "^1.0.6",
     "zod": "^3.23.8",
     "zustand": "^4.5.2"

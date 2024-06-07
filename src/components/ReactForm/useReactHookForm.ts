@@ -1,15 +1,18 @@
 'use client'
 
+import { handleResponse } from '@/utilities/handleResponse'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FieldValues, useForm, UseFormProps } from 'react-hook-form'
+import { FieldValues, SubmitHandler, useForm, UseFormProps } from 'react-hook-form'
 import { ZodType } from 'zod'
 
-type Props<T extends FieldValues> = {
+export type UseReactHookFormProps<T extends FieldValues> = {
   schema: ZodType<T>
+  action?: (data: T) => any
+  actionProps?: Parameters<typeof handleResponse>[1]
 } & Omit<UseFormProps<T>, 'resolver'>
 
-export function useReactHookForm<T extends FieldValues>(props: Props<T>) {
-  const { schema, ...restProps } = props
+export function useReactHookForm<T extends FieldValues>(props: UseReactHookFormProps<T>) {
+  const { schema, action, actionProps, ...restProps } = props
 
   const useFormHook = useForm<T>({
     mode: 'onTouched',
@@ -17,7 +20,15 @@ export function useReactHookForm<T extends FieldValues>(props: Props<T>) {
     resolver: zodResolver(schema),
   })
 
+  const onSubmit: SubmitHandler<T> = async data => {
+    if (!action) return
+    const res = await action(data)
+
+    handleResponse(res, actionProps)
+  }
+
   return {
     useFormHook,
+    onSubmit: useFormHook.handleSubmit(onSubmit),
   }
 }

@@ -81,11 +81,9 @@ export async function getData<Response>(
 export async function actionRequestPost<Response>(...params: RequestParamsNotNullable) {
   const [url, config = {}] = params
 
-  const { auth = true } = config
-
   const headers: HeadersInit = {}
 
-  if (auth) {
+  if (config.auth) {
     const jwt = cookies().get('jwt')
 
     if (!jwt) {
@@ -137,7 +135,7 @@ export async function sendData<Body extends object, Response extends {}>(
     onSuccess,
     revalidatePathParams,
     revalidateTagParams,
-    auth,
+    auth = true,
     method = 'POST',
   } = params
 
