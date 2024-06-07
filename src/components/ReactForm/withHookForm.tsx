@@ -13,7 +13,7 @@ type WithHookFormProps<T extends ComponentType> = ComponentProps<T> & {
 
 export function withHookForm<T extends ComponentType>(WrappedComponent: WrappedComponentType<T>) {
   // eslint-disable-next-line react/display-name
-  return forwardRef((props: WithHookFormProps<T>) => {
+  return forwardRef((props: WithHookFormProps<T>, ref) => {
     const { useFormHook, register, ...restProps } = props
 
     const {

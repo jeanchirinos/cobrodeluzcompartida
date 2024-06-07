@@ -9,28 +9,44 @@ import { HookFormButton } from '@/components/ReactForm/HookFormButton'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { useRentalGroupContext } from '../../../context/RentalGroupContext'
 import { handleResponse } from '@/utilities/handleResponse'
+// import { useRef } from 'react'
 
 export function UpdateGroup() {
   const { rentalGroup } = useRentalGroupContext()
 
+  // const defaultValues = {
+  //   name: rentalGroup.name,
+  // }
+
   const { useFormHook } = useReactHookForm({
-    schema: schemaUpdateRentalGroup.refine(data => data.name !== rentalGroup.name, {
-      message: 'Ingresa un nombre diferente al actual',
-      path: ['name'],
+    schema: schemaUpdateRentalGroup.refine(data => data.name.trim() !== rentalGroup.name, {
+      // message: 'Ingresa un nombre diferente al actual',
+      // path: ['name'],
     }),
+    // .transform(data => ({ name: data.name.trim() }))
     defaultValues: {
       name: rentalGroup.name,
     },
     mode: 'onChange',
   })
-  const { register, clearErrors } = useFormHook
+
+  const {
+    register,
+    clearErrors,
+    // setValue,
+  } = useFormHook
+
+  // const isSubmittingRef = useRef(false)
 
   const onSubmit: SubmitHandler<typeof schemaUpdateRentalGroup._type> = async data => {
+    // isSubmittingRef.current = true
     const res = await updateRentalGroup({ body: data, id: rentalGroup.id })
 
     handleResponse(res, {
       showSuccessToast: true,
     })
+
+    // isSubmittingRef.current = false
   }
 
   // RENDER
@@ -44,8 +60,11 @@ export function UpdateGroup() {
         <CustomInput
           useFormHook={useFormHook}
           register={register('name', {
+            setValueAs: (value: string) => value.trimStart(),
             onBlur() {
+              // setTimeout(() => {
               clearErrors()
+              // }, 0)
             },
           })}
         />
