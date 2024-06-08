@@ -28,7 +28,7 @@ export function UpdateGroup() {
 
   // RENDER
   return (
-    <div className='flex flex-col gap-y-6'>
+    <section className='flex flex-col gap-y-6' key={rentalGroup.name}>
       <div>
         <h3 className='text-lg font-bold'>Nombre de grupo</h3>
         <p>Identificador único entre tus grupos de consumo</p>
@@ -45,6 +45,6 @@ export function UpdateGroup() {
         />
         <HookFormButton useFormHook={useFormHook}>Renombrar</HookFormButton>
       </form>
-    </div>
+    </section>
   )
 }
