@@ -9,7 +9,7 @@ import { CreateRentalGroupRegisterBody } from '@/controllers/RentalGroupRegister
 export async function createGroupWithSessionCookie() {
   const temporalFormDataCookie = cookies().get(COOKIES_TEMPORAL_FORM_DATA)
 
-  if (!temporalFormDataCookie) return redirect(ROUTE.GROUPS.INDEX)
+  if (!temporalFormDataCookie) redirect(ROUTE.GROUPS.INDEX)
 
   const temporalFormData = JSON.parse(temporalFormDataCookie.value) as CreateRentalGroupRegisterBody
 
@@ -18,7 +18,7 @@ export async function createGroupWithSessionCookie() {
     return_participants: true,
   })
 
-  if (!res.ok) return redirect(ROUTE.GROUPS.INDEX)
+  if (!res.ok) redirect(ROUTE.GROUPS.INDEX)
 
   const resultsWithIds = temporalFormData.results.map((result, i) => ({
     ...result,

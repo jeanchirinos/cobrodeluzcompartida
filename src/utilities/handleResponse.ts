@@ -7,7 +7,7 @@ export function handleResponse<ResponseType extends PossibleResponse>(
   res: ResponseType,
   options?: Options<ResponseType>
 ) {
-  const { showSuccessToast = false, onSuccess, onError, showErrorToast = true } = options ?? {}
+  const { showSuccessToast = true, onSuccess, onError, showErrorToast = true } = options ?? {}
 
   if (!res) return
 

@@ -20,7 +20,6 @@ export function DeleteGroup() {
     const res = await deleteRentalGroup({ id })
 
     handleResponse(res, {
-      showSuccessToast: true,
       onSuccess() {
         push(ROUTE.GROUPS.INDEX)
       },

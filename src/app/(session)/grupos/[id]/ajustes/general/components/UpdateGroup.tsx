@@ -1,11 +1,12 @@
 'use client'
 
 import { updateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup'
-import { schemaUpdateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/schema'
+
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { useRentalGroupContext } from '../../../context/RentalGroupContext'
+import { schemaUpdateRentalGroupWithRefine } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup.schema'
 
 export function UpdateGroup() {
   // CONTEXT
@@ -13,18 +14,13 @@ export function UpdateGroup() {
 
   // HOOKS
   const { useFormHook, onSubmit } = useReactHookForm({
-    schema: schemaUpdateRentalGroup.refine(data => data.name.trim() !== rentalGroup.name),
+    schema: schemaUpdateRentalGroupWithRefine({ currentGroupName: rentalGroup.name }),
     defaultValues: {
       name: rentalGroup.name,
     },
     mode: 'onChange',
     action: data => updateRentalGroup({ body: data, id: rentalGroup.id }),
-    actionProps: {
-      showSuccessToast: true,
-    },
   })
-
-  const { register, clearErrors } = useFormHook
 
   // RENDER
   return (
@@ -36,12 +32,13 @@ export function UpdateGroup() {
       <form className='flex gap-4 max-sm:flex-col' onSubmit={onSubmit}>
         <CustomInput
           useFormHook={useFormHook}
-          register={register('name', {
+          name='name'
+          registerOptions={{
             setValueAs: (value: string) => value.trimStart(),
             onBlur() {
-              clearErrors()
+              useFormHook.clearErrors()
             },
-          })}
+          }}
         />
         <HookFormButton useFormHook={useFormHook}>Renombrar</HookFormButton>
       </form>

@@ -32,7 +32,7 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
       >
         Agregar participante
       </ButtonAction>
-      <ul className='flex gap-5'>
+      <ul className='flex gap-5 flex-wrap'>
         {participants.map(participant => (
           <li key={participant.id} className='flex flex-col gap-y-2 items-center'>
             <Image src={participant.avatar_url} alt={participant.alias} width={250} height={250} />
