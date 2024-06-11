@@ -1,4 +1,10 @@
-import { type ComponentProps, type ReactNode, type PropsWithChildren, useState } from 'react'
+import {
+  type ComponentProps,
+  type ReactNode,
+  type PropsWithChildren,
+  useState,
+  useEffect,
+} from 'react'
 import { type UseDialog } from './useDialog'
 import {
   Dialog as HeadlessDialog,
@@ -144,6 +150,12 @@ export function DialogFooter(props: DialogFooterProps) {
     dialog.close()
   }
 
+  useEffect(() => {
+    if (useFormHook?.formState.isSubmitSuccessful) {
+      dialog.close()
+    }
+  }, [useFormHook?.formState.isSubmitSuccessful, dialog])
+
   return (
     <footer {...restProps} className={cnx('px-6 gap-x-4 flex justify-end mt-4', props.className)}>
       {variant === '1' && (
@@ -176,8 +188,9 @@ export function DialogFooter(props: DialogFooterProps) {
           <HookFormButton
             {...mainButtonProps}
             useFormHook={useFormHook!}
-            onClick={() => {
-              useFormHook?.onSubmit()
+            onClick={async () => {
+              await useFormHook?.onSubmit()
+              // dialog.close()
             }}
           >
             {mainButtonProps?.children ?? 'Aceptar'}

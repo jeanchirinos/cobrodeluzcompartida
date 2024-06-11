@@ -21,10 +21,11 @@ export function useReactHookForm<T extends FieldValues>(props: UseReactHookFormP
     resolver: zodResolver(schema),
   })
 
+  // Reset form when defaultValues change
   useEffect(() => {
-    //TODO: Fix this
-    //@ts-ignore
-    useFormHook.reset(restProps.defaultValues)
+    useFormHook.reset(restProps.defaultValues as T)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restProps.defaultValues])
 
   const { isValid, isSubmitting, isDirty } = useFormHook.formState
