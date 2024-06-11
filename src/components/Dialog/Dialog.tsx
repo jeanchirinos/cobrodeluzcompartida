@@ -13,6 +13,7 @@ import { DialogContent } from './DialogContent'
 import { cnx } from '@/lib/utils'
 import { Button } from '@nextui-org/react'
 import { IconClose } from '@/icons'
+import { HookFormButton } from '../ReactForm/HookFormButton'
 
 interface Props extends PropsWithChildren {
   dialog: UseDialog
@@ -102,19 +103,35 @@ type DialogFooterProps = (
       variant: '1'
       dialog: UseDialog
       customHandleClick?: undefined
+      useFormHook?: undefined
       mainButtonProps?: undefined
     }
   | {
       variant: '2'
       dialog: UseDialog
       customHandleClick: () => void | Promise<void>
+      useFormHook?: undefined
       mainButtonProps?: ComponentProps<typeof Button>
+    }
+  | {
+      variant?: '3'
+      dialog: UseDialog
+      customHandleClick?: undefined
+      useFormHook: ComponentProps<typeof HookFormButton>['useFormHook']
+      mainButtonProps?: Omit<ComponentProps<typeof HookFormButton>, 'useFormHook'>
     }
 ) &
   ComponentProps<'footer'>
 
 export function DialogFooter(props: DialogFooterProps) {
-  const { variant = '1', dialog, customHandleClick, mainButtonProps, ...restProps } = props
+  const {
+    variant = '1',
+    dialog,
+    customHandleClick,
+    mainButtonProps,
+    useFormHook,
+    ...restProps
+  } = props
 
   const [isPending, setIsPending] = useState(false)
 
@@ -148,6 +165,23 @@ export function DialogFooter(props: DialogFooterProps) {
           <Button color='primary' isLoading={isPending} {...mainButtonProps} onClick={handleClick}>
             {mainButtonProps?.children ?? 'Aceptar'}
           </Button>
+        </>
+      )}
+
+      {variant === '3' && (
+        <>
+          <Button onPress={dialog?.close} variant='flat'>
+            Cancelar
+          </Button>
+          <HookFormButton
+            {...mainButtonProps}
+            useFormHook={useFormHook!}
+            onClick={() => {
+              useFormHook?.onSubmit()
+            }}
+          >
+            {mainButtonProps?.children ?? 'Aceptar'}
+          </HookFormButton>
         </>
       )}
     </footer>

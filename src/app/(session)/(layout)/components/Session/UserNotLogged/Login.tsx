@@ -1,13 +1,13 @@
 'use client'
 
-import { login } from '@/controllers/AuthController/login'
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { schemaLogin } from '@/controllers/AuthController/login/login.schema'
+import { login } from '@/controllers/AuthController/login/login'
 
 export function Login() {
-  const { useFormHook, onSubmit } = useReactHookForm({
+  const { useFormHook } = useReactHookForm({
     schema: schemaLogin,
     action: login,
     actionProps: {
@@ -17,7 +17,7 @@ export function Login() {
 
   // RENDER
   return (
-    <form className='flex max-w-xs flex-col gap-y-4' onSubmit={onSubmit}>
+    <form className='flex max-w-xs flex-col gap-y-4' onSubmit={useFormHook.onSubmit}>
       <CustomInput
         useFormHook={useFormHook}
         name='email'

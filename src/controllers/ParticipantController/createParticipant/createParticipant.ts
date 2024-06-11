@@ -5,12 +5,12 @@ import { sendData } from '@/utilities/actionRequest'
 import { z } from 'zod'
 import { schemaCreateParticipant } from './createParticipant.schema'
 
-type ArgsCreateRentalGroupFn = BodyCreateRentalGroup
+type ArgsCreateRentalGroupFn = BodyCreateParticipant
 
-type BodyCreateRentalGroup = z.infer<typeof schemaCreateParticipant>
+type BodyCreateParticipant = z.infer<typeof schemaCreateParticipant>
 
 export async function createParticipant(args: ArgsCreateRentalGroupFn) {
-  const data = await sendData<BodyCreateRentalGroup>({
+  const data = await sendData<BodyCreateParticipant>({
     url: API_ROUTE.PARTICIPANT.STORE,
     body: args,
     schema: schemaCreateParticipant,

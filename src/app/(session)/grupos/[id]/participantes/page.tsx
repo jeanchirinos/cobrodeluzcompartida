@@ -4,13 +4,14 @@ import { Suspense } from '@/components/other/CustomSuspense'
 import { createParticipant } from '@/controllers/ParticipantController/createParticipant/createParticipant'
 import { getParticipants } from '@/controllers/ParticipantController/getParticipants'
 import { CustomPageProps } from '@/types'
+import { UpdateParticipant } from './components/UpdateParticipant'
 
 type Props = CustomPageProps<'id'>
 
 export default function Page(props: Props) {
   return (
     <Suspense>
-      <Participants getParticipantsArgs={{ rentalGroupId: props.params.id }} />
+      <Participants getParticipantsArgs={{ rentalGroupId: Number(props.params.id) }} />
     </Suspense>
   )
 }
@@ -26,7 +27,7 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
     <div className='flex flex-col gap-y-6'>
       <ButtonAction
         action={createParticipant}
-        actionParameters={{ rental_group_id: rentalGroupId }}
+        actionParameters={{ rental_group_id: Number(rentalGroupId) }}
         color='primary'
         className='w-fit'
       >
@@ -37,6 +38,7 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
           <li key={participant.id} className='flex flex-col gap-y-2 items-center'>
             <Image src={participant.avatar_url} alt={participant.alias} width={250} height={250} />
             <p>{participant.alias}</p>
+            <UpdateParticipant participant={participant} />
           </li>
         ))}
       </ul>
