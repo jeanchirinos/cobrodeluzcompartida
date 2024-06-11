@@ -3,18 +3,18 @@
 import { API_ROUTE } from '@/constants/api-routes'
 import { sendData } from '@/utilities/actionRequest'
 import { z } from 'zod'
-import { createParticipantSchema } from './createParticipant.schema'
+import { schemaCreateParticipant } from './createParticipant.schema'
 
-type ArgsCreateRentalGroupFn = { body: BodyCreateRentalGroup }
+type ArgsCreateRentalGroupFn = BodyCreateRentalGroup
 
-type BodyCreateRentalGroup = z.infer<typeof createParticipantSchema>
+type BodyCreateRentalGroup = z.infer<typeof schemaCreateParticipant>
 
 export async function createParticipant(args: ArgsCreateRentalGroupFn) {
   const data = await sendData<BodyCreateRentalGroup>({
     url: API_ROUTE.PARTICIPANT.STORE,
-    body: args.body,
-    schema: createParticipantSchema,
-    revalidateTagParams: [API_ROUTE.PARTICIPANT.INDEX(args.body.rental_group_id)],
+    body: args,
+    schema: schemaCreateParticipant,
+    revalidateTagParams: [API_ROUTE.PARTICIPANT.INDEX(args.rental_group_id)],
   })
 
   return data

@@ -1,8 +1,8 @@
-import { z } from 'zod'
+import { schemaParticipant } from '@/models/Participant'
 
-export const createParticipantSchema = z.object({
-  rental_group_id: z.number(),
-  alias: z.string().optional(),
-  key: z.string().optional(),
-  avatar_url: z.string().optional(),
-})
+export const schemaCreateParticipant = schemaParticipant
+  .omit({ id: true, is_main: true })
+  .partial()
+  .extend({
+    rental_group_id: schemaParticipant.shape.id,
+  })

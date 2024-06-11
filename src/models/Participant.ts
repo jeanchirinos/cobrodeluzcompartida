@@ -1,7 +1,11 @@
-export type Participant = {
-  id: string
-  alias: string
-  key: string
-  is_main: boolean
-  avatar_url: string
-}
+import { z } from 'zod'
+
+export const schemaParticipant = z.object({
+  id: z.string(),
+  alias: z.string(),
+  key: z.string(),
+  is_main: z.boolean(),
+  avatar_url: z.string(),
+})
+
+export type Participant = z.infer<typeof schemaParticipant>

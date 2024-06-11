@@ -19,7 +19,7 @@ export function UpdateGroup() {
       name: rentalGroup.name,
     },
     mode: 'onChange',
-    action: data => updateRentalGroup({ body: data, id: rentalGroup.id }),
+    action: data => updateRentalGroup({ id: rentalGroup.id, ...data }),
   })
 
   // RENDER

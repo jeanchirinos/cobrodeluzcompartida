@@ -6,7 +6,7 @@ import { RentalGroup } from '@/models/RentalGroup'
 import { sendData } from '@/utilities/actionRequest'
 
 type ArgsUpdateRentalGroupRegisterFn = {
-  id: string
+  id: RentalGroup['id']
   participants: Participant[]
 } & RentalGroup
 

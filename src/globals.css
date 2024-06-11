@@ -10,5 +10,5 @@ html {
 /* To avoid background change when autocomplete */
 input:-webkit-autofill,
 input:-webkit-autofill:is(:hover, :focus, :active) {
-  transition: background-color 50000s ease-in-out 0s;
+  transition: background-color 100000s ease-in-out 0s;
 }

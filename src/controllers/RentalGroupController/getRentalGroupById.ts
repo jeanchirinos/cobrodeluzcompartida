@@ -3,7 +3,7 @@ import { getData } from '@/utilities/actionRequest'
 import { API_ROUTE } from '@/constants/api-routes'
 
 type ArgsGetRentalGroupByIdFn = {
-  id: string | number
+  id: RentalGroup['id']
 }
 
 type ResponseGetRentalGroupById = RentalGroup

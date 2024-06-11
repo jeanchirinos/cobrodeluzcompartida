@@ -2,7 +2,7 @@ import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
 import { ROUTE } from '@/routes'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { createRentalGroup } from '../createRentalGroup'
+import { createRentalGroup } from '../createRentalGroup/createRentalGroup'
 import { createRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister'
 import { CreateRentalGroupRegisterBody } from '@/controllers/RentalGroupRegisterController/utils/types'
 

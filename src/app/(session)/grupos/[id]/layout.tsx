@@ -7,7 +7,7 @@ import { type PagePropsParams } from '@/types'
 type Props = PropsWithChildren & PagePropsParams<'id'>
 
 export default async function Layout(props: Props) {
-  const getRentalGroupByIdResponse = await getRentalGroupById({ id: props.params.id })
+  const getRentalGroupByIdResponse = await getRentalGroupById({ id: Number(props.params.id) })
   const { rentalGroup } = getRentalGroupByIdResponse
 
   return (

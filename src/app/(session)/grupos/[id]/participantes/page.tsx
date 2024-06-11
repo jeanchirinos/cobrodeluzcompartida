@@ -26,7 +26,7 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
     <div className='flex flex-col gap-y-6'>
       <ButtonAction
         action={createParticipant}
-        actionParameters={{ body: { rental_group_id: Number(rentalGroupId) } }}
+        actionParameters={{ rental_group_id: rentalGroupId }}
         color='primary'
         className='w-fit'
       >

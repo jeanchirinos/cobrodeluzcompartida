@@ -1,10 +1,11 @@
 'use server'
 
 import { API_ROUTE } from '@/constants/api-routes'
+import { RentalGroup } from '@/models/RentalGroup'
 import { sendData } from '@/utilities/actionRequest'
 
 type ArgsDeleteRentalGroupFn = {
-  id: string
+  id: RentalGroup['id']
 }
 
 export async function deleteRentalGroup(args: ArgsDeleteRentalGroupFn) {

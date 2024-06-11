@@ -6,18 +6,17 @@ import { sendData } from '@/utilities/actionRequest'
 import { z } from 'zod'
 import { schemaUpdateRentalGroup } from './updateRentalGroup.schema'
 
-type ArgsUpdateRentalGroup = {
-  body: z.infer<typeof schemaUpdateRentalGroup>
+type ArgsUpdateRentalGroup = z.infer<typeof schemaUpdateRentalGroup> & {
   id: RentalGroup['id']
 }
 
 export async function updateRentalGroup(args: ArgsUpdateRentalGroup) {
-  const { id, body } = args
+  const { id, ...restArgs } = args
 
   return sendData({
     url: API_ROUTE.RENTAL_GROUP.UPDATE(id),
     schema: schemaUpdateRentalGroup,
-    body,
+    body: restArgs,
     revalidateTagParams: [API_ROUTE.RENTAL_GROUP.SHOW(id)],
     method: 'PUT',
   })

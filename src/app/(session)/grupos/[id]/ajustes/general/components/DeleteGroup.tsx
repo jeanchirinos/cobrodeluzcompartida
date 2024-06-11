@@ -17,7 +17,7 @@ export function DeleteGroup() {
   const deleteRentalGroupDialog = useDialog()
 
   async function customHandleClick() {
-    const res = await deleteRentalGroup({ id })
+    const res = await deleteRentalGroup({ id: Number(id) })
 
     handleResponse(res, {
       onSuccess() {

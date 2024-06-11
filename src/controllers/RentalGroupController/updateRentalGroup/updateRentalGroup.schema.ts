@@ -1,8 +1,7 @@
-import { z } from 'zod'
+import { RentalGroup, schemaRentalGroup } from '@/models/RentalGroup'
 
-export const schemaUpdateRentalGroup = z.object({
-  name: z.string().min(1, { message: 'Ingresa un nombre válido' }),
-})
+export const schemaUpdateRentalGroup = schemaRentalGroup.omit({ id: true })
 
-export const schemaUpdateRentalGroupWithRefine = (args: { currentGroupName: string }) =>
-  schemaUpdateRentalGroup.refine(data => data.name.trim() !== args.currentGroupName)
+export const schemaUpdateRentalGroupWithRefine = (args: {
+  currentGroupName: RentalGroup['name']
+}) => schemaUpdateRentalGroup.refine(data => data.name.trim() !== args.currentGroupName)
