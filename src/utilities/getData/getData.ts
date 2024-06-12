@@ -44,6 +44,7 @@ export async function newGetData(args: ArgsNewGetData) {
 
     const res = await fetch(newUrl, {
       ...config,
+      cache: config?.cache ?? 'no-store',
       headers: newHeaders,
     })
 
@@ -58,7 +59,7 @@ export async function newGetData(args: ArgsNewGetData) {
     })
   } catch (e) {
     const error = e as Error & { cause: { status: number } }
-    const { status } = error.cause
+    const { status } = error.cause ?? {}
 
     if (mode === 'null') {
       return null

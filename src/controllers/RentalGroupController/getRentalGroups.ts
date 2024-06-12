@@ -18,6 +18,7 @@ export async function getRentalGroups() {
         tags: [API_ROUTE.RENTAL_GROUP.INDEX],
       },
     },
+    mode: 'error-page',
   })
 
   return data
