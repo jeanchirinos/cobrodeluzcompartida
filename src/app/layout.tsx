@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from 'react'
 import '../globals.css'
 import { Providers } from './(providers)/providers'
-import { Analytics } from '@vercel/analytics/react'
+// import { Analytics } from '@vercel/analytics/react'
 import { Toaster } from '@/components/other/CustomToaster'
 import { ProgressBar } from '@/components/other/ProgressBar'
 import { font } from './font'
@@ -17,7 +17,7 @@ export default function RootLayout(props: Required<PropsWithChildren>) {
           <ProgressBar />
           <Toaster />
         </Providers>
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
     </html>
   )

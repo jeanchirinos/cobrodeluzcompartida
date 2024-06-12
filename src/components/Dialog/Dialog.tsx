@@ -56,12 +56,12 @@ export function Dialog(props: Props) {
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <HeadlessDialogPanel className='max-h-full rounded-2xl bg-content1 shadow-small max-w-md flex flex-col py-5 gap-y-4'>
+              <HeadlessDialogPanel className='flex max-h-full max-w-md flex-col gap-y-4 rounded-2xl bg-content1 py-5 shadow-small'>
                 <Button
                   onPress={dialog.close}
                   variant='light'
                   isIconOnly
-                  className='absolute top-0.5 right-0.5 data-[hover]:bg-default/40'
+                  className='absolute right-0.5 top-0.5 data-[hover]:bg-default/40'
                   radius='full'
                 >
                   <IconClose />
@@ -143,9 +143,7 @@ export function DialogFooter(props: DialogFooterProps) {
 
   async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setIsPending(true)
-    // await customHandleClick?.(e)
     await customHandleClick?.()
-    // formAction()
     setIsPending(false)
     dialog.close()
   }
@@ -157,7 +155,7 @@ export function DialogFooter(props: DialogFooterProps) {
   }, [useFormHook?.formState.isSubmitSuccessful, dialog])
 
   return (
-    <footer {...restProps} className={cnx('px-6 gap-x-4 flex justify-end mt-4', props.className)}>
+    <footer {...restProps} className={cnx('mt-4 flex justify-end gap-x-4 px-6', props.className)}>
       {variant === '1' && (
         <>
           <Button onPress={dialog?.close} variant='flat'>
@@ -190,7 +188,6 @@ export function DialogFooter(props: DialogFooterProps) {
             useFormHook={useFormHook!}
             onClick={async () => {
               await useFormHook?.onSubmit()
-              // dialog.close()
             }}
           >
             {mainButtonProps?.children ?? 'Aceptar'}

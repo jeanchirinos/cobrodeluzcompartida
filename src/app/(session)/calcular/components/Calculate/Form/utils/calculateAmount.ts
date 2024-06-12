@@ -36,7 +36,7 @@ export function getResult(params: Params): CreateRentalGroupRegisterBody {
       (
         (consumption_kwh * Number(kwh_price) + amountToBeAddedBeforeSubtotalWithIgv) * IGV +
         amountToAddAfterSubtotalWithIgv
-      ).toFixed(1)
+      ).toFixed(1),
     )
   }
 

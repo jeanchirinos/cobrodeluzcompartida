@@ -8,7 +8,7 @@ import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 
 export function Tabs() {
   const params = useParams()
-  const { id } = params as { id: string }
+  const { id: rentalGroupId } = params as { id: string }
 
   const selectedLayoutSegment = useSelectedLayoutSegment()
 
@@ -17,37 +17,37 @@ export function Tabs() {
       variant='underlined'
       aria-label='Opciones del grupo'
       selectedKey={selectedLayoutSegment}
-      className='overflow-x-auto max-w-full'
+      className='max-w-full overflow-x-auto'
     >
       <Tab
         key='registros'
         title={
-          <div className='flex gap-x-2 items-center'>
+          <div className='flex items-center gap-x-2'>
             <IconReceipt /> Registros
           </div>
         }
         as={Link}
-        href={ROUTE.GROUPS.REGISTERS(id)}
+        href={ROUTE.GROUPS.REGISTERS({ id: rentalGroupId })}
       />
       <Tab
         key='participantes'
         as={Link}
         title={
-          <div className='flex gap-x-2 items-center'>
+          <div className='flex items-center gap-x-2'>
             <IconParticipants /> Participantes
           </div>
         }
-        href={ROUTE.GROUPS.PARTICIPANTS(id)}
+        href={ROUTE.GROUPS.PARTICIPANTS({ id: rentalGroupId })}
       />
       <Tab
         key='ajustes'
         as={Link}
         title={
-          <div className='flex gap-x-2 items-center'>
+          <div className='flex items-center gap-x-2'>
             <IconSettings /> Ajustes
           </div>
         }
-        href={ROUTE.GROUPS.SETTINGS.GENERAL(id)}
+        href={ROUTE.GROUPS.SETTINGS.GENERAL({ id: rentalGroupId })}
       />
     </NextuiTabs>
   )

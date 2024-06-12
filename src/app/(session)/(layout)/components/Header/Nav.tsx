@@ -7,7 +7,7 @@ export async function Nav() {
   const session = await getSession()
 
   return (
-    <NavbarContent className='hidden sm:flex gap-x-4' justify='start'>
+    <NavbarContent className='hidden gap-x-4 sm:flex' justify='start'>
       {session ? (
         <HeaderLinkNavItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavItem>
       ) : (

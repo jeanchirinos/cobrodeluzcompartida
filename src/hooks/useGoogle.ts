@@ -33,7 +33,7 @@ export function useGoogle() {
       openedWindow.current = window.open(
         url,
         '_blank',
-        `width=${width}, height=${height}, top=${y}, left=${x}`
+        `width=${width}, height=${height}, top=${y}, left=${x}`,
       )
     }
 

@@ -10,7 +10,7 @@ export function Calculate() {
 
   return (
     <>
-      <section className='flex gap-14 lg:gap-x-16 max-md:flex-col'>
+      <section className='flex gap-14 max-md:flex-col lg:gap-x-16'>
         <Form setResult={setResult} />
         <Results result={result} />
       </section>

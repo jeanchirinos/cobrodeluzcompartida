@@ -14,7 +14,7 @@ type BodyUpdateRentalGroupRegister = ArgsUpdateRentalGroupRegisterFn
 
 export async function updateRentalGroupRegister(args: ArgsUpdateRentalGroupRegisterFn) {
   return sendData<BodyUpdateRentalGroupRegister, {}>({
-    url: API_ROUTE.RENTAL_GROUP_REGISTER.UPDATE(args.id),
+    url: API_ROUTE.RENTAL_GROUP_REGISTER.UPDATE({ id: args.id }),
     body: args,
     // revalidateTagParams: ['rental-group-register'],
   })

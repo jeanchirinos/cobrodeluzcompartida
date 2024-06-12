@@ -1,10 +1,10 @@
 import { ButtonAction } from '@/components/Button/ButtonAction'
 import { Image } from '@/components/Image'
 import { Menu, MenuContent, MenuSeparator, MenuTrigger } from '@/components/Menu'
-import { SessionLogged } from '@/controllers/AuthController/getSession'
+import { ResponseGetSession } from '@/controllers/AuthController/getSession'
 import { logout } from '@/controllers/AuthController/logout'
 
-type Props = { session: SessionLogged }
+type Props = { session: ResponseGetSession }
 
 export function UserLogged(props: Props) {
   const { session } = props
@@ -12,14 +12,7 @@ export function UserLogged(props: Props) {
   return (
     <Menu>
       <MenuTrigger>
-        <Image
-          src={session.image_url}
-          alt='Perfil'
-          width={32}
-          height={32}
-          className='rounded-full'
-          loading='eager'
-        />
+        <Image src={session.image_url} alt='Perfil' width={32} height={32} className='rounded-full' loading='eager' />
       </MenuTrigger>
       <MenuContent>
         <header className='flex flex-col px-4 py-2'>
@@ -27,13 +20,7 @@ export function UserLogged(props: Props) {
           <span className='text-xs'>{session.email}</span>
         </header>
         <MenuSeparator />
-        <ButtonAction
-          action={logout}
-          variant='light'
-          fullWidth
-          radius='none'
-          className='justify-start'
-        >
+        <ButtonAction action={logout} variant='light' fullWidth radius='none' className='justify-start'>
           Cerrar sesión
         </ButtonAction>
       </MenuContent>

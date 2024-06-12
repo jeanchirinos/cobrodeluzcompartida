@@ -37,8 +37,8 @@ export function MenuContent(props: MenuItemsProps) {
           gap: '0.5rem',
         }}
         className={cnx(
-          'flex flex-col rounded-md bg-content1 text-sm shadow-small z-50 w-fit',
-          props.className?.toString()
+          'z-50 flex w-fit flex-col rounded-md bg-content1 text-sm shadow-small',
+          props.className?.toString(),
         )}
       >
         {props.children}

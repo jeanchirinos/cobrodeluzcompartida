@@ -12,8 +12,8 @@ export default async function Layout(props: Props) {
 
   return (
     <RentalGroupProvider value={getRentalGroupByIdResponse}>
-      <main className='main-container space-y-6'>
-        <h1 className='font-bold text-2xl'>{rentalGroup?.name}</h1>
+      <main className='flex flex-col gap-y-6 main-container'>
+        <h1 className='text-2xl font-bold'>{rentalGroup?.name}</h1>
         <Tabs />
         {props.children}
       </main>

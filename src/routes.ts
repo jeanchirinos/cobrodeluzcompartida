@@ -11,10 +11,10 @@ const AUTH = {
 
 const GROUPS = {
   INDEX: '/grupos',
-  REGISTERS: (id: RouteId) => `/grupos/${id}/registros` as const,
-  PARTICIPANTS: (id: RouteId) => `/grupos/${id}/participantes` as const,
+  REGISTERS: ({ id }: { id: RouteId }) => `/grupos/${id}/registros` as const,
+  PARTICIPANTS: ({ id }: { id: RouteId }) => `/grupos/${id}/participantes` as const,
   SETTINGS: {
-    GENERAL: (id: RouteId) => `/grupos/${id}/ajustes/general` as const,
+    GENERAL: ({ id }: { id: RouteId }) => `/grupos/${id}/ajustes/general` as const,
   },
 } as const
 

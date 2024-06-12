@@ -11,7 +11,7 @@ export default async function Page() {
   if (session) redirect(ROUTE.GROUPS.INDEX)
 
   return (
-    <main className='main-container flex flex-col gap-y-10'>
+    <main className='flex flex-col gap-y-10 main-container'>
       <Suspense>
         <SessionWarning />
       </Suspense>

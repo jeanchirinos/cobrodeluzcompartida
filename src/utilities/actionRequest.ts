@@ -4,7 +4,7 @@ import { requestAll } from '@/utilities/request'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { cookies } from 'next/headers'
 import { ZodError, ZodRawShape, z } from 'zod'
-import { getFormEntries, redirectAfterUnauthorized } from './utilities'
+import { getFormEntries } from './utilities'
 
 // Types
 interface BaseConfig extends Omit<RequestInit, 'body'> {
@@ -18,65 +18,7 @@ interface NotNullableConfig extends BaseConfig {
   nullable?: false
 }
 
-interface NullableConfig extends BaseConfig {
-  nullable: true
-}
-
 type RequestParamsNotNullable = [url: Parameters<typeof fetch>['0'], config?: NotNullableConfig]
-type RequestParamsNullable = [url: Parameters<typeof fetch>['0'], config?: NullableConfig]
-
-export async function getData<Response>(...params: RequestParamsNotNullable): Promise<Response>
-export async function getData<Response>(...params: RequestParamsNullable): Promise<Response | null>
-
-//
-export async function getData<Response>(
-  ...params: RequestParamsNotNullable | RequestParamsNullable
-) {
-  const [url, config = {}] = params
-
-  const {
-    redirectIfUnauthorized = true,
-    nullable,
-    authIsOptional,
-    cache = 'no-store',
-    auth = true,
-  } = config
-
-  const headers: HeadersInit = {}
-
-  if (auth ?? authIsOptional) {
-    const jwt = cookies().get('jwt')
-
-    try {
-      if (!jwt && !authIsOptional) {
-        throw new Error('Sin token')
-      }
-    } catch (e) {
-      if (redirectIfUnauthorized) {
-        return redirectAfterUnauthorized()
-      }
-
-      if (nullable) return null
-
-      throw new Error('Error desconocido en obtención de token')
-    }
-
-    headers.Cookie = cookies().toString()
-  }
-
-  const myConfig = {
-    ...config,
-    redirectIfUnauthorized,
-    cache,
-    headers: { ...config.headers, ...headers },
-  }
-
-  if (nullable) {
-    return requestAll<Response>(url, { ...myConfig, nullable })
-  } else {
-    return requestAll<Response>(url, { ...myConfig, nullable })
-  }
-}
 
 export async function actionRequestPost<Response>(...params: RequestParamsNotNullable) {
   const [url, config = {}] = params

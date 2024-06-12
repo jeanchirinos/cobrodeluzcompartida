@@ -5,7 +5,7 @@ type PossibleResponse = { ok: boolean; msg: string; data: any }
 
 export function handleResponse<ResponseType extends PossibleResponse>(
   res: ResponseType,
-  options?: Options<ResponseType>
+  options?: Options<ResponseType>,
 ) {
   const { showSuccessToast = true, onSuccess, onError, showErrorToast = true } = options ?? {}
 

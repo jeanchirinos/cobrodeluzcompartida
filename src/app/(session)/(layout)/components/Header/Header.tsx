@@ -12,7 +12,7 @@ import { $NAV_MENU_TOGGLE } from '@/constants/elements'
 
 export function Header() {
   return (
-    <Navbar className='w-[1600px] mx-auto max-w-full' maxWidth='full'>
+    <Navbar className='mx-auto w-[1600px] max-w-full' maxWidth='full'>
       <NavbarContent className='!grow-0'>
         <NavbarMenuToggle
           id={$NAV_MENU_TOGGLE}
@@ -20,7 +20,7 @@ export function Header() {
           className='sm:hidden'
         />
         <NavbarBrand>
-          <Link href={ROUTE.HOME} className='flex gap-x-2 items-center font-bold text-inherit'>
+          <Link href={ROUTE.HOME} className='flex items-center gap-x-2 font-bold text-inherit'>
             <Logo />
             <span>CLC</span>
           </Link>

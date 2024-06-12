@@ -1,7 +1,6 @@
 'use client'
 
 import { updateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup'
-
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
@@ -32,7 +31,6 @@ export function UpdateGroup() {
           useFormHook={useFormHook}
           name='name'
           registerOptions={{
-            setValueAs: (value: string) => value.trimStart(),
             onBlur() {
               useFormHook.clearErrors()
             },

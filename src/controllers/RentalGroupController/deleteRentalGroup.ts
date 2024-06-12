@@ -10,7 +10,7 @@ type ArgsDeleteRentalGroupFn = {
 
 export async function deleteRentalGroup(args: ArgsDeleteRentalGroupFn) {
   return sendData({
-    url: API_ROUTE.RENTAL_GROUP.DESTROY(args.id),
+    url: API_ROUTE.RENTAL_GROUP.DESTROY({ id: args.id }),
     revalidateTagParams: [API_ROUTE.RENTAL_GROUP.INDEX],
     method: 'DELETE',
   })

@@ -9,7 +9,7 @@ export function Results(props: Props) {
   return (
     <section className='space-y-10'>
       <h3 className='text-large font-semibold'>Resultado</h3>
-      <Table removeWrapper aria-label='Tabla de resultado' className='w-full md:w-64 max-w-full'>
+      <Table removeWrapper aria-label='Tabla de resultado' className='w-full max-w-full md:w-64'>
         <TableHeader>
           <TableColumn>Participante</TableColumn>
           <TableColumn>Monto</TableColumn>

@@ -7,7 +7,7 @@ import { Button } from '@nextui-org/react'
 import { useParams, useRouter } from 'next/navigation'
 import { handleResponse } from '@/utilities/handleResponse'
 import { ROUTE } from '@/routes'
-import { useRentalGroupContext } from '../../../context/RentalGroupContext'
+import { useRentalGroupContext } from '@/app/(session)/grupos/[id]/context/RentalGroupContext'
 
 export function DeleteGroup() {
   const { id } = useParams<{ id: string }>()

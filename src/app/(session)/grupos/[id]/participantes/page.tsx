@@ -5,6 +5,7 @@ import { createParticipant } from '@/controllers/ParticipantController/createPar
 import { getParticipants } from '@/controllers/ParticipantController/getParticipants'
 import { CustomPageProps } from '@/types'
 import { UpdateParticipant } from './components/UpdateParticipant'
+import { IconCrown } from '@/icons'
 
 type Props = CustomPageProps<'id'>
 
@@ -33,11 +34,14 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
       >
         Agregar participante
       </ButtonAction>
-      <ul className='flex gap-5 flex-wrap'>
+      <ul className='flex flex-wrap gap-5'>
         {participants.map(participant => (
-          <li key={participant.id} className='flex flex-col gap-y-2 items-center'>
+          <li key={participant.id} className='flex flex-col items-center gap-y-2'>
             <Image src={participant.avatar_url} alt={participant.alias} width={250} height={250} />
-            <p>{participant.alias}</p>
+            <div className='flex items-center gap-x-1.5'>
+              {participant.is_main && <IconCrown className='fill-yellow-500' />}
+              <p>{participant.alias}</p>
+            </div>
             <UpdateParticipant participant={participant} />
           </li>
         ))}

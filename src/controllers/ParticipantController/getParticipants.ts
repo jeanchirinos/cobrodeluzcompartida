@@ -3,7 +3,7 @@
 import { API_ROUTE } from '@/constants/api-routes'
 import { Participant } from '@/models/Participant'
 import { RentalGroup } from '@/models/RentalGroup'
-import { getData } from '@/utilities/actionRequest'
+import { newGetData } from '@/utilities/getData/getData'
 
 type ArgsGetParticipantsFn = { rentalGroupId: RentalGroup['id'] }
 
@@ -12,14 +12,14 @@ export type ResponseGetParticipants = Participant[]
 export async function getParticipants(args: ArgsGetParticipantsFn) {
   const { rentalGroupId } = args
 
-  const participants = await getData<ResponseGetParticipants>(
-    API_ROUTE.PARTICIPANT.INDEX(rentalGroupId),
-    {
+  const participants = await newGetData<ResponseGetParticipants>({
+    url: API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId }),
+    config: {
       next: {
-        tags: [API_ROUTE.PARTICIPANT.INDEX(rentalGroupId)],
+        tags: [API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId })],
       },
-    }
-  )
+    },
+  })
 
   return { participants }
 }

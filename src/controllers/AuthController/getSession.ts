@@ -1,8 +1,9 @@
 'use server'
 
-import { getData } from '@/utilities/actionRequest'
+import { API_ROUTE } from '@/constants/api-routes'
+import { newGetData } from '@/utilities/getData/getData'
 
-export type SessionLogged = {
+export type ResponseGetSession = {
   auth: true
   image_url: string
   fullname: string
@@ -10,9 +11,10 @@ export type SessionLogged = {
 }
 
 export async function getSession() {
-  const data = await getData<SessionLogged>('session', {
-    redirectIfUnauthorized: false,
-    nullable: true,
+  const data = await newGetData<ResponseGetSession>({
+    url: API_ROUTE.AUTH.SESSION,
+    authMode: 'auth-no-auth',
+    mode: 'null',
   })
 
   return data

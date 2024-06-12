@@ -14,10 +14,10 @@ export async function updateRentalGroup(args: ArgsUpdateRentalGroup) {
   const { id, ...restArgs } = args
 
   return sendData({
-    url: API_ROUTE.RENTAL_GROUP.UPDATE(id),
+    url: API_ROUTE.RENTAL_GROUP.UPDATE({ id }),
     schema: schemaUpdateRentalGroup,
     body: restArgs,
-    revalidateTagParams: [API_ROUTE.RENTAL_GROUP.SHOW(id)],
+    revalidateTagParams: [API_ROUTE.RENTAL_GROUP.SHOW({ id })],
     method: 'PUT',
   })
 }

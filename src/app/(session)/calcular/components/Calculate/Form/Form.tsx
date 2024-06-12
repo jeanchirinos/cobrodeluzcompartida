@@ -40,7 +40,7 @@ export function Form(props: Props) {
   // RENDER
   return (
     <form
-      className='space-y-10 max-w-64'
+      className='max-w-64 space-y-10'
       id={$FORM_CALCULATE_ID}
       onChange={handleChange}
       onSubmit={handleSubmit}

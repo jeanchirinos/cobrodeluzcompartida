@@ -1,10 +1,23 @@
 import { RouteId } from '@/types'
 
-const INDEX_API_ROUTE = (base: string) => base
-const SHOW_API_ROUTE = (base: string) => (id: RouteId) => `${base}/${id}` as const
-const STORE_API_ROUTE = (base: string) => `${base}/store`
-const UPDATE_API_ROUTE = (base: string) => (id: RouteId) => `${base}/${id}/update` as const
-const DESTROY_API_ROUTE = (base: string) => (id: RouteId) => `${base}/${id}/destroy` as const
+const INDEX_API_ROUTE = ({ base }: { base: string }) => base
+
+const SHOW_API_ROUTE =
+  ({ base }: { base: string }) =>
+  ({ id }: { id: RouteId }) =>
+    `${base}/${id}` as const
+
+const STORE_API_ROUTE = ({ base }: { base: string }) => `${base}/store`
+
+const UPDATE_API_ROUTE =
+  ({ base }: { base: string }) =>
+  ({ id }: { id: RouteId }) =>
+    `${base}/${id}/update` as const
+
+const DESTROY_API_ROUTE =
+  ({ base }: { base: string }) =>
+  ({ id }: { id: RouteId }) =>
+    `${base}/${id}/destroy` as const
 
 //* AUTH
 
@@ -20,11 +33,11 @@ const AUTH = {
 const RENTAL_GROUP_BASE = 'rental-group'
 
 const RENTAL_GROUP = {
-  INDEX: INDEX_API_ROUTE(RENTAL_GROUP_BASE),
-  SHOW: SHOW_API_ROUTE(RENTAL_GROUP_BASE),
-  STORE: STORE_API_ROUTE(RENTAL_GROUP_BASE),
-  UPDATE: UPDATE_API_ROUTE(RENTAL_GROUP_BASE),
-  DESTROY: DESTROY_API_ROUTE(RENTAL_GROUP_BASE),
+  INDEX: INDEX_API_ROUTE({ base: RENTAL_GROUP_BASE }),
+  SHOW: SHOW_API_ROUTE({ base: RENTAL_GROUP_BASE }),
+  STORE: STORE_API_ROUTE({ base: RENTAL_GROUP_BASE }),
+  UPDATE: UPDATE_API_ROUTE({ base: RENTAL_GROUP_BASE }),
+  DESTROY: DESTROY_API_ROUTE({ base: RENTAL_GROUP_BASE }),
 }
 
 //* PARTICIPANT
@@ -32,11 +45,12 @@ const RENTAL_GROUP = {
 const PARTICIPANT_BASE = 'participant'
 
 const PARTICIPANT = {
-  INDEX: (id: RouteId) => `${INDEX_API_ROUTE(PARTICIPANT_BASE)}/rental_group_id/${id}`,
-  SHOW: SHOW_API_ROUTE(PARTICIPANT_BASE),
-  STORE: STORE_API_ROUTE(PARTICIPANT_BASE),
-  UPDATE: UPDATE_API_ROUTE(PARTICIPANT_BASE),
-  DESTROY: DESTROY_API_ROUTE(PARTICIPANT_BASE),
+  INDEX: ({ rentalGroupId }: { rentalGroupId: RouteId }) =>
+    `${INDEX_API_ROUTE({ base: PARTICIPANT_BASE })}/rental_group_id/${rentalGroupId}`,
+  SHOW: SHOW_API_ROUTE({ base: PARTICIPANT_BASE }),
+  STORE: STORE_API_ROUTE({ base: PARTICIPANT_BASE }),
+  UPDATE: UPDATE_API_ROUTE({ base: PARTICIPANT_BASE }),
+  DESTROY: DESTROY_API_ROUTE({ base: PARTICIPANT_BASE }),
 }
 
 //* RENTAL GROUP REGISTER
@@ -44,11 +58,11 @@ const PARTICIPANT = {
 const RENTAL_GROUP_REGISTER_BASE = 'rental-group-register'
 
 const RENTAL_GROUP_REGISTER = {
-  INDEX: INDEX_API_ROUTE(RENTAL_GROUP_REGISTER_BASE),
-  SHOW: SHOW_API_ROUTE(RENTAL_GROUP_REGISTER_BASE),
-  STORE: STORE_API_ROUTE(RENTAL_GROUP_REGISTER_BASE),
-  UPDATE: UPDATE_API_ROUTE(RENTAL_GROUP_REGISTER_BASE),
-  DESTROY: DESTROY_API_ROUTE(RENTAL_GROUP_REGISTER_BASE),
+  INDEX: INDEX_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE }),
+  SHOW: SHOW_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE }),
+  STORE: STORE_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE }),
+  UPDATE: UPDATE_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE }),
+  DESTROY: DESTROY_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE }),
 }
 
 // EXPORT

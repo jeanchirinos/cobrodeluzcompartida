@@ -16,10 +16,10 @@ export async function updateParticipant(args: ArgsUpdateRentalGroup) {
   const { rentalGroupId, id, ...restArgs } = args
 
   return sendData({
-    url: API_ROUTE.PARTICIPANT.UPDATE(id),
+    url: API_ROUTE.PARTICIPANT.UPDATE({ id }),
     schema: schemaUpdateParticipant,
     body: restArgs,
-    revalidateTagParams: [API_ROUTE.PARTICIPANT.INDEX(rentalGroupId)],
+    revalidateTagParams: [API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId })],
     method: 'PUT',
   })
 }

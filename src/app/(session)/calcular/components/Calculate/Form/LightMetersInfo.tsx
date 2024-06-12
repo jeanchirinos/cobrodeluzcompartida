@@ -34,7 +34,7 @@ export function LightMetersInfo() {
               type='number'
               endContent='kWh'
               label={
-                <div className='flex space-x-3 items-center h-8'>
+                <div className='flex h-8 items-center space-x-3'>
                   <span>Consumo {item}</span>
                   {consumptions.length > 1 && (
                     <Button

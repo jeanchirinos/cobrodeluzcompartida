@@ -19,8 +19,8 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <header className='flex justify-between items-center gap-y-6 flex-wrap'>
-        <section className='flex gap-x-2 flex-wrap'>
+      <header className='flex flex-wrap items-end justify-between gap-y-6'>
+        <section className='flex flex-wrap gap-x-2'>
           <Select label='Año' className='w-[12rem] max-w-full' options={['2024', '2023']} />
           <Select
             label='Mes'

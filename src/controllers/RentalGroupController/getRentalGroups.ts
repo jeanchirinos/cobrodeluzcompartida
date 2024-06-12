@@ -3,7 +3,7 @@
 import { API_ROUTE } from '@/constants/api-routes'
 import { Participant } from '@/models/Participant'
 import { RentalGroup } from '@/models/RentalGroup'
-import { getData } from '@/utilities/actionRequest'
+import { newGetData } from '@/utilities/getData/getData'
 
 type ResponseGetRentalGroups = (RentalGroup & {
   n_participant: string
@@ -11,9 +11,12 @@ type ResponseGetRentalGroups = (RentalGroup & {
 })[]
 
 export async function getRentalGroups() {
-  const data = await getData<ResponseGetRentalGroups>(API_ROUTE.RENTAL_GROUP.INDEX, {
-    next: {
-      tags: [API_ROUTE.RENTAL_GROUP.INDEX],
+  const data = await newGetData<ResponseGetRentalGroups>({
+    url: API_ROUTE.RENTAL_GROUP.INDEX,
+    config: {
+      next: {
+        tags: [API_ROUTE.RENTAL_GROUP.INDEX],
+      },
     },
   })
 

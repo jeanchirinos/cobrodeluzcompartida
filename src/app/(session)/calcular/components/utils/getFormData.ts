@@ -16,7 +16,7 @@ export function getFormData() {
     }))
 
   const billDataPropsArray = Array.from(formData).filter(
-    ([key, value]) => !key.startsWith('participant_consumption_')
+    ([key, value]) => !key.startsWith('participant_consumption_'),
   )
 
   const billData = Object.fromEntries(billDataPropsArray)

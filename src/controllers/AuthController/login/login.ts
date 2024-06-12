@@ -9,7 +9,7 @@ import { schemaLogin } from './login.schema'
 
 type ArgsLoginFn = z.infer<typeof schemaLogin>
 
-type BodyLogin = z.infer<typeof schemaLogin>
+type BodyLogin = ArgsLoginFn
 type ResponseLogin = { token: string }
 
 export async function login(args: ArgsLoginFn) {

@@ -7,5 +7,5 @@ import { forwardRef } from 'react'
 type Props = React.ComponentProps<typeof NextuiLink>
 
 export const Link = forwardRef<HTMLAnchorElement, Props>(function Link(props, ref) {
-  return <NextuiLink as={NextLink} ref={ref} color='foreground' {...props} />
+  return <NextuiLink color='foreground' {...props} as={NextLink} ref={ref} />
 })

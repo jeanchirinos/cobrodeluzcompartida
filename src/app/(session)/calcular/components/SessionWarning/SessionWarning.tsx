@@ -5,12 +5,12 @@ import { SaveButton } from './SaveButton'
 export async function SessionWarning() {
   const session = await getSession()
 
-  if (session) return null
+  if (session) return <></>
 
   return (
-    <div className='sticky top-16 z-30 bg-background w-fit'>
-      <Chip color='warning' variant='flat' className='p-2 whitespace-normal h-fit' radius='sm'>
-        <div className='flex gap-2.5 flex-wrap items-center'>
+    <div className='sticky top-16 z-30 w-fit bg-background'>
+      <Chip color='warning' variant='flat' className='h-fit whitespace-normal p-2' radius='sm'>
+        <div className='flex flex-wrap items-center gap-2.5'>
           <span>
             Estos son resultados temporales, guarda los datos e inicia sesión para no perderlos
           </span>
