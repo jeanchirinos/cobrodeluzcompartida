@@ -1,6 +1,5 @@
 'use server'
 
-import { sendData } from '@/utilities/actionRequest'
 import { z } from 'zod'
 
 export async function deleteRentalGroupRegister(prevState: any, formData: FormData) {
@@ -8,10 +7,10 @@ export async function deleteRentalGroupRegister(prevState: any, formData: FormDa
     id: z.string(),
   })
 
-  return sendData({
-    url: `rental-group-register-delete/${formData.get('id')}`,
-    schema,
-    body: formData,
-    revalidateTagParams: ['rental-group-register'],
-  })
+  // return sendData({
+  //   url: `rental-group-register-delete/${formData.get('id')}`,
+  //   schema,
+  //   body: formData,
+  //   revalidateTagParams: ['rental-group-register'],
+  // })
 }

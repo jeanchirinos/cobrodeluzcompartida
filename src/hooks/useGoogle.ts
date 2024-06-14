@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { API_ROUTE } from '@/constants/api-routes'
 import { udpdateGoogleSession } from '@/controllers/AuthController/udpdateGoogleSession'
-import { getApiUrl } from '@/utilities/request'
+import { getApiUrl } from '@/utilities/env-variables/get'
 
 export function useGoogle() {
   // EFFECT
@@ -30,11 +30,7 @@ export function useGoogle() {
       const x = outerWidth / 2 + screenX - width / 2
       const y = outerHeight / 2 + screenY - height / 2
 
-      openedWindow.current = window.open(
-        url,
-        '_blank',
-        `width=${width}, height=${height}, top=${y}, left=${x}`,
-      )
+      openedWindow.current = window.open(url, '_blank', `width=${width}, height=${height}, top=${y}, left=${x}`)
     }
 
     popupWindow({

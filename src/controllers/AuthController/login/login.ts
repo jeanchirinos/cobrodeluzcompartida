@@ -1,11 +1,11 @@
 'use server'
 
-import { sendData } from '@/utilities/actionRequest'
 import { z } from 'zod'
 import { createAuthToken } from '../utils/createAuthToken'
 import { createGroupWithSessionCookie } from '../../RentalGroupController/utils/createRentalGroupWithSessionCookie'
 import { API_ROUTE } from '@/constants/api-routes'
 import { schemaLogin } from './login.schema'
+import { newSendData } from '@/utilities/request/sendData/sendData'
 
 type ArgsLoginFn = z.infer<typeof schemaLogin>
 
@@ -18,11 +18,15 @@ export async function login(args: ArgsLoginFn) {
     await createGroupWithSessionCookie()
   }
 
-  return sendData<BodyLogin, ResponseLogin>({
+  return newSendData<BodyLogin, ResponseLogin>({
     url: API_ROUTE.AUTH.LOGIN,
-    schema: schemaLogin,
-    body: args,
-    onSuccess,
-    auth: false,
+    config: {
+      body: args,
+    },
+    options: {
+      schema: schemaLogin,
+      onSuccess,
+    },
+    authMode: 'auth-no-auth',
   })
 }

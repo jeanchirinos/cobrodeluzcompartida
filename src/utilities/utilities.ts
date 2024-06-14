@@ -1,6 +1,4 @@
-import { ROUTE } from '@/routes'
-import { redirect } from 'next/navigation'
-import { getApiUrl } from './request'
+import { getApiUrl } from './env-variables/get'
 
 /** Simulate a delay for async operations */
 export async function waitFor(seconds: number) {
@@ -9,10 +7,6 @@ export async function waitFor(seconds: number) {
 
 export function getFormEntries(formData: FormData) {
   return Object.fromEntries(formData.entries())
-}
-
-export function redirectAfterUnauthorized() {
-  return redirect(ROUTE.HOME)
 }
 
 export function getUrlWithSearchParams<T extends Record<string, string>>(args: {

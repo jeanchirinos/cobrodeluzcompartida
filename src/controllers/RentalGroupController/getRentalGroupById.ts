@@ -18,7 +18,7 @@ export async function getRentalGroupById(args: ArgsGetRentalGroupByIdFn) {
         tags: [API_ROUTE.RENTAL_GROUP.SHOW({ id })],
       },
     },
-    // mode: 'error-page',
+    mode: 'error-page',
   })
 
   return { rentalGroup }
