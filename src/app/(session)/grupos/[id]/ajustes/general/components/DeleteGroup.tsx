@@ -33,12 +33,7 @@ export function DeleteGroup() {
         <h3 className='text-lg font-bold'>Eliminar grupo</h3>
         <p>El proyecto se eliminará permanentemente, incluyendo sus registros.</p>
       </div>
-      <Button
-        onClick={deleteRentalGroupDialog.open}
-        className='w-fit'
-        color='danger'
-        variant='flat'
-      >
+      <Button onClick={deleteRentalGroupDialog.open} className='w-fit' color='danger' variant='flat'>
         Eliminar
       </Button>
       <Dialog dialog={deleteRentalGroupDialog} dialogTitle='Eliminar grupo'>

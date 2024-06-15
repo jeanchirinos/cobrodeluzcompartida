@@ -4,21 +4,25 @@ import { z } from 'zod'
 type Config<Body> = Omit<RequestInit, 'body'> &
   (Body extends object ? { body: Body } : { body?: Body }) & { method?: 'POST' | 'PUT' | 'DELETE' }
 
-export type DefaultArgs<Body, Response> = {
+export type DefaultArgs<Response, Body> = {
   url: string | URL
   config?: Config<Body>
   mode?: 'default' | 'null' | 'error-page'
   /**
-   * - auth-required: Requires a token
-   * - auth-not-required: Doesn't require a token
-   * - auth-no-auth: Petition can work with/without a token
+   * Determines the authentication mode of the petition.
+   *
+   * - `'auth-required'`: Requires a token. **(Default)**
+   * - `'auth-not-required'`: Doesn't require a token.
+   * - `'auth-no-auth'`: Petition can work with/without a token.
+   *
    */
   authMode?: 'auth-required' | 'auth-not-required' | 'auth-no-auth'
   options?: {
-    schema?: z.ZodObject<ZodRawShape> | z.ZodEffects<any>
+    schema?: z.ZodType<Body>
     revalidateTagParams?: Parameters<typeof revalidateTag>
     revalidatePathParams?: Parameters<typeof revalidatePath>
     onSuccess?: (data: Response) => Promise<void> | void
+    responseSchema?: z.ZodType<Response>
   }
 }
 

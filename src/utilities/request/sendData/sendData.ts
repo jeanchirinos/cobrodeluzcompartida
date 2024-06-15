@@ -1,6 +1,5 @@
 'use server'
 
-import { ZodError } from 'zod'
 import { getHeaders, getUrl } from '../getUrlAndHeaders'
 import { DefaultArgs } from './types'
 import { getFormEntries } from '@/utilities/utilities'
@@ -17,39 +16,25 @@ type CustomResponse<Response> = { msg: string } & (
     }
 )
 
-// export async function newSendData<Response>(
-//   args: DefaultArgs,
-// ): Promise<CustomResponse<Response>>
-// export async function newSendData<Response>(args: DefaultArgs & ArgsNewGetDataModeNull): Promise<Response | null>
-// export async function newSendData<Response>(args: DefaultArgs & ArgsNewGetDataModeErrorPage): Promise<Response>
-
-// export async function newSendData(args: ArgsNewGetData) {
-export async function newSendData<Body = unknown, Response = unknown>(
-  args: DefaultArgs<Body, Response>,
+export async function newSendData<Response = unknown, Body = unknown>(
+  args: DefaultArgs<Response, Body>,
 ): Promise<CustomResponse<Response>> {
   const { url, config, authMode = 'auth-required', options } = args
-
   const { schema, onSuccess, revalidatePathParams, revalidateTagParams } = options ?? {}
-
   const { body, method = 'POST' } = config ?? {}
-  //
 
   if (body && schema) {
     const dataToValidate = body instanceof FormData ? getFormEntries(body) : body
 
-    try {
-      schema.parse(dataToValidate)
-    } catch (e) {
-      const error = e as ZodError
+    const validationResult = schema.safeParse(dataToValidate)
+
+    if (!validationResult.success) {
+      const error = validationResult.error
       const message = `${error.issues[0].path[0]} : ${error.issues[0].message}`
 
       return { ok: false, msg: message, data: null }
     }
-
-    // return { ok: false, msg: 'Error en la validación de datos', data: null }
   }
-
-  //
 
   const newUrl = await getUrl({ url })
 
@@ -96,7 +81,6 @@ export async function newSendData<Body = unknown, Response = unknown>(
     }
   }
 
-  //  if (res.ok) {
   const response = await res.json()
 
   let customResponse = {
@@ -110,7 +94,7 @@ export async function newSendData<Body = unknown, Response = unknown>(
   }
 
   if (onSuccess) {
-    onSuccess(customResponse.data)
+    await onSuccess(customResponse.data)
   }
 
   if (revalidatePathParams) {
@@ -122,5 +106,4 @@ export async function newSendData<Body = unknown, Response = unknown>(
   }
 
   return customResponse
-  //  }
 }

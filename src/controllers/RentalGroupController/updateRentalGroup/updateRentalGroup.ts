@@ -10,12 +10,10 @@ type ArgsUpdateRentalGroup = z.infer<typeof schemaUpdateRentalGroup> & {
   id: RentalGroup['id']
 }
 
-type BodyUpdateRentalGroup = z.infer<typeof schemaUpdateRentalGroup>
-
 export async function updateRentalGroup(args: ArgsUpdateRentalGroup) {
   const { id, ...restArgs } = args
 
-  return newSendData<BodyUpdateRentalGroup>({
+  return newSendData({
     url: API_ROUTE.RENTAL_GROUP.UPDATE({ id }),
     config: {
       body: restArgs,

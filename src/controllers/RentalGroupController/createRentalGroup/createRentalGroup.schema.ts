@@ -8,3 +8,4 @@ export const schemaCreateRentalGroup = schemaRentalGroup
     return_participants: z.boolean(),
   })
   .partial()
+// .optional()

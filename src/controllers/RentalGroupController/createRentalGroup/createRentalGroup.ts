@@ -5,20 +5,24 @@ import { ROUTE } from '@/routes'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { schemaCreateRentalGroup } from './createRentalGroup.schema'
-import { RentalGroup } from '@/models/RentalGroup'
-import { Participant } from '@/models/Participant'
+import { RentalGroup, schemaRentalGroup } from '@/models/RentalGroup'
+import { Participant, schemaParticipant } from '@/models/Participant'
 import { newSendData } from '@/utilities/request/sendData/sendData'
 
-type ArgsCreateRentalGroupFn = z.infer<typeof schemaCreateRentalGroup> | undefined
+type ArgsCreateRentalGroupFn = z.infer<typeof schemaCreateRentalGroup>
 
-type BodyCreateRentalGroup = ArgsCreateRentalGroupFn
 type ResponseCreateRentalGroup = {
   rental_group_id: RentalGroup['id']
   participants_ids: Participant['id'][]
 }
 
+// const schemaCreateRentalGroupResponse = z.object({
+//   rental_group_id: schemaRentalGroup.shape.id,
+//   participants_ids: z.array(schemaParticipant.shape.id),
+// })
+
 export async function createRentalGroup(args?: ArgsCreateRentalGroupFn) {
-  const data = await newSendData<BodyCreateRentalGroup, ResponseCreateRentalGroup>({
+  const data = await newSendData<ResponseCreateRentalGroup>({
     url: API_ROUTE.RENTAL_GROUP.STORE,
     config: {
       body: args,
@@ -28,6 +32,7 @@ export async function createRentalGroup(args?: ArgsCreateRentalGroupFn) {
       onSuccess(data) {
         redirect(ROUTE.GROUPS.REGISTERS({ id: data.rental_group_id }))
       },
+      // responseSchema: schemaCreateRentalGroupResponse,
       revalidateTagParams: [API_ROUTE.RENTAL_GROUP.INDEX],
     },
   })

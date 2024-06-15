@@ -9,7 +9,6 @@ import { newSendData } from '@/utilities/request/sendData/sendData'
 
 type ArgsLoginFn = z.infer<typeof schemaLogin>
 
-type BodyLogin = ArgsLoginFn
 type ResponseLogin = { token: string }
 
 export async function login(args: ArgsLoginFn) {
@@ -18,7 +17,7 @@ export async function login(args: ArgsLoginFn) {
     await createGroupWithSessionCookie()
   }
 
-  return newSendData<BodyLogin, ResponseLogin>({
+  return newSendData<ResponseLogin>({
     url: API_ROUTE.AUTH.LOGIN,
     config: {
       body: args,

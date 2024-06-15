@@ -18,32 +18,33 @@ export async function createGroupWithSessionCookie() {
     return_participants: true,
   })
 
-  if (!res.ok) redirect(ROUTE.GROUPS.INDEX)
+  // if (!res.ok) redirect(ROUTE.GROUPS.INDEX)
+  console.log('HERE')
 
-  const resultsWithIds = temporalFormData.results.map((result, i) => ({
-    ...result,
-    participant: {
-      id: res.data.participants_ids[i].toString(),
-    },
-  }))
+  // const resultsWithIds = temporalFormData.results.map((result, i) => ({
+  //   ...result,
+  //   participant: {
+  //     id: res.data.participants_ids[i].toString(),
+  //   },
+  // }))
 
-  const formDataToCreateRentalGroupRegister = structuredClone(temporalFormData)
-  formDataToCreateRentalGroupRegister.results = resultsWithIds
+  // const formDataToCreateRentalGroupRegister = structuredClone(temporalFormData)
+  // formDataToCreateRentalGroupRegister.results = resultsWithIds
 
-  if (res.ok) {
-    const response = await createRentalGroupRegister({
-      body: formDataToCreateRentalGroupRegister,
-      rentalGroupId: res.data.rental_group_id,
-    })
+  // if (res.ok) {
+  //   const response = await createRentalGroupRegister({
+  //     body: formDataToCreateRentalGroupRegister,
+  //     rentalGroupId: res.data.rental_group_id,
+  //   })
 
-    cookies().delete(COOKIES_TEMPORAL_FORM_DATA)
+  //   cookies().delete(COOKIES_TEMPORAL_FORM_DATA)
 
-    if (response.ok) {
-      redirect(ROUTE.GROUPS.REGISTERS({ id: res.data.rental_group_id }))
-    } else {
-      redirect(ROUTE.GROUPS.INDEX)
-    }
-  } else {
-    redirect(ROUTE.GROUPS.INDEX)
-  }
+  //   if (response.ok) {
+  //     redirect(ROUTE.GROUPS.REGISTERS({ id: res.data.rental_group_id }))
+  //   } else {
+  //     redirect(ROUTE.GROUPS.INDEX)
+  //   }
+  // } else {
+  //   redirect(ROUTE.GROUPS.INDEX)
+  // }
 }

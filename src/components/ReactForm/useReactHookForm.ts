@@ -15,23 +15,29 @@ export type UseReactHookFormProps<T extends FieldValues> = {
 export function useReactHookForm<T extends FieldValues>(props: UseReactHookFormProps<T>) {
   const { schema, action, actionProps, ...restProps } = props
 
+  // HOOKS
   const useFormHook = useForm<T>({
     mode: 'onTouched',
     ...restProps,
     resolver: zodResolver(schema),
   })
 
+  const { formState, reset } = useFormHook
+  const { isValid, isSubmitting, isDirty } = formState
+
+  // EFFECTS
+
   // Reset form when defaultValues change
   useEffect(() => {
-    useFormHook.reset(restProps.defaultValues as T)
+    reset(restProps.defaultValues as T)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restProps.defaultValues])
 
-  const { isValid, isSubmitting, isDirty } = useFormHook.formState
-
+  // VALUES
   const disabled = !isValid || isSubmitting || !isDirty
 
+  // FUNCTIONS
   const onSubmit: SubmitHandler<T> = async data => {
     if (!action) return
     if (disabled) return
@@ -41,6 +47,7 @@ export function useReactHookForm<T extends FieldValues>(props: UseReactHookFormP
     handleResponse(res, actionProps)
   }
 
+  // RETURN
   return {
     useFormHook: { ...useFormHook, onSubmit: useFormHook.handleSubmit(onSubmit) },
   }
