@@ -32,8 +32,8 @@ export async function createRentalGroup(args?: ArgsCreateRentalGroupFn) {
       onSuccess(data) {
         redirect(ROUTE.GROUPS.REGISTERS({ id: data.rental_group_id }))
       },
-      // responseSchema: schemaCreateRentalGroupResponse,
       revalidateTagParams: [API_ROUTE.RENTAL_GROUP.INDEX],
+      // responseSchema: schemaCreateRentalGroupResponse,
     },
   })
 

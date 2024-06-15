@@ -24,6 +24,7 @@ export async function newSendData<Response = unknown, Body extends ZodType = Zod
   const { schema, onSuccess, revalidatePathParams, revalidateTagParams } = options ?? {}
   const { body, method = 'POST' } = config ?? {}
 
+  // VALIDATIONS BEFORE REQUEST
   if (body && schema) {
     const dataToValidate = body instanceof FormData ? getFormEntries(body) : body
 
@@ -37,6 +38,7 @@ export async function newSendData<Response = unknown, Body extends ZodType = Zod
     }
   }
 
+  // REQUEST CONFIG
   const newUrl = await getUrl({ url })
 
   const headers = new Headers(config?.headers)
@@ -55,7 +57,8 @@ export async function newSendData<Response = unknown, Body extends ZodType = Zod
 
   try {
     const newHeaders = await getHeaders({ headers, authMode })
-
+    
+    // REQUEST
     res = await fetch(newUrl, {
       ...config,
       headers: newHeaders,
@@ -82,6 +85,7 @@ export async function newSendData<Response = unknown, Body extends ZodType = Zod
     }
   }
 
+  // RESPONSE OK
   const response = await res.json()
 
   let customResponse = {
@@ -106,5 +110,6 @@ export async function newSendData<Response = unknown, Body extends ZodType = Zod
     revalidateTag(...revalidateTagParams)
   }
 
+  // RETURN
   return customResponse
 }
