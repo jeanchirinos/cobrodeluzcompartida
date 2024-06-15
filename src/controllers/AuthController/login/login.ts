@@ -17,7 +17,7 @@ export async function login(args: ArgsLoginFn) {
     await createGroupWithSessionCookie()
   }
 
-  return newSendData<ResponseLogin>({
+  return newSendData<ResponseLogin, typeof schemaLogin>({
     url: API_ROUTE.AUTH.LOGIN,
     config: {
       body: args,

@@ -1,5 +1,6 @@
 'use server'
 
+import { ZodType } from 'zod'
 import { getHeaders, getUrl } from '../getUrlAndHeaders'
 import { DefaultArgs } from './types'
 import { getFormEntries } from '@/utilities/utilities'
@@ -16,7 +17,7 @@ type CustomResponse<Response> = { msg: string } & (
     }
 )
 
-export async function newSendData<Response = unknown, Body = unknown>(
+export async function newSendData<Response = unknown, Body extends ZodType = ZodType>(
   args: DefaultArgs<Response, Body>,
 ): Promise<CustomResponse<Response>> {
   const { url, config, authMode = 'auth-required', options } = args

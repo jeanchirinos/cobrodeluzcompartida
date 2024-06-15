@@ -6,7 +6,7 @@ type Config<Body> = Omit<RequestInit, 'body'> &
 
 export type DefaultArgs<Response, Body> = {
   url: string | URL
-  config?: Config<Body>
+  config?: Config<z.infer<Body>>
   mode?: 'default' | 'null' | 'error-page'
   /**
    * Determines the authentication mode of the petition.
@@ -18,7 +18,7 @@ export type DefaultArgs<Response, Body> = {
    */
   authMode?: 'auth-required' | 'auth-not-required' | 'auth-no-auth'
   options?: {
-    schema?: z.ZodType<Body>
+    schema?: Body
     revalidateTagParams?: Parameters<typeof revalidateTag>
     revalidatePathParams?: Parameters<typeof revalidatePath>
     onSuccess?: (data: Response) => Promise<void> | void

@@ -22,7 +22,7 @@ type ResponseCreateRentalGroup = {
 // })
 
 export async function createRentalGroup(args?: ArgsCreateRentalGroupFn) {
-  const data = await newSendData<ResponseCreateRentalGroup>({
+  const data = await newSendData<ResponseCreateRentalGroup, typeof schemaCreateRentalGroup>({
     url: API_ROUTE.RENTAL_GROUP.STORE,
     config: {
       body: args,
