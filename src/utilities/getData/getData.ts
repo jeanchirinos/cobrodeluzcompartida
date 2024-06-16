@@ -4,9 +4,9 @@ import { notFound, redirect } from 'next/navigation'
 import { ROUTE } from '@/routes'
 import { getHeaders, getUrl } from '../request/getUrlAndHeaders'
 
-export async function newGetData<Response>(args: DefaultArgs & { mode: 'default' }): Promise<Response>
-export async function newGetData<Response>(args: DefaultArgs & { mode: 'null' }): Promise<Response | null>
-export async function newGetData<Response>(args: DefaultArgs & { mode: 'error-page' }): Promise<Response>
+export async function newGetData<Response>(args: DefaultArgs & { mode?: 'default' }): Promise<Response>
+export async function newGetData<Response>(args: DefaultArgs & { mode?: 'null' }): Promise<Response | null>
+export async function newGetData<Response>(args: DefaultArgs & { mode?: 'error-page' }): Promise<Response>
 
 export async function newGetData(args: DefaultArgs) {
   const { mode = 'default', url, config, authMode = 'auth-required' } = args
