@@ -1,6 +1,6 @@
 import { RentalGroup } from '@/models/RentalGroup'
 import { API_ROUTE } from '@/constants/api-routes'
-import { newGetData } from '@/utilities/getData/getData'
+import { newGetData } from '@/utilities/request/getData/getData'
 
 type ArgsGetRentalGroupByIdFn = {
   id: RentalGroup['id']

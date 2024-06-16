@@ -1,7 +1,7 @@
 import { getSession } from '@/controllers/AuthController/getSession'
 import { NavbarContent } from '@nextui-org/react'
 import { HeaderLinkNavItem } from './HeaderLink'
-import { ROUTE } from '@/routes'
+import { ROUTE } from '@/constants/routes'
 
 export async function Nav() {
   const session = await getSession()

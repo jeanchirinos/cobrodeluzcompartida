@@ -1,4 +1,4 @@
-import { RouteId } from './types'
+import { RouteId } from '@/types'
 
 const ROOT = {
   HOME: '/',

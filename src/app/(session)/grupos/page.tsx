@@ -1,6 +1,6 @@
 import { Link } from '@/components/Link'
 import { getRentalGroups } from '@/controllers/RentalGroupController/getRentalGroups'
-import { ROUTE } from '@/routes'
+import { ROUTE } from '@/constants/routes'
 import { Card, CardHeader, CardFooter } from '@nextui-org/card'
 import { AvatarGroup, Avatar } from '@nextui-org/avatar'
 import { ButtonAction } from '@/components/Button/ButtonAction'

@@ -1,7 +1,7 @@
 'use client'
 
 import { Link } from '@/components/Link'
-import { ROUTE } from '@/routes'
+import { ROUTE } from '@/constants/routes'
 import { Tabs as NextuiTabs, Tab } from '@nextui-org/tabs'
 import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 
@@ -19,12 +19,7 @@ export function Tabs() {
       className='max-md:hidden'
       variant='light'
     >
-      <Tab
-        key='general'
-        title='General'
-        as={Link}
-        href={ROUTE.GROUPS.SETTINGS.GENERAL({ id: rentalGroupId })}
-      />
+      <Tab key='general' title='General' as={Link} href={ROUTE.GROUPS.SETTINGS.GENERAL({ id: rentalGroupId })} />
     </NextuiTabs>
   )
 }

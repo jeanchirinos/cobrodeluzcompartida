@@ -1,5 +1,5 @@
 import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
-import { ROUTE } from '@/routes'
+import { ROUTE } from '@/constants/routes'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createRentalGroup } from '../createRentalGroup/createRentalGroup'

@@ -1,7 +1,7 @@
 'use server'
 
 import { cookies } from 'next/headers'
-import { getApiKey, getApiUrl } from '../env-variables/get'
+import { getApiKey, getApiUrl } from './env-variables/get'
 
 type GetUrlARgs = { url: string | URL }
 

@@ -26,5 +26,3 @@ export type PageParamsAndSearchParamsPropsAlt<Params = {}, SearchParams = {}> = 
 }
 
 export type RouteId = string | number
-
-export type Hola = string

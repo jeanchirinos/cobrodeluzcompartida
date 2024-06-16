@@ -1,7 +1,7 @@
 'use client'
 
 import { IconArrowBack } from '@/icons'
-import { ROUTE } from '@/routes'
+import { ROUTE } from '@/constants/routes'
 import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 

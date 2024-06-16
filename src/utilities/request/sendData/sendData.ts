@@ -2,24 +2,13 @@
 
 import { ZodType } from 'zod'
 import { getHeaders, getUrl } from '../getUrlAndHeaders'
-import { DefaultArgs } from './types'
+import { CustomResponse, DefaultArgs } from './types'
 import { getFormEntries } from '@/utilities/utilities'
 import { revalidatePath, revalidateTag } from 'next/cache'
 
-type CustomResponse<Response> = { msg: string } & (
-  | {
-      ok: true
-      data: Response
-    }
-  | {
-      ok: false
-      data: null
-    }
-)
-
-export async function newSendData<Response = unknown, Body extends ZodType = ZodType>(
-  args: DefaultArgs<Response, Body>,
-): Promise<CustomResponse<Response>> {
+export async function newSendData<ResponseData = object, Body extends ZodType = ZodType>(
+  args: DefaultArgs<ResponseData, Body>,
+): Promise<CustomResponse<ResponseData>> {
   const { url, config, authMode = 'auth-required', options } = args
   const { schema, onSuccess, revalidatePathParams, revalidateTagParams } = options ?? {}
   const { body, method = 'POST' } = config ?? {}
@@ -57,7 +46,7 @@ export async function newSendData<Response = unknown, Body extends ZodType = Zod
 
   try {
     const newHeaders = await getHeaders({ headers, authMode })
-    
+
     // REQUEST
     res = await fetch(newUrl, {
       ...config,

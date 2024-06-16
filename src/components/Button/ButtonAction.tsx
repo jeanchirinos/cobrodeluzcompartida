@@ -1,9 +1,7 @@
 'use client'
 
 import { Button } from '@nextui-org/button'
-import { useFormAction } from '@/hooks/useFormAction'
-// import { useState } from 'react'
-import { handleResponse } from '@/utilities/handleResponse'
+import { Options, useFormAction } from '@/hooks/useFormAction'
 
 type Props<T extends (...args: any) => any> = React.ComponentProps<typeof Button> & {
   innerRef?: React.Ref<HTMLButtonElement>
@@ -11,7 +9,7 @@ type Props<T extends (...args: any) => any> = React.ComponentProps<typeof Button
   // actionProps?: Parameters<typeof useFormAction>[1]
   action: T
   actionParameters?: Parameters<T>[0]
-  actionProps?: Parameters<typeof handleResponse>[1]
+  actionProps?: Options<ReturnType<T>>
 }
 
 export function ButtonAction<T extends (...args: any) => any>(props: Props<T>) {

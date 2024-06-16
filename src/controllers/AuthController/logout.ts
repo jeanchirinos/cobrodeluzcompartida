@@ -1,6 +1,6 @@
 'use server'
 import { API_ROUTE } from '@/constants/api-routes'
-import { ROUTE } from '@/routes'
+import { ROUTE } from '@/constants/routes'
 import { newSendData } from '@/utilities/request/sendData/sendData'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'

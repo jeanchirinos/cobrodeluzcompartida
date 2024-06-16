@@ -26,9 +26,13 @@ export type DefaultArgs<Response, Body> = {
   }
 }
 
-export type ArgsNewSendDataModeDefault = { mode?: 'default' }
-export type ArgsNewSendDataModeNull = { mode?: 'null' }
-export type ArgsNewSendDataModeErrorPage = { mode?: 'error-page' }
-
-export type ArgsNewSendData = DefaultArgs &
-  (ArgsNewGetDataModeDefault | ArgsNewGetDataModeNull | ArgsNewGetDataModeErrorPage)
+type CustomResponse<ResponseData = object> = { msg: string } & (
+  | {
+      ok: true
+      data: ResponseData
+    }
+  | {
+      ok: false
+      data: null
+    }
+)

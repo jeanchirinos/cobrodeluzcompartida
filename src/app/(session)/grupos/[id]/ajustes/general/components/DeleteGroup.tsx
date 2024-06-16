@@ -6,7 +6,7 @@ import { deleteRentalGroup } from '@/controllers/RentalGroupController/deleteRen
 import { Button } from '@nextui-org/react'
 import { useParams, useRouter } from 'next/navigation'
 import { handleResponse } from '@/utilities/handleResponse'
-import { ROUTE } from '@/routes'
+import { ROUTE } from '@/constants/routes'
 import { useRentalGroupContext } from '@/app/(session)/grupos/[id]/context/RentalGroupContext'
 
 export function DeleteGroup() {
@@ -19,7 +19,8 @@ export function DeleteGroup() {
   async function customHandleClick() {
     const res = await deleteRentalGroup({ id: Number(id) })
 
-    handleResponse(res, {
+    handleResponse({
+      res,
       onSuccess() {
         push(ROUTE.GROUPS.INDEX)
       },

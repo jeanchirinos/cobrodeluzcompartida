@@ -1,8 +1,8 @@
 'use server'
 
 import { notFound, redirect } from 'next/navigation'
-import { ROUTE } from '@/routes'
-import { getHeaders, getUrl } from '../request/getUrlAndHeaders'
+import { ROUTE } from '@/constants/routes'
+import { getHeaders, getUrl } from '../getUrlAndHeaders'
 
 export async function newGetData<Response>(args: DefaultArgs & { mode?: 'default' }): Promise<Response>
 export async function newGetData<Response>(args: DefaultArgs & { mode?: 'null' }): Promise<Response | null>

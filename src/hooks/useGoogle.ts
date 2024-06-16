@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { API_ROUTE } from '@/constants/api-routes'
 import { udpdateGoogleSession } from '@/controllers/AuthController/udpdateGoogleSession'
-import { getApiUrl } from '@/utilities/env-variables/get'
+import { getApiUrl } from '@/utilities/request/env-variables/get'
 
 export function useGoogle() {
   // EFFECT

@@ -1,5 +1,6 @@
 'use client'
 
+import { Options } from '@/hooks/useFormAction'
 import { handleResponse } from '@/utilities/handleResponse'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
@@ -9,7 +10,7 @@ import { ZodType } from 'zod'
 export type UseReactHookFormProps<T extends FieldValues> = {
   schema: ZodType<T>
   action?: (data: T) => any
-  actionProps?: Parameters<typeof handleResponse>[1]
+  actionProps?: Options<T>
 } & Omit<UseFormProps<T>, 'resolver'>
 
 export function useReactHookForm<T extends FieldValues>(props: UseReactHookFormProps<T>) {
@@ -44,7 +45,7 @@ export function useReactHookForm<T extends FieldValues>(props: UseReactHookFormP
 
     const res = await action(data)
 
-    handleResponse(res, actionProps)
+    handleResponse({ res, ...actionProps })
   }
 
   // RETURN

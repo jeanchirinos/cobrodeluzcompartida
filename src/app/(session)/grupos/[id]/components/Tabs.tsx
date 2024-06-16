@@ -2,7 +2,7 @@
 
 import { Link } from '@/components/Link'
 import { IconParticipants, IconReceipt, IconSettings } from '@/icons'
-import { ROUTE } from '@/routes'
+import { ROUTE } from '@/constants/routes'
 import { Tabs as NextuiTabs, Tab } from '@nextui-org/tabs'
 import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 

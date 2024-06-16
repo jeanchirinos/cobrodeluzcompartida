@@ -1,12 +1,12 @@
 'use server'
 
 import { API_ROUTE } from '@/constants/api-routes'
-import { ROUTE } from '@/routes'
+import { ROUTE } from '@/constants/routes'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { schemaCreateRentalGroup } from './createRentalGroup.schema'
-import { RentalGroup, schemaRentalGroup } from '@/models/RentalGroup'
-import { Participant, schemaParticipant } from '@/models/Participant'
+import { RentalGroup } from '@/models/RentalGroup'
+import { Participant } from '@/models/Participant'
 import { newSendData } from '@/utilities/request/sendData/sendData'
 
 type ArgsCreateRentalGroupFn = z.infer<typeof schemaCreateRentalGroup>
