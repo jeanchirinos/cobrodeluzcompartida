@@ -1,14 +1,12 @@
 'use server'
 
 import { API_ROUTE } from '@/constants/api-routes'
+import { User } from '@/models/User'
 import { newGetData } from '@/utilities/request/getData/getData'
 
 export type ResponseGetSession = {
   auth: true
-  image_url: string
-  fullname: string
-  email: string
-}
+} & Pick<User, 'email' | 'image_url' | 'fullname'>
 
 export async function getSession() {
   const data = await newGetData<ResponseGetSession>({

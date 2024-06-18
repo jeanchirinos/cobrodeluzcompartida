@@ -1,11 +1,11 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { ComponentProps } from 'react'
-import { Toaster as SonnerToaster } from 'sonner'
+import { type UseThemeProps } from 'next-themes/dist/types'
+import { Toaster as SonnerToaster, type ToasterProps } from 'sonner'
 
 export function Toaster() {
-  const { theme } = useTheme() as { theme: ComponentProps<typeof SonnerToaster>['theme'] }
+  const { theme } = useTheme() as UseThemeProps & Pick<ToasterProps, 'theme'>
 
   return (
     <SonnerToaster

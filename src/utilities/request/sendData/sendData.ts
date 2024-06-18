@@ -6,8 +6,8 @@ import { CustomResponse, DefaultArgs } from './types'
 import { getFormEntries } from '@/utilities/utilities'
 import { revalidatePath, revalidateTag } from 'next/cache'
 
-export async function newSendData<ResponseData = object, Body extends ZodType = ZodType>(
-  args: DefaultArgs<ResponseData, Body>,
+export async function newSendData<ResponseData, BodySchema extends ZodType>(
+  args: DefaultArgs<ResponseData, BodySchema>,
 ): Promise<CustomResponse<ResponseData>> {
   const { url, config, authMode = 'auth-required', options } = args
   const { schema, onSuccess, revalidatePathParams, revalidateTagParams } = options ?? {}

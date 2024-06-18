@@ -6,14 +6,15 @@ import { createGroupWithSessionCookie } from '../../RentalGroupController/utils/
 import { API_ROUTE } from '@/constants/api-routes'
 import { schemaLogin } from './login.schema'
 import { newSendData } from '@/utilities/request/sendData/sendData'
+import { User } from '@/models/User'
 
 type ArgsLoginFn = z.infer<typeof schemaLogin>
 
-type ResponseLogin = { token: string }
+type ResponseLogin = Pick<User, 'token'>
 
 export async function login(args: ArgsLoginFn) {
   async function onSuccess(data: ResponseLogin) {
-    await createAuthToken(data.token)
+    await createAuthToken({ token: data.token })
     await createGroupWithSessionCookie()
   }
 

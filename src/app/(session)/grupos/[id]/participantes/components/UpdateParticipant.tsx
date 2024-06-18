@@ -23,10 +23,7 @@ export function UpdateParticipant(props: UpdateParticipantProps) {
         Actualizar
       </Button>
       <Dialog dialog={updateParticipantDialog} dialogTitle='Actualizar participante'>
-        <UpdateParticipantDialog
-          participant={props.participant}
-          updateParticipantDialog={updateParticipantDialog}
-        />
+        <UpdateParticipantDialog participant={props.participant} updateParticipantDialog={updateParticipantDialog} />
       </Dialog>
     </>
   )
@@ -44,8 +41,7 @@ function UpdateParticipantDialog(props: {
   const { useFormHook } = useReactHookForm({
     schema: schemaUpdateParticipant,
     defaultValues: participant,
-    action: data =>
-      updateParticipant({ ...data, rentalGroupId: Number(rentalGroupId), id: participant.id }),
+    submitActionFn: data => updateParticipant({ ...data, rentalGroupId: Number(rentalGroupId), id: participant.id }),
   })
 
   return (

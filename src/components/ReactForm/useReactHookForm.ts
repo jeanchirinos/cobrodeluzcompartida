@@ -1,36 +1,41 @@
 'use client'
 
-import { Options } from '@/hooks/useFormAction'
-import { handleResponse } from '@/utilities/handleResponse'
+import { handleResponse, Options } from '@/utilities/handleResponse'
+import { CustomResponse } from '@/utilities/request/sendData/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
-import { FieldValues, SubmitHandler, useForm, UseFormProps } from 'react-hook-form'
-import { ZodType } from 'zod'
+import { SubmitHandler, useForm, UseFormProps } from 'react-hook-form'
+import { z, ZodType } from 'zod'
 
-export type UseReactHookFormProps<T extends FieldValues> = {
-  schema: ZodType<T>
-  action?: (data: T) => any
-  actionProps?: Options<T>
-} & Omit<UseFormProps<T>, 'resolver'>
+export type UseReactHookFormProps<ActionArgs, ResponseData, FormSchema extends ZodType> = {
+  //! Required if needs response type for options
+  action?: (data: ActionArgs) => Promise<CustomResponse<ResponseData>>
+  actionProps?: Options<ResponseData>
+  schema: FormSchema
+  //! submitActionFn is required only if FormSchema is not equal to action schema OR action function args are different from FormSchema
+  submitActionFn?: (data: z.infer<FormSchema>) => Promise<CustomResponse<ResponseData>>
+} & Omit<UseFormProps<z.infer<FormSchema>>, 'resolver'>
 
-export function useReactHookForm<T extends FieldValues>(props: UseReactHookFormProps<T>) {
-  const { schema, action, actionProps, ...restProps } = props
+export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends ZodType>(
+  props: UseReactHookFormProps<ActionArgs, ResponseData, FormSchema>,
+) {
+  const { schema, action, submitActionFn, actionProps, ...restProps } = props
 
   // HOOKS
-  const useFormHook = useForm<T>({
+  const useFormHook = useForm<z.infer<FormSchema>>({
     mode: 'onTouched',
     ...restProps,
     resolver: zodResolver(schema),
   })
 
-  const { formState, reset } = useFormHook
+  const { formState, reset, handleSubmit } = useFormHook
   const { isValid, isSubmitting, isDirty } = formState
 
   // EFFECTS
 
   // Reset form when defaultValues change
   useEffect(() => {
-    reset(restProps.defaultValues as T)
+    reset(restProps.defaultValues)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restProps.defaultValues])
@@ -39,17 +44,18 @@ export function useReactHookForm<T extends FieldValues>(props: UseReactHookFormP
   const disabled = !isValid || isSubmitting || !isDirty
 
   // FUNCTIONS
-  const onSubmit: SubmitHandler<T> = async data => {
-    if (!action) return
+  const onSubmit: SubmitHandler<z.infer<FormSchema>> = async data => {
     if (disabled) return
 
-    const res = await action(data)
+    const res = (await submitActionFn?.(data)) ?? (await action?.(data))
+
+    if (!res) return
 
     handleResponse({ res, ...actionProps })
   }
 
   // RETURN
   return {
-    useFormHook: { ...useFormHook, onSubmit: useFormHook.handleSubmit(onSubmit) },
+    useFormHook: { ...useFormHook, onSubmit: handleSubmit(onSubmit) },
   }
 }

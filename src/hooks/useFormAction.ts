@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useFormState } from 'react-dom'
 import { toast } from 'sonner'
 
-export type Options<ResponseData = object> = {
+export type Options<ResponseData = null> = {
   onSuccess?: (data: ResponseData) => void
   showSuccessToast?: boolean
   onError?: () => void

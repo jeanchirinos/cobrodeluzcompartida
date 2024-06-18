@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers'
 import { getApiKey, getApiUrl } from './env-variables/get'
+import { COOKIES_TOKEN_NAME } from '@/constants/cookies'
 
 type GetUrlARgs = { url: string | URL }
 
@@ -23,7 +24,7 @@ export async function getHeaders({ headers, authMode }: GetHeadersArgs) {
   newHeaders.append('X-API-KEY', getApiKey())
 
   if (authMode === 'auth-required') {
-    const token = cookies().get('jwt')
+    const token = cookies().get(COOKIES_TOKEN_NAME)
 
     if (!token) throw new Error('Token not found', { cause: { status: 401 } })
   }

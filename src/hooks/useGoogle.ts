@@ -4,12 +4,13 @@ import { useEffect, useRef } from 'react'
 import { API_ROUTE } from '@/constants/api-routes'
 import { udpdateGoogleSession } from '@/controllers/AuthController/udpdateGoogleSession'
 import { getApiUrl } from '@/utilities/request/env-variables/get'
+import { User } from '@/models/User'
 
 export function useGoogle() {
   // EFFECT
   useEffect(() => {
-    async function handleMessageFromAuthPage(e: MessageEvent<{ token: string }>) {
-      await udpdateGoogleSession(e.data.token)
+    async function handleMessageFromAuthPage(e: MessageEvent<Pick<User, 'token'>>) {
+      await udpdateGoogleSession({ token: e.data.token })
       openedWindow.current?.close()
     }
 

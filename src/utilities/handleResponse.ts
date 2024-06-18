@@ -1,13 +1,16 @@
 import { toast } from 'sonner'
-import { Options } from '@/hooks/useFormAction'
 import { CustomResponse } from './request/sendData/types'
 
-type Args<Response extends CustomResponse> = {
+type Args<Response extends CustomResponse<ResponseData>, ResponseData> = {
   res: Response
-} & Options<Response['data']>
+} & Options<ResponseData>
 
-export function handleResponse<Response extends CustomResponse>(args: Args<Response>) {
+export function handleResponse<Response extends CustomResponse<ResponseData>, ResponseData>(
+  args: Args<Response, ResponseData>,
+) {
   const { res, showSuccessToast = true, showErrorToast = true, onSuccess, onError } = args
+
+  if (!res) return
 
   if (res.ok) {
     onSuccess?.(res.data)
@@ -16,4 +19,12 @@ export function handleResponse<Response extends CustomResponse>(args: Args<Respo
     onError?.()
     if (showErrorToast) toast.error(res.msg)
   }
+}
+
+export type Options<ResponseData> = {
+  onSuccess?: ResponseData extends undefined ? () => Promise<void> | void : (data: ResponseData) => Promise<void> | void
+  // onSuccess?:  (data: ResponseData) => Promise<void> | void
+  showSuccessToast?: boolean
+  onError?: () => void
+  showErrorToast?: boolean
 }

@@ -16,7 +16,7 @@ export function UpdateGroup() {
     schema: schemaUpdateRentalGroup,
     defaultValues: rentalGroup,
     mode: 'onChange',
-    action: data => updateRentalGroup({ id: rentalGroup.id, ...data }),
+    submitActionFn: data => updateRentalGroup({ ...data, id: rentalGroup.id }),
   })
 
   // RENDER

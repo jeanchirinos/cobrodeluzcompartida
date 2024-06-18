@@ -1,8 +1,9 @@
 import { AuthSuccess } from './components/auth-success'
 import { AlreadyLinked } from './components/already-linked'
+import { User } from '@/models/User'
 
 type Props = {
-  searchParams: { status: 'success'; token: string } | { status: 'error' }
+  searchParams: (Pick<User, 'token'> & { status: 'success' }) | { status: 'error' }
 }
 
 export default function Page(props: Props) {

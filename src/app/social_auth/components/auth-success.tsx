@@ -1,9 +1,10 @@
 'use client'
 
+import { User } from '@/models/User'
 import { Spinner } from '@nextui-org/spinner'
 import { useEffect } from 'react'
 
-type Props = { token: string }
+type Props = Pick<User, 'token'>
 
 export function AuthSuccess(props: Props) {
   const { token } = props
