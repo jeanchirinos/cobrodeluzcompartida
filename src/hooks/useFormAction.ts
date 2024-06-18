@@ -10,11 +10,11 @@ export type Options<ResponseData = null> = {
   showErrorToast?: boolean
 }
 
-export function useFormAction<Response>(action: any, options?: Options<Response>) {
+export function useFormAction<ResponseData>(action: any, options?: Options<ResponseData>) {
   const { onSuccess, showSuccessToast = true, onError, showErrorToast = true } = options ?? {}
 
   // VALUES
-  const initialState = { ok: null, msg: '' } as { ok: boolean | null; msg: string }
+  const initialState = { ok: null, msg: '', data: null } as { ok: boolean | null; msg: string; data: ResponseData }
 
   // HOOKS
   const [actionState, formAction] = useFormState(action, initialState)
@@ -33,7 +33,7 @@ export function useFormAction<Response>(action: any, options?: Options<Response>
   }, [actionState])
 
   useEffect(() => {
-    const { ok, msg } = auxActionState
+    const { ok, msg, data } = auxActionState
 
     if (ok === null) return
 
@@ -44,7 +44,7 @@ export function useFormAction<Response>(action: any, options?: Options<Response>
 
     if (ok) {
       // TODO
-      onSuccess?.({} as Response)
+      onSuccess?.(data)
 
       if (showSuccessToast) {
         toast.success(msg)

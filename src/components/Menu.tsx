@@ -31,6 +31,7 @@ export function MenuContent(props: MenuItemsProps) {
       leaveTo='opacity-0 translate-y-1'
     >
       <HeadlessMenuItems
+        modal={false}
         {...props}
         anchor={{
           to: 'bottom end',
@@ -52,10 +53,5 @@ export function MenuItem(props: MenuItemProps) {
 }
 
 export function MenuSeparator(props: MenuSeparatorProps) {
-  return (
-    <HeadlessMenuSeparator
-      {...props}
-      className={cnx('h-px bg-content2', props.className?.toString())}
-    />
-  )
+  return <HeadlessMenuSeparator {...props} className={cnx('h-px bg-content2', props.className?.toString())} />
 }

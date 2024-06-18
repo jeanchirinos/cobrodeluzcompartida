@@ -3,11 +3,9 @@ import { getRentalGroups } from '@/controllers/RentalGroupController/getRentalGr
 import { ROUTE } from '@/constants/routes'
 import { Card, CardHeader, CardFooter } from '@nextui-org/card'
 import { AvatarGroup, Avatar } from '@nextui-org/avatar'
-import { ButtonAction } from '@/components/Button/ButtonAction'
-import { IconAdd } from '@/icons'
 // import { Avatar } from '@/components/Avatar'
-import { createRentalGroup } from '@/controllers/RentalGroupController/createRentalGroup/createRentalGroup'
 import { Suspense } from '@/components/other/CustomSuspense'
+import { CreateRentalGroup } from './components/CreateRentalGroup'
 // import Image from 'next/image'
 
 export default async function Page() {
@@ -15,9 +13,7 @@ export default async function Page() {
     <main className='space-y-4 main-container'>
       <header className='flex justify-between'>
         <h1 className='text-2xl font-bold'>Grupos</h1>
-        <ButtonAction color='primary' action={createRentalGroup} endContent={<IconAdd />}>
-          Crear grupo
-        </ButtonAction>
+        <CreateRentalGroup />
       </header>
       <div className='flex flex-wrap gap-4'>
         <Suspense>

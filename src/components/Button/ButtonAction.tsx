@@ -2,33 +2,31 @@
 
 import { Button } from '@nextui-org/button'
 import { Options, useFormAction } from '@/hooks/useFormAction'
+import { CustomResponse } from '@/utilities/request/sendData/types'
 
-type Props<T extends (...args: any) => any> = React.ComponentProps<typeof Button> & {
+type Props<Args, ResponseData> = React.ComponentProps<typeof Button> & {
   innerRef?: React.Ref<HTMLButtonElement>
-  // action: Parameters<typeof useFormAction>[0]
-  // actionProps?: Parameters<typeof useFormAction>[1]
-  action: T
-  actionParameters?: Parameters<T>[0]
-  actionProps?: Options<ReturnType<T>>
+  action: (args: Args) => Promise<CustomResponse<ResponseData>>
+  actionParameters?: Args
+  // actionProps?: Options<Awaited<ReturnType<T['data']>>>
+  actionProps?: Options<ResponseData>
 }
 
-export function ButtonAction<T extends (...args: any) => any>(props: Props<T>) {
+// convert type promise in type function
+// type PromiseType<T> = T extends Promise<infer U> ? U : T
+
+// export function ButtonAction<T extends (...args: any[]) => Responsea>(props: Props<T>) {
+export function ButtonAction<Args, ResponseData>(props: Props<Args, ResponseData>) {
   const { innerRef, actionProps, actionParameters, action, onClick, ...restProps } = props
 
   const myAction = actionParameters ? () => action(actionParameters) : action
 
   const { formAction, isPending, setIsPending } = useFormAction(myAction, actionProps)
-  // const [isPending, setIsPending] = useState(false)
 
   async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     onClick?.(e)
     setIsPending(true)
-
     formAction()
-    // await formAction()
-    // const res = await action()
-    // handleResponse(res, actionProps)
-    // setIsPending(false)
   }
 
   return <Button {...restProps} isLoading={isPending} ref={innerRef} onClick={handleClick} />

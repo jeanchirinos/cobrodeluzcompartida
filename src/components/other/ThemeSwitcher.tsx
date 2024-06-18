@@ -25,12 +25,11 @@ const themes = [
 ]
 
 export function ThemeSwitcher() {
-  const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
 
   if (!mounted) return null
 
@@ -52,6 +51,7 @@ export function ThemeSwitcher() {
         leaveTo='transform scale-95 opacity-0'
       >
         <ListboxOptions
+          modal={false}
           anchor={{
             to: 'bottom end',
             gap: '0.5rem',
