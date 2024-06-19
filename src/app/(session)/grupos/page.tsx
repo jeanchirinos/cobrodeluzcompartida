@@ -6,6 +6,7 @@ import { AvatarGroup, Avatar } from '@nextui-org/avatar'
 // import { Avatar } from '@/components/Avatar'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { CreateRentalGroup } from './components/CreateRentalGroup'
+import { Tooltip } from '@nextui-org/react'
 // import Image from 'next/image'
 
 export default async function Page() {
@@ -42,16 +43,23 @@ async function RentalGroups() {
       <CardFooter className='justify-end'>
         <AvatarGroup isBordered size='sm' max={3}>
           {group.participants.map(p => (
-            <Avatar
-              // ImgComponent={Image}
+            <Tooltip
               key={p.id}
-              src={p.avatar_url}
-              title={p.alias}
-              // imgProps={{
-              //   width: 64,
-              //   height: 64,
-              // }}
-            />
+              content={p.alias}
+              classNames={{
+                content: 'w-max',
+              }}
+            >
+              <Avatar
+                // ImgComponent={Image}
+                src={p.avatar_url}
+                // title={p.alias}
+                // imgProps={{
+                //   width: 64,
+                //   height: 64,
+                // }}
+              />
+            </Tooltip>
           ))}
         </AvatarGroup>
       </CardFooter>

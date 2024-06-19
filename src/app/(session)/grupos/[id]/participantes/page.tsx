@@ -5,7 +5,7 @@ import { createParticipant } from '@/controllers/ParticipantController/createPar
 import { getParticipants } from '@/controllers/ParticipantController/getParticipants'
 import { CustomPageProps } from '@/types'
 import { UpdateParticipant } from './components/UpdateParticipant'
-import { IconCrown } from '@/icons'
+import { IconAdd, IconCrown } from '@/icons'
 import { deleteParticipant } from '@/controllers/ParticipantController/deleteParticipant'
 
 type Props = CustomPageProps<'id'>
@@ -32,6 +32,7 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
         actionParameters={{ rental_group_id: rentalGroupId }}
         color='primary'
         className='w-fit'
+        endContent={<IconAdd />}
       >
         Agregar participante
       </ButtonAction>
