@@ -12,7 +12,13 @@ import { $NAV_MENU_TOGGLE } from '@/constants/elements'
 
 export function Header() {
   return (
-    <Navbar className='mx-auto w-[1600px] max-w-full' maxWidth='full'>
+    <Navbar
+      className='main-container'
+      classNames={{
+        wrapper: 'px-0',
+      }}
+      maxWidth='full'
+    >
       <NavbarContent className='!grow-0'>
         <NavbarMenuToggle id={$NAV_MENU_TOGGLE} aria-label='Abrir/Cerrar menú' className='sm:hidden' />
         <NavbarBrand>

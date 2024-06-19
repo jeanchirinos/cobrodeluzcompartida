@@ -20,6 +20,7 @@ export function Tabs() {
       className='max-w-full overflow-x-auto'
     >
       <Tab
+        tabIndex={0}
         key='registros'
         title={
           <div className='flex items-center gap-x-2'>
@@ -30,6 +31,7 @@ export function Tabs() {
         href={ROUTE.GROUPS.REGISTERS({ id: rentalGroupId })}
       />
       <Tab
+        tabIndex={0}
         key='participantes'
         as={Link}
         title={
@@ -40,6 +42,7 @@ export function Tabs() {
         href={ROUTE.GROUPS.PARTICIPANTS({ id: rentalGroupId })}
       />
       <Tab
+        tabIndex={0}
         key='ajustes'
         as={Link}
         title={
