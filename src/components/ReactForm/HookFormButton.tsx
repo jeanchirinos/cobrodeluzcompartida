@@ -2,7 +2,7 @@ import { Button } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
 
 type Props = React.ComponentProps<typeof Button> & {
-  useFormHook: UseFormReturn<any> & { onSubmit: (e?: React.FormEvent<HTMLFormElement>) => void }
+  useFormHook: UseFormReturn<any> & { onSubmit: (e?: React.FormEvent<HTMLFormElement>) => Promise<void> }
 }
 
 export function HookFormButton(props: Props) {
@@ -11,13 +11,5 @@ export function HookFormButton(props: Props) {
 
   const disabled = !isValid || isSubmitting || Boolean(isDisabled) || !isDirty
 
-  return (
-    <Button
-      type='submit'
-      isDisabled={disabled}
-      isLoading={isSubmitting}
-      color='primary'
-      {...restProps}
-    />
-  )
+  return <Button type='submit' isDisabled={disabled} isLoading={isSubmitting} color='primary' {...restProps} />
 }

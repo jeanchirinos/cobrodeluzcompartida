@@ -149,6 +149,7 @@ export function DialogFooter(props: DialogFooterProps) {
   }
 
   useEffect(() => {
+    // Close dialog when form is submitted successfully
     if (useFormHook?.formState.isSubmitSuccessful) {
       dialog.close()
     }

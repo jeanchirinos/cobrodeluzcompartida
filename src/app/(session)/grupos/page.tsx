@@ -29,6 +29,7 @@ async function RentalGroups() {
 
   return rentalGroups.map(group => (
     <Card
+      isPressable
       key={group.id}
       className='w-80 max-w-full gap-y-5 py-1'
       as={Link}

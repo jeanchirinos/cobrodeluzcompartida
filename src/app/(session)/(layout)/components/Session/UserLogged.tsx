@@ -12,7 +12,7 @@ export function UserLogged(props: Props) {
   return (
     <Menu>
       <MenuTrigger>
-        <Image src={session.image_url} alt='Perfil' width={32} height={32} className='rounded-full' loading='eager' />
+        <Image src={session.image_url} alt='Perfil' size={32} className='rounded-full' loading='eager' />
       </MenuTrigger>
       <MenuContent>
         <header className='flex flex-col px-4 py-2'>

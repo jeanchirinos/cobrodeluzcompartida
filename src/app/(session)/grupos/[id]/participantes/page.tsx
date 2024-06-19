@@ -38,7 +38,7 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
       <ul className='flex flex-wrap gap-5'>
         {participants.map(participant => (
           <li key={participant.id} className='flex flex-col items-center gap-y-2'>
-            <Image src={participant.avatar_url} alt={participant.alias} width={250} height={250} />
+            <Image src={participant.avatar_url} alt={participant.alias} size={250} />
             <div className='flex items-center gap-x-1.5'>
               {participant.is_main && <IconCrown className='fill-yellow-500' />}
               <p>{participant.alias}</p>

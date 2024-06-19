@@ -1,24 +1,13 @@
 import {
-  Menu as HeadlessMenu,
-  MenuButton as HeadlessMenuButton,
   MenuItems as HeadlessMenuItems,
-  MenuItem as HeadlessMenuItem,
   MenuSeparator as HeadlessMenuSeparator,
   Transition,
-  type MenuProps,
-  type MenuButtonProps,
   type MenuItemsProps,
-  type MenuItemProps,
   type MenuSeparatorProps,
 } from '@headlessui/react'
 import { cnx } from '@/lib/utils'
 
-export function Menu(props: MenuProps) {
-  return <HeadlessMenu {...props} />
-}
-export function MenuTrigger(props: MenuButtonProps) {
-  return <HeadlessMenuButton {...props} />
-}
+export { Menu, MenuButton as MenuTrigger, MenuItem } from '@headlessui/react'
 
 export function MenuContent(props: MenuItemsProps) {
   return (
@@ -32,11 +21,11 @@ export function MenuContent(props: MenuItemsProps) {
     >
       <HeadlessMenuItems
         modal={false}
-        {...props}
         anchor={{
           to: 'bottom end',
           gap: '0.5rem',
         }}
+        {...props}
         className={cnx(
           'z-50 flex w-fit flex-col rounded-md bg-content1 text-sm shadow-small',
           props.className?.toString(),
@@ -46,10 +35,6 @@ export function MenuContent(props: MenuItemsProps) {
       </HeadlessMenuItems>
     </Transition>
   )
-}
-
-export function MenuItem(props: MenuItemProps) {
-  return <HeadlessMenuItem {...props} />
 }
 
 export function MenuSeparator(props: MenuSeparatorProps) {
