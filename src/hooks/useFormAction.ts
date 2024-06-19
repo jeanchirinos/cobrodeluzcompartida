@@ -20,17 +20,13 @@ export function useFormAction<ResponseData>(action: any, options?: Options<Respo
   const [actionState, formAction] = useFormState(action, initialState)
 
   // STATES
-  const [auxActionState, setState] = useState(initialState)
+  const [auxActionState, setAuxActionState] = useState(initialState)
   const [isPending, setIsPending] = useState(false)
 
   // REFS
   const actionStateChangedRef = useRef(false)
 
   // EFFECTS
-  useEffect(() => {
-    setState(actionState)
-    if (actionState.ok !== null) actionStateChangedRef.current = true
-  }, [actionState])
 
   useEffect(() => {
     const { ok, msg, data } = auxActionState
@@ -56,11 +52,37 @@ export function useFormAction<ResponseData>(action: any, options?: Options<Respo
         toast.error(msg)
       }
     }
+
+    return () => {
+      // console.log('cleanup')
+      // if (ok) {
+      //   // TODO
+      //   onSuccess?.(data)
+      //   if (showSuccessToast) {
+      //     toast.success(msg)
+      //   }
+      // } else {
+      //   onError?.()
+      //   if (showErrorToast) {
+      //     toast.error(msg)
+      //   }
+      // }
+    }
   }, [auxActionState, onSuccess, showSuccessToast, onError, showErrorToast])
+
+  useEffect(() => {
+    // console.log('actionState')
+    setAuxActionState(actionState)
+    if (actionState.ok !== null) actionStateChangedRef.current = true
+
+    return () => {
+      console.log(actionState)
+    }
+  }, [actionState])
 
   return {
     state: auxActionState,
-    setState,
+    setState: setAuxActionState,
     formAction,
     isPending,
     setIsPending,

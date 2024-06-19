@@ -10,6 +10,9 @@ type ArgsCreateRentalGroupFn = z.infer<typeof schemaCreateParticipant>
 export async function createParticipant(args: ArgsCreateRentalGroupFn) {
   const data = await newSendData({
     url: API_ROUTE.PARTICIPANT.STORE,
+    config: {
+      body: args,
+    },
     options: {
       schema: schemaCreateParticipant,
       revalidateTagParams: [API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId: args.rental_group_id })],

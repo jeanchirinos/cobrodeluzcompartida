@@ -6,6 +6,7 @@ import { getParticipants } from '@/controllers/ParticipantController/getParticip
 import { CustomPageProps } from '@/types'
 import { UpdateParticipant } from './components/UpdateParticipant'
 import { IconCrown } from '@/icons'
+import { deleteParticipant } from '@/controllers/ParticipantController/deleteParticipant'
 
 type Props = CustomPageProps<'id'>
 
@@ -28,7 +29,7 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
     <div className='flex flex-col gap-y-6'>
       <ButtonAction
         action={createParticipant}
-        actionParameters={{ rental_group_id: Number(rentalGroupId) }}
+        actionParameters={{ rental_group_id: rentalGroupId }}
         color='primary'
         className='w-fit'
       >
@@ -42,7 +43,16 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
               {participant.is_main && <IconCrown className='fill-yellow-500' />}
               <p>{participant.alias}</p>
             </div>
-            <UpdateParticipant participant={participant} />
+            <footer className='flex gap-x-2'>
+              <UpdateParticipant participant={participant} />
+              <ButtonAction
+                color='danger'
+                action={deleteParticipant}
+                actionParameters={{ id: participant.id, rentalGroupId }}
+              >
+                Remover
+              </ButtonAction>
+            </footer>
           </li>
         ))}
       </ul>
