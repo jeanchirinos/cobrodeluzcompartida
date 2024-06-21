@@ -21,7 +21,7 @@ export function UpdateGroup() {
 
   // RENDER
   return (
-    <section className='flex flex-col gap-y-6'>
+    <section className='flex w-fit flex-col gap-y-6'>
       <div>
         <h3 className='text-lg font-bold'>Nombre de grupo</h3>
         <p>Identificador único entre tus grupos de consumo</p>
@@ -36,7 +36,9 @@ export function UpdateGroup() {
             },
           }}
         />
-        <HookFormButton useFormHook={useFormHook}>Renombrar</HookFormButton>
+        <HookFormButton className='shrink-0' useFormHook={useFormHook}>
+          Renombrar
+        </HookFormButton>
       </form>
     </section>
   )
