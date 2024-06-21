@@ -12,10 +12,15 @@ const AUTH = {
 const GROUPS = {
   INDEX: '/grupos',
   REGISTERS: ({ id }: { id: RouteId }) => `/grupos/${id}/registros` as const,
-  PARTICIPANTS: ({ id }: { id: RouteId }) => `/grupos/${id}/participantes` as const,
-  SETTINGS: {
-    GENERAL: ({ id }: { id: RouteId }) => `/grupos/${id}/ajustes/general` as const,
+  LIGHT_METERS: {
+    INDEX: ({ groupId }: { groupId: RouteId }) => `/grupos/${groupId}/medidores` as const,
+    PARTICIPANTS: ({ groupId, id }: { groupId: RouteId; id: RouteId }) =>
+      `/grupos/${groupId}/medidores/${id}/participantes` as const,
+    SETTINGS: ({ groupId, id }: { groupId: RouteId; id: RouteId }) =>
+      `/grupos/${groupId}/medidores/${id}/ajustes` as const,
   },
+  // TODO
+  SETTINGS: ({ id }: { id: RouteId }) => `/grupos/${id}/ajustes/general` as const,
 } as const
 
 export const ROUTE = {

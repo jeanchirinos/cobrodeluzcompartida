@@ -11,7 +11,7 @@ export function Results(props: Props) {
       <h3 className='text-large font-semibold'>Resultado</h3>
       <Table removeWrapper aria-label='Tabla de resultado' className='w-full max-w-full md:w-64'>
         <TableHeader>
-          <TableColumn>Participante</TableColumn>
+          <TableColumn>Medidor</TableColumn>
           <TableColumn>Monto</TableColumn>
         </TableHeader>
         <TableBody emptyContent='Sin datos para mostrar'>

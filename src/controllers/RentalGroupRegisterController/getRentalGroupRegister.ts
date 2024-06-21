@@ -56,7 +56,7 @@ export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn)
         bill_id: '1',
         participant_id: '1',
         participant: {
-          id: '1',
+          id: 1,
           alias: 'Principal',
           is_main: true,
           key: '123456',
@@ -70,7 +70,7 @@ export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn)
         bill_id: '1',
         participant_id: '2',
         participant: {
-          id: '2',
+          id: 2,
           alias: 'Consumo 1',
           is_main: false,
           key: '789012',
@@ -84,7 +84,7 @@ export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn)
         bill_id: '1',
         participant_id: '3',
         participant: {
-          id: '3',
+          id: 3,
           alias: 'Consumo 2',
           is_main: false,
           key: '345678',

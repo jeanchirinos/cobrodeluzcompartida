@@ -3,9 +3,9 @@ import { UpdateGroup } from './components/UpdateGroup'
 
 export default async function Page() {
   return (
-    <div className='flex flex-col gap-y-12'>
+    <main className='flex flex-col gap-y-12 !px-0 main-container'>
       <UpdateGroup />
       <DeleteGroup />
-    </div>
+    </main>
   )
 }

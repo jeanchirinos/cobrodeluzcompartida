@@ -22,7 +22,7 @@ export function UpdateParticipant(props: UpdateParticipantProps) {
       <Button onClick={updateParticipantDialog.open} variant='flat'>
         Actualizar
       </Button>
-      <Dialog dialog={updateParticipantDialog} dialogTitle='Actualizar participante'>
+      <Dialog dialog={updateParticipantDialog} dialogTitle='Actualizar medidor'>
         <UpdateParticipantDialog participant={props.participant} updateParticipantDialog={updateParticipantDialog} />
       </Dialog>
     </>

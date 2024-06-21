@@ -6,7 +6,7 @@ import { AvatarGroup, Avatar } from '@nextui-org/avatar'
 // import { Avatar } from '@/components/Avatar'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { CreateRentalGroup } from './components/CreateRentalGroup'
-import { Tooltip } from '@nextui-org/react'
+import { Chip, Tooltip } from '@nextui-org/react'
 // import Image from 'next/image'
 
 export default async function Page() {
@@ -38,9 +38,18 @@ async function RentalGroups() {
     >
       <CardHeader className='flex-col items-start'>
         <p className='font-bold uppercase'>{group.name}</p>
-        <small className='text-default-500'>{group.n_participant} participantes</small>
+        <small className='text-default-500'>
+          {group.n_participant} {group.n_participant === 1 ? 'medidor' : 'medidores'}
+        </small>
       </CardHeader>
-      <CardFooter className='justify-end'>
+      <CardFooter className='justify-between'>
+        {group.n_participant > 1 ? (
+          <Chip variant='dot' color='success'>
+            Activo
+          </Chip>
+        ) : (
+          <Chip variant='dot'>Inactivo</Chip>
+        )}
         <AvatarGroup isBordered size='sm' max={3}>
           {group.participants.map(p => (
             <Tooltip

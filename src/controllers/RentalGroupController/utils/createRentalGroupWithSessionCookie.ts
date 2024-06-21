@@ -23,7 +23,7 @@ export async function createGroupWithSessionCookie() {
   const resultsWithIds = temporalFormData.results.map((result, i) => ({
     ...result,
     participant: {
-      id: res.data.participants_ids[i].toString(),
+      id: res.data.participants_ids[i],
     },
   }))
 

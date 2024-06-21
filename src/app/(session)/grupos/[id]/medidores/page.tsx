@@ -7,6 +7,8 @@ import { CustomPageProps } from '@/types'
 import { UpdateParticipant } from './components/UpdateParticipant'
 import { IconAdd, IconCrown } from '@/icons'
 import { deleteParticipant } from '@/controllers/ParticipantController/deleteParticipant'
+import { Link } from '@/components/Link'
+import { ROUTE } from '@/constants/routes'
 
 type Props = CustomPageProps<'id'>
 
@@ -34,12 +36,14 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
         className='w-fit'
         endContent={<IconAdd />}
       >
-        Agregar participante
+        Agregar medidor
       </ButtonAction>
       <ul className='flex flex-wrap gap-5'>
         {participants.map(participant => (
           <li key={participant.id} className='flex flex-col items-center gap-y-2'>
-            <Image src={participant.avatar_url} alt={participant.alias} size={250} />
+            <Link href={ROUTE.GROUPS.LIGHT_METERS.PARTICIPANTS({ groupId: rentalGroupId, id: participant.id })}>
+              <Image src={participant.avatar_url} alt={participant.alias} size={250} />
+            </Link>
             <div className='flex items-center gap-x-1.5'>
               {participant.is_main && <IconCrown className='fill-yellow-500' />}
               <p>{participant.alias}</p>
@@ -50,6 +54,7 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
                 color='danger'
                 action={deleteParticipant}
                 actionParameters={{ id: participant.id, rentalGroupId }}
+                variant='flat'
               >
                 Remover
               </ButtonAction>

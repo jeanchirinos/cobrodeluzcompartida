@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const schemaParticipant = z.object({
-  id: z.string(),
+  id: z.number(),
   alias: z.string().min(1),
   key: z.string().min(1),
   is_main: z.boolean(),

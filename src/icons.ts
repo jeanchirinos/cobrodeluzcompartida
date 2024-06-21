@@ -12,4 +12,5 @@ export {
   MdOutlineReceipt as IconReceipt,
   MdOutlineSettings as IconSettings,
   MdMonitor as IconSystemTheme,
+  MdOutlineElectricMeter as IconLightMeter,
 } from 'react-icons/md'

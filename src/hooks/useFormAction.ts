@@ -74,10 +74,6 @@ export function useFormAction<ResponseData>(action: any, options?: Options<Respo
     // console.log('actionState')
     setAuxActionState(actionState)
     if (actionState.ok !== null) actionStateChangedRef.current = true
-
-    return () => {
-      console.log(actionState)
-    }
   }, [actionState])
 
   return {

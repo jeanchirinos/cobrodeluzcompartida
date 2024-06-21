@@ -6,7 +6,7 @@ import { RentalGroup } from '@/models/RentalGroup'
 import { newGetData } from '@/utilities/request/getData/getData'
 
 type ResponseGetRentalGroups = (RentalGroup & {
-  n_participant: string
+  n_participant: number
   participants: Omit<Participant, 'key'>[]
 })[]
 

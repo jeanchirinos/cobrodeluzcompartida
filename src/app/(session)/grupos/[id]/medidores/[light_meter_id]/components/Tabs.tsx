@@ -7,7 +7,7 @@ import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 
 export function Tabs() {
   const params = useParams()
-  const { id: rentalGroupId } = params as { id: string }
+  const { id: rentalGroupId, light_meter_id } = params as { id: string; light_meter_id: string }
 
   const selectedLayoutSegment = useSelectedLayoutSegment()
 
@@ -19,7 +19,18 @@ export function Tabs() {
       className='max-md:hidden'
       variant='light'
     >
-      <Tab key='general' title='General' as={Link} href={ROUTE.GROUPS.SETTINGS.GENERAL({ id: rentalGroupId })} />
+      <Tab
+        key='participantes'
+        title='Participantes'
+        as={Link}
+        href={ROUTE.GROUPS.LIGHT_METERS.PARTICIPANTS({ id: light_meter_id, groupId: rentalGroupId })}
+      />
+      <Tab
+        key='ajustes'
+        title='Ajustes'
+        as={Link}
+        href={ROUTE.GROUPS.LIGHT_METERS.SETTINGS({ id: light_meter_id, groupId: rentalGroupId })}
+      />
     </NextuiTabs>
   )
 }

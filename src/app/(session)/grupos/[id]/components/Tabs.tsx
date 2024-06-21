@@ -1,7 +1,7 @@
 'use client'
 
 import { Link } from '@/components/Link'
-import { IconParticipants, IconReceipt, IconSettings } from '@/icons'
+import { IconLightMeter, IconReceipt, IconSettings } from '@/icons'
 import { ROUTE } from '@/constants/routes'
 import { Tabs as NextuiTabs, Tab } from '@nextui-org/tabs'
 import { useParams, useSelectedLayoutSegment } from 'next/navigation'
@@ -32,14 +32,14 @@ export function Tabs() {
       />
       <Tab
         tabIndex={0}
-        key='participantes'
+        key='medidores'
         as={Link}
         title={
           <div className='flex items-center gap-x-2'>
-            <IconParticipants /> Participantes
+            <IconLightMeter size={16} /> Medidores
           </div>
         }
-        href={ROUTE.GROUPS.PARTICIPANTS({ id: rentalGroupId })}
+        href={ROUTE.GROUPS.LIGHT_METERS.INDEX({ groupId: rentalGroupId })}
       />
       <Tab
         tabIndex={0}
@@ -50,7 +50,7 @@ export function Tabs() {
             <IconSettings /> Ajustes
           </div>
         }
-        href={ROUTE.GROUPS.SETTINGS.GENERAL({ id: rentalGroupId })}
+        href={ROUTE.GROUPS.SETTINGS({ id: rentalGroupId })}
       />
     </NextuiTabs>
   )

@@ -4,8 +4,8 @@ import { updateRentalGroup } from '@/controllers/RentalGroupController/updateRen
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
-import { useRentalGroupContext } from '../../../context/RentalGroupContext'
 import { schemaUpdateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup.schema'
+import { useRentalGroupContext } from '../../context/RentalGroupContext'
 
 export function UpdateGroup() {
   // CONTEXT
