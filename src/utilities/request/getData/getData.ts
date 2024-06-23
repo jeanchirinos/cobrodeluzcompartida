@@ -16,11 +16,17 @@ export async function newGetData(args: DefaultArgs) {
   try {
     const newHeaders = await getHeaders({ headers: config?.headers, authMode })
 
-    const res = await fetch(newUrl, {
+    const customConfig: RequestInit = {
+      cache: 'no-store',
       ...config,
-      cache: config?.cache ?? 'no-store',
       headers: newHeaders,
-    })
+      next: {
+        tags: [typeof newUrl === 'string' ? newUrl : newUrl.href],
+        ...config?.next,
+      },
+    }
+
+    const res = await fetch(newUrl, customConfig)
 
     if (res.ok) return res.json()
 

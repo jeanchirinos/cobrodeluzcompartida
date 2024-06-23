@@ -13,11 +13,6 @@ export async function getRentalGroupById(args: ArgsGetRentalGroupByIdFn) {
 
   const rentalGroup = await newGetData<ResponseGetRentalGroupById>({
     url: API_ROUTE.RENTAL_GROUP.SHOW({ id }),
-    config: {
-      next: {
-        tags: [API_ROUTE.RENTAL_GROUP.SHOW({ id })],
-      },
-    },
     mode: 'error-page',
   })
 

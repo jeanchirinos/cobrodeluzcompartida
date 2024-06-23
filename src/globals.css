@@ -7,7 +7,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* To avoid background change when autocomplete */
+/* To avoid background color change when autocomplete */
 input:-webkit-autofill,
 input:-webkit-autofill:is(:hover, :focus, :active) {
   transition: background-color 100000s ease-in-out 0s;

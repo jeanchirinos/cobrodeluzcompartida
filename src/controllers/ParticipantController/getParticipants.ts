@@ -10,15 +10,8 @@ type ArgsGetParticipantsFn = { rentalGroupId: RentalGroup['id'] }
 export type ResponseGetParticipants = Participant[]
 
 export async function getParticipants(args: ArgsGetParticipantsFn) {
-  const { rentalGroupId } = args
-
   const participants = await newGetData<ResponseGetParticipants>({
-    url: API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId }),
-    config: {
-      next: {
-        tags: [API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId })],
-      },
-    },
+    url: API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId: args.rentalGroupId }),
   })
 
   return { participants }

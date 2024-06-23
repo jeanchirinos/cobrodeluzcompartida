@@ -11,16 +11,12 @@ type ArgsDeleteParticipantFn = Pick<Participant, 'id'> & {
 
 export async function deleteParticipant(args: ArgsDeleteParticipantFn) {
   return newSendData({
-    // url: API_ROUTE.PARTICIPANT.DESTROY({ id: args.id }),
     url: API_ROUTE.PARTICIPANT.DESTROY({ id: args.id }),
     config: {
       method: 'DELETE',
     },
     options: {
       revalidateTagParams: [API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId: args.rentalGroupId })],
-
-      // revalidateTagParams: [''],
-      // revalidateTagParams: [API_ROUTE.RENTAL_GROUP.SHOW({ id: args.rentalGroupId })],
     },
   })
 }

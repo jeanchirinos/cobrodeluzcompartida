@@ -24,8 +24,8 @@ const nextuiPlugin = nextui({ addCommonColors: true })
 
 const config: Config = {
   content: [
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.tsx',
+    './src/components/**/*.tsx',
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {},

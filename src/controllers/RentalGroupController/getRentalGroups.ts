@@ -13,11 +13,6 @@ type ResponseGetRentalGroups = (RentalGroup & {
 export async function getRentalGroups() {
   const data = await newGetData<ResponseGetRentalGroups>({
     url: API_ROUTE.RENTAL_GROUP.INDEX,
-    config: {
-      next: {
-        tags: [API_ROUTE.RENTAL_GROUP.INDEX],
-      },
-    },
     mode: 'error-page',
   })
 

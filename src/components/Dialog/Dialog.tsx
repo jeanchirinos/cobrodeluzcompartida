@@ -1,10 +1,4 @@
-import {
-  type ComponentProps,
-  type ReactNode,
-  type PropsWithChildren,
-  useState,
-  useEffect,
-} from 'react'
+import { type ComponentProps, type ReactNode, type PropsWithChildren, useState, useEffect } from 'react'
 import { type UseDialog } from './useDialog'
 import {
   Dialog as HeadlessDialog,
@@ -21,14 +15,14 @@ import { Button } from '@nextui-org/react'
 import { IconClose } from '@/icons'
 import { HookFormButton } from '../ReactForm/HookFormButton'
 
-interface Props extends PropsWithChildren {
+type DialogProps = PropsWithChildren & {
   dialog: UseDialog
   preventCloseOnClickingBackdrop?: boolean
   onExitComplete?(): void
   dialogTitle?: ReactNode
 }
 
-export function Dialog(props: Props) {
+export function Dialog(props: DialogProps) {
   const { dialog, children, preventCloseOnClickingBackdrop, onExitComplete, dialogTitle } = props
 
   const onClose = preventCloseOnClickingBackdrop ? () => {} : dialog.close
@@ -81,12 +75,7 @@ export function Dialog(props: Props) {
 }
 
 export function DialogTitle(props: DialogTitleProps) {
-  return (
-    <HeadlessDialogTitle
-      {...props}
-      className={cnx('px-6 font-bold', props.className?.toString())}
-    />
-  )
+  return <HeadlessDialogTitle {...props} className={cnx('px-6 font-bold', props.className?.toString())} />
 }
 
 type DialogBodyProps = ComponentProps<'div'> & {
@@ -130,14 +119,7 @@ type DialogFooterProps = (
   ComponentProps<'footer'>
 
 export function DialogFooter(props: DialogFooterProps) {
-  const {
-    variant = '1',
-    dialog,
-    customHandleClick,
-    mainButtonProps,
-    useFormHook,
-    ...restProps
-  } = props
+  const { variant = '1', dialog, customHandleClick, mainButtonProps, useFormHook, ...restProps } = props
 
   const [isPending, setIsPending] = useState(false)
 
