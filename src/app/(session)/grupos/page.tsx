@@ -6,7 +6,7 @@ import { AvatarGroup, Avatar } from '@nextui-org/avatar'
 // import { Avatar } from '@/components/Avatar'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { CreateRentalGroup } from './components/CreateRentalGroup'
-import { Chip, Tooltip } from '@nextui-org/react'
+import { Tooltip } from '@nextui-org/react'
 // import Image from 'next/image'
 
 export default async function Page() {
@@ -42,14 +42,7 @@ async function RentalGroups() {
           {group.n_participant} {group.n_participant === 1 ? 'medidor' : 'medidores'}
         </small>
       </CardHeader>
-      <CardFooter className='justify-between'>
-        {group.n_participant > 1 ? (
-          <Chip variant='dot' color='success'>
-            Activo
-          </Chip>
-        ) : (
-          <Chip variant='dot'>Inactivo</Chip>
-        )}
+      <CardFooter className='justify-end'>
         <AvatarGroup isBordered size='sm' max={3}>
           {group.participants.map(p => (
             <Tooltip

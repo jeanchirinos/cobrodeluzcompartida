@@ -2,7 +2,7 @@ export { FcGoogle as IconGoogle } from 'react-icons/fc'
 export { PiCrownFill as IconCrown } from 'react-icons/pi'
 export {
   MdAddCircleOutline as IconAdd,
-  MdArrowBackIos as IconArrowBack,
+  MdArrowBackIosNew as IconArrowBack,
   MdCheck as IconCheck,
   MdClose as IconClose,
   MdOutlineDarkMode as IconDarkTheme,
@@ -12,5 +12,9 @@ export {
   MdOutlineReceipt as IconReceipt,
   MdOutlineSettings as IconSettings,
   MdMonitor as IconSystemTheme,
-  MdOutlineElectricMeter as IconLightMeter,
+  MdOutlineOfflineBolt as IconLightMeter,
+  MdVisibility as IconPasswordVisible,
+  MdVisibilityOff as IconPasswordHidden,
+  MdOutlineIosShare as IconShare,
 } from 'react-icons/md'
+export { SlOptionsVertical as IconOptions } from 'react-icons/sl'

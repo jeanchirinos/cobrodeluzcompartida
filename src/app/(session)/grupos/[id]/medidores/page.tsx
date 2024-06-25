@@ -1,14 +1,12 @@
 import { ButtonAction } from '@/components/Button/ButtonAction'
-import { Image } from '@/components/Image'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { createParticipant } from '@/controllers/ParticipantController/createParticipant/createParticipant'
 import { getParticipants } from '@/controllers/ParticipantController/getParticipants'
 import { CustomPageProps } from '@/types'
-import { UpdateParticipant } from './components/UpdateParticipant'
 import { IconAdd, IconCrown } from '@/icons'
-import { deleteParticipant } from '@/controllers/ParticipantController/deleteParticipant'
 import { Link } from '@/components/Link'
 import { ROUTE } from '@/constants/routes'
+import { Avatar, Card, CardFooter, CardHeader, Chip } from '@nextui-org/react'
 
 type Props = CustomPageProps<'id'>
 
@@ -33,35 +31,42 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
         action={createParticipant}
         actionParameters={{ rental_group_id: rentalGroupId }}
         color='primary'
-        className='w-fit'
+        className='w-fit self-end'
         endContent={<IconAdd />}
       >
         Agregar medidor
       </ButtonAction>
-      <ul className='flex flex-wrap gap-5'>
+
+      <section className='flex flex-wrap gap-5'>
         {participants.map(participant => (
-          <li key={participant.id} className='flex flex-col items-center gap-y-2'>
-            <Link href={ROUTE.GROUPS.LIGHT_METERS.PARTICIPANTS({ groupId: rentalGroupId, id: participant.id })}>
-              <Image src={participant.avatar_url} alt={participant.alias} size={250} />
-            </Link>
-            <div className='flex items-center gap-x-1.5'>
-              {participant.is_main && <IconCrown className='fill-yellow-500' />}
-              <p>{participant.alias}</p>
-            </div>
-            <footer className='flex gap-x-2'>
-              <UpdateParticipant participant={participant} />
-              <ButtonAction
-                color='danger'
-                action={deleteParticipant}
-                actionParameters={{ id: participant.id, rentalGroupId }}
-                variant='flat'
-              >
-                Remover
-              </ButtonAction>
-            </footer>
-          </li>
+          <Card
+            isPressable
+            key={participant.id}
+            className='w-80 max-w-full gap-y-5 border-default-100 py-1'
+            as={Link}
+            href={ROUTE.GROUPS.LIGHT_METERS.PARTICIPANTS({ groupId: rentalGroupId, id: participant.id })}
+          >
+            <CardHeader className='flex justify-between'>
+              <p className='font-bold uppercase'>{participant.alias}</p>
+              {participant.is_main && <IconCrown className='fill-yellow-500' title='Medidor de propietario' />}
+            </CardHeader>
+            <CardFooter className='items-end justify-between'>
+              <div className='flex items-end gap-x-2.5'>
+                <Avatar src={participant.avatar_url} alt={participant.alias} size='sm' />
+                <span>{participant.alias}</span>
+              </div>
+
+              {participant.is_main ? (
+                <Chip variant='dot' color='success'>
+                  Activo
+                </Chip>
+              ) : (
+                <Chip variant='dot'>Inactivo</Chip>
+              )}
+            </CardFooter>
+          </Card>
         ))}
-      </ul>
+      </section>
     </div>
   )
 }

@@ -50,7 +50,7 @@ export function Dialog(props: DialogProps) {
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <HeadlessDialogPanel className='flex max-h-full max-w-md flex-col gap-y-4 rounded-2xl bg-content1 py-5 shadow-small'>
+              <HeadlessDialogPanel className='relative flex max-h-full max-w-md flex-col gap-y-4 rounded-2xl bg-content1 py-5 shadow-small'>
                 <Button
                   onPress={dialog.close}
                   variant='light'

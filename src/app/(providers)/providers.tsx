@@ -1,11 +1,10 @@
 'use client'
 
-import { type PropsWithChildren } from 'react'
-import { NextUIProvider } from '@nextui-org/react'
 import { SwrProvider } from './SwrProvider'
 import { NextThemesProvider } from './NextThemesProvider'
+import { NextUIProvider } from './NextUIProvider'
 
-export function Providers(props: Required<PropsWithChildren>) {
+export function Providers(props: Required<React.PropsWithChildren>) {
   return (
     <SwrProvider>
       <NextUIProvider>

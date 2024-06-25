@@ -36,7 +36,7 @@ export function Tabs() {
         as={Link}
         title={
           <div className='flex items-center gap-x-2'>
-            <IconLightMeter size={16} /> Medidores
+            <IconLightMeter className='text-lg' /> Medidores
           </div>
         }
         href={ROUTE.GROUPS.LIGHT_METERS.INDEX({ groupId: rentalGroupId })}

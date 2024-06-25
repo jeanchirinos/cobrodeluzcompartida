@@ -1,7 +1,8 @@
 import { Suspense } from '@/components/other/CustomSuspense'
-// import { getParticipants } from '@/controllers/ParticipantController/getParticipants'
+import { getParticipants } from '@/controllers/ParticipantController/getParticipants'
 import { Participant } from '@/models/Participant'
 import { PagePropsParams } from '@/types'
+import { ParticipantsTable } from './components/ParticipantsTable'
 
 type Props = PagePropsParams<'light_meter_id'>
 
@@ -16,14 +17,13 @@ export default function Page(props: Props) {
 }
 
 async function Participants(props: { light_meter_id: Participant['id'] }) {
-  const { light_meter_id } = props
+  const { participants } = await getParticipants({
+    rentalGroupId: 70,
+  })
 
-  return <h1>{light_meter_id} - Participantes</h1>
-  // const { participants: light_meters } = await getParticipants({
-  //   rentalGroupId,
-  // })
-
-  // const currentLightMeter = light_meters.find(light_meter => light_meter.id === light_meter_id) ?? light_meters[0]
-
-  // return <h1>{currentLightMeter.alias}</h1>
+  return (
+    <div className='flex max-w-full flex-col items-center gap-y-12'>
+      <ParticipantsTable participants={participants} />
+    </div>
+  )
 }
