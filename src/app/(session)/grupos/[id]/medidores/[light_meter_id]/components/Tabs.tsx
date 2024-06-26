@@ -17,10 +17,14 @@ export function Tabs() {
       isVertical
       aria-label='Opciones del grupo'
       selectedKey={selectedLayoutSegment}
-      className='max-md:hidden'
       variant='light'
       classNames={{
+        // wrapper: 'max-md:absolute max-md:inset-0 max-md:z-20 max-md:bg-background',
+        wrapper: `${selectedLayoutSegment && 'max-md:hidden'}`,
+        // tab: 'justify-start max-md:w-full',
         tab: 'justify-start',
+        // base: 'max-md:w-full',
+        // tabList: 'max-md:w-full',
       }}
     >
       <Tab

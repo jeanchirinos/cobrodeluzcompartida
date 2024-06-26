@@ -8,6 +8,7 @@ import { Dialog } from '@/components/Dialog/Dialog'
 import { UpdateParticipantDialog } from './UpdateParticipant'
 import { ResponseGetParticipants } from '@/controllers/ParticipantController/getParticipants'
 import { ShareParticipantDialog } from './ShareParticipant'
+import { DeleteParticipantDialog } from './DeleteParticipantDialog'
 
 type ParticipantOptionsProps = { participant: ResponseGetParticipants[0] }
 
@@ -61,9 +62,7 @@ export function ParticipantOptions(props: ParticipantOptionsProps) {
         <ShareParticipantDialog participant={props.participant} dialog={shareParticipantDialog} />
       </Dialog>
 
-      <Dialog dialog={deleteDialog} dialogTitle='Eliminar participante'>
-        {/* <ShareParticipantDialog participant={props.participant} dialog={deleteDialog} /> */}
-      </Dialog>
+      <DeleteParticipantDialog deleteRentalGroupDialog={deleteDialog} />
     </>
   )
 }

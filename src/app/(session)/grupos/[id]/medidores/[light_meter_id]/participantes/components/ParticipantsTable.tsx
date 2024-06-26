@@ -10,7 +10,7 @@ export function ParticipantsTable(props: { participants: Participant[] }) {
   const { participants } = props
 
   return (
-    <Table removeWrapper aria-label='Tabla de resultado' className='w-full max-w-full md:w-64'>
+    <Table className='overflow-x-auto'>
       <TableHeader>
         <TableColumn>Avatar</TableColumn>
         <TableColumn>Alias</TableColumn>

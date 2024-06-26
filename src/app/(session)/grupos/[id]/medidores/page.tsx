@@ -52,7 +52,14 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
             </CardHeader>
             <CardFooter className='items-end justify-between'>
               <div className='flex items-end gap-x-2.5'>
-                <Avatar src={participant.avatar_url} alt={participant.alias} size='sm' />
+                <Avatar
+                  src={participant.avatar_url}
+                  alt={participant.alias}
+                  size='sm'
+                  imgProps={{
+                    loading: 'lazy',
+                  }}
+                />
                 <span>{participant.alias}</span>
               </div>
 

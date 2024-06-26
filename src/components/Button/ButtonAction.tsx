@@ -4,9 +4,9 @@ import { type CustomResponse } from '@/utilities/request/sendData/types'
 import { type Options, handleResponse } from '@/utilities/handleResponse'
 import { type PressEvent } from '@react-types/shared'
 import { useState } from 'react'
-import { Button } from '@nextui-org/button'
+import { Button, type ButtonProps } from '@nextui-org/button'
 
-type Props<Args, ResponseData> = React.ComponentProps<typeof Button> & {
+type Props<Args, ResponseData> = ButtonProps & {
   action: (args: Args) => Promise<CustomResponse<ResponseData>>
   actionParameters?: Args
   actionProps?: Options<ResponseData>

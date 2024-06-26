@@ -55,6 +55,9 @@ async function RentalGroups() {
               <Avatar
                 // ImgComponent={Image}
                 src={p.avatar_url}
+                imgProps={{
+                  loading: 'lazy',
+                }}
                 // title={p.alias}
                 // imgProps={{
                 //   width: 64,

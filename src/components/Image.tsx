@@ -1,11 +1,10 @@
-import NextImage from 'next/image'
-import { type ComponentProps } from 'react'
+import NextImage, { type ImageProps as NextImageProps } from 'next/image'
 
-type Props = ComponentProps<typeof NextImage> & {
-  size?: ComponentProps<typeof NextImage>['width']
+type ImageProps = NextImageProps & {
+  size?: NextImageProps['width']
 }
 
-export function Image(props: Props) {
+export function Image(props: ImageProps) {
   const { size, src } = props
 
   const sizeProps = size && { width: size, height: size }
