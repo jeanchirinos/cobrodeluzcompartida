@@ -6,7 +6,7 @@ import { createRentalGroup } from '@/controllers/RentalGroupController/createRen
 import { IconAdd } from '@/icons'
 import { useRouter } from 'next/navigation'
 
-export function CreateRentalGroup() {
+export async function CreateRentalGroup() {
   const { push } = useRouter()
 
   return (

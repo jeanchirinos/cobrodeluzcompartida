@@ -2,13 +2,13 @@ import { CreateRentalGroupRegisterBody } from '@/controllers/RentalGroupRegister
 
 type Params = {
   billData: CreateRentalGroupRegisterBody['billData']
-  consumptions: {
+  consumptions: Array<{
     consumption_kwh: number
     participant: {
       alias: string
       is_main: false
     }
-  }[]
+  }>
 }
 
 const IGV = 1.18
@@ -21,15 +21,12 @@ export function getResult(params: Params): CreateRentalGroupRegisterBody {
   const quantityOfConsumptions = consumptions.length + 1
 
   const amountToBeAddedBeforeSubtotalWithIgv =
-    (Number(current_month_total) / IGV - Number(consumption_kwh) * Number(kwh_price)) /
-    quantityOfConsumptions
+    (Number(current_month_total) / IGV - Number(consumption_kwh) * Number(kwh_price)) / quantityOfConsumptions
 
-  const amountToAddAfterSubtotalWithIgv =
-    (Number(total) - Number(current_month_total)) / quantityOfConsumptions
+  const amountToAddAfterSubtotalWithIgv = (Number(total) - Number(current_month_total)) / quantityOfConsumptions
 
   const adminConsumptionKwh =
-    Number(consumption_kwh) -
-    consumptions.reduce((acc, item) => acc + Number(item.consumption_kwh), 0)
+    Number(consumption_kwh) - consumptions.reduce((acc, item) => acc + Number(item.consumption_kwh), 0)
 
   function calculateAmountPerParticipant(consumption_kwh: number) {
     return Number(

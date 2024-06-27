@@ -51,7 +51,7 @@ export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends Zo
 
     if (!res) return
 
-    handleResponse({ res, ...actionProps })
+    await handleResponse({ res, ...actionProps })
   }
 
   // RETURN

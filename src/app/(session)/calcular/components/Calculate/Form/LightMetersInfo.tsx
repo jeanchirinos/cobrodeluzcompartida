@@ -56,13 +56,7 @@ export function LightMetersInfo() {
             />
           ))}
         </div>
-        <Button
-          color='primary'
-          variant='flat'
-          fullWidth
-          endContent={<IconAdd />}
-          onClick={addConsumption}
-        >
+        <Button color='primary' variant='flat' fullWidth endContent={<IconAdd />} onClick={addConsumption}>
           Agregar consumo
         </Button>
       </div>

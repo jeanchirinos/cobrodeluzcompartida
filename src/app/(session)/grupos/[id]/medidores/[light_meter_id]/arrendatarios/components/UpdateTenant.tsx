@@ -4,25 +4,25 @@ import { DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { UseDialog } from '@/components/Dialog/useDialog'
 import { Switch } from '@nextui-org/react'
 import { useParams } from 'next/navigation'
-import { updateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant'
-import { ResponseGetParticipants } from '@/controllers/ParticipantController/getParticipants'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
-import { schemaUpdateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant.schema'
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
+import { updateTenant } from '@/controllers/TenatController/updateParticipant/updateParticipant'
+import { ResponseGetTenants } from '@/controllers/TenatController/getTenants'
+import { schemaUpdateTenant } from '@/controllers/TenatController/updateParticipant/updateParticipant.schema'
 
-type UpdateParticipantDialogProps = { participant: ResponseGetParticipants[0]; updateParticipantDialog: UseDialog }
+type UpdateTenantDialogProps = { tenant: ResponseGetTenants[0]; dialog: UseDialog }
 
-export function UpdateParticipantDialog(props: UpdateParticipantDialogProps) {
-  const { participant, updateParticipantDialog } = props
+export function UpdateTenantDialog(props: UpdateTenantDialogProps) {
+  const { tenant, dialog } = props
 
-  const { id: rentalGroupId } = useParams<{ id: string }>()
+  const { light_meter_id: lightMeterId } = useParams<{ light_meter_id: string }>()
 
   // HOOKS
   const { useFormHook } = useReactHookForm({
-    schema: schemaUpdateParticipant,
-    defaultValues: participant,
-    submitActionFn: data => updateParticipant({ ...data, rentalGroupId: Number(rentalGroupId), id: participant.id }),
+    schema: schemaUpdateTenant,
+    defaultValues: tenant,
+    submitActionFn: data => updateTenant({ ...data, lightMeterId: Number(lightMeterId), id: tenant.id }),
   })
 
   return (
@@ -35,12 +35,16 @@ export function UpdateParticipantDialog(props: UpdateParticipantDialogProps) {
             classNames={{
               base: 'flex-row-reverse gap-x-2',
             }}
+            {...useFormHook.register('active')}
             size='sm'
+            name='active'
+            defaultSelected={tenant.active}
+            //! watch may be needed
           >
             <div className='flex flex-col gap-1'>
               <p className='text-medium'>Activo</p>
               <p className='text-small text-default-400'>
-                Solo un participante puede ser activo. Si se activa este participante, el anterior se desactivará
+                Solo un arrendatario puede ser activo. Si se activa este arrendatario, el anterior se desactivará
               </p>
             </div>
           </Switch>
@@ -49,7 +53,7 @@ export function UpdateParticipantDialog(props: UpdateParticipantDialogProps) {
       </DialogBody>
       <DialogFooter
         useFormHook={useFormHook}
-        dialog={updateParticipantDialog}
+        dialog={dialog}
         variant='3'
         mainButtonProps={{
           children: 'Actualizar',

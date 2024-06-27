@@ -4,11 +4,11 @@ import { notFound, redirect } from 'next/navigation'
 import { ROUTE } from '@/constants/routes'
 import { getHeaders, getUrl } from '../getUrlAndHeaders'
 
-export async function newGetData<Response>(args: DefaultArgs & { mode?: 'default' }): Promise<Response>
-export async function newGetData<Response>(args: DefaultArgs & { mode?: 'null' }): Promise<Response | null>
-export async function newGetData<Response>(args: DefaultArgs & { mode?: 'error-page' }): Promise<Response>
+export async function getData<Response>(args: DefaultArgs & { mode?: 'default' }): Promise<Response>
+export async function getData<Response>(args: DefaultArgs & { mode?: 'null' }): Promise<Response | null>
+export async function getData<Response>(args: DefaultArgs & { mode?: 'error-page' }): Promise<Response>
 
-export async function newGetData(args: DefaultArgs) {
+export async function getData(args: DefaultArgs) {
   const { mode = 'default', url, config, authMode = 'auth-required' } = args
 
   const newUrl = await getUrl({ url })
@@ -28,7 +28,7 @@ export async function newGetData(args: DefaultArgs) {
 
     const res = await fetch(newUrl, customConfig)
 
-    if (res.ok) return res.json()
+    if (res.ok) return await res.json()
 
     const displayedUrl = typeof url === 'string' ? `/${url}` : url.pathname
 

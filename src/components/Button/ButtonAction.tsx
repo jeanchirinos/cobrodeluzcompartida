@@ -25,7 +25,7 @@ export function ButtonAction<Args, ResponseData>(props: Props<Args, ResponseData
 
     const res = await myAction(actionParameters ?? ({} as Args))
 
-    handleResponse({ res, ...actionProps })
+    await handleResponse({ res, ...actionProps })
 
     setIsPending(false)
   }

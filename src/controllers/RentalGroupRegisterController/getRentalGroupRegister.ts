@@ -18,7 +18,7 @@ type ArgsGetRentalGroupRegisterFn = {
 
 type ResponseGetRentalGroupRegister = {
   billData: BillData
-  results: (Result & { participant: Participant })[]
+  results: Array<Result & { participant: Participant }>
 } | null
 
 export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn) {
@@ -35,7 +35,7 @@ export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn)
   //   },
   // })
 
-  //TODO: Delete when API is ready
+  // TODO: Delete when API is ready
   const data: ResponseGetRentalGroupRegister = {
     billData: {
       id: '1',
@@ -48,50 +48,51 @@ export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn)
       igv: 0.18,
       rental_group_id: '1',
     },
-    results: [
-      {
-        id: '1',
-        consumption_kwh: 188.84,
-        amount: 157.8,
-        bill_id: '1',
-        participant_id: '1',
-        participant: {
-          id: 1,
-          alias: 'Principal',
-          is_main: true,
-          key: '123456',
-          avatar_url: 'avatar1',
-        },
-      },
-      {
-        id: '2',
-        consumption_kwh: 6.84,
-        amount: 12.7,
-        bill_id: '1',
-        participant_id: '2',
-        participant: {
-          id: 2,
-          alias: 'Consumo 1',
-          is_main: false,
-          key: '789012',
-          avatar_url: 'avatar2',
-        },
-      },
-      {
-        id: '3',
-        consumption_kwh: 15.32,
-        amount: 19.5,
-        bill_id: '1',
-        participant_id: '3',
-        participant: {
-          id: 3,
-          alias: 'Consumo 2',
-          is_main: false,
-          key: '345678',
-          avatar_url: 'avatar3',
-        },
-      },
-    ],
+    results: [],
+    // results: [
+    //   {
+    //     id: '1',
+    //     consumption_kwh: 188.84,
+    //     amount: 157.8,
+    //     bill_id: '1',
+    //     participant_id: '1',
+    //     participant: {
+    //       id: 1,
+    //       alias: 'Principal',
+    //       is_main: true,
+    //       key: '123456',
+    //       avatar_url: 'avatar1',
+    //     },
+    //   },
+    //   {
+    //     id: '2',
+    //     consumption_kwh: 6.84,
+    //     amount: 12.7,
+    //     bill_id: '1',
+    //     participant_id: '2',
+    //     participant: {
+    //       id: 2,
+    //       alias: 'Consumo 1',
+    //       is_main: false,
+    //       key: '789012',
+    //       avatar_url: 'avatar2',
+    //     },
+    //   },
+    //   {
+    //     id: '3',
+    //     consumption_kwh: 15.32,
+    //     amount: 19.5,
+    //     bill_id: '1',
+    //     participant_id: '3',
+    //     participant: {
+    //       id: 3,
+    //       alias: 'Consumo 2',
+    //       is_main: false,
+    //       key: '345678',
+    //       avatar_url: 'avatar3',
+    //     },
+    //   },
+    // ],
   }
 
   return data

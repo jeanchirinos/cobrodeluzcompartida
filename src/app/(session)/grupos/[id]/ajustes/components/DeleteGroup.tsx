@@ -19,7 +19,7 @@ export function DeleteGroup() {
   async function customHandleClick() {
     const res = await deleteRentalGroup({ id: Number(id) })
 
-    handleResponse({
+    await handleResponse({
       res,
       onSuccess() {
         push(ROUTE.GROUPS.INDEX)

@@ -13,7 +13,7 @@ export async function handleResponse<Response extends CustomResponse<ResponseDat
   if (!res) return
 
   if (res.ok) {
-    onSuccess?.(res.data)
+    await onSuccess?.(res.data)
     if (showSuccessToast) toast.success(res.msg)
   } else {
     onError?.()

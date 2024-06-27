@@ -5,7 +5,7 @@ import { z } from 'zod'
 type Config<Body> = Omit<RequestInit, 'body'> &
   (Body extends undefined ? { body?: undefined } : { body: Body }) & { method?: 'POST' | 'PUT' | 'DELETE' }
 
-export type DefaultArgs<ResponseData, BodySchema extends ZodType> = {
+export type DefaultArgs<BodySchema extends ZodType, ResponseData> = {
   url: string | URL
   config?: Config<z.infer<BodySchema>>
   mode?: 'default' | 'null' | 'error-page'

@@ -1,4 +1,4 @@
-import { DeleteLightMeter } from './components/DeleteLightMeter'
+import { DeleteParticipant } from './components/DeleteParticipant'
 import { UpdateAvailability } from './components/UpdateAvailability'
 import { UpdateLightMeter } from './components/UpdateLightMeter'
 
@@ -7,7 +7,7 @@ export default function Page() {
     <main className='flex flex-col gap-y-12'>
       <UpdateLightMeter />
       <UpdateAvailability />
-      <DeleteLightMeter />
+      <DeleteParticipant />
     </main>
   )
 }

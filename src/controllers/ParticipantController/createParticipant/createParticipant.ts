@@ -3,12 +3,12 @@
 import { API_ROUTE } from '@/constants/api-routes'
 import { z } from 'zod'
 import { schemaCreateParticipant } from './createParticipant.schema'
-import { newSendData } from '@/utilities/request/sendData/sendData'
+import { sendData } from '@/utilities/request/sendData/sendData'
 
 type ArgsCreateRentalGroupFn = z.infer<typeof schemaCreateParticipant>
 
 export async function createParticipant(args: ArgsCreateRentalGroupFn) {
-  const data = await newSendData({
+  const data = await sendData({
     url: API_ROUTE.PARTICIPANT.STORE,
     config: {
       body: args,

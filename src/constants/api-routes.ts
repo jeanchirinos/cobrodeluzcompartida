@@ -53,6 +53,19 @@ const PARTICIPANT = {
   DESTROY: DESTROY_API_ROUTE({ base: PARTICIPANT_BASE }),
 }
 
+//* TENANT
+
+const TENANT_BASE = 'tenant'
+
+const TENANT = {
+  INDEX: ({ lightMeterId }: { lightMeterId: RouteId }) =>
+    `${INDEX_API_ROUTE({ base: TENANT_BASE })}/light_meter_id/${lightMeterId}`,
+  SHOW: SHOW_API_ROUTE({ base: TENANT_BASE }),
+  STORE: STORE_API_ROUTE({ base: TENANT_BASE }),
+  UPDATE: UPDATE_API_ROUTE({ base: TENANT_BASE }),
+  DESTROY: DESTROY_API_ROUTE({ base: TENANT_BASE }),
+}
+
 //* RENTAL GROUP REGISTER
 
 const RENTAL_GROUP_REGISTER_BASE = 'rental-group-register'
@@ -71,5 +84,6 @@ export const API_ROUTE = {
   AUTH,
   RENTAL_GROUP,
   PARTICIPANT,
+  TENANT,
   RENTAL_GROUP_REGISTER,
 }

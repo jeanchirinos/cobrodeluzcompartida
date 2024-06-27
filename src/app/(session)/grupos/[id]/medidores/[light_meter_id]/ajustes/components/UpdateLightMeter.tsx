@@ -5,20 +5,20 @@ import { HookFormButton } from '@/components/ReactForm/HookFormButton'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { schemaUpdateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant.schema'
 import { updateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant'
-// import { useRentalGroupContext } from '../../context/RentalGroupContext'
-
-const lightMeter = { id: 1, alias: 'Medidor 1', key: '212313124124', avatar_url: 'https://asasa.com' }
+import { useParticipantContext } from '../../context/ParticipantContext'
+import { useRentalGroupContext } from '../../../../context/RentalGroupContext'
 
 export function UpdateLightMeter() {
   // CONTEXT
-  // const { rentalGroup } = useRentalGroupContext()
+  const { participant } = useParticipantContext()
+  const { rentalGroup } = useRentalGroupContext()
 
   // HOOKS
   const { useFormHook } = useReactHookForm({
     schema: schemaUpdateParticipant,
-    defaultValues: lightMeter,
+    defaultValues: participant,
     mode: 'onChange',
-    submitActionFn: data => updateParticipant({ ...data, id: lightMeter.id, rentalGroupId: 70 }),
+    submitActionFn: data => updateParticipant({ ...data, id: participant.id, rentalGroupId: rentalGroup.id }),
   })
 
   // RENDER

@@ -44,17 +44,17 @@ async function RentalGroups() {
       </CardHeader>
       <CardFooter className='justify-end'>
         <AvatarGroup isBordered size='sm' max={3}>
-          {group.participants.map(p => (
+          {group.tenants.map(tenant => (
             <Tooltip
-              key={p.id}
-              content={p.alias}
+              key={tenant.id}
+              content={tenant.alias}
               classNames={{
                 content: 'w-max',
               }}
             >
               <Avatar
                 // ImgComponent={Image}
-                src={p.avatar_url}
+                src={tenant.avatar_url}
                 imgProps={{
                   loading: 'lazy',
                 }}

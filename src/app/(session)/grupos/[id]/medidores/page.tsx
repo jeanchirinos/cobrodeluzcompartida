@@ -18,12 +18,13 @@ export default function Page(props: Props) {
   )
 }
 
-async function Participants(props: { getParticipantsArgs: Parameters<typeof getParticipants>[0] }) {
-  const { rentalGroupId } = props.getParticipantsArgs
+type ParticipantProps = { getParticipantsArgs: Parameters<typeof getParticipants>[0] }
 
-  const { participants } = await getParticipants({
-    rentalGroupId,
-  })
+async function Participants(props: ParticipantProps) {
+  const { getParticipantsArgs } = props
+  const { rentalGroupId } = getParticipantsArgs
+
+  const { participants } = await getParticipants(getParticipantsArgs)
 
   return (
     <div className='flex flex-col gap-y-6'>
@@ -44,7 +45,7 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
             key={participant.id}
             className='w-80 max-w-full gap-y-5 border-default-100 py-1'
             as={Link}
-            href={ROUTE.GROUPS.LIGHT_METERS.PARTICIPANTS({ groupId: rentalGroupId, id: participant.id })}
+            href={ROUTE.GROUPS.LIGHT_METERS.TENANTS({ groupId: rentalGroupId, id: participant.id })}
           >
             <CardHeader className='flex justify-between'>
               <p className='font-bold uppercase'>{participant.alias}</p>
@@ -53,17 +54,17 @@ async function Participants(props: { getParticipantsArgs: Parameters<typeof getP
             <CardFooter className='items-end justify-between'>
               <div className='flex items-end gap-x-2.5'>
                 <Avatar
-                  src={participant.avatar_url}
-                  alt={participant.alias}
+                  src={participant.tenant.avatar_url}
+                  alt={participant.tenant.alias}
                   size='sm'
                   imgProps={{
                     loading: 'lazy',
                   }}
                 />
-                <span>{participant.alias}</span>
+                <span>{participant.tenant.alias}</span>
               </div>
 
-              {participant.is_main ? (
+              {participant.active ? (
                 <Chip variant='dot' color='success'>
                   Activo
                 </Chip>

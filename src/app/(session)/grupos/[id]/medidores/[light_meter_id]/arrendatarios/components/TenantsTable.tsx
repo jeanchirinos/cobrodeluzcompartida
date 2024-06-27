@@ -1,13 +1,13 @@
 'use client'
 
 import { Image } from '@/components/Image'
-import { Participant } from '@/models/Participant'
 import { Chip } from '@nextui-org/react'
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/table'
-import { ParticipantOptions } from './ParticipantOptions'
+import { TenantOptions } from './TenantOptions'
+import { ResponseGetTenants } from '@/controllers/TenatController/getTenants'
 
-export function ParticipantsTable(props: { participants: Participant[] }) {
-  const { participants } = props
+export function TenantsTable(props: { tenants: ResponseGetTenants }) {
+  const { tenants } = props
 
   return (
     <Table className='overflow-x-auto'>
@@ -18,20 +18,20 @@ export function ParticipantsTable(props: { participants: Participant[] }) {
         <TableColumn>Opciones</TableColumn>
       </TableHeader>
       <TableBody emptyContent='Sin datos para mostrar'>
-        {participants.map(participant => (
-          <TableRow key={participant.id}>
+        {tenants.map(tenant => (
+          <TableRow key={tenant.id}>
             <TableCell>
-              <Image src={participant.avatar_url} alt={participant.alias} size={48} className='rounded-full' />
+              <Image src={tenant.avatar_url} alt={tenant.alias} size={48} className='rounded-full' />
             </TableCell>
-            <TableCell>{participant.alias}</TableCell>
+            <TableCell>{tenant.alias}</TableCell>
             <TableCell>
-              <Chip className='border-none' color={participant.is_main ? 'success' : 'default'} variant='dot'>
-                {participant.is_main ? 'Activo' : 'Inactivo'}
+              <Chip className='border-none' color={tenant.active ? 'success' : 'default'} variant='dot'>
+                {tenant.active ? 'Activo' : 'Inactivo'}
               </Chip>
             </TableCell>
             <TableCell>
               <div className='flex items-center justify-center'>
-                <ParticipantOptions participant={participant} />
+                <TenantOptions tenant={tenant} />
               </div>
             </TableCell>
           </TableRow>

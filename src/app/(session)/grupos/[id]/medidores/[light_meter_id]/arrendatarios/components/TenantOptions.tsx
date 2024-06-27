@@ -5,16 +5,16 @@ import { DropdownTrigger, DropdownMenu, DropdownItem, Dropdown } from '@nextui-o
 import { Button } from '@nextui-org/button'
 import { useDialog } from '@/components/Dialog/useDialog'
 import { Dialog } from '@/components/Dialog/Dialog'
-import { UpdateParticipantDialog } from './UpdateParticipant'
-import { ResponseGetParticipants } from '@/controllers/ParticipantController/getParticipants'
-import { ShareParticipantDialog } from './ShareParticipant'
-import { DeleteParticipantDialog } from './DeleteParticipantDialog'
+import { ShareTenantDialog } from './ShareTenant'
+import { DeleteTenantDialog } from './DeleteTenant'
+import { ResponseGetTenants } from '@/controllers/TenatController/getTenants'
+import { UpdateTenantDialog } from './UpdateTenant'
 
-type ParticipantOptionsProps = { participant: ResponseGetParticipants[0] }
+type TenantOptionsProps = { tenant: ResponseGetTenants[0] }
 
-export function ParticipantOptions(props: ParticipantOptionsProps) {
+export function TenantOptions(props: TenantOptionsProps) {
   const editDialog = useDialog()
-  const shareParticipantDialog = useDialog()
+  const shareDialog = useDialog()
   const deleteDialog = useDialog()
 
   return (
@@ -39,7 +39,7 @@ export function ParticipantOptions(props: ParticipantOptionsProps) {
           <DropdownItem key='edit' onPress={editDialog.open}>
             Editar
           </DropdownItem>
-          <DropdownItem key='share' onPress={shareParticipantDialog.open}>
+          <DropdownItem key='share' onPress={shareDialog.open}>
             Compartir registros
           </DropdownItem>
           <DropdownItem
@@ -54,15 +54,15 @@ export function ParticipantOptions(props: ParticipantOptionsProps) {
         </DropdownMenu>
       </Dropdown>
 
-      <Dialog dialog={editDialog} dialogTitle='Editar participante'>
-        <UpdateParticipantDialog participant={props.participant} updateParticipantDialog={editDialog} />
+      <Dialog dialog={editDialog} dialogTitle='Editar arrendatario'>
+        <UpdateTenantDialog tenant={props.tenant} dialog={editDialog} />
       </Dialog>
 
-      <Dialog dialog={shareParticipantDialog} dialogTitle='Compartir registros a participante'>
-        <ShareParticipantDialog participant={props.participant} dialog={shareParticipantDialog} />
+      <Dialog dialog={shareDialog} dialogTitle='Compartir registros a arrendatario'>
+        <ShareTenantDialog tenant={props.tenant} dialog={shareDialog} />
       </Dialog>
 
-      <DeleteParticipantDialog deleteRentalGroupDialog={deleteDialog} />
+      <DeleteTenantDialog tenant={props.tenant} dialog={deleteDialog} />
     </>
   )
 }

@@ -28,14 +28,14 @@ export function Tabs() {
       }}
     >
       <Tab
-        key='participantes'
+        key='arrendatarios'
         title={
           <div className='flex items-center gap-x-2'>
             <IconParticipants /> Participantes
           </div>
         }
         as={Link}
-        href={ROUTE.GROUPS.LIGHT_METERS.PARTICIPANTS({ id: light_meter_id, groupId: rentalGroupId })}
+        href={ROUTE.GROUPS.LIGHT_METERS.TENANTS({ id: light_meter_id, groupId: rentalGroupId })}
       />
       <Tab
         key='ajustes'

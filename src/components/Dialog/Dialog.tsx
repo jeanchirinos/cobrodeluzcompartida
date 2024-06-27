@@ -18,7 +18,7 @@ import { HookFormButton } from '../ReactForm/HookFormButton'
 type DialogProps = PropsWithChildren & {
   dialog: UseDialog
   preventCloseOnClickingBackdrop?: boolean
-  onExitComplete?(): void
+  onExitComplete?: () => void
   dialogTitle?: ReactNode
 }
 
