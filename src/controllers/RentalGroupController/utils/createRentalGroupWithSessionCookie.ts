@@ -3,37 +3,37 @@ import { ROUTE } from '@/constants/routes'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createRentalGroup } from '../createRentalGroup/createRentalGroup'
-import { createRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister'
-import { CreateRentalGroupRegisterBody } from '@/controllers/RentalGroupRegisterController/utils/types'
+import { CookiesFormDataAndResults } from '@/app/(session)/calcular/components/SessionWarning/SaveButton'
+import { createRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister/createRentalGroupRegister'
 
 export async function createGroupWithSessionCookie() {
   const temporalFormDataCookie = cookies().get(COOKIES_TEMPORAL_FORM_DATA)
 
   if (!temporalFormDataCookie) redirect(ROUTE.GROUPS.INDEX)
 
-  const temporalFormData = JSON.parse(temporalFormDataCookie.value) as CreateRentalGroupRegisterBody
+  const temporalFormData = JSON.parse(temporalFormDataCookie.value) as CookiesFormDataAndResults
 
   const res = await createRentalGroup({
-    n_participant: temporalFormData.results.length,
-    return_participants: true,
+    n_participant: temporalFormData.result.length,
+    return_participants: true, // TODO: Return tenants ids
   })
 
   if (!res.ok) redirect(ROUTE.GROUPS.INDEX)
 
-  const resultsWithIds = temporalFormData.results.map((result, i) => ({
-    ...result,
-    participant: {
-      id: res.data.participants_ids[i],
-    },
-  }))
-
-  const formDataToCreateRentalGroupRegister = structuredClone(temporalFormData)
-  formDataToCreateRentalGroupRegister.results = resultsWithIds
-
   if (res.ok) {
+    const consumptions = res.data.participant_ids.map((id, i) => {
+      const { amount, consumption } = temporalFormData.result[i].participant.tenant
+
+      return {
+        id,
+        amount,
+        consumption,
+      }
+    })
+
     const response = await createRentalGroupRegister({
-      body: formDataToCreateRentalGroupRegister,
-      rentalGroupId: res.data.rental_group_id,
+      billData: temporalFormData.billData,
+      consumptions,
     })
 
     cookies().delete(COOKIES_TEMPORAL_FORM_DATA)

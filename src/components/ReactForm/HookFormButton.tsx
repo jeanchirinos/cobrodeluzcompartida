@@ -2,6 +2,7 @@ import { Button } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
 
 type Props = React.ComponentProps<typeof Button> & {
+  // TODOl: Check if onSubmit is still needed
   useFormHook: UseFormReturn<any> & { onSubmit: (e?: React.FormEvent<HTMLFormElement>) => Promise<void> }
 }
 

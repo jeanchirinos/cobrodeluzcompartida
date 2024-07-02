@@ -4,10 +4,7 @@ import type { ComponentType, ComponentProps } from 'react'
 import type { UseFormReturn } from 'react-hook-form'
 import { Input } from '../Input'
 
-type WithHookFormProps<T extends ComponentType, Y extends UseFormReturn> = Omit<
-  ComponentProps<T>,
-  'name'
-> & {
+type WithHookFormProps<T extends ComponentType, Y extends UseFormReturn> = Omit<ComponentProps<T>, 'name'> & {
   useFormHook: Y
   name: Parameters<Y['register']>['0']
   registerOptions?: Parameters<Y['register']>['1']
@@ -19,16 +16,16 @@ export function withHookForm<T extends ComponentType>(WrappedComponent: T) {
 
     // "watch" is necessary to update the value of the "NextuiInput" component when for example "reseting the field"
 
-    const {
-      watch,
-      register,
-      formState: { errors },
-    } = useFormHook
+    const { watch, register, getFieldState } = useFormHook
+
+    const { error, invalid } = getFieldState(name)
 
     const hookFormProps = {
       ...register(name, registerOptions),
-      errorMessage: errors[name]?.message,
-      isInvalid: errors[name],
+      // errorMessage: errors[name]?.message,
+      errorMessage: error?.message,
+      // isInvalid: {},
+      isInvalid: invalid,
       value: watch(name),
     }
 

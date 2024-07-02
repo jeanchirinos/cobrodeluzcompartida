@@ -4,7 +4,7 @@ import { HeaderLinkNavMenuItem } from './HeaderLink'
 import { ROUTE } from '@/constants/routes'
 
 export async function NavMenu() {
-  const session = await getSession()
+  const { session } = await getSession()
 
   return (
     <NavbarMenu>

@@ -1,25 +1,39 @@
 'use client'
 
-import { $BUTTON_LOGIN_ID } from '@/constants/elements'
 import { Button } from '@nextui-org/button'
-import { getFormData } from '../utils/getFormData'
 import { setCookie } from 'typescript-cookie'
 import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
-import { getResult } from '../Calculate/Form/utils/calculateAmount'
+import { useCalculateContext } from '../../context/CalculateContext'
+import { $BUTTON_LOGIN_ID } from '@/constants/elements'
+import { ResponseCalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults'
+import { z } from 'zod'
+import { schemaCalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
+
+export type CookiesFormDataAndResults = {
+  billData: z.infer<typeof schemaCalculateResults>['billData']
+  result: ResponseCalculateResults
+}
 
 export function SaveButton() {
-  function handleClick() {
-    const formData = getFormData()
-    const result = getResult(formData as any)
+  const { result, useFormHook } = useCalculateContext()
+  const { isDisabled, getValues } = useFormHook
 
-    setCookie(COOKIES_TEMPORAL_FORM_DATA, JSON.stringify(result))
+  function handlePress() {
+    if (!result) return
+
+    const cookiesFormDataAndResults: CookiesFormDataAndResults = {
+      billData: getValues().billData,
+      result,
+    }
+
+    setCookie(COOKIES_TEMPORAL_FORM_DATA, JSON.stringify(cookiesFormDataAndResults))
 
     const loginButton = document.getElementById($BUTTON_LOGIN_ID)
     loginButton?.click()
   }
 
   return (
-    <Button color='secondary' size='sm' onClick={handleClick} className='inline'>
+    <Button color='secondary' size='sm' onPress={handlePress} className='inline' isDisabled={isDisabled}>
       Guardar datos
     </Button>
   )

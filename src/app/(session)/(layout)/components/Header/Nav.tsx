@@ -4,7 +4,7 @@ import { HeaderLinkNavItem } from './HeaderLink'
 import { ROUTE } from '@/constants/routes'
 
 export async function Nav() {
-  const session = await getSession()
+  const {session} = await getSession()
 
   return (
     <NavbarContent className='hidden gap-x-4 sm:flex' justify='start'>

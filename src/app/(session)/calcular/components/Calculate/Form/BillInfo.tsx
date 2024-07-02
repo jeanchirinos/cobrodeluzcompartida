@@ -1,40 +1,48 @@
-import { Input } from '@/components/Input'
+'use client'
+
+import { useCalculateContext } from '../../../context/CalculateContext'
+import { CustomInput } from '@/components/ReactForm/withHookForm'
+import { BillOptions } from './BillOptions'
 
 export function BillInfo() {
-  return (
-    <section className='space-y-8'>
-      <h3 className='text-large font-semibold'>Datos del recibo</h3>
-      <div className='flex flex-col gap-y-6'>
-        {/* Temporaly hidden inputs */}
-        <input type='hidden' name='year' defaultValue='2024' />
-        <input type='hidden' name='month' defaultValue='1' />
-        <input type='hidden' name='igv' defaultValue='0.18' />
+  const { useFormHook } = useCalculateContext()
 
-        <Input
-          name='consumption_kwh'
+  return (
+    <section className='flex flex-col gap-y-8'>
+      <div className='flex gap-x-2'>
+        <h3 className='text-large font-semibold'>Datos del recibo</h3>
+        <BillOptions />
+      </div>
+      <div className='flex flex-col gap-y-6'>
+        <CustomInput
+          useFormHook={useFormHook}
+          name='billData.consumption_kwh'
           label='Consumo kWh'
           placeholder='0'
           type='number'
           endContent='kWh'
         />
-        <Input
-          name='kwh_price'
+        <CustomInput
+          useFormHook={useFormHook}
+          name='billData.kwh_price'
           label='kWh al precio de'
           placeholder='0.0000'
           startContent='S/.'
           type='number'
           step={0.0001}
         />
-        <Input
-          name='current_month_total'
+        <CustomInput
+          useFormHook={useFormHook}
+          name='billData.current_month_total'
           label='TOTAL mes actual'
           placeholder='0.00'
           startContent='S/.'
           type='number'
           step={0.01}
         />
-        <Input
-          name='total'
+        <CustomInput
+          useFormHook={useFormHook}
+          name='billData.total'
           label='Total a pagar'
           placeholder='0.00'
           startContent='S/.'
