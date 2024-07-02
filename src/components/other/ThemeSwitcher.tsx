@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes'
 import { IconDarkTheme, IconLightTheme, IconSystemTheme } from '@/icons'
 import { useEffect, useState } from 'react'
 import { Listbox, ListboxOption, ListboxOptions, ListboxTrigger } from '@/components/ListBox'
+// import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 
 const themes = [
   {
@@ -43,13 +44,7 @@ export function ThemeSwitcher() {
       </ListboxTrigger>
       <ListboxOptions className='max-h-60 text-small'>
         {themes.map(theme => (
-          <ListboxOption
-            key={theme.id}
-            value={theme}
-            onClick={() => setTheme(theme.id)}
-            className='justify-between'
-            aria-label={theme.name}
-          >
+          <ListboxOption key={theme.id} value={theme} className='justify-between' aria-label={theme.name}>
             <div className='flex items-center gap-x-1.5'>
               {theme.icon}
               <span>{theme.name}</span>

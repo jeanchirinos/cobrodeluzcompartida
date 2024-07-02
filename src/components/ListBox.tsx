@@ -2,7 +2,6 @@ import {
   ListboxButton as HeadlessListBoxButton,
   ListboxOptions as HeadlessListboxOptions,
   ListboxOption as HeadlessListboxOption,
-  Transition,
   type ListboxButtonProps,
   type ListboxOptionsProps,
   type ListboxOptionProps,
@@ -19,29 +18,22 @@ export function ListboxTrigger(props: ListboxButtonProps<typeof Button>) {
 
 export function ListboxOptions(props: ListboxOptionsProps) {
   return (
-    <Transition
-      enter='transition duration-100 ease-out'
-      enterFrom='transform scale-95 opacity-0'
-      enterTo='transform scale-100 opacity-100'
-      leave='transition duration-75 ease-out'
-      leaveFrom='transform scale-100 opacity-100'
-      leaveTo='transform scale-95 opacity-0'
+    <HeadlessListboxOptions
+      modal={false}
+      // transition
+      anchor={{
+        to: 'bottom end',
+        gap: '0.5rem',
+      }}
+      {...props}
+      className={cnx(
+        'z-40 w-max overflow-auto rounded-md bg-content1 shadow-small focus:outline-none',
+        // 'transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0',
+        props.className?.toString(),
+      )}
     >
-      <HeadlessListboxOptions
-        modal={false}
-        anchor={{
-          to: 'bottom end',
-          gap: '0.5rem',
-        }}
-        {...props}
-        className={cnx(
-          'z-40 w-max overflow-auto rounded-md bg-content1 shadow-small focus:outline-none',
-          props.className?.toString(),
-        )}
-      >
-        {props.children}
-      </HeadlessListboxOptions>
-    </Transition>
+      {props.children}
+    </HeadlessListboxOptions>
   )
 }
 
