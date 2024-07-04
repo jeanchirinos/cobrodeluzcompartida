@@ -17,9 +17,9 @@ export function Results() {
         <TableBody emptyContent='Sin datos para mostrar'>
           {result
             ? result.map(item => (
-                <TableRow key={item.participant.tenant.alias}>
-                  <TableCell>{item.participant.tenant.alias}</TableCell>
-                  <TableCell>S/. {item.participant.tenant.amount}</TableCell>
+                <TableRow key={item.tenant.alias}>
+                  <TableCell>{item.tenant.alias}</TableCell>
+                  <TableCell>S/. {item.amount}</TableCell>
                 </TableRow>
               ))
             : []}

@@ -26,7 +26,7 @@ export function CalculateProvider(props: React.PropsWithChildren) {
     mode: 'onTouched',
     resolver: zodResolver(schemaCalculateResults),
     defaultValues: {
-      consumptions: [{ consumption: undefined, alias: 'Consumo 1' }],
+      consumptions: [{ consumption_kwh: undefined, alias: 'Consumo 1' }],
     },
   })
 
@@ -38,13 +38,6 @@ export function CalculateProvider(props: React.PropsWithChildren) {
   const isDisabled = !isValid || isSubmitting || !isDirty
 
   useEffect(() => {
-    // if (isValidating) return
-
-    // if (!isValid) {
-    //   setResult(null)
-    //   return
-    // }
-
     const data = getValues()
 
     async function executeCalculateResults() {

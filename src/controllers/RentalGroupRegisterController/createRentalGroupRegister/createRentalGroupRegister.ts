@@ -3,7 +3,9 @@
 import { schemaCreateRentalGroupRegister } from './createRentalGroupRegister.schema'
 import { z } from 'zod'
 
-type ArgsCreateRentalGroupFn = z.infer<typeof schemaCreateRentalGroupRegister>
+export type ArgsCreateRentalGroupFn = z.infer<typeof schemaCreateRentalGroupRegister>
+
+// TODO: Should I send rental group id or participants ids ?
 
 export async function createRentalGroupRegister(args: ArgsCreateRentalGroupFn) {
   // const { rentalGroupId, body } = args

@@ -1,20 +1,10 @@
 import { z } from 'zod'
-import { schemaCalculateResults } from '../calculateResults/calculateResults.schema'
-import { schemaTenant } from '@/models/Tenant'
+import { schemaBillData } from '@/models/BillData'
+import { schemaRentalGroup } from '@/models/RentalGroup'
+import { schemaResult } from '@/models/Result'
 
-export const schemaCreateRentalGroupRegister = schemaCalculateResults
-  .pick({
-    billData: true,
-  })
-  .extend({
-    consumptions: z.array(
-      schemaTenant
-        .pick({
-          id: true,
-        })
-        .extend({
-          consumption: z.coerce.number().positive(),
-          amount: z.coerce.number().positive(),
-        }),
-    ),
-  })
+export const schemaCreateRentalGroupRegister = z.object({
+  rental_group_id: schemaRentalGroup.shape.id,
+  billData: schemaBillData.omit({ id: true, rental_group_id: true }),
+  result: z.array(schemaResult.pick({ amount: true, consumption_kwh: true, tenant_id: true })),
+})

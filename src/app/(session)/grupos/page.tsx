@@ -39,7 +39,8 @@ async function RentalGroups() {
       <CardHeader className='flex-col items-start'>
         <p className='font-bold uppercase'>{group.name}</p>
         <small className='text-default-500'>
-          {group.n_participant} {group.n_participant === 1 ? 'medidor' : 'medidores'}
+          {group.n_participant} {group.n_participant === 1 ? 'medidor' : 'medidores'}{' '}
+          {group.n_participant === 1 ? 'activo' : 'activos'}
         </small>
       </CardHeader>
       <CardFooter className='justify-end'>

@@ -24,7 +24,7 @@ export function LightMetersInfo() {
             <CustomInput
               useFormHook={useFormHook}
               key={field.id}
-              name={`consumptions.${i}.consumption`}
+              name={`consumptions.${i}.consumption_kwh`}
               type='number'
               endContent='kWh'
               label={
@@ -35,7 +35,7 @@ export function LightMetersInfo() {
                       type='button'
                       onPress={async () => {
                         remove(i)
-                        await trigger(`consumptions.${i}.consumption`)
+                        await trigger(`consumptions.${i}.consumption_kwh`)
                       }}
                       isIconOnly
                       size='sm'
@@ -60,7 +60,9 @@ export function LightMetersInfo() {
           variant='flat'
           fullWidth
           endContent={<IconAdd />}
-          onClick={() => append({ consumption: undefined as unknown as number, alias: `Consumo ${fields.length + 1}` })}
+          onClick={() =>
+            append({ consumption_kwh: undefined as unknown as number, alias: `Consumo ${fields.length + 1}` })
+          }
         >
           Agregar consumo
         </Button>

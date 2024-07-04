@@ -6,16 +6,17 @@ import {
 import { IconAdd } from '@/icons'
 import { PageParamsAndSearchParamsPropsAlt } from '@/types'
 import { Button } from '@nextui-org/button'
+import { ResultsTable } from './components/ResultsTable'
 
 type Props = PageParamsAndSearchParamsPropsAlt<'id', GetRentalGroupRegisterParams>
 
 export default async function Page(props: Props) {
-  const rentalGroupRegister = await getRentalGroupRegister({
+  const { rentalGroupRegister } = await getRentalGroupRegister({
     params: { rentalGroupId: Number(props.params.id) },
     searchParams: props.searchParams,
   })
 
-  const { billData } = rentalGroupRegister
+  const { billData, results } = rentalGroupRegister
 
   return (
     <>
@@ -46,13 +47,26 @@ export default async function Page(props: Props) {
         </Button>
       </header>
 
+      <section className='text-2xl font-bold'>
+        {billData.year} - {billData.month}
+      </section>
+
       <details>
         <summary className='text-large font-semibold'>Datos del recibo</summary>
-        <div className='pt-4'>Consumo kWh: {billData.consumption_kwh}</div>
+        <div className='mt-4'>
+          <p>Consumo kWh: {billData.consumption_kwh}</p>
+          <p>Precio kWh: S/. {billData.kwh_price}</p>
+          <p>Total mes actual: S/. {billData.current_month_total}</p>
+          <p>Total: S/. {billData.total}</p>
+          <p>IGV: {billData.igv}</p>
+        </div>
       </details>
 
       <details open>
         <summary className='text-large font-semibold'>Resultados</summary>
+        <div className='mt-4'>
+          <ResultsTable results={results} />
+        </div>
       </details>
     </>
   )

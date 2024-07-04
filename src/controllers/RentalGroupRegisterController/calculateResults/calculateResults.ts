@@ -1,20 +1,10 @@
 import { z } from 'zod'
-import { schemaCalculateResults } from './calculateResults.schema'
-import { Participant } from '@/models/Participant'
-import { Tenant } from '@/models/Tenant'
+import { schemaCalculateResults, schemaResponseCalculateResults } from './calculateResults.schema'
+
+export const IGV = 0.18
 
 type ArgsCalculateResultsFn = z.infer<typeof schemaCalculateResults>
-
-export type ResponseCalculateResults = Array<{
-  participant: Pick<Participant, 'is_main'> & {
-    tenant: Pick<Tenant, 'alias'> & {
-      consumption: number
-      amount: number
-    }
-  }
-}>
-
-const IGV = 1.18
+export type ResponseCalculateResults = z.infer<typeof schemaResponseCalculateResults>
 
 export async function calculateResults(args: ArgsCalculateResultsFn): Promise<ResponseCalculateResults | null> {
   const validation = schemaCalculateResults.safeParse(args)
@@ -25,53 +15,50 @@ export async function calculateResults(args: ArgsCalculateResultsFn): Promise<Re
   const { consumption_kwh, kwh_price, current_month_total, total } = billData
 
   //
-
+  const igvToCalculate = IGV + 1
   const quantityOfConsumptions = consumptions.length + 1
 
   const amountToBeAddedBeforeSubtotalWithIgv =
-    (Number(current_month_total) / IGV - Number(consumption_kwh) * Number(kwh_price)) / quantityOfConsumptions
+    ((current_month_total / igvToCalculate - consumption_kwh) * kwh_price) / quantityOfConsumptions
 
-  const amountToAddAfterSubtotalWithIgv = (Number(total) - Number(current_month_total)) / quantityOfConsumptions
-
-  const adminConsumptionKwh =
-    Number(consumption_kwh) - consumptions.reduce((acc, item) => acc + Number(item.consumption), 0)
+  const amountToAddAfterSubtotalWithIgv = total - current_month_total / quantityOfConsumptions
 
   function calculateAmountPerParticipant(consumption_kwh: number) {
     return Number(
       (
-        (consumption_kwh * Number(kwh_price) + amountToBeAddedBeforeSubtotalWithIgv) * IGV +
+        (consumption_kwh * kwh_price + amountToBeAddedBeforeSubtotalWithIgv) * igvToCalculate +
         amountToAddAfterSubtotalWithIgv
       ).toFixed(1),
     )
   }
 
-  const adminAmount = calculateAmountPerParticipant(adminConsumptionKwh)
+  // Main participant
+  const mainConsumptionKwh = consumption_kwh - consumptions.reduce((acc, item) => acc + item.consumption_kwh, 0)
 
-  const participantsAmounts = consumptions.map(item => ({
-    ...item,
+  const mainAmount = calculateAmountPerParticipant(mainConsumptionKwh)
+
+  const mainParticipantResult: ResponseCalculateResults[0] = {
+    participant: {
+      is_main: true,
+    },
+    tenant: {
+      alias: 'Administrador',
+    },
+    consumption_kwh: mainConsumptionKwh,
+    amount: mainAmount,
+  }
+
+  // Other participants
+  const otherParticipantsResults: ResponseCalculateResults = consumptions.map(item => ({
     participant: {
       is_main: false,
-      tenant: {
-        alias: item.alias,
-        consumption: item.consumption,
-        amount: calculateAmountPerParticipant(Number(item.consumption)),
-      },
     },
+    tenant: {
+      alias: item.alias,
+    },
+    consumption_kwh: item.consumption_kwh,
+    amount: calculateAmountPerParticipant(item.consumption_kwh),
   }))
 
-  //
-
-  return [
-    {
-      participant: {
-        is_main: true,
-        tenant: {
-          alias: 'Administrador',
-          consumption: adminConsumptionKwh,
-          amount: adminAmount,
-        },
-      },
-    },
-    ...participantsAmounts,
-  ]
+  return [mainParticipantResult, ...otherParticipantsResults]
 }

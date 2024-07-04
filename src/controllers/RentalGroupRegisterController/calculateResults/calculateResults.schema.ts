@@ -1,16 +1,21 @@
 import { z } from 'zod'
+import { schemaCreateRentalGroupRegister } from '../createRentalGroupRegister/createRentalGroupRegister.schema'
+import { schemaParticipant } from '@/models/Participant'
+import { schemaTenant } from '@/models/Tenant'
+import { schemaResult } from '@/models/Result'
 
 export const schemaCalculateResults = z.object({
-  billData: z.object({
-    consumption_kwh: z.coerce.number().positive(),
-    kwh_price: z.coerce.number().positive(),
-    current_month_total: z.coerce.number().positive(),
-    total: z.coerce.number().positive(),
-  }),
+  billData: schemaCreateRentalGroupRegister.shape.billData.partial({ igv: true }),
   consumptions: z.array(
-    z.object({
-      consumption: z.coerce.number().positive(),
-      alias: z.string(),
-    }),
+    schemaCreateRentalGroupRegister.shape.result.element
+      .pick({ consumption_kwh: true })
+      .merge(schemaTenant.pick({ alias: true })),
   ),
 })
+
+export const schemaResponseCalculateResults = z.array(
+  schemaResult.pick({ amount: true, consumption_kwh: true }).extend({
+    participant: schemaParticipant.pick({ is_main: true }),
+    tenant: schemaTenant.pick({ alias: true }),
+  }),
+)

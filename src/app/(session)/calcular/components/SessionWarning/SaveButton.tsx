@@ -5,14 +5,7 @@ import { setCookie } from 'typescript-cookie'
 import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
 import { useCalculateContext } from '../../context/CalculateContext'
 import { $BUTTON_LOGIN_ID } from '@/constants/elements'
-import { ResponseCalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults'
-import { z } from 'zod'
-import { schemaCalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
-
-export type CookiesFormDataAndResults = {
-  billData: z.infer<typeof schemaCalculateResults>['billData']
-  result: ResponseCalculateResults
-}
+import { CookiesFormDataAndResults } from '@/controllers/RentalGroupController/utils/createRentalGroupWithSessionCookie.schema'
 
 export function SaveButton() {
   const { result, useFormHook } = useCalculateContext()

@@ -7,6 +7,8 @@ import { API_ROUTE } from '@/constants/api-routes'
 import { schemaLogin } from './login.schema'
 import { sendData } from '@/utilities/request/sendData/sendData'
 import { User } from '@/models/User'
+import { redirect } from 'next/navigation'
+import { ROUTE } from '@/constants/routes'
 
 type ArgsLoginFn = z.infer<typeof schemaLogin>
 
@@ -16,6 +18,8 @@ export async function login(args: ArgsLoginFn) {
   async function onSuccess(data: ResponseLogin) {
     await createAuthToken({ token: data.token })
     await createGroupWithSessionCookie()
+
+    redirect(ROUTE.GROUPS.INDEX)
   }
 
   return await sendData<typeof schemaLogin, ResponseLogin>({
@@ -27,6 +31,6 @@ export async function login(args: ArgsLoginFn) {
       schema: schemaLogin,
       onSuccess,
     },
-    authMode: 'auth-no-auth',
+    authMode: 'auth-not-required',
   })
 }
