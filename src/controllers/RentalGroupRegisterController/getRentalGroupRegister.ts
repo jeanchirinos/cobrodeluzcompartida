@@ -17,22 +17,30 @@ type ArgsGetRentalGroupRegisterFn = {
   searchParams: GetRentalGroupRegisterParams
 }
 
-export type ResponseGetRentalGroupRegister = {
+export type RentalGroupRegisterFound = {
   billData: BillData
   results: Array<Result & { participant: Participant; tenant: Tenant }>
 }
+
+export type ResponseGetRentalGroupRegister = RentalGroupRegisterFound | null
+
+// export type ResponseGetRentalGroupRegister = {
+//   billData: BillData
+//   results: Array<Result & { participant: Participant; tenant: Tenant }>
+// }
 
 export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn) {
   const { params, searchParams } = args
 
   // const { url } = getUrlWithSearchParams<GetRentalGroupRegisterParams>({
-  //   hostname: API_ROUTE.RENTAL_GROUP_REGISTER.SHOW({rentalGroupId: params.rentalGroupId}),
+  //   hostname: API_ROUTE.RENTAL_GROUP_REGISTER.SHOW({ rentalGroupId: params.rentalGroupId }),
   //   searchParams,
   // })
 
-  //   const data = await getData<ResponseGetRentalGroupRegister>({
-  // url,
-  //   })
+  // const rentalGroupRegister = await getData<ResponseGetRentalGroupRegister>({
+  //   url,
+  //   mode: 'null'
+  // })
 
   // TODO: Delete when API is ready
   const rentalGroupRegister: ResponseGetRentalGroupRegister = {
@@ -42,8 +50,8 @@ export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn)
       kwh_price: 0.6758,
       current_month_total: 188.26,
       total: 190,
-      year: 2024,
-      month: 1,
+      year: searchParams.year ? Number(searchParams.year) : 2024,
+      month: searchParams.month ? Number(searchParams.month) : new Date().getMonth() + 1,
       igv: 0.18,
       rental_group_id: 1,
     },

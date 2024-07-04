@@ -1,10 +1,10 @@
 'use client'
 
 import { Image } from '@/components/Image'
-import { ResponseGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister'
+import { RentalGroupRegisterFound } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister'
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/table'
 
-type ResultsTableProps = Pick<ResponseGetRentalGroupRegister, 'results'>
+type ResultsTableProps = Pick<RentalGroupRegisterFound, 'results'>
 
 export function ResultsTable(props: ResultsTableProps) {
   const { results } = props

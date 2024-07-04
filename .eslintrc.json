@@ -27,6 +27,7 @@
     "@typescript-eslint/no-non-null-assertion": "warn",
     "@typescript-eslint/restrict-template-expressions": "warn",
     "@typescript-eslint/array-type": "warn",
+    "@typescript-eslint/no-unnecessary-type-assertion": "warn",
     "react/jsx-curly-brace-presence": "warn",
     "react/jsx-handler-names": "off",
     "react/jsx-boolean-value": "warn",
