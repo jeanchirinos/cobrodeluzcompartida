@@ -7,7 +7,12 @@ import { AvatarGroup, Avatar } from '@nextui-org/avatar'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { CreateRentalGroup } from './components/CreateRentalGroup'
 import { Tooltip } from '@nextui-org/react'
+import { Metadata } from 'next'
 // import Image from 'next/image'
+
+export const metadata: Metadata = {
+  title: 'Grupos',
+}
 
 export default async function Page() {
   return (

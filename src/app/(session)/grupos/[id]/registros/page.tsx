@@ -7,6 +7,12 @@ import { IconAdd } from '@/icons'
 import { PageParamsAndSearchParamsPropsAlt } from '@/types'
 import { Button } from '@nextui-org/button'
 import { ResultsTable } from './components/ResultsTable'
+import { Metadata } from 'next'
+import { Selects } from './components/Selects'
+
+export const metadata: Metadata = {
+  title: 'Registros',
+}
 
 type Props = PageParamsAndSearchParamsPropsAlt<'id', GetRentalGroupRegisterParams>
 
@@ -22,7 +28,7 @@ export default async function Page(props: Props) {
     <>
       <header className='flex flex-wrap items-end justify-between gap-y-6'>
         <section className='flex flex-wrap gap-x-2'>
-          <Select label='Año' className='w-[12rem] max-w-full' options={['2024', '2023']} />
+          {/* <Select label='Año' className='w-[12rem] max-w-full' options={['2024', '2023']} />
           <Select
             label='Mes'
             className='w-[12rem] max-w-full'
@@ -40,7 +46,8 @@ export default async function Page(props: Props) {
               'Noviembre',
               'Diciembre',
             ]}
-          />
+          /> */}
+          <Selects />
         </section>
         <Button variant='shadow' color='primary' endContent={<IconAdd />}>
           Agregar registro

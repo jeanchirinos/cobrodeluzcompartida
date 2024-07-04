@@ -7,6 +7,11 @@ import { IconAdd, IconCrown } from '@/icons'
 import { Link } from '@/components/Link'
 import { ROUTE } from '@/constants/routes'
 import { Avatar, Card, CardFooter, CardHeader, Chip } from '@nextui-org/react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Medidores',
+}
 
 type Props = CustomPageProps<'id'>
 

@@ -6,8 +6,16 @@ import { ButtonBack } from '@/components/Button/ButtonBack'
 import { ROUTE } from '@/constants/routes'
 import { RentalGroup } from '@/models/RentalGroup'
 import { Suspense } from '@/components/other/CustomSuspense'
+import { Metadata } from 'next'
 
 type Props = React.PropsWithChildren & PagePropsParams<'id'>
+
+export const metadata: Metadata = {
+  title: {
+    template: 'Grupo - %s | CLC',
+    default: 'Grupo',
+  },
+}
 
 export default async function Layout(props: Props) {
   const { id: rentalGroupId } = props.params

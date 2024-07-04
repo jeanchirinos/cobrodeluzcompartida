@@ -7,10 +7,18 @@ import { getParticipantById } from '@/controllers/ParticipantController/getParti
 import { Suspense } from '@/components/other/CustomSuspense'
 import { Participant } from '@/models/Participant'
 import { ParticipantProvider } from './context/ParticipantContext'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: {
+    template: 'Medidor - %s | CLC',
+    default: 'Medidor',
+  },
+}
 
 type LayoutProps = React.PropsWithChildren & PagePropsParams<'id' | 'light_meter_id'>
 
-export default async function Layout(props: LayoutProps) {
+export default function Layout(props: LayoutProps) {
   const { id: rentalGroupId, light_meter_id } = props.params
 
   return (

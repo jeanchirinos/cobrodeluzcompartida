@@ -3,6 +3,11 @@ import { Participant } from '@/models/Participant'
 import { PagePropsParams } from '@/types'
 import { TenantsTable } from './components/TenantsTable'
 import { getTenants } from '@/controllers/TenatController/getTenants'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Arrendatarios',
+}
 
 type Props = PagePropsParams<'light_meter_id'>
 
