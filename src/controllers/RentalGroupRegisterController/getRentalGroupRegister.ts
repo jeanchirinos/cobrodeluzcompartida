@@ -22,7 +22,7 @@ export type RentalGroupRegisterFound = {
   results: Array<Result & { participant: Participant; tenant: Tenant }>
 }
 
-export type ResponseGetRentalGroupRegister = RentalGroupRegisterFound | null
+export type ResponseGetRentalGroupRegister = RentalGroupRegisterFound
 
 // export type ResponseGetRentalGroupRegister = {
 //   billData: BillData
@@ -41,63 +41,183 @@ export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn)
   //   url,
   //   mode: 'null'
   // })
-
-  // TODO: Delete when API is ready
-  const rentalGroupRegister: ResponseGetRentalGroupRegister = {
-    billData: {
-      id: 1,
-      consumption_kwh: 211,
-      kwh_price: 0.6758,
-      current_month_total: 188.26,
-      total: 190,
-      year: searchParams.year ? Number(searchParams.year) : 2024,
-      month: searchParams.month ? Number(searchParams.month) : new Date().getMonth() + 1,
-      igv: 0.18,
-      rental_group_id: 1,
-    },
-    results: [
-      {
+  const rentalGroupRegisters: ResponseGetRentalGroupRegister[] = [
+    {
+      billData: {
         id: 1,
-        consumption_kwh: 188.84,
-        amount: 157.8,
-        bill_id: 1,
-        tenant_id: 1,
-        participant: {
-          id: 1,
-          alias: 'Principal',
-          is_main: true,
-          active: true,
-        },
-        tenant: {
-          id: 1,
-          alias: 'Inquilino 1',
-          active: true,
-          avatar_url: 'https://storage.nijui.com/ccsec/avatars/avatar_1.webp',
-          key: '123456',
-        },
+        consumption_kwh: 211,
+        kwh_price: 0.6758,
+        current_month_total: 188.26,
+        total: 190,
+        year: 2024,
+        month: 7,
+        igv: 0.18,
+        rental_group_id: 1,
       },
-      {
-        id: 2,
-        consumption_kwh: 188.84,
-        amount: 157.8,
-        bill_id: 2,
-        tenant_id: 2,
-        participant: {
-          id: 2,
-          alias: 'Medidor secundario',
-          is_main: true,
-          active: true,
+      results: [
+        {
+          id: 1,
+          consumption_kwh: 188.84,
+          amount: 157.8,
+          bill_id: 1,
+          tenant_id: 1,
+          participant: {
+            id: 1,
+            alias: 'Principal',
+            is_main: true,
+            active: true,
+          },
+          tenant: {
+            id: 1,
+            alias: 'Inquilino 1',
+            active: true,
+            avatar_url: 'https://storage.nijui.com/ccsec/avatars/avatar_1.webp',
+            key: '123456',
+          },
         },
-        tenant: {
+        {
           id: 2,
-          alias: 'Inquilino 2',
-          active: true,
-          avatar_url: 'https://storage.nijui.com/ccsec/avatars/avatar_1.webp',
-          key: '123456',
+          consumption_kwh: 188.84,
+          amount: 157.8,
+          bill_id: 2,
+          tenant_id: 2,
+          participant: {
+            id: 2,
+            alias: 'Medidor secundario',
+            is_main: true,
+            active: true,
+          },
+          tenant: {
+            id: 2,
+            alias: 'Inquilino 2',
+            active: true,
+            avatar_url: 'https://storage.nijui.com/ccsec/avatars/avatar_1.webp',
+            key: '123456',
+          },
         },
+      ],
+    },
+    {
+      billData: {
+        id: 1,
+        consumption_kwh: 211,
+        kwh_price: 0.6758,
+        current_month_total: 188.26,
+        total: 190,
+        year: 2024,
+        month: 5,
+        igv: 0.18,
+        rental_group_id: 1,
       },
-    ],
-  }
+      results: [
+        {
+          id: 1,
+          consumption_kwh: 188.84,
+          amount: 157.8,
+          bill_id: 1,
+          tenant_id: 1,
+          participant: {
+            id: 1,
+            alias: 'Principal',
+            is_main: true,
+            active: true,
+          },
+          tenant: {
+            id: 1,
+            alias: 'Inquilino 1',
+            active: true,
+            avatar_url: 'https://storage.nijui.com/ccsec/avatars/avatar_1.webp',
+            key: '123456',
+          },
+        },
+        {
+          id: 2,
+          consumption_kwh: 188.84,
+          amount: 157.8,
+          bill_id: 2,
+          tenant_id: 2,
+          participant: {
+            id: 2,
+            alias: 'Medidor secundario',
+            is_main: true,
+            active: true,
+          },
+          tenant: {
+            id: 2,
+            alias: 'Inquilino 2',
+            active: true,
+            avatar_url: 'https://storage.nijui.com/ccsec/avatars/avatar_1.webp',
+            key: '123456',
+          },
+        },
+      ],
+    },
+  ]
+
+  if (!searchParams.year && !searchParams.month) return { rentalGroupRegister: rentalGroupRegisters[0] }
+
+  const rentalGroupRegister =
+    rentalGroupRegisters.find(
+      register =>
+        register.billData.year === Number(searchParams.year) && register.billData.month === Number(searchParams.month),
+    ) ?? null
+
+  // // TODO: Delete when API is ready
+  // const rentalGroupRegister: ResponseGetRentalGroupRegister = {
+  //   billData: {
+  //     id: 1,
+  //     consumption_kwh: 211,
+  //     kwh_price: 0.6758,
+  //     current_month_total: 188.26,
+  //     total: 190,
+  //     year: searchParams.year ? Number(searchParams.year) : new Date().getFullYear(),
+  //     month: searchParams.month ? Number(searchParams.month) : new Date().getMonth() + 1,
+  //     igv: 0.18,
+  //     rental_group_id: 1,
+  //   },
+  //   results: [
+  //     {
+  //       id: 1,
+  //       consumption_kwh: 188.84,
+  //       amount: 157.8,
+  //       bill_id: 1,
+  //       tenant_id: 1,
+  //       participant: {
+  //         id: 1,
+  //         alias: 'Principal',
+  //         is_main: true,
+  //         active: true,
+  //       },
+  //       tenant: {
+  //         id: 1,
+  //         alias: 'Inquilino 1',
+  //         active: true,
+  //         avatar_url: 'https://storage.nijui.com/ccsec/avatars/avatar_1.webp',
+  //         key: '123456',
+  //       },
+  //     },
+  //     {
+  //       id: 2,
+  //       consumption_kwh: 188.84,
+  //       amount: 157.8,
+  //       bill_id: 2,
+  //       tenant_id: 2,
+  //       participant: {
+  //         id: 2,
+  //         alias: 'Medidor secundario',
+  //         is_main: true,
+  //         active: true,
+  //       },
+  //       tenant: {
+  //         id: 2,
+  //         alias: 'Inquilino 2',
+  //         active: true,
+  //         avatar_url: 'https://storage.nijui.com/ccsec/avatars/avatar_1.webp',
+  //         key: '123456',
+  //       },
+  //     },
+  //   ],
+  // }
 
   return { rentalGroupRegister }
 }

@@ -19,9 +19,9 @@ export async function calculateResults(args: ArgsCalculateResultsFn): Promise<Re
   const quantityOfConsumptions = consumptions.length + 1
 
   const amountToBeAddedBeforeSubtotalWithIgv =
-    ((current_month_total / igvToCalculate - consumption_kwh) * kwh_price) / quantityOfConsumptions
+    (current_month_total / igvToCalculate - consumption_kwh * kwh_price) / quantityOfConsumptions
 
-  const amountToAddAfterSubtotalWithIgv = total - current_month_total / quantityOfConsumptions
+  const amountToAddAfterSubtotalWithIgv = (total - current_month_total) / quantityOfConsumptions
 
   function calculateAmountPerParticipant(consumption_kwh: number) {
     return Number(

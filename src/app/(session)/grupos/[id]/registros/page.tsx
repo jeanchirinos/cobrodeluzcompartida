@@ -8,7 +8,7 @@ import { PageParamsAndSearchParamsPropsAlt } from '@/types'
 import { Button } from '@nextui-org/button'
 import { ResultsTable } from './components/ResultsTable'
 import { Metadata } from 'next'
-import { SelectMonth, SelectYear } from './components/Selects'
+import { Selects } from './components/Selects'
 
 export const metadata: Metadata = {
   title: 'Registros',
@@ -26,10 +26,9 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <header className='flex flex-wrap items-end justify-between gap-y-6'>
-        <section className='flex flex-wrap gap-x-2'>
-          <SelectYear year={billData?.year} />
-          <SelectMonth month={billData?.month} />
+      <header className='flex flex-wrap items-end justify-between gap-6'>
+        <section className='flex flex-wrap gap-4'>
+          <Selects year={billData?.year} month={billData?.month} />
         </section>
         <Button variant='shadow' color='primary' endContent={<IconAdd />}>
           Agregar registro
@@ -50,10 +49,6 @@ function RentalGroupRegister(props: { rentalGroupRegister: RentalGroupRegisterFo
 
   return (
     <>
-      <section className='text-2xl font-bold'>
-        {billData.year} - {billData.month}
-      </section>
-
       <details>
         <summary className='text-large font-semibold'>Datos del recibo</summary>
         <div className='mt-4'>

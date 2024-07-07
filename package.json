@@ -10,9 +10,9 @@
     "upd": "pnpm up --i --L"
   },
   "dependencies": {
-    "@headlessui/react": "^2.1.1",
+    "@headlessui/react": "^2.1.2",
     "@headlessui/tailwindcss": "^0.2.1",
-    "@hookform/resolvers": "^3.7.0",
+    "@hookform/resolvers": "^3.9.0",
     "@nextui-org/react": "^2.4.2",
     "framer-motion": "^11.2.13",
     "next": "14.2.4",
@@ -30,7 +30,7 @@
   "devDependencies": {
     "@react-types/shared": "^3.23.1",
     "@svgr/webpack": "^8.1.0",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.0.1",

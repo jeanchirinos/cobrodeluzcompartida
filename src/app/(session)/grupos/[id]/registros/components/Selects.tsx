@@ -3,8 +3,36 @@
 import { BillData } from '@/models/BillData'
 import { Select, SelectItem } from '@nextui-org/react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
 
-export function SelectYear(props: Partial<Pick<BillData, 'year'>>) {
+type SelectsProps = Partial<Pick<BillData, 'year' | 'month'>>
+
+export function Selects(props: SelectsProps) {
+  const { year, month } = props
+
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
+  useEffect(() => {
+    if (year && month) {
+      const newSearchParams = new URLSearchParams(searchParams)
+
+      newSearchParams.set('year', year.toString())
+      newSearchParams.set('month', month.toString())
+
+      replace('?' + newSearchParams.toString())
+    }
+  }, [month, year, replace, searchParams])
+
+  return (
+    <>
+      <SelectYear year={year} />
+      <SelectMonth month={month} />
+    </>
+  )
+}
+
+export function SelectYear(props: Pick<SelectsProps, 'year'>) {
   // HOOKS
   const searchParams = useSearchParams()
   const { replace } = useRouter()
@@ -45,7 +73,7 @@ export function SelectYear(props: Partial<Pick<BillData, 'year'>>) {
       selectionMode='single'
       name='year'
       onChange={handleChange}
-      classNames={{ base: 'w-60 max-w-full' }}
+      classNames={{ base: 'max-w-full w-24' }}
       placeholder='Selecciona una opción'
       label='Año'
       labelPlacement='outside'
@@ -58,7 +86,7 @@ export function SelectYear(props: Partial<Pick<BillData, 'year'>>) {
   )
 }
 
-export function SelectMonth(props: Partial<Pick<BillData, 'month'>>) {
+export function SelectMonth(props: Pick<SelectsProps, 'month'>) {
   // HOOKS
   const searchParams = useSearchParams()
   const { replace } = useRouter()
@@ -98,7 +126,7 @@ export function SelectMonth(props: Partial<Pick<BillData, 'month'>>) {
       selectionMode='single'
       name='month'
       onChange={handleChange}
-      classNames={{ base: 'w-60 max-w-full' }}
+      classNames={{ base: 'w-36 max-w-full' }}
       placeholder='Selecciona una opción'
       label='Mes'
       labelPlacement='outside'
