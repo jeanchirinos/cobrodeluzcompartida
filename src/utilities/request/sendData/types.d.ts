@@ -3,7 +3,7 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 import { z } from 'zod'
 
 type Config<Body> = Omit<RequestInit, 'body'> &
-  (Body extends undefined ? { body?: undefined } : { body: Body }) & { method?: 'POST' | 'PUT' | 'DELETE' }
+  (Body extends undefined ? { body?: undefined } : { body: Body }) & { method?: 'POST' | 'PUT' | 'DELETE' | 'PATCH' }
 
 export type DefaultArgs<BodySchema extends ZodType, ResponseData> = {
   url: string | URL

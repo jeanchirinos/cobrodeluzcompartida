@@ -7,9 +7,9 @@ import { useParams } from 'next/navigation'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
-import { updateTenant } from '@/controllers/TenatController/updateParticipant/updateParticipant'
 import { ResponseGetTenants } from '@/controllers/TenatController/getTenants'
-import { schemaUpdateTenant } from '@/controllers/TenatController/updateParticipant/updateParticipant.schema'
+import { schemaUpdateTenant } from '@/controllers/TenatController/updateTenant/updateTenant.schema'
+import { updateTenant } from '@/controllers/TenatController/updateTenant/updateTenant'
 
 type UpdateTenantDialogProps = { tenant: ResponseGetTenants[0]; dialog: UseDialog }
 

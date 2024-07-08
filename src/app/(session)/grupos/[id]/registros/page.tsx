@@ -9,7 +9,7 @@ import { ResultsTable } from './components/ResultsTable'
 import { Metadata } from 'next'
 import { Selects } from './components/Selects'
 import { Spinner } from '@nextui-org/react'
-import { Suspense } from 'react'
+import { Suspense } from '@/components/other/CustomSuspense'
 
 export const metadata: Metadata = {
   title: 'Registros',

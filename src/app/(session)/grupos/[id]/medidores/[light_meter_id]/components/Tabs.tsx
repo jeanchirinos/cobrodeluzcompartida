@@ -31,7 +31,7 @@ export function Tabs() {
         key='arrendatarios'
         title={
           <div className='flex items-center gap-x-2'>
-            <IconParticipants /> Participantes
+            <IconParticipants /> Arrendatarios
           </div>
         }
         as={Link}

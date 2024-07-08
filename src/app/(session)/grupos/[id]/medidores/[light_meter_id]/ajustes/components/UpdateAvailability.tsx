@@ -3,21 +3,19 @@
 import { Spinner, Switch } from '@nextui-org/react'
 import { useParticipantContext } from '../../context/ParticipantContext'
 import { useState } from 'react'
-import { updateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant'
 import { handleResponse } from '@/utilities/handleResponse'
+import { toggleActiveParticipant } from '@/controllers/ParticipantController/toggleActiveParticipant'
 
 export function UpdateAvailability() {
   const { participant } = useParticipantContext()
 
   const [isPending, setIsPending] = useState(false)
 
-  async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleChange() {
     setIsPending(true)
 
-    const res = await updateParticipant({
-      id: participant.id,
-      active: e.target.checked,
-      rentalGroupId: participant.rental_group_id,
+    const res = await toggleActiveParticipant({
+      participantId: participant.id,
     })
 
     await handleResponse({ res })

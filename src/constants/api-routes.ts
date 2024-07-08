@@ -51,6 +51,7 @@ const PARTICIPANT = {
   STORE: STORE_API_ROUTE({ base: PARTICIPANT_BASE }),
   UPDATE: UPDATE_API_ROUTE({ base: PARTICIPANT_BASE }),
   DESTROY: DESTROY_API_ROUTE({ base: PARTICIPANT_BASE }),
+  TOGGLE_ACTIVE: ({ participantId }: { participantId: RouteId }) => `${PARTICIPANT_BASE}/${participantId}/active`,
 }
 
 //* TENANT
@@ -58,8 +59,8 @@ const PARTICIPANT = {
 const TENANT_BASE = 'tenant'
 
 const TENANT = {
-  INDEX: ({ lightMeterId }: { lightMeterId: RouteId }) =>
-    `${INDEX_API_ROUTE({ base: TENANT_BASE })}/light_meter_id/${lightMeterId}`,
+  INDEX: ({ participantId }: { participantId: RouteId }) =>
+    `${INDEX_API_ROUTE({ base: TENANT_BASE })}/participant_id/${participantId}`,
   SHOW: SHOW_API_ROUTE({ base: TENANT_BASE }),
   STORE: STORE_API_ROUTE({ base: TENANT_BASE }),
   UPDATE: UPDATE_API_ROUTE({ base: TENANT_BASE }),

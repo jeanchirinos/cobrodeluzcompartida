@@ -11,15 +11,10 @@ type ResponseGetRentalGroupById = RentalGroup
 export async function getRentalGroupById(args: ArgsGetRentalGroupByIdFn) {
   const { id } = args
 
-  // const rentalGroup = await getData<ResponseGetRentalGroupById>({
-  //   url: API_ROUTE.RENTAL_GROUP.SHOW({ id }),
-  //   mode: 'error-page',
-  // })
-
-  const rentalGroup: ResponseGetRentalGroupById = {
-    id: 1,
-    name: 'Group 1',
-  }
+  const rentalGroup = await getData<ResponseGetRentalGroupById>({
+    url: API_ROUTE.RENTAL_GROUP.SHOW({ id }),
+    mode: 'error-page',
+  })
 
   return { rentalGroup }
 }

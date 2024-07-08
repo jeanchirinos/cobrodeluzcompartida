@@ -5,7 +5,7 @@ import { RentalGroup } from '@/models/RentalGroup'
 import { z } from 'zod'
 import { Tenant } from '@/models/Tenant'
 import { sendData } from '@/utilities/request/sendData/sendData'
-import { schemaUpdateTenant } from './updateParticipant.schema'
+import { schemaUpdateTenant } from './updateTenant.schema'
 
 type ArgsUpdateRentalGroup = z.infer<typeof schemaUpdateTenant> & {
   lightMeterId: RentalGroup['id']
@@ -23,7 +23,7 @@ export async function updateTenant(args: ArgsUpdateRentalGroup) {
     },
     options: {
       schema: schemaUpdateTenant,
-      revalidateTagParams: [API_ROUTE.TENANT.INDEX({ lightMeterId })],
+      revalidateTagParams: [API_ROUTE.TENANT.INDEX({ participantId: lightMeterId })],
     },
   })
 }

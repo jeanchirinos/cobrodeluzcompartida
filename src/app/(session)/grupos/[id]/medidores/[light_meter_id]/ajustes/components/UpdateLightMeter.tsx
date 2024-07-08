@@ -6,19 +6,17 @@ import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { schemaUpdateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant.schema'
 import { updateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant'
 import { useParticipantContext } from '../../context/ParticipantContext'
-import { useRentalGroupContext } from '../../../../context/RentalGroupContext'
 
 export function UpdateLightMeter() {
   // CONTEXT
   const { participant } = useParticipantContext()
-  const { rentalGroup } = useRentalGroupContext()
 
   // HOOKS
   const { useFormHook } = useReactHookForm({
     schema: schemaUpdateParticipant,
     defaultValues: participant,
     mode: 'onChange',
-    submitActionFn: data => updateParticipant({ ...data, id: participant.id, rentalGroupId: rentalGroup.id }),
+    submitActionFn: data => updateParticipant({ ...data, id: participant.id }),
   })
 
   // RENDER

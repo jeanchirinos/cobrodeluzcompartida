@@ -15,25 +15,23 @@ type ResponseCreateRentalGroup = {
 }
 
 export async function createRentalGroup(args?: ArgsCreateRentalGroupFn) {
-  // const data = await sendData<typeof schemaCreateRentalGroup, ResponseCreateRentalGroup>({
-  //   url: API_ROUTE.RENTAL_GROUP.STORE,
-  //   config: {
-  //     body: args,
-  //   },
-  //   options: {
-  //     schema: schemaCreateRentalGroup,
-  //     revalidateTagParams: [API_ROUTE.RENTAL_GROUP.INDEX],
-  //   },
-  // })
-
-  const data: { ok: true; data: ResponseCreateRentalGroup; msg: string } = {
-    ok: true,
-    data: {
-      rental_group_id: 1,
-      tenant_ids: [1, 2],
+  return await sendData<typeof schemaCreateRentalGroup, ResponseCreateRentalGroup>({
+    url: API_ROUTE.RENTAL_GROUP.STORE,
+    config: {
+      body: args,
     },
-    msg: 'Rental group created',
-  }
+    options: {
+      schema: schemaCreateRentalGroup,
+      revalidateTagParams: [API_ROUTE.RENTAL_GROUP.INDEX],
+    },
+  })
 
-  return data
+  // const data: { ok: true; data: ResponseCreateRentalGroup; msg: string } = {
+  //   ok: true,
+  //   data: {
+  //     rental_group_id: 1,
+  //     tenant_ids: [1, 2],
+  //   },
+  //   msg: 'Rental group created',
+  // }
 }

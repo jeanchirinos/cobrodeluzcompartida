@@ -5,16 +5,16 @@ import { Card, CardHeader, CardFooter } from '@nextui-org/card'
 import { AvatarGroup, Avatar } from '@nextui-org/avatar'
 // import { Avatar } from '@/components/Avatar'
 import { Suspense } from '@/components/other/CustomSuspense'
-import { CreateRentalGroup } from './components/CreateRentalGroup'
 import { Tooltip } from '@nextui-org/react'
 import { Metadata } from 'next'
+import { CreateRentalGroup } from './components/CreateRentalGroup'
 // import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Grupos',
 }
 
-export default async function Page() {
+export default function Page() {
   return (
     <main className='space-y-4 main-container'>
       <header className='flex justify-between'>
@@ -31,7 +31,7 @@ export default async function Page() {
 }
 
 async function RentalGroups() {
-  const rentalGroups = await getRentalGroups()
+  const { rentalGroups } = await getRentalGroups()
 
   return rentalGroups.map(group => (
     <Card
