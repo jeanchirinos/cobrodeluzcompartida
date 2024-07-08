@@ -2,7 +2,7 @@ import { IconPasswordHidden, IconPasswordVisible } from '@/icons'
 import { Input as NextUiInput, type InputProps as NextUiInputProps } from '@nextui-org/input'
 import { forwardRef, useState } from 'react'
 
-type InputProps = NextUiInputProps & {
+export type InputProps = NextUiInputProps & {
   sensitive?: boolean
 }
 

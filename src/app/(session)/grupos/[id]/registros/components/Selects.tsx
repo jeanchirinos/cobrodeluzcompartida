@@ -4,40 +4,6 @@ import { Select, SelectItem } from '@nextui-org/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 export function Selects() {
-  // const params = useParams()
-  // const searchParams = useSearchParams()
-  // const { replace } = useRouter()
-
-  // useEffect(() => {
-  //   const year = searchParams.get('year') ?? undefined
-  //   const month = searchParams.get('month') ?? undefined
-
-  //   if (year ?? month) return
-
-  //   async function fetchData() {
-  //     const { rentalGroupRegister } = await getRentalGroupRegister({
-  //       params: { rentalGroupId: Number(params.id) },
-  //       searchParams: {
-  //         year,
-  //         month,
-  //       },
-  //     })
-
-  //     if (!rentalGroupRegister) return
-
-  //     const { billData } = rentalGroupRegister
-
-  //     const newSearchParams = new URLSearchParams(searchParams)
-
-  //     newSearchParams.set('year', billData.year.toString())
-  //     newSearchParams.set('month', billData.month.toString())
-
-  //     replace('?' + newSearchParams.toString())
-  //   }
-
-  //   void fetchData()
-  // }, [replace, searchParams, params.id])
-
   return (
     <>
       <SelectYear />
