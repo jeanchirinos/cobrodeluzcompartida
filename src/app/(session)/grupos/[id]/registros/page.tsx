@@ -1,6 +1,5 @@
 import {
   GetRentalGroupRegisterParams,
-  RentalGroupRegisterFound,
   getRentalGroupRegister,
 } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister'
 import { IconAdd } from '@/icons'
@@ -9,6 +8,8 @@ import { Button } from '@nextui-org/button'
 import { ResultsTable } from './components/ResultsTable'
 import { Metadata } from 'next'
 import { Selects } from './components/Selects'
+import { Spinner } from '@nextui-org/react'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Registros',
@@ -17,35 +18,40 @@ export const metadata: Metadata = {
 type Props = PageParamsAndSearchParamsPropsAlt<'id', GetRentalGroupRegisterParams>
 
 export default async function Page(props: Props) {
-  const { rentalGroupRegister } = await getRentalGroupRegister({
-    params: { rentalGroupId: Number(props.params.id) },
-    searchParams: props.searchParams,
-  })
-
-  const { billData } = rentalGroupRegister ?? {}
-
   return (
     <>
       <header className='flex flex-wrap items-end justify-between gap-6'>
         <section className='flex flex-wrap gap-4'>
-          <Selects year={billData?.year} month={billData?.month} />
+          <Selects />
         </section>
         <Button variant='shadow' color='primary' endContent={<IconAdd />}>
           Agregar registro
         </Button>
       </header>
 
-      {rentalGroupRegister ? (
-        <RentalGroupRegister rentalGroupRegister={rentalGroupRegister} />
-      ) : (
-        <p>No hay registros</p>
-      )}
+      <Suspense
+        fallback={
+          <div className='flex h-36 items-end justify-center'>
+            <Spinner />
+          </div>
+        }
+        key={JSON.stringify(props.searchParams)}
+      >
+        <RentalGroupRegister {...props} />
+      </Suspense>
     </>
   )
 }
 
-function RentalGroupRegister(props: { rentalGroupRegister: RentalGroupRegisterFound }) {
-  const { billData, results } = props.rentalGroupRegister
+async function RentalGroupRegister(props: Props) {
+  const { rentalGroupRegister } = await getRentalGroupRegister({
+    params: { rentalGroupId: Number(props.params.id) },
+    searchParams: props.searchParams,
+  })
+
+  if (!rentalGroupRegister) return <p>No hay registros</p>
+
+  const { billData, results } = rentalGroupRegister ?? {}
 
   return (
     <>

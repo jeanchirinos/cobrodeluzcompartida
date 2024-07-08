@@ -1,38 +1,52 @@
 'use client'
 
-import { BillData } from '@/models/BillData'
 import { Select, SelectItem } from '@nextui-org/react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
 
-type SelectsProps = Partial<Pick<BillData, 'year' | 'month'>>
+export function Selects() {
+  // const params = useParams()
+  // const searchParams = useSearchParams()
+  // const { replace } = useRouter()
 
-export function Selects(props: SelectsProps) {
-  const { year, month } = props
+  // useEffect(() => {
+  //   const year = searchParams.get('year') ?? undefined
+  //   const month = searchParams.get('month') ?? undefined
 
-  const searchParams = useSearchParams()
-  const { replace } = useRouter()
+  //   if (year ?? month) return
 
-  useEffect(() => {
-    if (year && month) {
-      const newSearchParams = new URLSearchParams(searchParams)
+  //   async function fetchData() {
+  //     const { rentalGroupRegister } = await getRentalGroupRegister({
+  //       params: { rentalGroupId: Number(params.id) },
+  //       searchParams: {
+  //         year,
+  //         month,
+  //       },
+  //     })
 
-      newSearchParams.set('year', year.toString())
-      newSearchParams.set('month', month.toString())
+  //     if (!rentalGroupRegister) return
 
-      replace('?' + newSearchParams.toString())
-    }
-  }, [month, year, replace, searchParams])
+  //     const { billData } = rentalGroupRegister
+
+  //     const newSearchParams = new URLSearchParams(searchParams)
+
+  //     newSearchParams.set('year', billData.year.toString())
+  //     newSearchParams.set('month', billData.month.toString())
+
+  //     replace('?' + newSearchParams.toString())
+  //   }
+
+  //   void fetchData()
+  // }, [replace, searchParams, params.id])
 
   return (
     <>
-      <SelectYear year={year} />
-      <SelectMonth month={month} />
+      <SelectYear />
+      <SelectMonth />
     </>
   )
 }
 
-export function SelectYear(props: Pick<SelectsProps, 'year'>) {
+export function SelectYear() {
   // HOOKS
   const searchParams = useSearchParams()
   const { replace } = useRouter()
@@ -65,7 +79,7 @@ export function SelectYear(props: Pick<SelectsProps, 'year'>) {
     return years
   }
 
-  const defaultSelectedKeys = props.year ? [props.year.toString()] : [searchParams.get('year') ?? '']
+  const defaultSelectedKeys = [searchParams.get('year') ?? '']
 
   return (
     <Select
@@ -86,7 +100,7 @@ export function SelectYear(props: Pick<SelectsProps, 'year'>) {
   )
 }
 
-export function SelectMonth(props: Pick<SelectsProps, 'month'>) {
+export function SelectMonth() {
   // HOOKS
   const searchParams = useSearchParams()
   const { replace } = useRouter()
@@ -118,7 +132,7 @@ export function SelectMonth(props: Pick<SelectsProps, 'month'>) {
     { key: '12', label: 'Diciembre' },
   ]
 
-  const defaultSelectedKeys = props.month ? [props.month.toString()] : [searchParams.get('month') ?? '']
+  const defaultSelectedKeys = [searchParams.get('month') ?? '']
 
   return (
     <Select
