@@ -6,7 +6,7 @@ import { sendData } from '@/utilities/request/sendData/sendData'
 import { Participant } from '@/models/Participant'
 
 type ArgsDeleteTenantFn = Pick<Tenant, 'id'> & {
-  lightMeterId: Participant['id']
+  participantId: Participant['id']
 }
 
 export async function deleteTenant(args: ArgsDeleteTenantFn) {
@@ -16,7 +16,7 @@ export async function deleteTenant(args: ArgsDeleteTenantFn) {
       method: 'DELETE',
     },
     options: {
-      revalidateTagParams: [API_ROUTE.TENANT.INDEX({ participantId: args.lightMeterId })],
+      revalidateTagParams: [API_ROUTE.TENANT.INDEX({ participantId: args.participantId })],
     },
   })
 }

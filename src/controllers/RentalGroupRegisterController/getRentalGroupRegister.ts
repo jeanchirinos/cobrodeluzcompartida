@@ -27,7 +27,8 @@ export type ResponseGetRentalGroupRegister = RentalGroupRegisterFound
 // }
 
 export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn) {
-  const { params, searchParams } = args
+  // const { params, searchParams } = args
+  const { searchParams } = args
 
   // const { url } = getUrlWithSearchParams<GetRentalGroupRegisterParams>({
   //   hostname: API_ROUTE.RENTAL_GROUP_REGISTER.SHOW({ rentalGroupId: params.rentalGroupId }),

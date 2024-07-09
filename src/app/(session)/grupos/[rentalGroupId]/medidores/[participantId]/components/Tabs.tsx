@@ -8,7 +8,7 @@ import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 
 export function Tabs() {
   const params = useParams()
-  const { id: rentalGroupId, light_meter_id } = params as { id: string; light_meter_id: string }
+  const { rentalGroupId, participantId } = params as { rentalGroupId: string; participantId: string }
 
   const selectedLayoutSegment = useSelectedLayoutSegment()
 
@@ -28,14 +28,14 @@ export function Tabs() {
       }}
     >
       <Tab
-        key='arrendatarios'
+        key='inquilinos'
         title={
           <div className='flex items-center gap-x-2'>
-            <IconParticipants /> Arrendatarios
+            <IconParticipants /> Inquilinos
           </div>
         }
         as={Link}
-        href={ROUTE.GROUPS.LIGHT_METERS.TENANTS({ id: light_meter_id, groupId: rentalGroupId })}
+        href={ROUTE.GROUPS.PARTICIPANTS.TENANTS({ id: participantId, rentalGroupId })}
       />
       <Tab
         key='ajustes'
@@ -45,7 +45,7 @@ export function Tabs() {
           </div>
         }
         as={Link}
-        href={ROUTE.GROUPS.LIGHT_METERS.SETTINGS({ id: light_meter_id, groupId: rentalGroupId })}
+        href={ROUTE.GROUPS.PARTICIPANTS.SETTINGS({ id: participantId, rentalGroupId })}
       />
     </NextuiTabs>
   )

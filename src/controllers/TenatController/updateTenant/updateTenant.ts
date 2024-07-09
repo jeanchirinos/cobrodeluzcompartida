@@ -8,12 +8,12 @@ import { sendData } from '@/utilities/request/sendData/sendData'
 import { schemaUpdateTenant } from './updateTenant.schema'
 
 type ArgsUpdateRentalGroup = z.infer<typeof schemaUpdateTenant> & {
-  lightMeterId: RentalGroup['id']
+  participantId: RentalGroup['id']
   id: Tenant['id']
 }
 
 export async function updateTenant(args: ArgsUpdateRentalGroup) {
-  const { lightMeterId, id, ...restArgs } = args
+  const { participantId, id, ...restArgs } = args
 
   return await sendData({
     url: API_ROUTE.TENANT.UPDATE({ id }),
@@ -23,7 +23,7 @@ export async function updateTenant(args: ArgsUpdateRentalGroup) {
     },
     options: {
       schema: schemaUpdateTenant,
-      revalidateTagParams: [API_ROUTE.TENANT.INDEX({ participantId: lightMeterId })],
+      revalidateTagParams: [API_ROUTE.TENANT.INDEX({ participantId })],
     },
   })
 }

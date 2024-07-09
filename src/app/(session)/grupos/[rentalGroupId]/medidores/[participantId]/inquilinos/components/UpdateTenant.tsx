@@ -16,13 +16,13 @@ type UpdateTenantDialogProps = { tenant: ResponseGetTenants[0]; dialog: UseDialo
 export function UpdateTenantDialog(props: UpdateTenantDialogProps) {
   const { tenant, dialog } = props
 
-  const { light_meter_id: lightMeterId } = useParams<{ light_meter_id: string }>()
+  const { participantId } = useParams<{ participantId: string }>()
 
   // HOOKS
   const { useFormHook } = useReactHookForm({
     schema: schemaUpdateTenant,
     defaultValues: tenant,
-    submitActionFn: data => updateTenant({ ...data, lightMeterId: Number(lightMeterId), id: tenant.id }),
+    submitActionFn: data => updateTenant({ ...data, participantId: Number(participantId), id: tenant.id }),
   })
 
   return (
@@ -44,7 +44,7 @@ export function UpdateTenantDialog(props: UpdateTenantDialogProps) {
             <div className='flex flex-col gap-1'>
               <p className='text-medium'>Activo</p>
               <p className='text-small text-default-400'>
-                Solo un arrendatario puede ser activo. Si se activa este arrendatario, el anterior se desactivará
+                Solo un inquilino puede ser activo. Si se activa este inquilino, el anterior se desactivará
               </p>
             </div>
           </Switch>

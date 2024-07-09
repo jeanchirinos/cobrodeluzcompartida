@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { DeleteParticipant } from './components/DeleteParticipant'
-import { UpdateAvailability } from './components/UpdateAvailability'
-import { UpdateLightMeter } from './components/UpdateLightMeter'
+import { UpdateParticipantAvailability } from './components/UpdateParticipantAvailability'
+import { UpdateParticipant } from './components/UpdateParticipant'
 
 export const metadata: Metadata = {
   title: 'Ajustes',
@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className='flex flex-col gap-y-12'>
-      <UpdateLightMeter />
-      <UpdateAvailability />
+      <UpdateParticipant />
+      <UpdateParticipantAvailability />
       <DeleteParticipant />
     </main>
   )

@@ -15,7 +15,7 @@ export function DeleteTenantDialog(props: DeleteTenantDialogProps) {
   const { participant } = useParticipantContext()
 
   async function customHandleClick() {
-    const res = await deleteTenant({ id: tenant.id, lightMeterId: participant.id })
+    const res = await deleteTenant({ id: tenant.id, participantId: participant.id })
 
     await handleResponse({
       res,
@@ -24,12 +24,12 @@ export function DeleteTenantDialog(props: DeleteTenantDialogProps) {
 
   // RENDER
   return (
-    <Dialog dialog={dialog} dialogTitle='Eliminar arrendatario'>
+    <Dialog dialog={dialog} dialogTitle='Eliminar inquilino'>
       <DialogBody>
         <p>
-          El arrendatario <b>{tenant.alias}</b> y los datos relacionados se eliminarán permanentemente
+          El inquilino <b>{tenant.alias}</b> y los datos relacionados se eliminarán permanentemente
         </p>
-        <p className='mt-2'>¿ Estás seguro de que quieres eliminar el arrendatario ?</p>
+        <p className='mt-2'>¿ Estás seguro de que quieres eliminar el inquilino ?</p>
       </DialogBody>
       <DialogFooter
         dialog={dialog}

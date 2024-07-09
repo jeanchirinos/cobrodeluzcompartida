@@ -15,9 +15,9 @@ export const metadata: Metadata = {
   title: 'Registros',
 }
 
-type Props = PageParamsAndSearchParamsPropsAlt<'id', GetRentalGroupRegisterParams>
+type Props = PageParamsAndSearchParamsPropsAlt<'rentalGroupId', GetRentalGroupRegisterParams>
 
-export default async function Page(props: Props) {
+export default function Page(props: Props) {
   return (
     <>
       <header className='flex flex-wrap items-end justify-between gap-6'>
@@ -45,7 +45,7 @@ export default async function Page(props: Props) {
 
 async function RentalGroupRegister(props: Props) {
   const { rentalGroupRegister } = await getRentalGroupRegister({
-    params: { rentalGroupId: Number(props.params.id) },
+    params: { rentalGroupId: Number(props.params.rentalGroupId) },
     searchParams: props.searchParams,
   })
 

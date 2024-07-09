@@ -3,7 +3,7 @@ import { SessionWarning } from './components/SessionWarning/SessionWarning'
 import { CalculateProvider } from './context/CalculateContext'
 import { Results } from './components/Calculate/Results'
 import { BillInfo } from './components/Calculate/Form/BillInfo'
-import { LightMetersInfo } from './components/Calculate/Form/LightMetersInfo'
+import { ParticipantsInfo } from './components/Calculate/Form/ParticipantsInfo'
 
 export default function Page() {
   return (
@@ -15,7 +15,7 @@ export default function Page() {
         <section className='flex gap-14 max-md:flex-col lg:gap-x-16'>
           <form className='flex gap-12 max-sm:flex-col'>
             <BillInfo />
-            <LightMetersInfo />
+            <ParticipantsInfo />
           </form>
           <Results />
         </section>

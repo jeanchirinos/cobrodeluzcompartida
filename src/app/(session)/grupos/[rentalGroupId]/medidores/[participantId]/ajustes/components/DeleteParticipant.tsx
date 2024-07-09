@@ -11,14 +11,14 @@ import { ROUTE } from '@/constants/routes'
 import { useParticipantContext } from '../../context/ParticipantContext'
 
 export function DeleteParticipant() {
-  const { id } = useParams<{ id: string }>()
+  const { rentalGroupId } = useParams<{ rentalGroupId: string }>()
   const { push } = useRouter()
 
   const { participant } = useParticipantContext()
   const deleteParticipantDialog = useDialog()
 
   async function customHandleClick() {
-    const res = await deleteParticipant({ id: participant.id, rentalGroupId: Number(id) })
+    const res = await deleteParticipant({ id: participant.id, rentalGroupId: Number(rentalGroupId) })
 
     await handleResponse({
       res,

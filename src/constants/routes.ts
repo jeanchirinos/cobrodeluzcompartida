@@ -13,13 +13,14 @@ const GROUPS = {
   INDEX: '/grupos',
   REGISTERS: ({ id }: { id: RouteId }) => `/grupos/${id}/registros` as const,
   SETTINGS: ({ id }: { id: RouteId }) => `/grupos/${id}/ajustes` as const,
-  LIGHT_METERS: {
-    INDEX: ({ groupId }: { groupId: RouteId }) => `/grupos/${groupId}/medidores` as const,
-    ID: ({ groupId, id }: { groupId: RouteId; id: RouteId }) => `/grupos/${groupId}/medidores/${id}` as const,
-    TENANTS: ({ groupId, id }: { groupId: RouteId; id: RouteId }) =>
-      `/grupos/${groupId}/medidores/${id}/arrendatarios` as const,
-    SETTINGS: ({ groupId, id }: { groupId: RouteId; id: RouteId }) =>
-      `/grupos/${groupId}/medidores/${id}/ajustes` as const,
+  PARTICIPANTS: {
+    INDEX: ({ rentalGroupId }: { rentalGroupId: RouteId }) => `/grupos/${rentalGroupId}/medidores` as const,
+    ID: ({ rentalGroupId, id }: { rentalGroupId: RouteId; id: RouteId }) =>
+      `/grupos/${rentalGroupId}/medidores/${id}` as const,
+    TENANTS: ({ rentalGroupId, id }: { rentalGroupId: RouteId; id: RouteId }) =>
+      `/grupos/${rentalGroupId}/medidores/${id}/inquilinos` as const,
+    SETTINGS: ({ rentalGroupId, id }: { rentalGroupId: RouteId; id: RouteId }) =>
+      `/grupos/${rentalGroupId}/medidores/${id}/ajustes` as const,
   },
 } as const
 

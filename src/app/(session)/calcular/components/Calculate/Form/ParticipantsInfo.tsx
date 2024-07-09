@@ -6,7 +6,7 @@ import { useCalculateContext } from '../../../context/CalculateContext'
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { useFieldArray } from 'react-hook-form'
 
-export function LightMetersInfo() {
+export function ParticipantsInfo() {
   const { useFormHook } = useCalculateContext()
   const { control, trigger } = useFormHook
 

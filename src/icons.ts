@@ -12,7 +12,7 @@ export {
   MdOutlineReceipt as IconReceipt,
   MdOutlineSettings as IconSettings,
   MdMonitor as IconSystemTheme,
-  MdOutlineOfflineBolt as IconLightMeter,
+  MdOutlineOfflineBolt as IconParticipant,
   MdVisibility as IconPasswordVisible,
   MdVisibilityOff as IconPasswordHidden,
   MdOutlineIosShare as IconShare,

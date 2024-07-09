@@ -7,7 +7,7 @@ import { schemaUpdateParticipant } from '@/controllers/ParticipantController/upd
 import { updateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant'
 import { useParticipantContext } from '../../context/ParticipantContext'
 
-export function UpdateLightMeter() {
+export function UpdateParticipant() {
   // CONTEXT
   const { participant } = useParticipantContext()
 

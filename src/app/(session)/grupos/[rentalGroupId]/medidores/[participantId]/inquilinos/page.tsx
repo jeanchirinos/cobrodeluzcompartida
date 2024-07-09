@@ -9,35 +9,35 @@ import { createTenant } from '@/controllers/TenatController/createTenant/createT
 import { IconAdd } from '@/icons'
 
 export const metadata: Metadata = {
-  title: 'Arrendatarios',
+  title: 'Inquilinos',
 }
 
-type Props = PagePropsParams<'light_meter_id'>
+type Props = PagePropsParams<'participantId'>
 
 export default function Page(props: Props) {
-  const { light_meter_id } = props.params
+  const { participantId } = props.params
 
   return (
     <div className='flex w-full flex-col gap-y-4'>
       <ButtonAction
         action={createTenant}
-        actionParameters={{ participant_id: Number(light_meter_id) }}
+        actionParameters={{ participant_id: Number(participantId) }}
         color='primary'
         className='w-fit self-end'
         endContent={<IconAdd />}
       >
-        Agregar arrendatario
+        Agregar inquilino
       </ButtonAction>
       <Suspense>
-        <Tenants light_meter_id={Number(light_meter_id)} />
+        <Tenants participantId={Number(participantId)} />
       </Suspense>
     </div>
   )
 }
 
-async function Tenants(props: { light_meter_id: Participant['id'] }) {
+async function Tenants(props: { participantId: Participant['id'] }) {
   const { tenants } = await getTenants({
-    lightMeterId: props.light_meter_id,
+    participantId: props.participantId,
   })
 
   return (

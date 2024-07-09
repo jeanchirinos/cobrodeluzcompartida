@@ -13,12 +13,12 @@ export const metadata: Metadata = {
   title: 'Medidores',
 }
 
-type Props = CustomPageProps<'id'>
+type Props = CustomPageProps<'rentalGroupId'>
 
 export default function Page(props: Props) {
   return (
     <Suspense>
-      <Participants getParticipantsArgs={{ rentalGroupId: Number(props.params.id) }} />
+      <Participants getParticipantsArgs={{ rentalGroupId: Number(props.params.rentalGroupId) }} />
     </Suspense>
   )
 }
@@ -50,7 +50,7 @@ async function Participants(props: ParticipantProps) {
             key={participant.id}
             className='w-80 max-w-full gap-y-5 border-default-100 py-1'
             as={Link}
-            href={ROUTE.GROUPS.LIGHT_METERS.TENANTS({ groupId: rentalGroupId, id: participant.id })}
+            href={ROUTE.GROUPS.PARTICIPANTS.TENANTS({ rentalGroupId, id: participant.id })}
           >
             <CardHeader className='flex justify-between'>
               <p className='font-bold uppercase'>{participant.alias}</p>

@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { handleResponse } from '@/utilities/handleResponse'
 import { toggleActiveParticipant } from '@/controllers/ParticipantController/toggleActiveParticipant'
 
-export function UpdateAvailability() {
+export function UpdateParticipantAvailability() {
   const { participant } = useParticipantContext()
 
   const [isPending, setIsPending] = useState(false)

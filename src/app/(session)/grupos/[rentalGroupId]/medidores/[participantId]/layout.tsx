@@ -16,43 +16,40 @@ export const metadata: Metadata = {
   },
 }
 
-type LayoutProps = React.PropsWithChildren & PagePropsParams<'id' | 'light_meter_id'>
+type LayoutProps = React.PropsWithChildren & PagePropsParams<'rentalGroupId' | 'participantId'>
 
 export default function Layout(props: LayoutProps) {
-  const { id: rentalGroupId, light_meter_id } = props.params
+  const { rentalGroupId, participantId } = props.params
 
   return (
     <main className='flex flex-col gap-y-6 !px-0 main-container'>
       <section className='flex items-center gap-x-2'>
-        <ButtonBack href={ROUTE.GROUPS.LIGHT_METERS.INDEX({ groupId: rentalGroupId })} />
+        <ButtonBack href={ROUTE.GROUPS.PARTICIPANTS.INDEX({ rentalGroupId })} />
         <Suspense>
-          <ParticipantName lightMeterId={Number(light_meter_id)} />
+          <ParticipantName participantId={Number(participantId)} />
         </Suspense>
       </section>
-      <Link
-        href={ROUTE.GROUPS.LIGHT_METERS.ID({ groupId: rentalGroupId, id: light_meter_id })}
-        className='px-3 md:hidden'
-      >
+      <Link href={ROUTE.GROUPS.PARTICIPANTS.ID({ rentalGroupId, id: participantId })} className='px-3 md:hidden'>
         Menú
       </Link>
       <div className='relative flex gap-x-6'>
         <Tabs />
         <Suspense>
-          <Content lightMeterId={Number(light_meter_id)}>{props.children}</Content>
+          <Content participantId={Number(participantId)}>{props.children}</Content>
         </Suspense>
       </div>
     </main>
   )
 }
 
-async function ParticipantName(props: { lightMeterId: Participant['id'] }) {
-  const { participant } = await getParticipantById({ id: props.lightMeterId })
+async function ParticipantName(props: { participantId: Participant['id'] }) {
+  const { participant } = await getParticipantById({ id: props.participantId })
 
   return <h2 className='text-xl font-bold'>{participant.alias}</h2>
 }
 
-async function Content(props: React.PropsWithChildren & { lightMeterId: Participant['id'] }) {
-  const getParticipantByIdResponse = await getParticipantById({ id: props.lightMeterId })
+async function Content(props: React.PropsWithChildren & { participantId: Participant['id'] }) {
+  const getParticipantByIdResponse = await getParticipantById({ id: props.participantId })
 
   return <ParticipantProvider value={getParticipantByIdResponse}>{props.children}</ParticipantProvider>
 }

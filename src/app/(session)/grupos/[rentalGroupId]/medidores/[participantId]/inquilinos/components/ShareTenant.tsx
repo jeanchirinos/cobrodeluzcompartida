@@ -27,7 +27,7 @@ export function ShareTenantDialog(props: ShareParticipantDialogProps) {
           >
             enlace
           </Link>{' '}
-          con el arrendatario para que pueda ver sus registros de este medidor.
+          con el inquilino para que pueda ver sus registros de este medidor.
         </p>
         <Snippet hideSymbol tooltipProps={{ content: 'Copiar enlace' }}>
           {href}

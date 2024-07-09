@@ -54,11 +54,11 @@ export function TenantOptions(props: TenantOptionsProps) {
         </DropdownMenu>
       </Dropdown>
 
-      <Dialog dialog={editDialog} dialogTitle='Editar arrendatario'>
+      <Dialog dialog={editDialog} dialogTitle='Editar inquilino'>
         <UpdateTenantDialog tenant={props.tenant} dialog={editDialog} />
       </Dialog>
 
-      <Dialog dialog={shareDialog} dialogTitle='Compartir registros a arrendatario'>
+      <Dialog dialog={shareDialog} dialogTitle='Compartir registros a inquilino'>
         <ShareTenantDialog tenant={props.tenant} dialog={shareDialog} />
       </Dialog>
 

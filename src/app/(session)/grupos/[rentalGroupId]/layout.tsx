@@ -8,7 +8,7 @@ import { RentalGroup } from '@/models/RentalGroup'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { Metadata } from 'next'
 
-type Props = React.PropsWithChildren & PagePropsParams<'id'>
+type Props = React.PropsWithChildren & PagePropsParams<'rentalGroupId'>
 
 export const metadata: Metadata = {
   title: {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Layout(props: Props) {
-  const { id: rentalGroupId } = props.params
+  const { rentalGroupId } = props.params
 
   return (
     <main className='flex flex-col gap-y-6 main-container'>

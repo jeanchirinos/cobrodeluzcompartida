@@ -1,14 +1,14 @@
 'use client'
 
 import { Link } from '@/components/Link'
-import { IconLightMeter, IconReceipt, IconSettings } from '@/icons'
+import { IconParticipant, IconReceipt, IconSettings } from '@/icons'
 import { ROUTE } from '@/constants/routes'
 import { Tabs as NextuiTabs, Tab } from '@nextui-org/tabs'
 import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 
 export function Tabs() {
   const params = useParams()
-  const { id: rentalGroupId } = params as { id: string }
+  const { rentalGroupId } = params as { rentalGroupId: string }
 
   const selectedLayoutSegment = useSelectedLayoutSegment()
 
@@ -36,10 +36,10 @@ export function Tabs() {
         as={Link}
         title={
           <div className='flex items-center gap-x-2'>
-            <IconLightMeter className='text-lg' /> Medidores
+            <IconParticipant className='text-lg' /> Medidores
           </div>
         }
-        href={ROUTE.GROUPS.LIGHT_METERS.INDEX({ groupId: rentalGroupId })}
+        href={ROUTE.GROUPS.PARTICIPANTS.INDEX({ rentalGroupId })}
       />
       <Tab
         tabIndex={0}

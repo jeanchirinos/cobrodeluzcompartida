@@ -7,17 +7,17 @@ import { Button } from '@nextui-org/react'
 import { useParams, useRouter } from 'next/navigation'
 import { handleResponse } from '@/utilities/handleResponse'
 import { ROUTE } from '@/constants/routes'
-import { useRentalGroupContext } from '@/app/(session)/grupos/[id]/context/RentalGroupContext'
+import { useRentalGroupContext } from '../../context/RentalGroupContext'
 
 export function DeleteGroup() {
-  const { id } = useParams<{ id: string }>()
+  const { rentalGroupId } = useParams<{ rentalGroupId: string }>()
   const { push } = useRouter()
 
   const { rentalGroup } = useRentalGroupContext()
   const deleteRentalGroupDialog = useDialog()
 
   async function customHandleClick() {
-    const res = await deleteRentalGroup({ id: Number(id) })
+    const res = await deleteRentalGroup({ id: Number(rentalGroupId) })
 
     await handleResponse({
       res,
