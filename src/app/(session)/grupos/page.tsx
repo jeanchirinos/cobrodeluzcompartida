@@ -8,6 +8,8 @@ import { Suspense } from '@/components/other/CustomSuspense'
 import { Tooltip } from '@nextui-org/react'
 import { Metadata } from 'next'
 import { CreateRentalGroup } from './components/CreateRentalGroup'
+import { SuspenseFallback } from '@/components/other/SuspenseFallback'
+import { waitFor } from '@/utilities/utilities'
 // import Image from 'next/image'
 
 export const metadata: Metadata = {
@@ -22,7 +24,7 @@ export default function Page() {
         <CreateRentalGroup />
       </header>
       <div className='flex flex-wrap gap-4'>
-        <Suspense>
+        <Suspense fallback={<SuspenseFallback />}>
           <RentalGroups />
         </Suspense>
       </div>

@@ -49,7 +49,6 @@ export function SelectYear() {
 
   return (
     <Select
-      multiple={false}
       selectionMode='single'
       name='year'
       onChange={handleChange}
@@ -102,7 +101,6 @@ export function SelectMonth() {
 
   return (
     <Select
-      multiple={false}
       selectionMode='single'
       name='month'
       onChange={handleChange}

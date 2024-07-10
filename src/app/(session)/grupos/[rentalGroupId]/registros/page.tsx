@@ -29,14 +29,7 @@ export default function Page(props: Props) {
         </Button>
       </header>
 
-      <Suspense
-        fallback={
-          <div className='flex h-36 items-end justify-center'>
-            <Spinner />
-          </div>
-        }
-        key={JSON.stringify(props.searchParams)}
-      >
+      <Suspense key={JSON.stringify(props.searchParams)}>
         <RentalGroupRegister {...props} />
       </Suspense>
     </>

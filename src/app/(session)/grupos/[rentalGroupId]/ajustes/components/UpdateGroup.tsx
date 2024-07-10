@@ -5,18 +5,19 @@ import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { schemaUpdateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup.schema'
-import { useRentalGroupContext } from '../../context/RentalGroupContext'
+import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
 
 export function UpdateGroup() {
   // CONTEXT
-  const { rentalGroup } = useRentalGroupContext()
+  const { data } = useGetRentalGroupById()
+  const { rentalGroup } = data ?? {}
 
   // HOOKS
   const { useFormHook } = useReactHookForm({
     schema: schemaUpdateRentalGroup,
     defaultValues: rentalGroup,
     mode: 'onChange',
-    submitActionFn: data => updateRentalGroup({ ...data, id: rentalGroup.id }),
+    submitActionFn: data => updateRentalGroup({ ...data, id: rentalGroup!.id }),
   })
 
   // RENDER

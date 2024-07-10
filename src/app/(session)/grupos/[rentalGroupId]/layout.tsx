@@ -1,6 +1,5 @@
 import { getRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById'
 import { Tabs } from './components/Tabs'
-import { RentalGroupProvider } from './context/RentalGroupContext'
 import { type PagePropsParams } from '@/types'
 import { ButtonBack } from '@/components/Button/ButtonBack'
 import { ROUTE } from '@/constants/routes'
@@ -29,9 +28,7 @@ export default async function Layout(props: Props) {
         </Suspense>
       </section>
       <Tabs />
-      <Suspense>
-        <Content rentalGroupId={Number(rentalGroupId)}>{props.children}</Content>
-      </Suspense>
+      {props.children}
     </main>
   )
 }
@@ -40,10 +37,4 @@ async function RentalGroupName(props: { rentalGroupId: RentalGroup['id'] }) {
   const { rentalGroup } = await getRentalGroupById({ id: props.rentalGroupId })
 
   return <h1 className='text-2xl font-bold'>{rentalGroup.name}</h1>
-}
-
-async function Content(props: React.PropsWithChildren & { rentalGroupId: RentalGroup['id'] }) {
-  const getRentalGroupByIdResponse = await getRentalGroupById({ id: props.rentalGroupId })
-
-  return <RentalGroupProvider value={getRentalGroupByIdResponse}>{props.children}</RentalGroupProvider>
 }

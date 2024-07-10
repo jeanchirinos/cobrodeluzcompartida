@@ -8,6 +8,7 @@ import { Link } from '@/components/Link'
 import { ROUTE } from '@/constants/routes'
 import { Avatar, Card, CardFooter, CardHeader, Chip } from '@nextui-org/react'
 import { Metadata } from 'next'
+import { SuspenseFallback } from '@/components/other/SuspenseFallback'
 
 export const metadata: Metadata = {
   title: 'Medidores',
@@ -16,10 +17,24 @@ export const metadata: Metadata = {
 type Props = CustomPageProps<'rentalGroupId'>
 
 export default function Page(props: Props) {
+  const { rentalGroupId } = props.params
+
   return (
-    <Suspense>
-      <Participants getParticipantsArgs={{ rentalGroupId: Number(props.params.rentalGroupId) }} />
-    </Suspense>
+    <div className='flex flex-col gap-y-6'>
+      <ButtonAction
+        action={createParticipant}
+        actionParameters={{ rental_group_id: Number(rentalGroupId) }}
+        color='primary'
+        className='w-fit self-end'
+        endContent={<IconAdd />}
+      >
+        Agregar medidor
+      </ButtonAction>
+
+      <Suspense fallback={<SuspenseFallback />}>
+        <Participants getParticipantsArgs={{ rentalGroupId: Number(rentalGroupId) }} />
+      </Suspense>
+    </div>
   )
 }
 
@@ -32,54 +47,42 @@ async function Participants(props: ParticipantProps) {
   const { participants } = await getParticipants(getParticipantsArgs)
 
   return (
-    <div className='flex flex-col gap-y-6'>
-      <ButtonAction
-        action={createParticipant}
-        actionParameters={{ rental_group_id: rentalGroupId }}
-        color='primary'
-        className='w-fit self-end'
-        endContent={<IconAdd />}
-      >
-        Agregar medidor
-      </ButtonAction>
+    <section className='flex flex-wrap gap-5'>
+      {participants.map(participant => (
+        <Card
+          isPressable
+          key={participant.id}
+          className='w-80 max-w-full gap-y-5 border-default-100 py-1'
+          as={Link}
+          href={ROUTE.GROUPS.PARTICIPANTS.TENANTS({ rentalGroupId, id: participant.id })}
+        >
+          <CardHeader className='flex justify-between'>
+            <p className='font-bold uppercase'>{participant.alias}</p>
+            {participant.is_main && <IconCrown className='fill-yellow-500' title='Medidor de propietario' />}
+          </CardHeader>
+          <CardFooter className='items-end justify-between'>
+            <div className='flex items-end gap-x-2.5'>
+              <Avatar
+                src={participant.tenant.avatar_url}
+                alt={participant.tenant.alias}
+                size='sm'
+                imgProps={{
+                  loading: 'lazy',
+                }}
+              />
+              <span>{participant.tenant.alias}</span>
+            </div>
 
-      <section className='flex flex-wrap gap-5'>
-        {participants.map(participant => (
-          <Card
-            isPressable
-            key={participant.id}
-            className='w-80 max-w-full gap-y-5 border-default-100 py-1'
-            as={Link}
-            href={ROUTE.GROUPS.PARTICIPANTS.TENANTS({ rentalGroupId, id: participant.id })}
-          >
-            <CardHeader className='flex justify-between'>
-              <p className='font-bold uppercase'>{participant.alias}</p>
-              {participant.is_main && <IconCrown className='fill-yellow-500' title='Medidor de propietario' />}
-            </CardHeader>
-            <CardFooter className='items-end justify-between'>
-              <div className='flex items-end gap-x-2.5'>
-                <Avatar
-                  src={participant.tenant.avatar_url}
-                  alt={participant.tenant.alias}
-                  size='sm'
-                  imgProps={{
-                    loading: 'lazy',
-                  }}
-                />
-                <span>{participant.tenant.alias}</span>
-              </div>
-
-              {participant.active ? (
-                <Chip variant='dot' color='success'>
-                  Activo
-                </Chip>
-              ) : (
-                <Chip variant='dot'>Inactivo</Chip>
-              )}
-            </CardFooter>
-          </Card>
-        ))}
-      </section>
-    </div>
+            {participant.active ? (
+              <Chip variant='dot' color='success'>
+                Activo
+              </Chip>
+            ) : (
+              <Chip variant='dot'>Inactivo</Chip>
+            )}
+          </CardFooter>
+        </Card>
+      ))}
+    </section>
   )
 }

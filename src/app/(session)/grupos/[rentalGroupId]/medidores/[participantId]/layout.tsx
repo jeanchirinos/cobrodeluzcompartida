@@ -1,8 +1,7 @@
 import { ButtonBack } from '@/components/Button/ButtonBack'
-import { Tabs } from './components/Tabs'
+import { ParticipantTabs } from './components/ParticipantTabs'
 import { ROUTE } from '@/constants/routes'
 import { PagePropsParams } from '@/types'
-import { Link } from '@/components/Link'
 import { getParticipantById } from '@/controllers/ParticipantController/getParticipantById'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { Participant } from '@/models/Participant'
@@ -29,11 +28,10 @@ export default function Layout(props: LayoutProps) {
           <ParticipantName participantId={Number(participantId)} />
         </Suspense>
       </section>
-      <Link href={ROUTE.GROUPS.PARTICIPANTS.ID({ rentalGroupId, id: participantId })} className='px-3 md:hidden'>
-        Menú
-      </Link>
+      <ParticipantTabs classNames={{ base: 'md:hidden' }} />
+
       <div className='relative flex gap-x-6'>
-        <Tabs />
+        <ParticipantTabs isVertical classNames={{ wrapper: 'max-md:hidden' }} />
         <Suspense>
           <Content participantId={Number(participantId)}>{props.children}</Content>
         </Suspense>

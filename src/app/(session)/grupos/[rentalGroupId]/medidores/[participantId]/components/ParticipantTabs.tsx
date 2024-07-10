@@ -3,29 +3,26 @@
 import { Link } from '@/components/Link'
 import { ROUTE } from '@/constants/routes'
 import { IconParticipants, IconSettings } from '@/icons'
-import { Tabs as NextuiTabs, Tab } from '@nextui-org/tabs'
+import { Tabs, Tab, TabsProps } from '@nextui-org/tabs'
 import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 
-export function Tabs() {
+export function ParticipantTabs(props: TabsProps) {
   const params = useParams()
   const { rentalGroupId, participantId } = params as { rentalGroupId: string; participantId: string }
 
   const selectedLayoutSegment = useSelectedLayoutSegment()
+  const { classNames, ...restProps } = props
 
   return (
-    <NextuiTabs
-      isVertical
+    <Tabs
       aria-label='Opciones del grupo'
       selectedKey={selectedLayoutSegment}
       variant='light'
       classNames={{
-        // wrapper: 'max-md:absolute max-md:inset-0 max-md:z-20 max-md:bg-background',
-        wrapper: `${selectedLayoutSegment && 'max-md:hidden'}`,
-        // tab: 'justify-start max-md:w-full',
         tab: 'justify-start',
-        // base: 'max-md:w-full',
-        // tabList: 'max-md:w-full',
+        ...classNames,
       }}
+      {...restProps}
     >
       <Tab
         key='inquilinos'
@@ -47,6 +44,6 @@ export function Tabs() {
         as={Link}
         href={ROUTE.GROUPS.PARTICIPANTS.SETTINGS({ id: participantId, rentalGroupId })}
       />
-    </NextuiTabs>
+    </Tabs>
   )
 }
