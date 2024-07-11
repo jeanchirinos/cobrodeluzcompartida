@@ -24,6 +24,7 @@ function UpdateNameForm() {
     data: { rentalGroup },
     isLoading,
     isValidating,
+    mutate,
   } = useGetRentalGroupById()
 
   // HOOKS
@@ -31,7 +32,26 @@ function UpdateNameForm() {
     schema: schemaUpdateRentalGroup,
     defaultValues: rentalGroup,
     mode: 'onChange',
-    submitActionFn: data => updateRentalGroup({ ...data, id: rentalGroup.id }),
+    // updateRentalGroup({ ...data, id: rentalGroup.id })
+    submitActionFn: async data => {
+      const res = await updateRentalGroup({ ...data, id: rentalGroup.id })
+
+      // await mutate(
+      //   {
+      //     rentalGroup: {
+      //       id: 0,
+      //       name: 'aaa',
+      //     },
+      //   },
+      //   {
+      //     revalidate: false,
+      //   },
+      // )
+
+      await mutate()
+
+      return res
+    },
     defaultValuesDependency: isValidating,
   })
 

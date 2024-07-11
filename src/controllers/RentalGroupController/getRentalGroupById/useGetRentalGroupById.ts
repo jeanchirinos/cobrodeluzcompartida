@@ -2,11 +2,9 @@
 
 import { useParams } from 'next/navigation'
 import useSWR, { SWRConfiguration } from 'swr'
-import { getRentalGroupById, ReturnGetRentalGroupById } from '../getRentalGroupById'
+import { getRentalGroupById, ReturnGetRentalGroupById } from './getRentalGroupById'
 
 const SWR_KEY_GET_RENTAL_GROUP_BY_ID = (id: any) => 'A' + (id as string)
-
-// props?: SWRConfiguration<ReturnGetRentalGroupById>
 
 export function useGetRentalGroupById(props?: SWRConfiguration<ReturnGetRentalGroupById>) {
   const { rentalGroupId } = useParams()
