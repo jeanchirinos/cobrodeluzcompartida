@@ -9,13 +9,15 @@ import { schemaUpdateRentalGroup } from '@/controllers/RentalGroupController/upd
 import { Suspense } from 'react'
 import useSWR from 'swr'
 import { getRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById'
+import { useParams } from 'next/navigation'
 
 function UpdateNameForm() {
   // const {
   //   data: { rentalGroup },
   // } = useGetRentalGroupById()
+  const { rentalGroupId } = useParams()
 
-  const fetcher = () => getRentalGroupById({ id: Number('126') })
+  const fetcher = () => getRentalGroupById({ id: Number(rentalGroupId) })
 
   const {
     data: { rentalGroup },
