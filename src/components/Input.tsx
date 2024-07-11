@@ -4,6 +4,7 @@ import { forwardRef, useState } from 'react'
 
 export type InputProps = NextUiInputProps & {
   sensitive?: boolean
+  isLoading?: boolean
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(props, ref) {
@@ -27,5 +28,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(pro
         }
       : {}
 
-  return <NextUiInput placeholder=' ' labelPlacement='outside' {...props} ref={ref} {...passwordVisibility} />
+  const isDisabled = props.isLoading ?? props.isDisabled
+
+  return (
+    <NextUiInput
+      placeholder=' '
+      labelPlacement='outside'
+      {...props}
+      ref={ref}
+      {...passwordVisibility}
+      isDisabled={isDisabled}
+    />
+  )
 })

@@ -69,11 +69,10 @@ function useHookFormInput<T extends UseFormReturn>(props: UseHookFormInputProps<
 }
 
 type CustomInputProps<T extends UseFormReturn> = Omit<InputProps, 'name'> & UseHookFormInputProps<T>
-
 export function CustomInput<T extends UseFormReturn<any>>(props: CustomInputProps<T>) {
-  const { name, registerOptions, useFormHook, ...restProps } = props
+  const { name, registerOptions, useFormHook, isDisabled, ...restProps } = props
 
   const { hookFormProps } = useHookFormInput({ useFormHook, name, registerOptions })
 
-  return <Input {...restProps} {...hookFormProps} />
+  return <Input {...restProps} {...hookFormProps} isDisabled={isDisabled ?? hookFormProps.isDisabled} />
 }

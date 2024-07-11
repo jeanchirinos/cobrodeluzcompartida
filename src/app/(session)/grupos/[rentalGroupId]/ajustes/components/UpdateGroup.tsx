@@ -40,7 +40,7 @@ function UpdateNameForm() {
       <CustomInput
         useFormHook={useFormHook}
         name='name'
-        isDisabled={isLoading}
+        isLoading={isLoading}
         registerOptions={{
           onBlur() {
             useFormHook.clearErrors()

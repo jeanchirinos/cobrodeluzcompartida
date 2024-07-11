@@ -1,7 +1,7 @@
 'use client'
 
+import { Skeleton } from '@/components/Skeleton'
 import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
-import { Skeleton } from '@nextui-org/react'
 
 export function RentalGroupName() {
   const {
@@ -11,12 +11,7 @@ export function RentalGroupName() {
 
   return (
     <h1 className='text-2xl font-bold'>
-      <Skeleton
-        classNames={{
-          base: 'before:hidden',
-        }}
-        isLoaded={!isLoading}
-      >
+      <Skeleton chars={15} isLoading={isLoading}>
         {rentalGroup.name}
       </Skeleton>
     </h1>

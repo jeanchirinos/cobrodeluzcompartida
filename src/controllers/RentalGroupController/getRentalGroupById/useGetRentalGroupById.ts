@@ -17,7 +17,7 @@ export function useGetRentalGroupById(props?: SWRConfiguration<ReturnGetRentalGr
     fallbackData: {
       rentalGroup: {
         id: 0,
-        name: 'Grupo de renta',
+        name: '',
       },
     },
     // suspense: true,
