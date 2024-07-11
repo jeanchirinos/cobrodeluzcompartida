@@ -53,7 +53,7 @@ function useHookFormInput<T extends UseFormReturn>(props: UseHookFormInputProps<
 
   // "watch" is necessary to update the value of the "NextuiInput" component when for example "reseting the field", if possible this shouldn't be used
 
-  const { watch, register } = useFormHook
+  const { watch, register, formState } = useFormHook
 
   const error: FieldError | undefined = get(useFormHook.formState.errors, name)
 
@@ -61,6 +61,7 @@ function useHookFormInput<T extends UseFormReturn>(props: UseHookFormInputProps<
     ...register(name, registerOptions),
     errorMessage: error?.message,
     isInvalid: Boolean(error),
+    isDisabled: formState.isSubmitting,
     value: watch(name),
   }
 

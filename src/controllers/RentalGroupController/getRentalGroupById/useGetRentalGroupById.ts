@@ -1,15 +1,26 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import useSWR from 'swr'
-import { getRentalGroupById } from '../getRentalGroupById'
+import useSWR, { SWRConfiguration } from 'swr'
+import { getRentalGroupById, ReturnGetRentalGroupById } from '../getRentalGroupById'
 
-const SWR_KEY_GET_RENTAL_GROUP_BY_ID = 'A'
+const SWR_KEY_GET_RENTAL_GROUP_BY_ID = (id: any) => 'A' + (id as string)
 
-export function useGetRentalGroupById() {
+// props?: SWRConfiguration<ReturnGetRentalGroupById>
+
+export function useGetRentalGroupById(props?: SWRConfiguration<ReturnGetRentalGroupById>) {
   const { rentalGroupId } = useParams()
 
   const fetcher = () => getRentalGroupById({ id: Number(rentalGroupId) })
 
-  return useSWR(SWR_KEY_GET_RENTAL_GROUP_BY_ID, fetcher, { suspense: true })
+  return useSWR(SWR_KEY_GET_RENTAL_GROUP_BY_ID(rentalGroupId), fetcher, {
+    fallbackData: {
+      rentalGroup: {
+        id: 0,
+        name: 'Grupo de renta',
+      },
+    },
+    // suspense: true,
+    ...props,
+  })
 }

@@ -5,34 +5,26 @@ import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { schemaUpdateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup.schema'
-// import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
-import { Suspense } from 'react'
-import useSWR from 'swr'
-import { getRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById'
-import { useParams } from 'next/navigation'
+import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
+
+export function UpdateGroup() {
+  return (
+    <section className='flex w-fit flex-col gap-y-6'>
+      <div>
+        <h3 className='text-lg font-bold'>Nombre de grupo</h3>
+        <p>Identificador único entre tus grupos de consumo</p>
+      </div>
+      <UpdateNameForm />
+    </section>
+  )
+}
 
 function UpdateNameForm() {
-  // const {
-  //   data: { rentalGroup },
-  // } = useGetRentalGroupById()
-  const { rentalGroupId } = useParams()
-
-  const fetcher = () => getRentalGroupById({ id: Number(rentalGroupId) })
-
   const {
     data: { rentalGroup },
-  } = useSWR('A', fetcher, {
-    suspense: true,
-    fallbackData: {
-      rentalGroup: {
-        id: 126,
-        name: 'Grupo de prueba',
-      },
-    },
-    onSuccess(data) {
-      useFormHook.reset(data.rentalGroup)
-    },
-  })
+    isLoading,
+    isValidating,
+  } = useGetRentalGroupById()
 
   // HOOKS
   const { useFormHook } = useReactHookForm({
@@ -40,6 +32,7 @@ function UpdateNameForm() {
     defaultValues: rentalGroup,
     mode: 'onChange',
     submitActionFn: data => updateRentalGroup({ ...data, id: rentalGroup.id }),
+    defaultValuesDependency: isValidating,
   })
 
   return (
@@ -47,6 +40,7 @@ function UpdateNameForm() {
       <CustomInput
         useFormHook={useFormHook}
         name='name'
+        isDisabled={isLoading}
         registerOptions={{
           onBlur() {
             useFormHook.clearErrors()
@@ -57,19 +51,5 @@ function UpdateNameForm() {
         Renombrar
       </HookFormButton>
     </form>
-  )
-}
-
-export function UpdateGroup() {
-  return (
-    <section className='flex w-fit flex-col gap-y-6'>
-      <div>
-        <h3 className='text-lg font-bold'>Nombre de grupo</h3>
-        <p>Identificador único entre tus grupos de consumo</p>
-      </div>
-      <Suspense fallback={<h1>Hola</h1>}>
-        <UpdateNameForm />
-      </Suspense>
-    </section>
   )
 }

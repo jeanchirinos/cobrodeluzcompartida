@@ -13,11 +13,17 @@ export function DeleteGroup() {
   const { push } = useRouter()
   const deleteRentalGroupDialog = useDialog()
 
-  const { data } = useGetRentalGroupById()
-  const { rentalGroup } = data ?? {}
+  const {
+    data: { rentalGroup },
+    isLoading,
+  } = useGetRentalGroupById({
+    onSuccess(data) {
+      console.log({ data: 'HEY' })
+    },
+  })
 
   async function customHandleClick() {
-    const res = await deleteRentalGroup({ id: Number(rentalGroup?.id) })
+    const res = await deleteRentalGroup({ id: Number(rentalGroup.id) })
 
     await handleResponse({
       res,
@@ -34,13 +40,19 @@ export function DeleteGroup() {
         <h3 className='text-lg font-bold'>Eliminar grupo</h3>
         <p>El proyecto se eliminará permanentemente, incluyendo sus registros.</p>
       </div>
-      <Button onClick={deleteRentalGroupDialog.open} className='w-fit' color='danger' variant='flat'>
+      <Button
+        isDisabled={isLoading}
+        onClick={deleteRentalGroupDialog.open}
+        className='w-fit'
+        color='danger'
+        variant='flat'
+      >
         Eliminar
       </Button>
       <Dialog dialog={deleteRentalGroupDialog} dialogTitle='Eliminar grupo'>
         <DialogBody>
           <p>
-            El grupo <b>{rentalGroup?.name}</b> y sus registros se eliminarán permanentemente
+            El grupo <b>{rentalGroup.name}</b> y sus registros se eliminarán permanentemente
           </p>
           <p className='mt-2'>¿ Estás seguro de que quieres eliminar el grupo ?</p>
         </DialogBody>

@@ -7,7 +7,7 @@ type ArgsGetRentalGroupByIdFn = {
   id: RentalGroup['id']
 }
 
-type ResponseGetRentalGroupById = RentalGroup
+export type ResponseGetRentalGroupById = RentalGroup
 
 export async function getRentalGroupById(args: ArgsGetRentalGroupByIdFn) {
   const { id } = args
@@ -21,3 +21,5 @@ export async function getRentalGroupById(args: ArgsGetRentalGroupByIdFn) {
 
   return { rentalGroup }
 }
+
+export type ReturnGetRentalGroupById = Awaited<ReturnType<typeof getRentalGroupById>>

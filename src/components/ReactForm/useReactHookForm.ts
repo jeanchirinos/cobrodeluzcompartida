@@ -14,12 +14,13 @@ export type UseReactHookFormProps<ActionArgs, ResponseData, FormSchema extends Z
   schema: FormSchema
   //! submitActionFn is required only if FormSchema is not equal to action schema OR action function args are different from FormSchema
   submitActionFn?: (data: z.infer<FormSchema>) => Promise<CustomResponse<ResponseData>>
+  defaultValuesDependency?: unknown
 } & Omit<UseFormProps<z.infer<FormSchema>>, 'resolver'>
 
 export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends ZodType>(
   props: UseReactHookFormProps<ActionArgs, ResponseData, FormSchema>,
 ) {
-  const { schema, action, submitActionFn, actionProps, ...restProps } = props
+  const { schema, action, submitActionFn, actionProps, defaultValuesDependency, ...restProps } = props
 
   // HOOKS
   const useFormHook = useForm<z.infer<FormSchema>>({
@@ -28,16 +29,17 @@ export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends Zo
     resolver: zodResolver(schema),
   })
 
-  const { formState, reset, handleSubmit } = useFormHook
+  const { formState, handleSubmit, reset } = useFormHook
   const { isValid, isSubmitting, isDirty } = formState
 
   // EFFECTS
 
   // Reset form when defaultValues change
-  // useEffect(() => {
-  //   reset(restProps.defaultValues)
+  useEffect(() => {
+    if (defaultValuesDependency) return
 
-  // }, [restProps.defaultValues])
+    reset(restProps.defaultValues)
+  }, [restProps.defaultValues, defaultValuesDependency, reset])
 
   // VALUES
   const disabled = !isValid || isSubmitting || !isDirty
