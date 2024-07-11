@@ -34,11 +34,10 @@ export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends Zo
   // EFFECTS
 
   // Reset form when defaultValues change
-  useEffect(() => {
-    reset(restProps.defaultValues)
+  // useEffect(() => {
+  //   reset(restProps.defaultValues)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restProps.defaultValues])
+  // }, [restProps.defaultValues])
 
   // VALUES
   const disabled = !isValid || isSubmitting || !isDirty
