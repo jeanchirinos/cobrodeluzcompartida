@@ -5,18 +5,42 @@ import { HookFormButton } from '@/components/ReactForm/HookFormButton'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { schemaUpdateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant.schema'
 import { updateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant'
-import { useParticipantContext } from '../../context/ParticipantContext'
+import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
 
 export function UpdateParticipant() {
   // CONTEXT
-  const { participant } = useParticipantContext()
+  const {
+    data: { participant },
+    isLoading,
+    isValidating,
+    mutate,
+  } = useGetParticipantById()
 
   // HOOKS
   const { useFormHook } = useReactHookForm({
     schema: schemaUpdateParticipant,
     defaultValues: participant,
     mode: 'onChange',
-    submitActionFn: data => updateParticipant({ ...data, id: participant.id }),
+    // submitActionFn: data => updateParticipant({ ...data, id: participant.id }),
+    submitActionFn: async data => {
+      const res = await updateParticipant({ ...data, id: participant.id })
+
+      // await mutate(
+      //   {
+      //     participant: {
+      //       id: 0,
+      //     },
+      //   },
+      //   {
+      //     revalidate: false,
+      //   },
+      // )
+
+      await mutate()
+
+      return res
+    },
+    defaultValuesDependency: isValidating,
   })
 
   // RENDER
@@ -35,6 +59,7 @@ export function UpdateParticipant() {
               useFormHook.clearErrors()
             },
           }}
+          isLoading={isLoading}
         />
         <HookFormButton className='shrink-0' useFormHook={useFormHook}>
           Renombrar

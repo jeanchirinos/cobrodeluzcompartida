@@ -1,13 +1,16 @@
 'use client'
 
 import { Spinner, Switch } from '@nextui-org/react'
-import { useParticipantContext } from '../../context/ParticipantContext'
 import { useState } from 'react'
 import { handleResponse } from '@/utilities/handleResponse'
 import { toggleActiveParticipant } from '@/controllers/ParticipantController/toggleActiveParticipant'
+import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
 
 export function UpdateParticipantAvailability() {
-  const { participant } = useParticipantContext()
+  const {
+    data: { participant },
+    isLoading,
+  } = useGetParticipantById()
 
   const [isPending, setIsPending] = useState(false)
 
@@ -29,7 +32,7 @@ export function UpdateParticipantAvailability() {
         classNames={{
           base: 'flex-row-reverse gap-x-6',
         }}
-        isDisabled={isPending}
+        isDisabled={isPending || isLoading}
         onChange={handleChange}
         defaultSelected={participant.active}
       >

@@ -7,6 +7,7 @@ import { Metadata } from 'next'
 import { ButtonAction } from '@/components/Button/ButtonAction'
 import { createTenant } from '@/controllers/TenatController/createTenant/createTenant'
 import { IconAdd } from '@/icons'
+import { SuspenseFallback } from '@/components/other/SuspenseFallback'
 
 export const metadata: Metadata = {
   title: 'Inquilinos',
@@ -28,7 +29,7 @@ export default function Page(props: Props) {
       >
         Agregar inquilino
       </ButtonAction>
-      <Suspense>
+      <Suspense fallback={<SuspenseFallback />}>
         <Tenants participantId={Number(participantId)} />
       </Suspense>
     </div>

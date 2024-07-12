@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function Layout(props: React.PropsWithChildren) {
+export default function Layout(props: React.PropsWithChildren) {
   return (
     <main className='flex flex-col gap-y-6 main-container'>
       <section className='flex items-center gap-x-2'>

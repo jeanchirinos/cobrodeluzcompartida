@@ -4,21 +4,22 @@ import { Dialog, DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { useDialog } from '@/components/Dialog/useDialog'
 import { deleteParticipant } from '@/controllers/ParticipantController/deleteParticipant'
 import { Button } from '@nextui-org/react'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { handleResponse } from '@/utilities/handleResponse'
 import { ROUTE } from '@/constants/routes'
-
-import { useParticipantContext } from '../../context/ParticipantContext'
+import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
 
 export function DeleteParticipant() {
-  const { rentalGroupId } = useParams<{ rentalGroupId: string }>()
   const { push } = useRouter()
 
-  const { participant } = useParticipantContext()
+  const {
+    data: { participant },
+    isLoading,
+  } = useGetParticipantById()
   const deleteParticipantDialog = useDialog()
 
   async function customHandleClick() {
-    const res = await deleteParticipant({ id: participant.id, rentalGroupId: Number(rentalGroupId) })
+    const res = await deleteParticipant({ id: participant.id, rentalGroupId: participant.rental_group_id })
 
     await handleResponse({
       res,
@@ -35,7 +36,13 @@ export function DeleteParticipant() {
         <h3 className='text-lg font-bold'>Eliminar medidor</h3>
         <p>El medidor se eliminará permanentemente, incluyendo sus usuarios y registros en los cuales participó.</p>
       </div>
-      <Button onClick={deleteParticipantDialog.open} className='w-fit' color='danger' variant='flat'>
+      <Button
+        onClick={deleteParticipantDialog.open}
+        className='w-fit'
+        color='danger'
+        variant='flat'
+        isDisabled={isLoading}
+      >
         Eliminar
       </Button>
       <Dialog dialog={deleteParticipantDialog} dialogTitle='Eliminar medidor'>
