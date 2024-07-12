@@ -17,7 +17,7 @@ export async function toggleActiveParticipant(args: ArgsToggleActiveParticipantF
       method: 'PATCH',
     },
     options: {
-      // revalidateTagParams: [API_ROUTE.PARTICIPANT.INDEX({  })],
+      // revalidateTagParams: API_ROUTE.PARTICIPANT.INDEX({  }),
     },
   })
 }

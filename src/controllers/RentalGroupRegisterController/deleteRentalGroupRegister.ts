@@ -10,6 +10,6 @@ export async function deleteRentalGroupRegister(prevState: any, formData: FormDa
   //   url: `rental-group-register-delete/${formData.get('id')}`,
   //   schema,
   //   body: formData,
-  //   revalidateTagParams: ['rental-group-register'],
+  //   revalidateTagParams: 'rental-group-register',
   // })
 }

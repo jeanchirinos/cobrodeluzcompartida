@@ -22,7 +22,7 @@ export async function createRentalGroup(args?: ArgsCreateRentalGroupFn) {
     },
     options: {
       schema: schemaCreateRentalGroup,
-      revalidateTagParams: [API_ROUTE.RENTAL_GROUP.INDEX],
+      revalidateTagParams: API_ROUTE.RENTAL_GROUP.INDEX,
     },
   })
 

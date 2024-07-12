@@ -1,5 +1,5 @@
 export default function Page(props: any) {
-  console.log(props)
+  // console.log(props)
 
   return <></>
 }

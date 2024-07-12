@@ -16,7 +16,7 @@ export async function deleteParticipant(args: ArgsDeleteParticipantFn) {
       method: 'DELETE',
     },
     options: {
-      revalidateTagParams: [API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId: args.rentalGroupId })],
+      revalidateTagParams: API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId: args.rentalGroupId }),
     },
   })
 }

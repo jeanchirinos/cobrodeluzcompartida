@@ -20,7 +20,7 @@ export type DefaultArgs<BodySchema extends ZodType, ResponseData> = {
   authMode?: 'auth-required' | 'auth-not-required' | 'auth-no-auth'
   options?: {
     schema?: BodySchema
-    revalidateTagParams?: Parameters<typeof revalidateTag>
+    revalidateTagParams?: Parameters<typeof revalidateTag>[0]
     revalidatePathParams?: Parameters<typeof revalidatePath>
     // responseSchema?: z.ZodType<Response>
   } & Pick<Options<ResponseData>, 'onSuccess'>

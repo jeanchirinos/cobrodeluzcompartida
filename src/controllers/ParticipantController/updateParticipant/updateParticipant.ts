@@ -21,7 +21,7 @@ export async function updateParticipant(args: ArgsUpdateRentalGroupFn) {
     },
     options: {
       schema: schemaUpdateParticipant,
-      revalidateTagParams: [API_ROUTE.PARTICIPANT.SHOW({ id })],
+      revalidateTagParams: API_ROUTE.PARTICIPANT.SHOW({ id }),
     },
   })
 }

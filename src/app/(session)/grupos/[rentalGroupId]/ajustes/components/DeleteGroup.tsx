@@ -13,14 +13,7 @@ export function DeleteGroup() {
   const { push } = useRouter()
   const deleteRentalGroupDialog = useDialog()
 
-  const {
-    data: { rentalGroup },
-    isLoading,
-  } = useGetRentalGroupById({
-    onSuccess(data) {
-      console.log({ data: 'HEY' })
-    },
-  })
+  const { data: rentalGroup, isLoading } = useGetRentalGroupById()
 
   async function customHandleClick() {
     const res = await deleteRentalGroup({ id: Number(rentalGroup.id) })

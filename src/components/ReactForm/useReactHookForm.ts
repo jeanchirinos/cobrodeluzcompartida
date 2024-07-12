@@ -39,7 +39,9 @@ export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends Zo
     if (defaultValuesDependency) return
 
     reset(restProps.defaultValues)
-  }, [restProps.defaultValues, defaultValuesDependency, reset])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValuesDependency])
 
   // VALUES
   const disabled = !isValid || isSubmitting || !isDirty

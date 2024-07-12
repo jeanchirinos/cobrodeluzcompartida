@@ -23,7 +23,7 @@ export async function updateTenant(args: ArgsUpdateRentalGroup) {
     },
     options: {
       schema: schemaUpdateTenant,
-      revalidateTagParams: [API_ROUTE.TENANT.INDEX({ participantId })],
+      revalidateTagParams: API_ROUTE.TENANT.INDEX({ participantId }),
     },
   })
 }

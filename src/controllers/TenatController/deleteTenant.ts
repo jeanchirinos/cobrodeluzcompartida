@@ -16,7 +16,7 @@ export async function deleteTenant(args: ArgsDeleteTenantFn) {
       method: 'DELETE',
     },
     options: {
-      revalidateTagParams: [API_ROUTE.TENANT.INDEX({ participantId: args.participantId })],
+      revalidateTagParams: API_ROUTE.TENANT.INDEX({ participantId: args.participantId }),
     },
   })
 }

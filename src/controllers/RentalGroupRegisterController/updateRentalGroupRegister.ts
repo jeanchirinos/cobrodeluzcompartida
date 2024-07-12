@@ -16,6 +16,6 @@ export async function updateRentalGroupRegister(args: ArgsUpdateRentalGroupRegis
   // return sendData<BodyUpdateRentalGroupRegister, {}>({
   //   url: API_ROUTE.RENTAL_GROUP_REGISTER.UPDATE({ id: args.id }),
   //   body: args,
-  //   // revalidateTagParams: ['rental-group-register'],
+  //   // revalidateTagParams: 'rental-group-register',
   // })
 }

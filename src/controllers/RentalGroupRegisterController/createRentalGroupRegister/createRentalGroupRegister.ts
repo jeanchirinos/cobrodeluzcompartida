@@ -13,7 +13,7 @@ export async function createRentalGroupRegister(args: ArgsCreateRentalGroupFn) {
   // return sendData({
   //   url: `rental-group-register-create/${rentalGroupId}`,
   //   body,
-  //   revalidateTagParams: ['rental-group-register'],
+  //   revalidateTagParams: 'rental-group-register',
   // })
 
   return { ok: true, msg: 'Registro de renta creado' }

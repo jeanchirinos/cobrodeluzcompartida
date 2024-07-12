@@ -15,7 +15,7 @@ export async function deleteRentalGroup(args: ArgsDeleteRentalGroupFn) {
       method: 'DELETE',
     },
     options: {
-      revalidateTagParams: [API_ROUTE.RENTAL_GROUP.INDEX],
+      revalidateTagParams: API_ROUTE.RENTAL_GROUP.INDEX,
     },
   })
 }

@@ -15,7 +15,7 @@ export async function createTenant(args: ArgsCreateRentalGroupFn) {
     },
     options: {
       schema: schemaCreateTenant,
-      revalidateTagParams: [API_ROUTE.TENANT.INDEX({ participantId: args.participant_id })],
+      revalidateTagParams: API_ROUTE.TENANT.INDEX({ participantId: args.participant_id }),
     },
   })
 }

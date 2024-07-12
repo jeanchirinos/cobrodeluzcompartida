@@ -1,8 +1,7 @@
-import { ButtonAction } from '@/components/Button/ButtonAction'
 import { Image } from '@/components/Image'
 import { Menu, MenuContent, MenuSeparator, MenuTrigger } from '@/components/Menu'
 import { ResponseGetSession } from '@/controllers/AuthController/getSession'
-import { logout } from '@/controllers/AuthController/logout'
+import { Logout } from './Logout'
 
 type Props = { session: ResponseGetSession }
 
@@ -20,9 +19,7 @@ export function UserLogged(props: Props) {
           <span className='text-xs'>{session.email}</span>
         </header>
         <MenuSeparator />
-        <ButtonAction action={logout} variant='light' fullWidth radius='none' className='justify-start'>
-          Cerrar sesión
-        </ButtonAction>
+        <Logout />
       </MenuContent>
     </Menu>
   )

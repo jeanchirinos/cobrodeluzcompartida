@@ -9,7 +9,6 @@ import { Tooltip } from '@nextui-org/react'
 import { Metadata } from 'next'
 import { CreateRentalGroup } from './components/CreateRentalGroup'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
-import { waitFor } from '@/utilities/utilities'
 // import Image from 'next/image'
 
 export const metadata: Metadata = {

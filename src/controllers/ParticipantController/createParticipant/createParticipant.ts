@@ -15,7 +15,7 @@ export async function createParticipant(args: ArgsCreateRentalGroupFn) {
     },
     options: {
       schema: schemaCreateParticipant,
-      revalidateTagParams: [API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId: args.rental_group_id })],
+      revalidateTagParams: API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId: args.rental_group_id }),
     },
   })
 

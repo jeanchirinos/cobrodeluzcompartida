@@ -21,7 +21,8 @@ export function UpdateGroup() {
 
 function UpdateNameForm() {
   const {
-    data: { rentalGroup },
+    // data: { rentalGroup },
+    data: rentalGroup,
     isLoading,
     isValidating,
     mutate,

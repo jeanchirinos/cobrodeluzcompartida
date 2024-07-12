@@ -96,7 +96,7 @@ export async function sendData<BodySchema extends ZodType, ResponseData>(
   }
 
   if (revalidateTagParams) {
-    revalidateTag(...revalidateTagParams)
+    revalidateTag(revalidateTagParams)
   }
 
   // RETURN

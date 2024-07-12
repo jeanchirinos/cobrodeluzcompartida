@@ -19,7 +19,7 @@ export async function updateRentalGroup(args: ArgsUpdateRentalGroupFn) {
     },
     options: {
       schema: schemaUpdateRentalGroup,
-      revalidateTagParams: [API_ROUTE.RENTAL_GROUP.SHOW({ id })],
+      revalidateTagParams: '',
     },
   })
 }

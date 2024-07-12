@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const schemaUserBase = z.object({
   fullname: z.string().min(1),
   email: z.string().email(),
-  password: z.string(),
+  password: z.string().min(1),
   image_url: z.string().min(1),
   token: z.string().min(1),
 })

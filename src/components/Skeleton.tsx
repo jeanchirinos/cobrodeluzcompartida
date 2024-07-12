@@ -10,7 +10,7 @@ export function Skeleton(props: SkeletonProps) {
   const { isLoading, classNames, chars, ...restProps } = props
 
   function getRandomWord() {
-    const letters = Array.from({ length: chars ?? 0 }, () => '0')
+    const letters = Array.from({ length: chars ?? 0 }, () => '-')
     return letters.join('')
   }
 
@@ -18,7 +18,7 @@ export function Skeleton(props: SkeletonProps) {
     <NextuiSkeleton
       classNames={{
         ...classNames,
-        base: cnx('before:hidden', classNames?.base),
+        base: cnx('before:hidden', classNames?.base, isLoading && 'text-transparent'),
       }}
       isLoaded={!isLoading}
       {...restProps}
