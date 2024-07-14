@@ -1,7 +1,6 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarMenuToggle } from '@nextui-org/navbar'
 import Logo from '@/public/img/logo.svg'
 import { ROUTE } from '@/constants/routes'
-import { Skeleton } from '@nextui-org/skeleton'
 import { Session } from '../Session/Session'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { Link } from '@/components/Link'
@@ -35,7 +34,7 @@ export function Header() {
 
       <NavbarContent justify='end'>
         <ThemeSwitcher />
-        <Suspense fallback={<Skeleton className='size-8 rounded-full' />}>
+        <Suspense>
           <Session />
         </Suspense>
       </NavbarContent>

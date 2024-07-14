@@ -1,9 +1,17 @@
-import { getSession } from '@/controllers/AuthController/getSession'
+'use client'
+
+// import { getSession } from '@/controllers/AuthController/getSession'
 import { Chip } from '@nextui-org/chip'
 import { SaveButton } from './SaveButton'
+import { useGetSession } from '@/controllers/AuthController/getSession/useGetSession'
 
-export async function SessionWarning() {
-  const { session } = await getSession()
+export function SessionWarning() {
+  // const { session } = await getSession()
+  const { data, isLoading } = useGetSession()
+
+  const { session } = data ?? {}
+
+  if (isLoading) return null
 
   return (
     <div className='sticky top-16 z-30 w-fit bg-background'>
