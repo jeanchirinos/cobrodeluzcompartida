@@ -1,13 +1,15 @@
 'use client'
 
 import { Image } from '@/components/Image'
-import { RentalGroupRegisterFound } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister'
+import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/table'
 
-type ResultsTableProps = Pick<RentalGroupRegisterFound, 'results'>
+export function ResultsTable() {
+  const {
+    data: { rentalGroupRegister },
+  } = useGetRentalGroupRegister()
 
-export function ResultsTable(props: ResultsTableProps) {
-  const { results } = props
+  const { results } = rentalGroupRegister!
 
   return (
     <Table aria-label='Tabla de resultado' className='w-full max-w-full md:w-64'>

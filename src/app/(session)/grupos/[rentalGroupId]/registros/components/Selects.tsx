@@ -1,5 +1,6 @@
 'use client'
 
+import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
 import { Select, SelectItem } from '@nextui-org/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
@@ -13,6 +14,10 @@ export function Selects() {
 }
 
 export function SelectYear() {
+  const {
+    data: { rentalGroupRegister },
+  } = useGetRentalGroupRegister()
+
   // HOOKS
   const searchParams = useSearchParams()
   const { replace } = useRouter()
@@ -45,10 +50,12 @@ export function SelectYear() {
     return years
   }
 
-  const defaultSelectedKeys = [searchParams.get('year') ?? '']
+  const billDataYear = rentalGroupRegister?.billData.year.toString()
+  const defaultSelectedKeys = [searchParams.get('year') ?? billDataYear ?? '']
 
   return (
     <Select
+      key={billDataYear}
       selectionMode='single'
       name='year'
       onChange={handleChange}
@@ -66,6 +73,10 @@ export function SelectYear() {
 }
 
 export function SelectMonth() {
+  const {
+    data: { rentalGroupRegister },
+  } = useGetRentalGroupRegister()
+
   // HOOKS
   const searchParams = useSearchParams()
   const { replace } = useRouter()
@@ -97,10 +108,12 @@ export function SelectMonth() {
     { key: '12', label: 'Diciembre' },
   ]
 
-  const defaultSelectedKeys = [searchParams.get('month') ?? '']
+  const billDataMonth = rentalGroupRegister?.billData.year.toString()
+  const defaultSelectedKeys = [searchParams.get('month') ?? billDataMonth ?? '']
 
   return (
     <Select
+      key={billDataMonth}
       selectionMode='single'
       name='month'
       onChange={handleChange}

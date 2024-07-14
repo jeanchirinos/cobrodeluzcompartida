@@ -27,8 +27,8 @@ importers:
         specifier: 14.2.5
         version: 14.2.5(@babel/core@7.24.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-nprogress-bar:
-        specifier: ^2.3.11
-        version: 2.3.12
+        specifier: ^2.3.13
+        version: 2.3.13
       next-themes:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -91,11 +91,11 @@ importers:
         specifier: ^8.4.39
         version: 8.4.39
       prettier:
-        specifier: ^3.3.1
-        version: 3.3.2
+        specifier: ^3.3.3
+        version: 3.3.3
       prettier-plugin-tailwindcss:
         specifier: ^0.6.5
-        version: 0.6.5(prettier@3.3.2)
+        version: 0.6.5(prettier@3.3.3)
       tailwindcss:
         specifier: ^3.4.4
         version: 3.4.4
@@ -3206,8 +3206,8 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  next-nprogress-bar@2.3.12:
-    resolution: {integrity: sha512-BCsmNmssPY4QfYKux7cGYm/JmsM/n9TGMJJDyYPt7ckWyK8l43hMgi7g9d7u/IxCaEAx3pbzfg7Ity0zdlDnGA==}
+  next-nprogress-bar@2.3.13:
+    resolution: {integrity: sha512-eJQDvPSUwZ2yRyNKqAH6xTFI4RtIFvs+qtY8essTtfooyaxLGmkanEO7vL83U166bullMtVpixD6FQk5SQkhMw==}
 
   next-themes@0.3.0:
     resolution: {integrity: sha512-/QHIrsYpd6Kfk7xakK4svpDI5mmXP0gfvCoJdGpZQ2TOrQZmsW0QxjaiLn8wbIKjtm4BTSqLoix4lxYYOnLJ/w==}
@@ -3507,8 +3507,8 @@ packages:
       prettier-plugin-svelte:
         optional: true
 
-  prettier@3.3.2:
-    resolution: {integrity: sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==}
+  prettier@3.3.3:
+    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -8429,7 +8429,7 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-nprogress-bar@2.3.12:
+  next-nprogress-bar@2.3.13:
     dependencies:
       nprogress: 0.2.0
 
@@ -8672,11 +8672,11 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-tailwindcss@0.6.5(prettier@3.3.2):
+  prettier-plugin-tailwindcss@0.6.5(prettier@3.3.3):
     dependencies:
-      prettier: 3.3.2
+      prettier: 3.3.3
 
-  prettier@3.3.2: {}
+  prettier@3.3.3: {}
 
   prop-types@15.8.1:
     dependencies:
