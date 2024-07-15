@@ -1,7 +1,6 @@
 import { ButtonAction } from '@/components/Button/ButtonAction'
 import { Suspense } from '@/components/other/CustomSuspense'
 import { createParticipant } from '@/controllers/ParticipantController/createParticipant/createParticipant'
-import { getParticipants } from '@/controllers/ParticipantController/getParticipants'
 import { CustomPageProps } from '@/types'
 import { IconAdd, IconCrown } from '@/icons'
 import { Link } from '@/components/Link'
@@ -9,6 +8,7 @@ import { ROUTE } from '@/constants/routes'
 import { Avatar, Card, CardFooter, CardHeader, Chip } from '@nextui-org/react'
 import { Metadata } from 'next'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
+import { getParticipants } from '@/controllers/ParticipantController/getParticipants/getParticipants'
 
 export const metadata: Metadata = {
   title: 'Medidores',

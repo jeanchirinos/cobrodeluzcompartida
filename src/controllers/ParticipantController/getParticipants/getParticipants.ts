@@ -15,18 +15,9 @@ export type ResponseGetParticipants = Array<
 >
 
 export async function getParticipants(args: ArgsGetParticipantsFn) {
-  const participants0 = await getData<ResponseGetParticipants>({
+  const participants = await getData<ResponseGetParticipants>({
     url: API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId: args.rentalGroupId }),
   })
-
-  const participants = participants0.map((participant, i) => ({
-    ...participant,
-    tenant: {
-      id: i,
-      alias: `Tenant ${i}`,
-      avatar_url: 'https://storage.nijui.com/ccsec/avatars/avatar_1.webp',
-    },
-  }))
 
   return { participants }
 }

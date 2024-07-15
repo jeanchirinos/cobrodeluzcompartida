@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
-import { getParticipantById } from '../getParticipantById'
+import { getParticipantById } from './getParticipantById'
 import { Participant } from '@/models/Participant'
 
 export const SWR_KEY_GET_PARTICIPANT_BY_ID = (id: Participant['id']) => `GET_PARTICIPANT_ID_${id}`
