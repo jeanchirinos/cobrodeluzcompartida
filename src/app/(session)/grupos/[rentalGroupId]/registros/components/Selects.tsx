@@ -5,6 +5,13 @@ import { Select, SelectItem } from '@nextui-org/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 export function Selects() {
+  // const billDataYear = rentalGroupRegister?.billData.year.toString()
+  // const defaultYear = [searchParams.get('year') ?? billDataYear ?? '']
+
+  // const [currentDate, setCurrentDate] = useState({
+  //   year: new Date().getFullYear(),
+  //   month: new Date().getMonth() + 1,
+  // })
   return (
     <>
       <SelectYear />
@@ -30,6 +37,9 @@ export function SelectYear() {
     const newSearchParams = new URLSearchParams(searchParams)
 
     newSearchParams.set('year', value)
+
+    const currentSelectMonth = rentalGroupRegister?.billData.month ?? searchParams.get('month')
+    if (currentSelectMonth) newSearchParams.set('month', currentSelectMonth.toString())
 
     replace('?' + newSearchParams.toString())
   }
@@ -87,6 +97,9 @@ export function SelectMonth() {
     if (value === '') return
 
     const newSearchParams = new URLSearchParams(searchParams)
+
+    const currentSelectYear = rentalGroupRegister?.billData.year ?? searchParams.get('year')
+    if (currentSelectYear) newSearchParams.set('year', currentSelectYear.toString())
 
     newSearchParams.set('month', value)
 
