@@ -19,7 +19,7 @@ export async function login(args: ArgsLoginFn) {
     await createAuthToken({ token: data.token })
     await createGroupWithSessionCookie()
 
-    redirect(ROUTE.GROUPS.INDEX)
+    // redirect(ROUTE.GROUPS.INDEX)
   }
 
   return await sendData<typeof schemaLogin, ResponseLogin>({

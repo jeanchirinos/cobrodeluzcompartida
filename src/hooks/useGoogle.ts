@@ -5,19 +5,29 @@ import { API_ROUTE } from '@/constants/api-routes'
 import { udpdateGoogleSession } from '@/controllers/AuthController/udpdateGoogleSession'
 import { getApiUrl } from '@/utilities/request/env-variables/get'
 import { User } from '@/models/User'
+import { useSWRConfig } from 'swr'
+import { SWR_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
+import { useRouter } from 'next/navigation'
+import { ROUTE } from '@/constants/routes'
 
 export function useGoogle() {
+  const { mutate } = useSWRConfig()
+  const { push } = useRouter()
+
   // EFFECT
   useEffect(() => {
     async function handleMessageFromAuthPage(e: MessageEvent<Pick<User, 'token'>>) {
       await udpdateGoogleSession({ token: e.data.token })
+      await mutate(SWR_KEY_GET_SESSION)
+      push(ROUTE.GROUPS.INDEX)
+
       openedWindow.current?.close()
     }
 
     window.addEventListener('message', handleMessageFromAuthPage)
 
     return () => window.removeEventListener('message', handleMessageFromAuthPage)
-  }, [])
+  }, [mutate])
 
   // FUNCTIONS
   function openGoogleWindow() {
