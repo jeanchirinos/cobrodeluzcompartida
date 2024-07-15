@@ -108,7 +108,7 @@ export function SelectMonth() {
     { key: '12', label: 'Diciembre' },
   ]
 
-  const billDataMonth = rentalGroupRegister?.billData.year.toString()
+  const billDataMonth = rentalGroupRegister?.billData.month.toString()
   const defaultSelectedKeys = [searchParams.get('month') ?? billDataMonth ?? '']
 
   return (
