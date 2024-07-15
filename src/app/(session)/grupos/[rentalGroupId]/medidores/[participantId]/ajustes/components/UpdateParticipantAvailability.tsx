@@ -29,6 +29,7 @@ export function UpdateParticipantAvailability() {
   return (
     <section className='flex gap-x-6'>
       <Switch
+        key={String(participant.active)}
         classNames={{
           base: 'flex-row-reverse gap-x-6',
         }}
