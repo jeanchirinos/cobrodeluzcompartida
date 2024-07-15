@@ -156,8 +156,8 @@ export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn)
 
   await waitFor(0.3)
 
-  // if (!searchParams.year && !searchParams.month) return { rentalGroupRegister: rentalGroupRegisters[0] }
-  if (!searchParams.year && !searchParams.month) return { rentalGroupRegister: null }
+  if (!searchParams.year && !searchParams.month) return { rentalGroupRegister: rentalGroupRegisters[0] }
+  // if (!searchParams.year && !searchParams.month) return { rentalGroupRegister: null }
 
   const rentalGroupRegister =
     rentalGroupRegisters.find(
