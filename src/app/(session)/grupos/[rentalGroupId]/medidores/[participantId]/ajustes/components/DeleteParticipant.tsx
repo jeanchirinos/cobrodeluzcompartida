@@ -19,7 +19,7 @@ export function DeleteParticipant() {
   const deleteParticipantDialog = useDialog()
 
   async function customHandleClick() {
-    const res = await deleteParticipant({ id: participant.id, rentalGroupId: participant.rental_group_id })
+    const res = await deleteParticipant({ id: participant.id })
 
     await handleResponse({
       res,
