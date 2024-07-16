@@ -9,10 +9,12 @@ import { useSWRConfig } from 'swr'
 import { SWR_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
 import { useRouter } from 'next/navigation'
 import { ROUTE } from '@/constants/routes'
+import { useCreateGroupWithSessionCookie } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
 
 export function Login() {
   const { mutate } = useSWRConfig()
   const { push } = useRouter()
+  const { execute } = useCreateGroupWithSessionCookie()
 
   const { useFormHook } = useReactHookForm({
     schema: schemaLogin,
@@ -21,7 +23,11 @@ export function Login() {
       showSuccessToast: false,
       onSuccess: async () => {
         await mutate(SWR_KEY_GET_SESSION)
-        push(ROUTE.GROUPS.INDEX)
+        const wasRedirected = await execute()
+
+        if (!wasRedirected) {
+          push(ROUTE.GROUPS.INDEX)
+        }
       },
     },
   })

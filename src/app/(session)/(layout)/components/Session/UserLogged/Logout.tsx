@@ -6,7 +6,7 @@ import { ROUTE } from '@/constants/routes'
 import { logout } from '@/controllers/AuthController/logout'
 import { useRouter } from 'next/navigation'
 import { useSWRConfig } from 'swr'
-import { Cookies } from 'typescript-cookie'
+import { removeCookie } from 'typescript-cookie'
 
 export function Logout() {
   const { mutate } = useSWRConfig()
@@ -19,9 +19,8 @@ export function Logout() {
       { revalidate: false }, // do not revalidate
     )
 
-    Cookies.remove(COOKIES_TOKEN_NAME)
+    removeCookie(COOKIES_TOKEN_NAME)
     replace(ROUTE.HOME)
-    // push(ROUTE.HOME)
 
     setTimeout(() => {
       refresh()
