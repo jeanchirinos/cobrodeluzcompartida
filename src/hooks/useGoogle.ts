@@ -34,7 +34,8 @@ export function useGoogle() {
     window.addEventListener('message', handleMessageFromAuthPage)
 
     return () => window.removeEventListener('message', handleMessageFromAuthPage)
-  }, [mutate, push, execute])
+    // }, [mutate, push, execute])
+  }, [])
 
   // FUNCTIONS
   function openGoogleWindow() {
