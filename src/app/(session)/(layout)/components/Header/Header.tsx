@@ -2,7 +2,6 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarMenuToggle } from '@nextui-or
 import Logo from '@/public/img/logo.svg'
 import { ROUTE } from '@/constants/routes'
 import { Session } from '../Session/Session'
-import { Suspense } from '@/components/other/CustomSuspense'
 import { Link } from '@/components/Link'
 import { ThemeSwitcher } from '@/components/other/ThemeSwitcher'
 import { Nav } from './Nav'
@@ -28,20 +27,14 @@ export function Header() {
         </NavbarBrand>
       </NavbarContent>
 
-      <Suspense>
-        <Nav />
-      </Suspense>
+      <Nav />
 
       <NavbarContent justify='end'>
         <ThemeSwitcher />
-        <Suspense>
-          <Session />
-        </Suspense>
+        <Session />
       </NavbarContent>
 
-      <Suspense>
-        <NavMenu />
-      </Suspense>
+      <NavMenu />
     </Navbar>
   )
 }

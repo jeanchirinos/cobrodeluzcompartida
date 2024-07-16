@@ -9,6 +9,7 @@ export function Session() {
   const { data, isLoading } = useGetSession()
 
   const { session } = data ?? {}
+  
   if (isLoading) return <Skeleton isLoaded={false} className='size-8 rounded-full' />
 
   return session ? <UserLogged session={session} /> : <UserNotLogged />
