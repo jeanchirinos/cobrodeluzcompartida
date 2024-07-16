@@ -26,13 +26,8 @@ export type DefaultArgs<BodySchema extends ZodType, ResponseData> = {
   } & Pick<Options<ResponseData>, 'onSuccess'>
 }
 
-type CustomResponse<ResponseData> = { msg: string } & (
-  | {
-      ok: true
-      data: ResponseData
-    }
-  | {
-      ok: false
-      data: null
-    }
-)
+type CommonAttributesResponse = { msg: string }
+export type SuccesResponse<ResponseData> = { ok: true; data: ResponseData } & CommonAttributesResponse
+export type ErrorResponse = { ok: false; data: null } & CommonAttributesResponse
+
+type CustomResponse<ResponseData> = SuccesResponse<ResponseData> | ErrorResponse

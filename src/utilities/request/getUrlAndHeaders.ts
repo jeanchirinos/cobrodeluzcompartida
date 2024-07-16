@@ -3,6 +3,7 @@
 import { cookies } from 'next/headers'
 import { getApiKey, getApiUrl } from './env-variables/get'
 import { COOKIES_TOKEN_NAME } from '@/constants/cookies'
+import { TokenNotFoundError } from './sendData/errors'
 
 type GetUrlARgs = { url: string | URL }
 
@@ -26,7 +27,7 @@ export async function getHeaders({ headers, authMode }: GetHeadersArgs) {
   if (authMode === 'auth-required') {
     const token = cookies().get(COOKIES_TOKEN_NAME)
 
-    if (!token) throw new Error('Token not found', { cause: { status: 401 } })
+    if (!token) throw new TokenNotFoundError()
   }
 
   if (authMode === 'auth-required' || authMode === 'auth-no-auth') {

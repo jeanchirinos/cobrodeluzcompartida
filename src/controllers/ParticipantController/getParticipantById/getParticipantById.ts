@@ -3,9 +3,7 @@ import { RentalGroup } from '@/models/RentalGroup'
 import { API_ROUTE } from '@/constants/api-routes'
 import { getData } from '@/utilities/request/getData/getData'
 
-type ArgsGetParticipantByIdFn = {
-  id: Participant['id']
-}
+type ArgsGetParticipantByIdFn = Pick<Participant, 'id'>
 
 type ResponseGetParticipantById = Participant & {
   rental_group_id: RentalGroup['id']

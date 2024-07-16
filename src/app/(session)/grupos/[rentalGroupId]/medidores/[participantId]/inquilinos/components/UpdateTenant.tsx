@@ -3,7 +3,6 @@
 import { DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { UseDialog } from '@/components/Dialog/useDialog'
 import { Switch } from '@nextui-org/react'
-import { useParams } from 'next/navigation'
 import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
@@ -16,13 +15,11 @@ type UpdateTenantDialogProps = { tenant: ResponseGetTenants[0]; dialog: UseDialo
 export function UpdateTenantDialog(props: UpdateTenantDialogProps) {
   const { tenant, dialog } = props
 
-  const { participantId } = useParams<{ participantId: string }>()
-
   // HOOKS
   const { useFormHook } = useReactHookForm({
     schema: schemaUpdateTenant,
     defaultValues: tenant,
-    submitActionFn: data => updateTenant({ ...data, participantId: Number(participantId), id: tenant.id }),
+    submitActionFn: data => updateTenant({ ...data, id: tenant.id }),
   })
 
   return (
@@ -30,7 +27,6 @@ export function UpdateTenantDialog(props: UpdateTenantDialogProps) {
       <DialogBody>
         <form onSubmit={useFormHook.onSubmit} className='flex flex-col gap-y-5'>
           <CustomInput useFormHook={useFormHook} name='alias' label='Alias' />
-          <CustomInput useFormHook={useFormHook} name='key' label='Clave' isDisabled />
           <Switch
             classNames={{
               base: 'flex-row-reverse gap-x-2',
@@ -39,7 +35,6 @@ export function UpdateTenantDialog(props: UpdateTenantDialogProps) {
             size='sm'
             name='active'
             defaultSelected={tenant.active}
-            //! watch may be needed
           >
             <div className='flex flex-col gap-1'>
               <p className='text-medium'>Activo</p>

@@ -5,6 +5,8 @@ import { getHeaders, getUrl } from '../getUrlAndHeaders'
 import { CustomResponse, DefaultArgs } from './types'
 import { getFormEntries } from '@/utilities/utilities'
 import { revalidatePath, revalidateTag } from 'next/cache'
+import { getErrorResponse } from './constants'
+import { TokenNotFoundError } from './errors'
 
 export async function sendData<BodySchema extends ZodType, ResponseData>(
   args: DefaultArgs<BodySchema, ResponseData>,
@@ -20,10 +22,10 @@ export async function sendData<BodySchema extends ZodType, ResponseData>(
     const validationResult = schema.safeParse(dataToValidate)
 
     if (!validationResult.success) {
-      const error = validationResult.error
+      const { error } = validationResult
       const message = `${error.issues[0].path[0]} : ${error.issues[0].message}`
 
-      return { ok: false, msg: message, data: null }
+      return getErrorResponse({ message })
     }
   }
 
@@ -54,41 +56,25 @@ export async function sendData<BodySchema extends ZodType, ResponseData>(
       body: newBody,
       method,
     })
-
-    if (!res.ok) {
-      const displayedUrl = typeof url === 'string' ? `/${url}` : url.pathname
-
-      throw new Error(`${res.status} - ${res.statusText} - ${displayedUrl}`, {
-        cause: {
-          status: res.status,
-        },
-      })
-    }
   } catch (e) {
-    const error = e as Error & { cause: { status: number } }
+    // const displayedUrl = typeof url === 'string' ? `/${url}` : url.pathname
+    // const message = `${res.status} - ${res.statusText} - ${displayedUrl}`
 
-    return {
-      ok: false,
-      data: null,
-      msg: error.message,
+    if (e instanceof TokenNotFoundError) {
+      return getErrorResponse({ message: e.message })
     }
+
+    const message = 'Error en la solicitud'
+
+    return getErrorResponse({ message })
   }
 
-  // RESPONSE OK
-  const response = await res.json()
+  const response = (await res.json()) as CustomResponse<ResponseData>
 
-  let customResponse = {
-    ok: true,
-    data: response,
-    msg: 'Enviado correctamente',
-  }
-
-  if (typeof response === 'object' && 'ok' in response && 'data' in response) {
-    customResponse = response
-  }
+  if (!response.ok) return response
 
   if (onSuccess) {
-    await onSuccess(customResponse.data)
+    await onSuccess(response.data)
   }
 
   if (revalidatePathParams) {
@@ -100,5 +86,5 @@ export async function sendData<BodySchema extends ZodType, ResponseData>(
   }
 
   // RETURN
-  return customResponse
+  return response
 }

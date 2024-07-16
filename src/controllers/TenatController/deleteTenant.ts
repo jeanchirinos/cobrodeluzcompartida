@@ -3,11 +3,8 @@
 import { API_ROUTE } from '@/constants/api-routes'
 import { Tenant } from '@/models/Tenant'
 import { sendData } from '@/utilities/request/sendData/sendData'
-import { Participant } from '@/models/Participant'
 
-type ArgsDeleteTenantFn = Pick<Tenant, 'id'> & {
-  participantId: Participant['id']
-}
+type ArgsDeleteTenantFn = Pick<Tenant, 'id'>
 
 export async function deleteTenant(args: ArgsDeleteTenantFn) {
   return await sendData({
@@ -16,7 +13,7 @@ export async function deleteTenant(args: ArgsDeleteTenantFn) {
       method: 'DELETE',
     },
     options: {
-      revalidateTagParams: API_ROUTE.TENANT.INDEX({ participantId: args.participantId }),
+      revalidateTagParams: '/',
     },
   })
 }

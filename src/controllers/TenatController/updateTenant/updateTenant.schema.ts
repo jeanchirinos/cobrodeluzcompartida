@@ -1,3 +1,3 @@
 import { schemaTenant } from '@/models/Tenant'
 
-export const schemaUpdateTenant = schemaTenant.omit({ id: true }).partial()
+export const schemaUpdateTenant = schemaTenant.pick({ alias: true, active: true }).partial()
