@@ -1,12 +1,10 @@
 'use client'
 
-// import { getSession } from '@/controllers/AuthController/getSession'
 import { Chip } from '@nextui-org/chip'
 import { SaveButton } from './SaveButton'
 import { useGetSession } from '@/controllers/AuthController/getSession/useGetSession'
 
 export function SessionWarning() {
-  // const { session } = await getSession()
   const { data, isLoading } = useGetSession()
 
   const { session } = data ?? {}

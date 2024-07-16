@@ -21,6 +21,7 @@ export function useGoogle() {
   useEffect(() => {
     async function handleMessageFromAuthPage(e: MessageEvent<Pick<User, 'token'>>) {
       console.log({ myToken: e.data.token })
+      if (!e.data.token) return
 
       await udpdateGoogleSession({ token: e.data.token })
       await mutate(SWR_KEY_GET_SESSION)
