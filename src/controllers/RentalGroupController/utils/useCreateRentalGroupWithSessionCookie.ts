@@ -14,6 +14,7 @@ import { IGV } from '@/controllers/RentalGroupRegisterController/calculateResult
 import { CookiesFormDataAndResults, schemaCookiesFormDataAndResults } from './createRentalGroupWithSessionCookie.schema'
 import { getCookie, removeCookie } from 'typescript-cookie'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 // export async function createGroupWithSessionCookie() {
 export function useCreateGroupWithSessionCookie() {
@@ -42,7 +43,7 @@ export function useCreateGroupWithSessionCookie() {
     if (!res.ok) return
 
     // Create rental group register
-    const result: ArgsCreateRentalGroupFn['result'] = res.data.tenant_ids.map((tenant_id, i) => {
+    const result: ArgsCreateRentalGroupFn['result'] = res.data.tenants_ids.map((tenant_id, i) => {
       const { amount, consumption_kwh } = temporalFormData.result[i]
 
       return {
@@ -61,6 +62,7 @@ export function useCreateGroupWithSessionCookie() {
     if (response.ok) {
       // redirect(ROUTE.GROUPS.REGISTERS({ id: res.data.rental_group_id }))
       push(ROUTE.GROUPS.REGISTERS({ id: res.data.rental_group_id }))
+      toast.success('Se creó un grupo con un registro')
       return true
     }
   }

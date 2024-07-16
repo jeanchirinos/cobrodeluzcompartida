@@ -11,7 +11,7 @@ type ArgsCreateRentalGroupFn = z.infer<typeof schemaCreateRentalGroup>
 
 type ResponseCreateRentalGroup = {
   rental_group_id: RentalGroup['id']
-  tenant_ids: Array<Tenant['id']>
+  tenants_ids: Array<Tenant['id']>
 }
 
 export async function createRentalGroup(args?: ArgsCreateRentalGroupFn) {
