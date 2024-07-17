@@ -20,7 +20,7 @@ export function Header() {
       <NavbarContent className='!grow-0'>
         <NavbarMenuToggle id={$NAV_MENU_TOGGLE} aria-label='Abrir/Cerrar menú' className='sm:hidden' />
         <NavbarBrand>
-          <Link href={ROUTE.HOME} className='flex items-center gap-x-2 font-bold text-inherit'>
+          <Link href={ROUTE.HOME} className='flex w-fit items-center gap-x-2 font-bold text-inherit'>
             <Logo />
             <span>CLC</span>
           </Link>

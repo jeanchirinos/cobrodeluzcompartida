@@ -28,7 +28,7 @@ export function Tabs() {
           </div>
         }
         as={Link}
-        href={ROUTE.GROUPS.REGISTERS({ id: rentalGroupId })}
+        href={ROUTE.GROUPS.REGISTERS.INDEX({ id: rentalGroupId })}
       />
       <Tab
         tabIndex={0}

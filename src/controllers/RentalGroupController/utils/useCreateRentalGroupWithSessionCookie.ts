@@ -61,7 +61,7 @@ export function useCreateGroupWithSessionCookie() {
 
     if (response.ok) {
       // redirect(ROUTE.GROUPS.REGISTERS({ id: res.data.rental_group_id }))
-      push(ROUTE.GROUPS.REGISTERS({ id: res.data.rental_group_id }))
+      push(ROUTE.GROUPS.REGISTERS.INDEX({ id: res.data.rental_group_id }))
       toast.success('Se creó un grupo con un registro')
       return true
     }

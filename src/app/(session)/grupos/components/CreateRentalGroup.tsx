@@ -15,7 +15,7 @@ export function CreateRentalGroup() {
       action={createRentalGroup}
       actionProps={{
         onSuccess(data) {
-          push(ROUTE.GROUPS.REGISTERS({ id: data.rental_group_id }))
+          push(ROUTE.GROUPS.REGISTERS.INDEX({ id: data.rental_group_id }))
         },
       }}
       endContent={<IconAdd />}

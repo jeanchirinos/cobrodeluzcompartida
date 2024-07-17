@@ -40,7 +40,7 @@ async function RentalGroups() {
       key={group.id}
       className='w-80 max-w-full gap-y-5 py-1'
       as={Link}
-      href={ROUTE.GROUPS.REGISTERS({ id: group.id })}
+      href={ROUTE.GROUPS.REGISTERS.INDEX({ id: group.id })}
     >
       <CardHeader className='flex-col items-start'>
         <p className='font-bold uppercase'>{group.name}</p>

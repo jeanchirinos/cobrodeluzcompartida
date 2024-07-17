@@ -10,4 +10,5 @@ export const metadata: Metadata = {
   openGraph: {
     url: process.env.NEXT_PUBLIC_APP_URL,
   },
+  icons: [{ rel: 'icon', type: 'image/svg+xml', url: '/img/favicon.svg' }],
 }
