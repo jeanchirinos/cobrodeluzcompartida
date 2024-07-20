@@ -16,16 +16,18 @@ export function RentalGroupRegister() {
   if (!rentalGroupRegister) return <p>No existe un registro en este periodo</p>
 
   return (
-    <>
-      <details>
-        <summary className='mb-4 text-large font-semibold'>Datos del recibo</summary>
+    <section className='flex gap-x-24 gap-y-12 max-sm:flex-col'>
+      <details open>
+        <summary className='mb-4 text-large font-semibold sm:pointer-events-none sm:list-none'>
+          Datos del recibo
+        </summary>
         <BillData />
       </details>
 
       <details open>
-        <summary className='mb-4 text-large font-semibold'>Resultados</summary>
+        <summary className='mb-4 text-large font-semibold sm:pointer-events-none sm:list-none'>Resultados</summary>
         <ResultsTable />
       </details>
-    </>
+    </section>
   )
 }

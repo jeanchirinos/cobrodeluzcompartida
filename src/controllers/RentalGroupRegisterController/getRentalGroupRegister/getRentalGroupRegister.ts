@@ -15,21 +15,13 @@ type ArgsGetRentalGroupRegisterFn = {
   searchParams: GetRentalGroupRegisterParams
 }
 
-export type RentalGroupRegisterFound = {
+export type ResponseGetRentalGroupRegister = {
   billData: BillData
   results: Array<Result & { participant: Participant; tenant: Tenant }>
 }
 
-export type ResponseGetRentalGroupRegister = RentalGroupRegisterFound
-
-// export type ResponseGetRentalGroupRegister = {
-//   billData: BillData
-//   results: Array<Result & { participant: Participant; tenant: Tenant }>
-// }
-
 export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn) {
-  // const { params, searchParams } = args
-  const { searchParams } = args
+  const { params, searchParams } = args
 
   // const { url } = getUrlWithSearchParams<GetRentalGroupRegisterParams>({
   //   hostname: API_ROUTE.RENTAL_GROUP_REGISTER.SHOW({ rentalGroupId: params.rentalGroupId }),

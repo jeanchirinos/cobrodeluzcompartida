@@ -6,9 +6,7 @@ import { schemaUpdateParticipant } from './updateParticipant.schema'
 import { Participant } from '@/models/Participant'
 import { sendData } from '@/utilities/request/sendData/sendData'
 
-type ArgsUpdateRentalGroupFn = z.infer<typeof schemaUpdateParticipant> & {
-  id: Participant['id']
-}
+type ArgsUpdateRentalGroupFn = z.infer<typeof schemaUpdateParticipant> & Pick<Participant, 'id'>
 
 export async function updateParticipant(args: ArgsUpdateRentalGroupFn) {
   const { id, ...restArgs } = args

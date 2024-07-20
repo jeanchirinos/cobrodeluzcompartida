@@ -35,6 +35,7 @@ export function TenantOptions(props: TenantOptionsProps) {
           classNames={{
             list: '*:pr-8',
           }}
+          disabledKeys={['share']}
         >
           <DropdownItem key='edit' onPress={editDialog.open}>
             Editar

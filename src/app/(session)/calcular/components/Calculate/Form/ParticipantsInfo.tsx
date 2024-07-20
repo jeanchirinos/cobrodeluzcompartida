@@ -8,11 +8,19 @@ import { useFieldArray } from 'react-hook-form'
 
 export function ParticipantsInfo() {
   const { useFormHook } = useCalculateContext()
-  const { control, trigger } = useFormHook
+  const { control, watch, trigger } = useFormHook
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, replace } = useFieldArray({
     name: 'consumptions',
     control,
+  })
+
+  const watchFieldArray = watch('consumptions')
+  const controlledFields = fields.map((field, index) => {
+    return {
+      ...field,
+      ...watchFieldArray[index],
+    }
   })
 
   return (
@@ -20,11 +28,12 @@ export function ParticipantsInfo() {
       <h3 className='text-large font-semibold'>Datos de los medidores</h3>
       <div className='space-y-6'>
         <div className='flex flex-col gap-y-6'>
-          {fields.map((field, i) => (
+          {controlledFields.map((field, i) => (
             <CustomInput
               useFormHook={useFormHook}
               key={field.id}
               name={`consumptions.${i}.consumption_kwh`}
+              registerOptions={{ valueAsNumber: true }}
               type='number'
               endContent='kWh'
               label={
@@ -32,9 +41,13 @@ export function ParticipantsInfo() {
                   <span>{field.alias}</span>
                   {fields.length > 1 && (
                     <Button
-                      type='button'
                       onPress={async () => {
-                        remove(i)
+                        const newFields = controlledFields
+                          .filter(controlledField => controlledField.id !== field.id)
+                          .map((field, index) => ({ ...field, alias: `Consumo ${index + 1}` }))
+
+                        replace(newFields)
+
                         await trigger(`consumptions.${i}.consumption_kwh`)
                       }}
                       isIconOnly

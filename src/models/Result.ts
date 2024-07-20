@@ -4,8 +4,8 @@ import { schemaTenant } from './Tenant'
 
 export const schemaResult = z.object({
   id: z.number(),
-  amount: z.coerce.number().positive(),
-  consumption_kwh: z.coerce.number().positive(),
+  amount: z.coerce.number().nonnegative(),
+  consumption_kwh: z.coerce.number().nonnegative(),
   tenant_id: schemaTenant.shape.id,
   bill_id: schemaBillData.shape.id,
 })

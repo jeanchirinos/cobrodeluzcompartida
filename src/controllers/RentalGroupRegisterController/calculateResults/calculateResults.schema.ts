@@ -7,7 +7,7 @@ import { schemaResult } from '@/models/Result'
 export const schemaCalculateResults = z.object({
   billData: schemaCreateRentalGroupRegister.shape.billData.partial({ igv: true }),
   consumptions: z.array(
-    schemaCreateRentalGroupRegister.shape.result.element
+    schemaCreateRentalGroupRegister.shape.results.element
       .pick({ consumption_kwh: true })
       .merge(schemaTenant.pick({ alias: true })),
   ),

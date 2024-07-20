@@ -1,5 +1,3 @@
-export default function Page(props: any) {
-  // console.log(props)
-
+export default function Page() {
   return <></>
 }

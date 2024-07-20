@@ -4,22 +4,6 @@ import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterCont
 import { Select, SelectItem } from '@nextui-org/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export function Selects() {
-  // const billDataYear = rentalGroupRegister?.billData.year.toString()
-  // const defaultYear = [searchParams.get('year') ?? billDataYear ?? '']
-
-  // const [currentDate, setCurrentDate] = useState({
-  //   year: new Date().getFullYear(),
-  //   month: new Date().getMonth() + 1,
-  // })
-  return (
-    <>
-      <SelectYear />
-      <SelectMonth />
-    </>
-  )
-}
-
 export function SelectYear() {
   const {
     data: { rentalGroupRegister },
