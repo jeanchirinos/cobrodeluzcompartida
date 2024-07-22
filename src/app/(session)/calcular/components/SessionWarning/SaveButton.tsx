@@ -8,15 +8,13 @@ import { $BUTTON_LOGIN_ID } from '@/constants/elements'
 import { CookiesFormDataAndResults } from '@/controllers/RentalGroupController/utils/createRentalGroupWithSessionCookie.schema'
 
 export function SaveButton() {
-  const { result, useFormHook } = useCalculateContext()
+  const { results, useFormHook } = useCalculateContext()
   const { isDisabled, getValues } = useFormHook
 
   function handlePress() {
-    if (!result) return
-
     const cookiesFormDataAndResults: CookiesFormDataAndResults = {
       billData: getValues().billData,
-      result,
+      results,
     }
 
     setCookie(COOKIES_TEMPORAL_FORM_DATA, JSON.stringify(cookiesFormDataAndResults))

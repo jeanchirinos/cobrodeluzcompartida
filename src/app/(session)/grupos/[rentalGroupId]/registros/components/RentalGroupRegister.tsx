@@ -3,7 +3,7 @@
 import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
 import { BillData } from './BillData'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
-import { ResultsTable } from './ResultsTable'
+import { ResultsTable } from '@/components/other/ResultsTable'
 
 export function RentalGroupRegister() {
   const {
@@ -26,7 +26,7 @@ export function RentalGroupRegister() {
 
       <details open>
         <summary className='mb-4 text-large font-semibold sm:pointer-events-none sm:list-none'>Resultados</summary>
-        <ResultsTable />
+        <ResultsTable results={rentalGroupRegister.results} variant='registers' />
       </details>
     </section>
   )

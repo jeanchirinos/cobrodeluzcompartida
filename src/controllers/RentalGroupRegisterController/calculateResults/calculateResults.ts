@@ -6,10 +6,10 @@ export const IGV = 0.18
 type ArgsCalculateResultsFn = z.infer<typeof schemaCalculateResults>
 export type ResponseCalculateResults = z.infer<typeof schemaResponseCalculateResults>
 
-export async function calculateResults(args: ArgsCalculateResultsFn): Promise<ResponseCalculateResults | null> {
+export async function calculateResults(args: ArgsCalculateResultsFn): Promise<ResponseCalculateResults> {
   const validation = schemaCalculateResults.safeParse(args)
 
-  if (!validation.success) return null
+  if (!validation.success) return []
 
   const { billData, consumptions } = args
   const { consumption_kwh, kwh_price, current_month_total, total } = billData

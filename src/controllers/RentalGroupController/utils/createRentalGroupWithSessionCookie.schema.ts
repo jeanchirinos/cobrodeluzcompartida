@@ -5,7 +5,7 @@ import {
 import { z } from 'zod'
 
 export const schemaCookiesFormDataAndResults = schemaCalculateResults.pick({ billData: true }).extend({
-  result: schemaResponseCalculateResults,
+  results: schemaResponseCalculateResults,
 })
 
 export type CookiesFormDataAndResults = z.infer<typeof schemaCookiesFormDataAndResults>

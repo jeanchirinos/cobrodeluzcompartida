@@ -4,25 +4,27 @@ import {
   ResponseCalculateResults,
   calculateResults,
 } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults'
-import { schemaCalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
+import {
+  CalculateResults,
+  schemaCalculateResults,
+} from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 import { SetState } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm, type UseFormReturn } from 'react-hook-form'
-import { z } from 'zod'
 
 type ContextValue = {
-  useFormHook: UseFormReturn<z.infer<typeof schemaCalculateResults>> & { isDisabled: boolean }
-  result: ResponseCalculateResults | null
-  setResult: SetState<ResponseCalculateResults | null>
+  useFormHook: UseFormReturn<CalculateResults> & { isDisabled: boolean }
+  results: ResponseCalculateResults
+  setResults: SetState<ResponseCalculateResults>
 }
 
-export type CalculateOnSubmit = SubmitHandler<z.infer<typeof schemaCalculateResults>>
+export type CalculateOnSubmit = SubmitHandler<CalculateResults>
 
 const CalculateContext = createContext({} as ContextValue)
 
 export function CalculateProvider(props: React.PropsWithChildren) {
-  const useFormHook = useForm<z.infer<typeof schemaCalculateResults>>({
+  const useFormHook = useForm<CalculateResults>({
     mode: 'onTouched',
     resolver: zodResolver(schemaCalculateResults),
     defaultValues: {
@@ -30,7 +32,7 @@ export function CalculateProvider(props: React.PropsWithChildren) {
     },
   })
 
-  const [result, setResult] = useState<null | ResponseCalculateResults>(null)
+  const [results, setResults] = useState<ResponseCalculateResults>([])
 
   const { formState, getValues } = useFormHook
   const { isValid, isSubmitting, isDirty, isValidating } = formState
@@ -42,7 +44,7 @@ export function CalculateProvider(props: React.PropsWithChildren) {
 
     async function executeCalculateResults() {
       const result = await calculateResults(data)
-      setResult(result)
+      setResults(result)
     }
 
     void executeCalculateResults()
@@ -52,8 +54,8 @@ export function CalculateProvider(props: React.PropsWithChildren) {
     <CalculateContext.Provider
       value={{
         useFormHook: { ...useFormHook, isDisabled },
-        result,
-        setResult,
+        results,
+        setResults,
       }}
       {...props}
     />

@@ -36,15 +36,15 @@ export function useCreateGroupWithSessionCookie() {
 
     // Create rental group
     const res = await createRentalGroup({
-      n_participant: temporalFormData.result.length,
+      n_participant: temporalFormData.results.length,
       return_tenants: true,
     })
 
     if (!res.ok) return
 
     // Create rental group register
-    const result: ArgsCreateRentalGroupFn['results'] = res.data.tenants_ids.map((tenant_id, i) => {
-      const { amount, consumption_kwh } = temporalFormData.result[i]
+    const results: ArgsCreateRentalGroupFn['results'] = res.data.tenants_ids.map((tenant_id, i) => {
+      const { amount, consumption_kwh } = temporalFormData.results[i]
 
       return {
         tenant_id,
@@ -56,7 +56,7 @@ export function useCreateGroupWithSessionCookie() {
     const response = await createRentalGroupRegister({
       rental_group_id: res.data.rental_group_id,
       billData: { ...temporalFormData.billData, igv: IGV },
-      results: result,
+      results,
     })
 
     if (response.ok) {

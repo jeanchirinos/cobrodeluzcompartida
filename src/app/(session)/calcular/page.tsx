@@ -9,7 +9,7 @@ export default function Page() {
     <main className='flex flex-col gap-y-10 main-container'>
       <CalculateProvider>
         <SessionWarning />
-        <section className='flex gap-14 max-md:flex-col lg:gap-x-16'>
+        <section className='flex gap-14 max-lg:flex-col lg:gap-x-16'>
           <form className='flex gap-12 max-sm:flex-col'>
             <BillInfo />
             <ParticipantsInfo />

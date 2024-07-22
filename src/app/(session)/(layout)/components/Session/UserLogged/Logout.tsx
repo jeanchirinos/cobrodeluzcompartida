@@ -11,7 +11,7 @@ import { removeCookie } from 'typescript-cookie'
 
 export function Logout() {
   const { mutate } = useSWRConfig()
-  const { replace } = useRouter()
+  const { replace, refresh } = useRouter()
 
   async function onSuccess() {
     await mutate(
@@ -25,9 +25,7 @@ export function Logout() {
     removeCookie(COOKIES_TOKEN_NAME)
     replace(ROUTE.HOME)
 
-    // setTimeout(() => {
-    //   refresh()
-    // }, 0)
+    refresh()
   }
 
   return (

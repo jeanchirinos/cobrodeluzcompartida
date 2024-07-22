@@ -13,6 +13,8 @@ export const schemaCalculateResults = z.object({
   ),
 })
 
+export type CalculateResults = z.infer<typeof schemaCalculateResults>
+
 export const schemaResponseCalculateResults = z.array(
   schemaResult.pick({ amount: true, consumption_kwh: true }).extend({
     participant: schemaParticipant.pick({ is_main: true }),
