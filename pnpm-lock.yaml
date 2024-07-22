@@ -61,8 +61,8 @@ importers:
         version: 3.23.8
     devDependencies:
       '@react-types/shared':
-        specifier: ^3.23.1
-        version: 3.23.1(react@18.3.1)
+        specifier: ^3.24.0
+        version: 3.24.0(react@18.3.1)
       '@svgr/webpack':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.5.3)
@@ -1794,6 +1794,11 @@ packages:
     resolution: {integrity: sha512-5d+3HbFDxGZjhbMBeFHRQhexMFt4pUce3okyRtUVKbbedQFUrtXSBg9VszgF2RTeQDKDkMCIQDtz5ccP/Lk1gw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
+
+  '@react-types/shared@3.24.0':
+    resolution: {integrity: sha512-0mTSGqxq1ETwVLgpBKb7XzCLh0/agnH7a9EbOMonVwWJbuYw2YP8S3VwOMvFrvVToqYir4Z/xS5Waiz+0Ix1dQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0
 
   '@react-types/slider@3.7.3':
     resolution: {integrity: sha512-F8qFQaD2mqug2D0XeWMmjGBikiwbdERFlhFzdvNGbypPLz3AZICBKp1ZLPWdl0DMuy03G/jy6Gl4mDobl7RT2g==}
@@ -6080,7 +6085,7 @@ snapshots:
       '@react-aria/link': 3.7.1(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-types/breadcrumbs': 3.7.5(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6091,7 +6096,7 @@ snapshots:
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-stately/toggle': 3.7.4(react@18.3.1)
       '@react-types/button': 3.9.4(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6105,7 +6110,7 @@ snapshots:
       '@react-stately/calendar': 3.5.1(react@18.3.1)
       '@react-types/button': 3.9.4(react@18.3.1)
       '@react-types/calendar': 3.4.6(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6121,7 +6126,7 @@ snapshots:
       '@react-stately/form': 3.0.3(react@18.3.1)
       '@react-stately/toggle': 3.7.4(react@18.3.1)
       '@react-types/checkbox': 3.8.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6140,7 +6145,7 @@ snapshots:
       '@react-stately/form': 3.0.3(react@18.3.1)
       '@react-types/button': 3.9.4(react@18.3.1)
       '@react-types/combobox': 3.11.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6163,7 +6168,7 @@ snapshots:
       '@react-types/calendar': 3.4.6(react@18.3.1)
       '@react-types/datepicker': 3.7.4(react@18.3.1)
       '@react-types/dialog': 3.5.10(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6174,7 +6179,7 @@ snapshots:
       '@react-aria/overlays': 3.22.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-types/dialog': 3.5.10(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6183,7 +6188,7 @@ snapshots:
     dependencies:
       '@react-aria/interactions': 3.21.3(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.11
       clsx: 2.1.1
       react: 18.3.1
@@ -6193,7 +6198,7 @@ snapshots:
       '@react-aria/interactions': 3.21.3(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-stately/form': 3.0.3(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6211,7 +6216,7 @@ snapshots:
       '@react-stately/virtualizer': 3.7.1(react@18.3.1)
       '@react-types/checkbox': 3.8.1(react@18.3.1)
       '@react-types/grid': 3.2.6(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6224,7 +6229,7 @@ snapshots:
       '@internationalized/string': 3.2.3
       '@react-aria/ssr': 3.9.4(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6232,14 +6237,14 @@ snapshots:
     dependencies:
       '@react-aria/ssr': 3.9.4(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.11
       react: 18.3.1
 
   '@react-aria/label@3.7.8(react@18.3.1)':
     dependencies:
       '@react-aria/utils': 3.24.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6249,7 +6254,7 @@ snapshots:
       '@react-aria/interactions': 3.21.3(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-types/link': 3.5.5(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6262,7 +6267,7 @@ snapshots:
       '@react-stately/collections': 3.10.7(react@18.3.1)
       '@react-stately/list': 3.10.5(react@18.3.1)
       '@react-types/listbox': 3.4.9(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6284,7 +6289,7 @@ snapshots:
       '@react-stately/tree': 3.8.1(react@18.3.1)
       '@react-types/button': 3.9.4(react@18.3.1)
       '@react-types/menu': 3.9.9(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6300,7 +6305,7 @@ snapshots:
       '@react-stately/overlays': 3.6.7(react@18.3.1)
       '@react-types/button': 3.9.4(react@18.3.1)
       '@react-types/overlays': 3.8.7(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6311,7 +6316,7 @@ snapshots:
       '@react-aria/label': 3.7.8(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-types/progress': 3.5.4(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6325,7 +6330,7 @@ snapshots:
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-stately/radio': 3.10.4(react@18.3.1)
       '@react-types/radio': 3.8.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6336,7 +6341,7 @@ snapshots:
       '@react-aria/interactions': 3.21.3(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-stately/selection': 3.15.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6349,7 +6354,7 @@ snapshots:
       '@react-aria/label': 3.7.8(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-stately/slider': 3.5.4(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@react-types/slider': 3.7.3(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
@@ -6360,7 +6365,7 @@ snapshots:
       '@react-aria/live-announcer': 3.3.4
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-types/button': 3.9.4(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6393,7 +6398,7 @@ snapshots:
       '@react-stately/virtualizer': 3.7.1(react@18.3.1)
       '@react-types/checkbox': 3.8.1(react@18.3.1)
       '@react-types/grid': 3.2.6(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@react-types/table': 3.9.5(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
@@ -6406,7 +6411,7 @@ snapshots:
       '@react-aria/selection': 3.18.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-stately/tabs': 3.6.6(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@react-types/tabs': 3.3.7(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
@@ -6420,7 +6425,7 @@ snapshots:
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-stately/form': 3.0.3(react@18.3.1)
       '@react-stately/utils': 3.10.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@react-types/textfield': 3.9.3(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
@@ -6441,7 +6446,7 @@ snapshots:
       '@react-aria/interactions': 3.21.3(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
       '@react-stately/tooltip': 3.4.9(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@react-types/tooltip': 3.4.9(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
@@ -6450,7 +6455,7 @@ snapshots:
     dependencies:
       '@react-aria/ssr': 3.9.4(react@18.3.1)
       '@react-stately/utils': 3.10.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.11
       clsx: 2.1.1
       react: 18.3.1
@@ -6459,7 +6464,7 @@ snapshots:
     dependencies:
       '@react-aria/interactions': 3.21.3(react@18.3.1)
       '@react-aria/utils': 3.24.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6468,7 +6473,7 @@ snapshots:
       '@internationalized/date': 3.5.4
       '@react-stately/utils': 3.10.1(react@18.3.1)
       '@react-types/calendar': 3.4.6(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6477,13 +6482,13 @@ snapshots:
       '@react-stately/form': 3.0.3(react@18.3.1)
       '@react-stately/utils': 3.10.1(react@18.3.1)
       '@react-types/checkbox': 3.8.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
   '@react-stately/collections@3.10.7(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6496,7 +6501,7 @@ snapshots:
       '@react-stately/select': 3.6.4(react@18.3.1)
       '@react-stately/utils': 3.10.1(react@18.3.1)
       '@react-types/combobox': 3.11.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6508,7 +6513,7 @@ snapshots:
       '@react-stately/overlays': 3.6.7(react@18.3.1)
       '@react-stately/utils': 3.10.1(react@18.3.1)
       '@react-types/datepicker': 3.7.4(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6518,7 +6523,7 @@ snapshots:
 
   '@react-stately/form@3.0.3(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6527,7 +6532,7 @@ snapshots:
       '@react-stately/collections': 3.10.7(react@18.3.1)
       '@react-stately/selection': 3.15.1(react@18.3.1)
       '@react-types/grid': 3.2.6(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6536,7 +6541,7 @@ snapshots:
       '@react-stately/collections': 3.10.7(react@18.3.1)
       '@react-stately/selection': 3.15.1(react@18.3.1)
       '@react-stately/utils': 3.10.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6544,7 +6549,7 @@ snapshots:
     dependencies:
       '@react-stately/overlays': 3.6.7(react@18.3.1)
       '@react-types/menu': 3.9.9(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6560,7 +6565,7 @@ snapshots:
       '@react-stately/form': 3.0.3(react@18.3.1)
       '@react-stately/utils': 3.10.1(react@18.3.1)
       '@react-types/radio': 3.8.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6570,7 +6575,7 @@ snapshots:
       '@react-stately/list': 3.10.5(react@18.3.1)
       '@react-stately/overlays': 3.6.7(react@18.3.1)
       '@react-types/select': 3.9.4(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6578,14 +6583,14 @@ snapshots:
     dependencies:
       '@react-stately/collections': 3.10.7(react@18.3.1)
       '@react-stately/utils': 3.10.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
   '@react-stately/slider@3.5.4(react@18.3.1)':
     dependencies:
       '@react-stately/utils': 3.10.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@react-types/slider': 3.7.3(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
@@ -6598,7 +6603,7 @@ snapshots:
       '@react-stately/selection': 3.15.1(react@18.3.1)
       '@react-stately/utils': 3.10.1(react@18.3.1)
       '@react-types/grid': 3.2.6(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@react-types/table': 3.9.5(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
@@ -6606,7 +6611,7 @@ snapshots:
   '@react-stately/tabs@3.6.6(react@18.3.1)':
     dependencies:
       '@react-stately/list': 3.10.5(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@react-types/tabs': 3.3.7(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
@@ -6630,7 +6635,7 @@ snapshots:
       '@react-stately/collections': 3.10.7(react@18.3.1)
       '@react-stately/selection': 3.15.1(react@18.3.1)
       '@react-stately/utils': 3.10.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
@@ -6642,40 +6647,40 @@ snapshots:
   '@react-stately/virtualizer@3.7.1(react@18.3.1)':
     dependencies:
       '@react-aria/utils': 3.24.1(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       '@swc/helpers': 0.5.12
       react: 18.3.1
 
   '@react-types/accordion@3.0.0-alpha.21(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/breadcrumbs@3.7.5(react@18.3.1)':
     dependencies:
       '@react-types/link': 3.5.5(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/button@3.9.4(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/calendar@3.4.6(react@18.3.1)':
     dependencies:
       '@internationalized/date': 3.5.4
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/checkbox@3.8.1(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/combobox@3.11.1(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/datepicker@3.7.4(react@18.3.1)':
@@ -6683,90 +6688,94 @@ snapshots:
       '@internationalized/date': 3.5.4
       '@react-types/calendar': 3.4.6(react@18.3.1)
       '@react-types/overlays': 3.8.7(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/dialog@3.5.10(react@18.3.1)':
     dependencies:
       '@react-types/overlays': 3.8.7(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/grid@3.2.6(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/link@3.5.5(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/listbox@3.4.9(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/menu@3.9.9(react@18.3.1)':
     dependencies:
       '@react-types/overlays': 3.8.7(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/overlays@3.8.7(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/progress@3.5.4(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/radio@3.8.1(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/select@3.9.4(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/shared@3.23.1(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
+  '@react-types/shared@3.24.0(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+
   '@react-types/slider@3.7.3(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/switch@3.5.3(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/table@3.9.5(react@18.3.1)':
     dependencies:
       '@react-types/grid': 3.2.6(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/tabs@3.3.7(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/textfield@3.9.3(react@18.3.1)':
     dependencies:
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@react-types/tooltip@3.4.9(react@18.3.1)':
     dependencies:
       '@react-types/overlays': 3.8.7(react@18.3.1)
-      '@react-types/shared': 3.23.1(react@18.3.1)
+      '@react-types/shared': 3.24.0(react@18.3.1)
       react: 18.3.1
 
   '@rushstack/eslint-patch@1.10.3': {}
