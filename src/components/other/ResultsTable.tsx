@@ -55,7 +55,7 @@ export function ResultsTable(props: ResultsTableProps) {
         )
       case 'consumption_kwh':
         return (
-          <div className='w-max'>
+          <div className='ml-auto w-max'>
             <span>{item.consumption_kwh % 1 === 0 ? item.consumption_kwh : item.consumption_kwh.toFixed(2)} </span>
             <span className='text-tiny text-foreground-500'>kWh</span>
           </div>

@@ -56,7 +56,8 @@ export function ParticipantsInfo() {
           variant='flat'
           fullWidth
           endContent={<IconAdd />}
-          onClick={handleAddConsumption}
+          onPress={handleAddConsumption}
+          isDisabled={controlledFields.length >= 5}
         >
           Agregar consumo
         </Button>

@@ -11,7 +11,7 @@ export function SaveButton() {
   const { results, useFormHook } = useCalculateContext()
   const { isDisabled, getValues } = useFormHook
 
-  function handlePress() {
+  function handleSave() {
     const cookiesFormDataAndResults: CookiesFormDataAndResults = {
       billData: getValues().billData,
       results,
@@ -24,7 +24,7 @@ export function SaveButton() {
   }
 
   return (
-    <Button color='secondary' size='sm' onPress={handlePress} className='inline' isDisabled={isDisabled}>
+    <Button color='secondary' size='sm' onPress={handleSave} className='inline' isDisabled={isDisabled}>
       Guardar datos
     </Button>
   )
