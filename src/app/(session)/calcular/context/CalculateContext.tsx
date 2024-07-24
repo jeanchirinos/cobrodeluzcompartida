@@ -1,5 +1,6 @@
 'use client'
 
+import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
 import {
   ResponseCalculateResults,
   calculateResults,
@@ -12,6 +13,7 @@ import { SetState } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm, type UseFormReturn } from 'react-hook-form'
+import { removeCookie } from 'typescript-cookie'
 
 type ContextValue = {
   useFormHook: UseFormReturn<CalculateResults> & { isDisabled: boolean }
@@ -45,6 +47,7 @@ export function CalculateProvider(props: React.PropsWithChildren) {
     async function executeCalculateResults() {
       const result = await calculateResults(data)
       setResults(result)
+      removeCookie(COOKIES_TEMPORAL_FORM_DATA)
     }
 
     void executeCalculateResults()

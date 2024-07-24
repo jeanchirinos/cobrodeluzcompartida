@@ -37,8 +37,8 @@ export function UpdateTenantDialog(props: UpdateTenantDialogProps) {
             defaultSelected={tenant.active}
           >
             <div className='flex flex-col gap-1'>
-              <p className='text-medium'>Activo</p>
-              <p className='text-small text-default-400'>
+              <p>Activo</p>
+              <p className='text-default-400'>
                 Solo un inquilino puede ser activo. Si se activa este inquilino, el anterior se desactivará
               </p>
             </div>

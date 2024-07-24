@@ -10,7 +10,7 @@ export function TenantsTable(props: { tenants: ResponseGetTenants }) {
   const { tenants } = props
 
   return (
-    <Table className='overflow-x-auto'>
+    <Table classNames={{ wrapper: 'overflow-x-auto' }}>
       <TableHeader>
         <TableColumn>Avatar</TableColumn>
         <TableColumn>Alias</TableColumn>

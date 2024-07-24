@@ -102,7 +102,13 @@ export function ResultsTable(props: ResultsTableProps) {
   }, [])
 
   return (
-    <Table aria-label='Tabla de resultado' className='overflow-x-auto md:w-fit'>
+    <Table
+      aria-label='Tabla de resultado'
+      className='md:w-fit'
+      classNames={{
+        wrapper: 'overflow-x-auto',
+      }}
+    >
       <TableHeader columns={headerColumns}>
         {column => (
           <TableColumn className='min-w-max' key={column.key}>
