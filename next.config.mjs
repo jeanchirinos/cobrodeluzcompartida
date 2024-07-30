@@ -8,7 +8,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'storage.nijui.com',
+        hostname: 'storage.nijui.site',
       },
     ],
   },

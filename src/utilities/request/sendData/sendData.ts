@@ -33,11 +33,9 @@ export async function sendData<BodySchema extends ZodType, ResponseData>(
   const newUrl = await getUrl({ url })
 
   const headers = new Headers(config?.headers)
-  let newBody = null
+  let newBody = body
 
-  if (config?.body instanceof FormData) {
-    newBody = config.body
-  } else {
+  if (!(body instanceof FormData)) {
     headers.append('Content-Type', 'application/json')
     headers.append('accept', 'application/json')
 
@@ -45,6 +43,7 @@ export async function sendData<BodySchema extends ZodType, ResponseData>(
   }
 
   let res = {} as globalThis.Response
+  let response = {} as CustomResponse<ResponseData>
 
   try {
     const newHeaders = await getHeaders({ headers, authMode })
@@ -56,20 +55,22 @@ export async function sendData<BodySchema extends ZodType, ResponseData>(
       body: newBody,
       method,
     })
-  } catch (e) {
-    // const displayedUrl = typeof url === 'string' ? `/${url}` : url.pathname
-    // const message = `${res.status} - ${res.statusText} - ${displayedUrl}`
 
+    response = await res.json()
+  } catch (e) {
     if (e instanceof TokenNotFoundError) {
       return getErrorResponse({ message: e.message })
     }
 
-    const message = 'Error en la solicitud'
+    let message = 'Error en la solicitud'
+
+    if (process.env.NODE_ENV === 'development') {
+      const displayedUrl = typeof url === 'string' ? `/${url}` : url.pathname
+      message += ` : ${displayedUrl} ( ${res.status} - ${res.statusText} )`
+    }
 
     return getErrorResponse({ message })
   }
-
-  const response = (await res.json()) as CustomResponse<ResponseData>
 
   if (!response.ok) return response
 

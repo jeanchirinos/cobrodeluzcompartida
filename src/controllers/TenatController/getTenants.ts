@@ -16,7 +16,7 @@ export async function getTenants(args: ArgsGetTenantsFn) {
 
   const tenants = tenants0.map(tenant => ({
     ...tenant,
-    avatar_url: 'https://storage.nijui.com/ccsec/avatars/avatar_1.webp',
+    avatar_url: 'https://storage.nijui.site/ccsec/avatars/avatar_1.webp',
   }))
 
   return { tenants }

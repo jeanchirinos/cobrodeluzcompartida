@@ -14,7 +14,7 @@
     "@headlessui/tailwindcss": "^0.2.1",
     "@hookform/resolvers": "^3.9.0",
     "@nextui-org/react": "^2.4.6",
-    "framer-motion": "^11.3.17",
+    "framer-motion": "^11.3.19",
     "next": "14.2.5",
     "next-nprogress-bar": "^2.3.13",
     "next-themes": "^0.3.0",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@react-types/shared": "^3.24.1",
     "@svgr/webpack": "^8.1.0",
-    "@types/node": "^20.14.12",
+    "@types/node": "^22.0.0",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.0.1",
@@ -41,7 +41,7 @@
     "postcss": "^8.4.40",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "tailwindcss": "^3.4.6",
+    "tailwindcss": "^3.4.7",
     "ts-standard": "^12.0.2",
     "typescript": "^5.5.4"
   }
