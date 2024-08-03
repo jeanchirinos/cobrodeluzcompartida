@@ -42,6 +42,7 @@ export async function calculateResults(args: ArgsCalculateResultsFn): Promise<Re
       is_main: true,
     },
     tenant: {
+      id: 1,
       alias: 'Administrador',
     },
     consumption_kwh: mainConsumptionKwh,
@@ -49,11 +50,12 @@ export async function calculateResults(args: ArgsCalculateResultsFn): Promise<Re
   }
 
   // Other participants
-  const otherParticipantsResults: ResponseCalculateResults = consumptions.map(item => ({
+  const otherParticipantsResults: ResponseCalculateResults = consumptions.map((item, i) => ({
     participant: {
       is_main: false,
     },
     tenant: {
+      id: i + 2,
       alias: item.alias,
     },
     consumption_kwh: item.consumption_kwh,

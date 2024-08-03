@@ -3,6 +3,11 @@ import { CalculateProvider } from './context/CalculateContext'
 import { Results } from './components/Calculate/Results'
 import { BillInfo } from './components/Calculate/Form/BillInfo'
 import { ParticipantsInfo } from './components/Calculate/Form/ParticipantsInfo'
+import { type Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Calcular',
+}
 
 export default function Page() {
   return (
