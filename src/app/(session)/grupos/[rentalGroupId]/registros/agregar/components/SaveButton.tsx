@@ -39,7 +39,7 @@ export function SaveButton() {
   }
 
   return (
-    <HookFormButton useFormHook={{ ...useFormHook, onSubmit: handleSubmit(handleSave) }}>
+    <HookFormButton useFormHook={{ ...useFormHook, onSubmit: handleSubmit(handleSave) }} className='w-fit'>
       Guardar registro
     </HookFormButton>
   )

@@ -20,6 +20,8 @@ export function ParticipantsInfo() {
 
   useEffect(() => {
     data.participants.forEach(participant => {
+      if (participant.is_main || !participant.active) return
+
       const newConsumption = {
         alias: participant.tenant.alias,
         tenant_id: participant.tenant.id,
