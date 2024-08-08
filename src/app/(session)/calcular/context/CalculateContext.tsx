@@ -1,9 +1,10 @@
 'use client'
 
+import { ResultRow } from '@/components/other/ResultsTable/ResultsTable.type'
 import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
 import {
-  ResponseCalculateResults,
-  calculateResults,
+  calculateAmountPerParticipant,
+  getMainParticipantConsumption,
 } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults'
 import {
   CalculateResults,
@@ -17,8 +18,8 @@ import { removeCookie } from 'typescript-cookie'
 
 type ContextValue = {
   useFormHook: UseFormReturn<CalculateResults> & { isDisabled: boolean }
-  results: ResponseCalculateResults
-  setResults: SetState<ResponseCalculateResults>
+  results: ResultRow[]
+  setResults: SetState<ResultRow[]>
 }
 
 export type CalculateOnSubmit = SubmitHandler<CalculateResults>
@@ -30,11 +31,11 @@ export function CalculateProvider(props: React.PropsWithChildren) {
     mode: 'onTouched',
     resolver: zodResolver(schemaCalculateResults),
     defaultValues: {
-      consumptions: [{ consumption_kwh: undefined, alias: 'Consumo 1' }],
+      consumptions: [{ consumption_kwh: undefined }],
     },
   })
 
-  const [results, setResults] = useState<ResponseCalculateResults>([])
+  const [results, setResults] = useState<ResultRow[]>([])
 
   const { formState, getValues } = useFormHook
   const { isValid, isSubmitting, isDirty, isValidating } = formState
@@ -42,11 +43,50 @@ export function CalculateProvider(props: React.PropsWithChildren) {
   const isDisabled = !isValid || isSubmitting || !isDirty
 
   useEffect(() => {
-    const data = getValues()
-
     async function executeCalculateResults() {
-      const result = await calculateResults(data)
-      setResults(result)
+      const { billData, consumptions } = getValues()
+
+      let newResults: ResultRow[] = []
+
+      const validation = schemaCalculateResults.safeParse(getValues())
+
+      const mainParticipantConsumption = getMainParticipantConsumption({ billData, consumptions })
+
+      if (validation.success) {
+        newResults = [
+          {
+            id: 1,
+            result: {
+              amount: calculateAmountPerParticipant({
+                billData,
+                nConsumptions: consumptions.length + 1,
+                consumption_kwh: mainParticipantConsumption,
+              }),
+              consumption_kwh: mainParticipantConsumption,
+            },
+            tenant: {
+              alias: 'Administrador',
+            },
+          },
+          ...consumptions.map((consumption, i) => ({
+            id: i + 2,
+            result: {
+              amount: calculateAmountPerParticipant({
+                billData,
+                nConsumptions: consumptions.length + 1,
+                consumption_kwh: consumption.consumption_kwh,
+              }),
+              consumption_kwh: consumption.consumption_kwh,
+            },
+            tenant: {
+              alias: `Consumo ${i + 1}`,
+            },
+          })),
+        ]
+      }
+
+      setResults(newResults)
+
       removeCookie(COOKIES_TEMPORAL_FORM_DATA)
     }
 

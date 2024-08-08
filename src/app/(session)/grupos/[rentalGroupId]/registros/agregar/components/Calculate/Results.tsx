@@ -1,7 +1,7 @@
 'use client'
 
+import { ResultsTable } from '@/components/other/ResultsTable/ResultsTable'
 import { useCalculateContext } from '../../context/CalculateContext'
-import { ResultsTable } from '@/components/other/ResultsTable'
 
 export function Results() {
   const { results } = useCalculateContext()

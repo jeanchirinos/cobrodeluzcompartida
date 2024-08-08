@@ -21,7 +21,6 @@ export function BillOptions() {
         },
         consumptions: [
           {
-            alias: 'Consumo 1',
             consumption_kwh: 30.43,
           },
         ],

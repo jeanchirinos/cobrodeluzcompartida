@@ -22,7 +22,10 @@ export function SaveButton() {
   function handleSave() {
     const cookiesFormDataAndResults: CookiesFormDataAndResults = {
       billData: getValues().billData,
-      results,
+      results: results.map(result => ({
+        amount: result.result.amount,
+        consumption_kwh: result.result.consumption_kwh,
+      })),
     }
 
     setCookie(COOKIES_TEMPORAL_FORM_DATA, JSON.stringify(cookiesFormDataAndResults))

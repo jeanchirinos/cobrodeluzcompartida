@@ -3,7 +3,8 @@
 import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
 import { BillData } from './BillData'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
-import { ResultsTable } from '@/components/other/ResultsTable'
+import { ResultsTable } from '@/components/other/ResultsTable/ResultsTable'
+import { ResultRow } from '@/components/other/ResultsTable/ResultsTable.type'
 
 export function RentalGroupRegister() {
   const {
@@ -14,6 +15,14 @@ export function RentalGroupRegister() {
   if (isLoading) return <SuspenseFallback />
 
   if (!rentalGroupRegister) return <p>No existe un registro en este periodo</p>
+
+  const results: ResultRow[] = rentalGroupRegister.results.map(result => ({
+    ...result,
+    result: {
+      amount: result.amount,
+      consumption_kwh: result.consumption_kwh,
+    },
+  }))
 
   return (
     <section className='flex gap-x-24 gap-y-12 max-lg:flex-col'>
@@ -26,7 +35,7 @@ export function RentalGroupRegister() {
 
       <details open>
         <summary className='mb-4 text-large font-semibold sm:pointer-events-none sm:list-none'>Resultados</summary>
-        <ResultsTable results={rentalGroupRegister.results} variant='registers' />
+        <ResultsTable results={results} variant='registers' />
       </details>
     </section>
   )

@@ -9,20 +9,11 @@ import { CalculateResults } from '@/controllers/RentalGroupRegisterController/ca
 
 export function ParticipantsInfo() {
   const { useFormHook } = useCalculateContext()
-  const { control, watch } = useFormHook
+  const { control } = useFormHook
 
-  const { fields, append, replace } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: 'consumptions',
     control,
-  })
-
-  const watchFieldArray = watch('consumptions')
-
-  const controlledFields = fields.map((field, index) => {
-    return {
-      ...field,
-      ...watchFieldArray[index],
-    }
   })
 
   function handleAddConsumption() {
@@ -36,7 +27,7 @@ export function ParticipantsInfo() {
       <h3 className='text-large font-semibold'>Datos de los medidores</h3>
       <div className='flex flex-col gap-y-6'>
         <div className='flex flex-col gap-y-6'>
-          {controlledFields.map((field, i) => (
+          {fields.map((field, i) => (
             <CustomInput
               useFormHook={useFormHook}
               key={field.id}
@@ -44,7 +35,7 @@ export function ParticipantsInfo() {
               registerOptions={{ valueAsNumber: true }}
               type='number'
               endContent='kWh'
-              label={<Label controlledFields={controlledFields} field={field} index={i} replace={replace} />}
+              label={<Label fields={fields} index={i} remove={remove} />}
               placeholder='0.00'
               step={0.01}
             />
@@ -57,7 +48,7 @@ export function ParticipantsInfo() {
           fullWidth
           endContent={<IconAdd />}
           onPress={handleAddConsumption}
-          isDisabled={controlledFields.length >= 5}
+          isDisabled={fields.length >= 5}
         >
           Agregar consumo
         </Button>
@@ -67,31 +58,25 @@ export function ParticipantsInfo() {
 }
 
 type LabelProps = {
-  controlledFields: Array<FieldArrayWithId<CalculateResults>>
-  field: FieldArrayWithId<CalculateResults>
+  fields: Array<FieldArrayWithId<CalculateResults>>
   index: number
-} & Pick<UseFieldArrayReturn<CalculateResults>, 'replace'>
+} & Pick<UseFieldArrayReturn<CalculateResults>, 'remove'>
 
 function Label(props: LabelProps) {
-  const { controlledFields, replace, index, field } = props
+  const { fields, remove, index } = props
 
   const { useFormHook } = useCalculateContext()
   const { trigger } = useFormHook
 
   async function handleRemoveConsumption() {
-    const newFields = controlledFields
-      .filter(controlledField => controlledField.id !== field.id)
-      .map((field, index) => ({ ...field, alias: `Consumo ${index + 1}` }))
-
-    replace(newFields)
-
+    remove(index)
     await trigger(`consumptions.${index}.consumption_kwh`)
   }
 
   return (
     <div className='flex h-8 items-center space-x-3'>
-      <span>{field.alias}</span>
-      {controlledFields.length > 1 && (
+      <span>Consumo {index + 1}</span>
+      {fields.length > 1 && (
         <Button
           onPress={handleRemoveConsumption}
           isIconOnly
