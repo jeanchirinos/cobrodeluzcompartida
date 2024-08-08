@@ -20,8 +20,9 @@ export function SaveButton() {
       billData: getValues().billData,
       rental_group_id: Number(rentalGroupId),
       results: results.map(result => ({
-        ...result,
-        tenant_id: result.tenant.id,
+        ...result.result,
+        tenant_id: result.tenant.id!,
+        // TODO
       })),
     })
 
