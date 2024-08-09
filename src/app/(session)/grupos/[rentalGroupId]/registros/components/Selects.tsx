@@ -16,8 +16,6 @@ export function SelectYear() {
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const { value } = e.target
 
-    if (value === '') return
-
     const newSearchParams = new URLSearchParams(searchParams)
 
     newSearchParams.set('year', value)
@@ -53,6 +51,7 @@ export function SelectYear() {
       selectionMode='single'
       name='year'
       onChange={handleChange}
+      disallowEmptySelection
       classNames={{ base: 'max-w-full w-24' }}
       placeholder='Selecciona una opción'
       label='Año'
@@ -77,8 +76,6 @@ export function SelectMonth() {
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const { value } = e.target
-
-    if (value === '') return
 
     const newSearchParams = new URLSearchParams(searchParams)
 
@@ -114,6 +111,7 @@ export function SelectMonth() {
       selectionMode='single'
       name='month'
       onChange={handleChange}
+      disallowEmptySelection
       classNames={{ base: 'w-36 max-w-full' }}
       placeholder='Selecciona una opción'
       label='Mes'

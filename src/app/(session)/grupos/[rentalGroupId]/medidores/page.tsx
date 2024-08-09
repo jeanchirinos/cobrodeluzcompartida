@@ -1,14 +1,9 @@
 import { ButtonAction } from '@/components/Button/ButtonAction'
-import { Suspense } from '@/components/other/CustomSuspense'
 import { createParticipant } from '@/controllers/ParticipantController/createParticipant/createParticipant'
+import { IconAdd } from '@/icons'
 import { CustomPageProps } from '@/types'
-import { IconAdd, IconCrown } from '@/icons'
-import { Link } from '@/components/Link'
-import { ROUTE } from '@/constants/routes'
-import { Avatar, Card, CardFooter, CardHeader, Chip } from '@nextui-org/react'
 import { Metadata } from 'next'
-import { SuspenseFallback } from '@/components/other/SuspenseFallback'
-import { getParticipants } from '@/controllers/ParticipantController/getParticipants/getParticipants'
+import { ParticipantsCards } from './components/ParticipantsCards'
 
 export const metadata: Metadata = {
   title: 'Medidores',
@@ -31,58 +26,7 @@ export default function Page(props: Props) {
         Agregar medidor
       </ButtonAction>
 
-      <Suspense fallback={<SuspenseFallback />}>
-        <Participants getParticipantsArgs={{ rentalGroupId: Number(rentalGroupId) }} />
-      </Suspense>
+      <ParticipantsCards />
     </div>
-  )
-}
-
-type ParticipantProps = { getParticipantsArgs: Parameters<typeof getParticipants>[0] }
-
-async function Participants(props: ParticipantProps) {
-  const { getParticipantsArgs } = props
-  const { rentalGroupId } = getParticipantsArgs
-
-  const { participants } = await getParticipants(getParticipantsArgs)
-
-  return (
-    <section className='flex flex-wrap gap-5'>
-      {participants.map(participant => (
-        <Card
-          isPressable
-          key={participant.id}
-          className='w-80 max-w-full gap-y-5 border-default-100 py-1'
-          as={Link}
-          href={ROUTE.GROUPS.PARTICIPANTS.TENANTS({ rentalGroupId, id: participant.id })}
-        >
-          <CardHeader className='flex justify-between'>
-            <p className='font-bold uppercase'>{participant.alias}</p>
-            {participant.is_main && <IconCrown className='fill-yellow-500' title='Medidor de propietario' />}
-          </CardHeader>
-          <CardFooter className='items-end justify-between'>
-            <div className='flex items-end gap-x-2.5'>
-              <Avatar
-                src={participant.tenant.avatar_url}
-                alt={participant.tenant.alias}
-                size='sm'
-                imgProps={{
-                  loading: 'lazy',
-                }}
-              />
-              <span>{participant.tenant.alias}</span>
-            </div>
-
-            {participant.active ? (
-              <Chip variant='dot' color='success'>
-                Activo
-              </Chip>
-            ) : (
-              <Chip variant='dot'>Inactivo</Chip>
-            )}
-          </CardFooter>
-        </Card>
-      ))}
-    </section>
   )
 }

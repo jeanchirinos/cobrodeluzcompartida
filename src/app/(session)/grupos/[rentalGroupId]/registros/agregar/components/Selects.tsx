@@ -33,6 +33,7 @@ export function SelectYear() {
       label='Año'
       labelPlacement='outside'
       defaultSelectedKeys={[new Date().getFullYear().toString()]}
+      disallowEmptySelection
     >
       {getYearsUntilNow().map(year => (
         <SelectItem key={year.key}>{year.label}</SelectItem>
@@ -70,6 +71,7 @@ export function SelectMonth() {
       label='Mes'
       labelPlacement='outside'
       defaultSelectedKeys={[(new Date().getMonth() + 1).toString()]}
+      disallowEmptySelection
     >
       {months.map(month => (
         <SelectItem key={month.key}>{month.label}</SelectItem>
