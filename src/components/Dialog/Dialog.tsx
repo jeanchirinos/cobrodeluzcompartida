@@ -170,7 +170,7 @@ export function DialogFooter(props: DialogFooterProps) {
             {...mainButtonProps}
             useFormHook={useFormHook!}
             onClick={async () => {
-              await useFormHook?.onSubmit()
+              await useFormHook?.onSubmit?.()
             }}
           >
             {mainButtonProps?.children ?? 'Aceptar'}

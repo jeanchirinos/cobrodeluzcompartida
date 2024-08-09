@@ -1,8 +1,13 @@
 'use client'
 
 import { Select, SelectItem } from '@nextui-org/react'
+import { useCalculateContext } from '../context/CalculateContext'
 
 export function SelectYear() {
+  const {
+    useFormHook: { register },
+  } = useCalculateContext()
+
   function getYearsUntilNow() {
     const currentYear = new Date().getFullYear()
     const startYear = 2020
@@ -22,7 +27,7 @@ export function SelectYear() {
   return (
     <Select
       selectionMode='single'
-      name='year'
+      {...register('billData.year')}
       classNames={{ base: 'max-w-full w-24' }}
       placeholder='Selecciona una opción'
       label='Año'
@@ -37,6 +42,10 @@ export function SelectYear() {
 }
 
 export function SelectMonth() {
+  const {
+    useFormHook: { register },
+  } = useCalculateContext()
+
   const months = [
     { key: '1', label: 'Enero' },
     { key: '2', label: 'Febrero' },
@@ -55,7 +64,7 @@ export function SelectMonth() {
   return (
     <Select
       selectionMode='single'
-      name='month'
+      {...register('billData.month')}
       classNames={{ base: 'w-36 max-w-full' }}
       placeholder='Selecciona una opción'
       label='Mes'

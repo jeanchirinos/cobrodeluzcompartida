@@ -11,7 +11,7 @@ export function ParticipantsInfo() {
   const { useFormHook } = useCalculateContext()
   const { control } = useFormHook
 
-  const { append } = useFieldArray({
+  const { append, remove } = useFieldArray({
     name: 'consumptions',
     control,
   })
@@ -23,9 +23,9 @@ export function ParticipantsInfo() {
   } = useGetParticipants()
 
   useEffect(() => {
-    participants.forEach(participant => {
-      if (participant.is_main || !participant.active) return
+    const availableParticipants = participants.filter(participant => !participant.is_main && participant.active)
 
+    availableParticipants.forEach(participant => {
       const newConsumption = {
         consumption_kwh: undefined as unknown as number,
       }
@@ -33,8 +33,14 @@ export function ParticipantsInfo() {
       append(newConsumption, { shouldFocus: false })
     })
 
-    setMyFields(participants.filter(participant => !participant.is_main && participant.active))
+    setMyFields(availableParticipants)
   }, [append, participants])
+
+  useEffect(() => {
+    return () => {
+      remove()
+    }
+  }, [remove])
 
   return (
     <section className='flex flex-col gap-y-8'>
