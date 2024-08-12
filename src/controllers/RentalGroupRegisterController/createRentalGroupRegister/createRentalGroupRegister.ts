@@ -4,23 +4,32 @@ import { sendData } from '@/utilities/request/sendData/sendData'
 import { schemaCreateRentalGroupRegister } from './createRentalGroupRegister.schema'
 import { z } from 'zod'
 import { API_ROUTE } from '@/constants/api-routes'
-import { waitFor } from '@/utilities/utilities'
+import { IGV } from '../calculateResults/calculateResults'
+import { SetOptional } from 'type-fest'
 
-export type ArgsCreateRentalGroupFn = z.infer<typeof schemaCreateRentalGroupRegister>
+export type ArgsCreateRentalGroupFn = Pick<BodyCreateRentalGroupFn, 'results'> & {
+  billData: SetOptional<BodyCreateRentalGroupFn['billData'], 'igv'>
+}
+
+export type BodyCreateRentalGroupFn = z.infer<typeof schemaCreateRentalGroupRegister>
 
 export async function createRentalGroupRegister(args: ArgsCreateRentalGroupFn) {
-  // return await sendData({
-  //   url: API_ROUTE.RENTAL_GROUP_REGISTER.STORE,
-  //   config: {
-  //     body: args,
-  //   },
-  //   options: {
-  //     schema: schemaCreateRentalGroupRegister,
-  //     revalidateTagParams: '/',
-  //   },
-  // })
+  const { billData, results } = args
+  const { igv = IGV } = billData
 
-  await waitFor(1.5)
+  const body: BodyCreateRentalGroupFn = {
+    billData: { ...billData, igv },
+    results,
+  }
 
-  return { ok: true, msg: 'Registro de renta creado', data: null } as const
+  return await sendData({
+    url: API_ROUTE.RENTAL_GROUP_REGISTER.STORE,
+    config: {
+      body,
+    },
+    options: {
+      schema: schemaCreateRentalGroupRegister,
+      revalidateTagParams: '/',
+    },
+  })
 }

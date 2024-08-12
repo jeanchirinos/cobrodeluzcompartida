@@ -21,8 +21,7 @@ export function AddRegisterForm() {
 
   async function handleSave(data: CalculateResultsAdd) {
     const res = await createRentalGroupRegister({
-      billData: data.billData,
-      rental_group_id: Number(rentalGroupId),
+      billData: { ...data.billData, rental_group_id: Number(rentalGroupId) },
       results: results.map(result => ({
         ...result.result,
         tenant_id: result.tenant.id!,

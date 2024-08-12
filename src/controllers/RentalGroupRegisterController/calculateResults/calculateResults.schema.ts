@@ -1,11 +1,14 @@
 import { z } from 'zod'
 import { schemaCreateRentalGroupRegister } from '../createRentalGroupRegister/createRentalGroupRegister.schema'
-import { schemaParticipant } from '@/models/Participant'
-import { schemaTenant } from '@/models/Tenant'
 import { schemaResult } from '@/models/Result'
 
 export const schemaCalculateResults = z.object({
-  billData: schemaCreateRentalGroupRegister.shape.billData.partial({ igv: true }),
+  billData: schemaCreateRentalGroupRegister.shape.billData.omit({
+    igv: true,
+    year: true,
+    month: true,
+    rental_group_id: true,
+  }),
   consumptions: z.array(
     schemaCreateRentalGroupRegister.shape.results.element.pick({ consumption_kwh: true }),
     // .merge(schemaTenant.pick({ alias: true })),
@@ -25,7 +28,10 @@ export const schemaResponseCalculateResults = z.array(
 // Add
 
 export const schemaCalculateResultsAdd = z.object({
-  billData: schemaCreateRentalGroupRegister.shape.billData.partial({ igv: true }),
+  billData: schemaCreateRentalGroupRegister.shape.billData.omit({
+    igv: true,
+    rental_group_id: true,
+  }),
   consumptions: z.array(
     schemaCreateRentalGroupRegister.shape.results.element.pick({ consumption_kwh: true }),
     // .merge(schemaTenant.pick({ alias: true })),

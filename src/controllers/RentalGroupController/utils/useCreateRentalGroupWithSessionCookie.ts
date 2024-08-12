@@ -10,7 +10,6 @@ import {
   ArgsCreateRentalGroupFn,
   createRentalGroupRegister,
 } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister/createRentalGroupRegister'
-import { IGV } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults'
 import { CookiesFormDataAndResults, schemaCookiesFormDataAndResults } from './createRentalGroupWithSessionCookie.schema'
 import { getCookie, removeCookie } from 'typescript-cookie'
 import { useRouter } from 'next/navigation'
@@ -54,8 +53,7 @@ export function useCreateGroupWithSessionCookie() {
     })
 
     const response = await createRentalGroupRegister({
-      rental_group_id: res.data.rental_group_id,
-      billData: { ...temporalFormData.billData, igv: IGV },
+      billData: { ...temporalFormData.billData, rental_group_id: res.data.rental_group_id, year: 2024, month: 8 },
       results,
     })
 
