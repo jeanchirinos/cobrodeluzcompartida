@@ -69,12 +69,12 @@ const TENANT = {
 
 //* RENTAL GROUP REGISTER
 
-const RENTAL_GROUP_REGISTER_BASE = 'rental-group-register'
+const RENTAL_GROUP_REGISTER_BASE = 'bill-data'
 
 const RENTAL_GROUP_REGISTER = {
   INDEX: INDEX_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE }),
   SHOW: ({ rentalGroupId }: { rentalGroupId: RouteId }) =>
-    `${INDEX_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE })}/rental_group_id/${rentalGroupId}`,
+    `${INDEX_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE })}/${rentalGroupId}`,
   STORE: STORE_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE }),
   UPDATE: UPDATE_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE }),
   DESTROY: DESTROY_API_ROUTE({ base: RENTAL_GROUP_REGISTER_BASE }),

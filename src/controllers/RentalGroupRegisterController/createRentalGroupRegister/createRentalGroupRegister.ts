@@ -6,12 +6,15 @@ import { z } from 'zod'
 import { API_ROUTE } from '@/constants/api-routes'
 import { IGV } from '../calculateResults/calculateResults'
 import { SetOptional } from 'type-fest'
+import { BillData } from '@/models/BillData'
 
 export type ArgsCreateRentalGroupFn = Pick<BodyCreateRentalGroupFn, 'results'> & {
   billData: SetOptional<BodyCreateRentalGroupFn['billData'], 'igv'>
 }
 
 export type BodyCreateRentalGroupFn = z.infer<typeof schemaCreateRentalGroupRegister>
+
+type ResponseCreateRentalGroup = Pick<BillData, 'year' | 'month'>
 
 export async function createRentalGroupRegister(args: ArgsCreateRentalGroupFn) {
   const { billData, results } = args
@@ -22,7 +25,7 @@ export async function createRentalGroupRegister(args: ArgsCreateRentalGroupFn) {
     results,
   }
 
-  return await sendData({
+  return await sendData<typeof schemaCreateRentalGroupRegister, ResponseCreateRentalGroup>({
     url: API_ROUTE.RENTAL_GROUP_REGISTER.STORE,
     config: {
       body,
