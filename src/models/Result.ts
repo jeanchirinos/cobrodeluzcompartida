@@ -7,7 +7,7 @@ export const schemaResult = z.object({
   amount: z.coerce.number().nonnegative(),
   consumption_kwh: z.coerce.number().nonnegative(),
   tenant_id: schemaTenant.shape.id,
-  bill_id: schemaBillData.shape.id,
+  bill_data_id: schemaBillData.shape.id,
 })
 
 export type Result = z.infer<typeof schemaResult>
