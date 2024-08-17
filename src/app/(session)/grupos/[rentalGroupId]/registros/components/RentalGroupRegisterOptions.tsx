@@ -9,12 +9,15 @@ import { Button } from '@nextui-org/button'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown'
 import { Spinner } from '@nextui-org/react'
 import useSWRMutation from 'swr/mutation'
+import { useRouter } from 'next/navigation'
+import { ROUTE } from '@/constants/routes'
 
 export function RentalGroupRegisterOptions() {
   const {
     data: { rentalGroupRegister },
-    mutate,
   } = useGetRentalGroupRegister()
+
+  const { push } = useRouter()
 
   const { trigger, isMutating } = useSWRMutation('DELETE', async () => {
     if (!rentalGroupRegister) return
@@ -24,7 +27,7 @@ export function RentalGroupRegisterOptions() {
     await handleResponse({
       res,
       onSuccess: async () => {
-        await mutate()
+        push(ROUTE.GROUPS.PARTICIPANTS.INDEX({ rentalGroupId: rentalGroupRegister.billData.rental_group_id }))
       },
     })
   })

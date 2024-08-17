@@ -52,6 +52,7 @@ export async function getData(args: DefaultArgs) {
         redirect(ROUTE.HOME)
       }
 
+      redirect('/AA')
       // Should be a 500 error
       return notFound()
     } else {

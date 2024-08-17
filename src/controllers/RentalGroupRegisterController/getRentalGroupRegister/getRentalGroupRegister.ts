@@ -35,8 +35,6 @@ export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn)
     mode: 'null',
   })
 
-  console.log({ rentalGroupRegister })
-
   // const rentalGroupRegisters: ResponseGetRentalGroupRegister[] = [
   //   {
   //     billData: {
