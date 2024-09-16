@@ -17,6 +17,7 @@
     "import/no-duplicates": "warn",
     "no-useless-rename": "warn",
     "no-return-await": "off",
+    "no-unneeded-ternary": "warn",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
@@ -34,7 +35,6 @@
     "react/jsx-boolean-value": "warn",
     "react/self-closing-comp": "warn",
     "react/jsx-no-target-blank": "warn",
-    "no-unneeded-ternary": "warn",
     "@next/next/no-img-element": "off",
     // 
     "@typescript-eslint/naming-convention": "off"
