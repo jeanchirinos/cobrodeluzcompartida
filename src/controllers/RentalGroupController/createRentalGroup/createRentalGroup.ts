@@ -1,11 +1,11 @@
 'use server'
 
 import { API_ROUTE } from '@/constants/api-routes'
+import { RentalGroup } from '@/models/RentalGroup'
+import { Tenant } from '@/models/Tenant'
+import { sendDataAxios } from '@/utilities/request/sendData/sendDataAxios'
 import { z } from 'zod'
 import { schemaCreateRentalGroup } from './createRentalGroup.schema'
-import { RentalGroup } from '@/models/RentalGroup'
-import { sendData } from '@/utilities/request/sendData/sendData'
-import { Tenant } from '@/models/Tenant'
 
 type ArgsCreateRentalGroupFn = z.infer<typeof schemaCreateRentalGroup>
 
@@ -15,15 +15,21 @@ type ResponseCreateRentalGroup = {
 }
 
 export async function createRentalGroup(args?: ArgsCreateRentalGroupFn) {
-  return await sendData<typeof schemaCreateRentalGroup, ResponseCreateRentalGroup>({
+  // return await sendData<typeof schemaCreateRentalGroup, ResponseCreateRentalGroup>({
+  //   url: API_ROUTE.RENTAL_GROUP.STORE,
+  //   config: {
+  //     body: args,
+  //   },
+  //   options: {
+  //     schema: schemaCreateRentalGroup,
+  //     revalidateTagParams: API_ROUTE.RENTAL_GROUP.INDEX,
+  //   },
+  // })
+
+  return await sendDataAxios<ResponseCreateRentalGroup>({
     url: API_ROUTE.RENTAL_GROUP.STORE,
-    config: {
-      body: args,
-    },
-    options: {
-      schema: schemaCreateRentalGroup,
-      revalidateTagParams: API_ROUTE.RENTAL_GROUP.INDEX,
-    },
+    data: args,
+    schema: schemaCreateRentalGroup,
   })
 
   // const data: { ok: true; data: ResponseCreateRentalGroup; msg: string } = {

@@ -29,8 +29,7 @@ export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends Zo
     resolver: zodResolver(schema),
   })
 
-  const { formState, handleSubmit, reset } = useFormHook
-  const { isValid, isSubmitting, isDirty } = formState
+  const { handleSubmit, reset } = useFormHook
 
   // EFFECTS
 
@@ -43,13 +42,8 @@ export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends Zo
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValuesDependency])
 
-  // VALUES
-  const disabled = !isValid || isSubmitting || !isDirty
-
   // FUNCTIONS
   const onSubmit: SubmitHandler<z.infer<FormSchema>> = async data => {
-    if (disabled) return
-
     const res = (await submitActionFn?.(data)) ?? (await action?.(data))
 
     if (!res) return

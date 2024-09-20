@@ -1,40 +1,47 @@
 'use client'
 
-import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
-import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
-import { schemaLogin } from '@/controllers/AuthController/login/login.schema'
-import { login } from '@/controllers/AuthController/login/login'
-import { useSWRConfig } from 'swr'
-import { SWR_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
-import { useRouter } from 'next/navigation'
+import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { ROUTE } from '@/constants/routes'
+import { ArgsLoginFn, schemaLogin } from '@/controllers/AuthController/login/login.schema'
+import { useLogin } from '@/controllers/AuthController/login/useLogin'
 import { useCreateGroupWithSessionCookie } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
+import { handleToast } from '@/utilities/handleToast'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 export function Login() {
-  const { mutate } = useSWRConfig()
+  // HOOKS
   const { push } = useRouter()
   const { execute } = useCreateGroupWithSessionCookie()
 
-  const { useFormHook } = useReactHookForm({
-    schema: schemaLogin,
-    action: login,
-    actionProps: {
-      showSuccessToast: false,
-      onSuccess: async () => {
-        await mutate(SWR_KEY_GET_SESSION)
-        const wasRedirected = await execute()
+  const { trigger } = useLogin()
 
+  const useFormHook = useForm<ArgsLoginFn>({
+    mode: 'onTouched',
+    resolver: zodResolver(schemaLogin),
+  })
+
+  const { handleSubmit } = useFormHook
+
+  // FUNCTIONS
+  const onSubmit: SubmitHandler<ArgsLoginFn> = async data => {
+    const res = await trigger(data, {
+      onSuccess: async () => {
+        const wasRedirected = await execute()
         if (!wasRedirected) {
           push(ROUTE.GROUPS.INDEX)
         }
       },
-    },
-  })
+    })
+
+    handleToast({ res, showSuccessToast: false })
+  }
 
   // RENDER
   return (
-    <form className='flex max-w-xs flex-col gap-y-4' onSubmit={useFormHook.onSubmit}>
+    <form className='flex max-w-xs flex-col gap-y-4' onSubmit={handleSubmit(onSubmit)}>
       <CustomInput
         useFormHook={useFormHook}
         name='email'

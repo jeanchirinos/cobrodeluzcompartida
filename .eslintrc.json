@@ -18,6 +18,7 @@
     "no-useless-rename": "warn",
     "no-return-await": "off",
     "no-unneeded-ternary": "warn",
+    // 
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
@@ -37,7 +38,8 @@
     "react/jsx-no-target-blank": "warn",
     "@next/next/no-img-element": "off",
     // 
-    "@typescript-eslint/naming-convention": "off"
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/restrict-plus-operands": "off"
   },
   "globals": {
     "React": "readonly",

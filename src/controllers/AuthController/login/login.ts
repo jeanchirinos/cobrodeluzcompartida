@@ -1,30 +1,19 @@
 'use server'
 
-import { z } from 'zod'
 import { createAuthToken } from '../utils/createAuthToken'
 import { API_ROUTE } from '@/constants/api-routes'
-import { schemaLogin } from './login.schema'
-import { sendData } from '@/utilities/request/sendData/sendData'
+import { ArgsLoginFn, schemaLogin } from './login.schema'
 import { User } from '@/models/User'
-
-type ArgsLoginFn = z.infer<typeof schemaLogin>
+import { sendDataAxios } from '@/utilities/request/sendData/sendDataAxios'
 
 type ResponseLogin = Pick<User, 'token'>
 
 export async function login(args: ArgsLoginFn) {
-  async function onSuccess(data: ResponseLogin) {
-    await createAuthToken({ token: data.token })
+  const res = await sendDataAxios<ResponseLogin>({ url: API_ROUTE.AUTH.LOGIN, data: args, schema: schemaLogin })
+
+  if (res.ok) {
+    await createAuthToken({ token: res.data.token })
   }
 
-  return await sendData<typeof schemaLogin, ResponseLogin>({
-    url: API_ROUTE.AUTH.LOGIN,
-    config: {
-      body: args,
-    },
-    options: {
-      schema: schemaLogin,
-      onSuccess,
-    },
-    authMode: 'auth-not-required',
-  })
+  return res
 }
