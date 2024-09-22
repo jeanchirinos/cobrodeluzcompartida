@@ -1,5 +1,5 @@
-import useSWRMutationDefault, { SWRMutationConfiguration } from 'swr/mutation'
-import { AsyncReturnType } from 'type-fest'
+import useSWRMutationDefault, { type SWRMutationConfiguration } from 'swr/mutation'
+import { type AsyncReturnType } from 'type-fest'
 
 type AsyncFunction = (...arguments_: any[]) => Promise<any>
 
@@ -12,9 +12,5 @@ type Args<T extends AsyncFunction> = {
 export function useSWRMutation<T extends AsyncFunction>(args: Args<T>) {
   const { key, fn, options } = args
 
-  return useSWRMutationDefault<AsyncReturnType<T>, any, string, Parameters<T>[0]>(
-    key,
-    (url, { arg }) => fn(arg),
-    options,
-  )
+  return useSWRMutationDefault<AsyncReturnType<T>, any, string, Parameters<T>[0]>(key, (_, { arg }) => fn(arg), options)
 }

@@ -7,7 +7,7 @@ import { useDialog } from '@/components/Dialog/useDialog'
 import { Dialog } from '@/components/Dialog/Dialog'
 import { ShareTenantDialog } from './ShareTenant'
 import { DeleteTenantDialog } from './DeleteTenant'
-import { ResponseGetTenants } from '@/controllers/TenatController/getTenants'
+import { ResponseGetTenants } from '@/controllers/TenatController/getTenants/getTenants'
 import { UpdateTenantDialog } from './UpdateTenant'
 
 type TenantOptionsProps = { tenant: ResponseGetTenants[0] }

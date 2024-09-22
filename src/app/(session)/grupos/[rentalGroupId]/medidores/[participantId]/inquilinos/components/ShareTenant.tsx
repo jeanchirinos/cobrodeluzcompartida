@@ -3,7 +3,7 @@
 import { DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { UseDialog } from '@/components/Dialog/useDialog'
 import { Snippet } from '@nextui-org/react'
-import { ResponseGetTenants } from '@/controllers/TenatController/getTenants'
+import { ResponseGetTenants } from '@/controllers/TenatController/getTenants/getTenants'
 import { ROUTE } from '@/constants/routes'
 import { Link } from '@/components/Link'
 

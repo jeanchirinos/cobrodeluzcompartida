@@ -1,15 +1,15 @@
 'use client'
 
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
+import { useReactHookForm } from '@/components/ReactForm/useReactHookForm copy'
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { ROUTE } from '@/constants/routes'
-import { ArgsLoginFn, schemaLogin } from '@/controllers/AuthController/login/login.schema'
+import { SchemaLogin, schemaLogin } from '@/controllers/AuthController/login/login.schema'
 import { useLogin } from '@/controllers/AuthController/login/useLogin'
 import { useCreateGroupWithSessionCookie } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
 import { handleToast } from '@/utilities/handleToast'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler } from 'react-hook-form'
 
 export function Login() {
   // HOOKS
@@ -18,15 +18,11 @@ export function Login() {
 
   const { trigger } = useLogin()
 
-  const useFormHook = useForm<ArgsLoginFn>({
-    mode: 'onTouched',
-    resolver: zodResolver(schemaLogin),
-  })
-
+  const useFormHook = useReactHookForm({ schema: schemaLogin })
   const { handleSubmit } = useFormHook
 
   // FUNCTIONS
-  const onSubmit: SubmitHandler<ArgsLoginFn> = async data => {
+  const onSubmit: SubmitHandler<SchemaLogin> = async data => {
     const res = await trigger(data, {
       onSuccess: async () => {
         const wasRedirected = await execute()

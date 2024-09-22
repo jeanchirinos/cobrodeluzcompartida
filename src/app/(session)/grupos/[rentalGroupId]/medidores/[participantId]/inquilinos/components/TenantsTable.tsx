@@ -1,13 +1,15 @@
 'use client'
 
 import { Image } from '@/components/Image'
+import { useGetTenants } from '@/controllers/TenatController/getTenants/useGetTenants'
 import { Chip } from '@nextui-org/react'
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/table'
+import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/table'
 import { TenantOptions } from './TenantOptions'
-import { ResponseGetTenants } from '@/controllers/TenatController/getTenants'
 
-export function TenantsTable(props: { tenants: ResponseGetTenants }) {
-  const { tenants } = props
+export function TenantsTable() {
+  const {
+    data: { tenants },
+  } = useGetTenants()
 
   return (
     <Table classNames={{ wrapper: 'overflow-x-auto' }}>

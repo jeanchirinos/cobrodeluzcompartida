@@ -1,4 +1,6 @@
+import { COOKIES_TOKEN_NAME } from '@/constants/cookies'
 import axiosDefault from 'axios'
+import { cookies } from 'next/headers'
 
 const axios = axiosDefault.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_API,
@@ -6,22 +8,14 @@ const axios = axiosDefault.create({
 })
 
 // Add a request interceptor
-axios.interceptors.request.use(
-  function (config) {
-    // Do something before the request is sent
-    // For example, add an authentication token to the headers
-    // const token = localStorage.getItem('authToken') // Retrieve auth token from localStorage
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`
-    // }
-    // return config
-    console.log('Request sent')
-    return config
-  },
-  function (error) {
-    // Handle the error
-    return Promise.reject(error)
-  },
-)
+axios.interceptors.request.use(function (config) {
+  const token = cookies().get(COOKIES_TOKEN_NAME)
+
+  if (token) {
+    config.headers.Cookie = cookies().toString()
+  }
+
+  return config
+})
 
 export { axios }

@@ -52,6 +52,7 @@ function useHookFormInput<T extends UseFormReturn>(props: UseHookFormInputProps<
   const { useFormHook, name, registerOptions } = props
 
   // "watch" is necessary to update the value of the "NextuiInput" component when for example "reseting the field", if possible this shouldn't be used
+  // If possible remove it beacuse it causes some issues when form is submitting
 
   const { watch, register, formState } = useFormHook
 
@@ -69,6 +70,7 @@ function useHookFormInput<T extends UseFormReturn>(props: UseHookFormInputProps<
 }
 
 type CustomInputProps<T extends UseFormReturn> = Omit<InputProps, 'name'> & UseHookFormInputProps<T>
+
 export function CustomInput<T extends UseFormReturn<any>>(props: CustomInputProps<T>) {
   const { name, registerOptions, useFormHook, isDisabled, ...restProps } = props
 
