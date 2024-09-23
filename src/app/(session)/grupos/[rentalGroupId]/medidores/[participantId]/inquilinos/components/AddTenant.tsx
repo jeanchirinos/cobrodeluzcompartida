@@ -18,16 +18,14 @@ export function AddTenant() {
   }
 
   return (
-    <>
-      <Button
-        color='primary'
-        className='w-fit self-end'
-        endContent={<IconAdd />}
-        onPress={handlePress}
-        isLoading={isMutating}
-      >
-        Agregar inquilino
-      </Button>
-    </>
+    <Button
+      color='primary'
+      className='w-fit self-end'
+      endContent={<IconAdd />}
+      onPress={handlePress}
+      isLoading={isMutating}
+    >
+      Agregar inquilino
+    </Button>
   )
 }

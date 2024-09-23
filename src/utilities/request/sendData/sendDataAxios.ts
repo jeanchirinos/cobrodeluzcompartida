@@ -1,10 +1,10 @@
 import { axios } from '@/lib/axiosInstance'
-import { ZodType } from 'zod'
+import { z, ZodType } from 'zod'
 import { getErrorResponse } from './constants'
 import { CustomResponse } from './types'
 import { AxiosError } from 'axios'
 
-type DefaultArgs<BodySchema extends ZodType = ZodType> = {
+type DefaultArgs<BodySchema extends ZodType> = {
   url: string
   method?: 'POST' | 'PUT' | 'DELETE'
 } & (
@@ -13,8 +13,8 @@ type DefaultArgs<BodySchema extends ZodType = ZodType> = {
       schema?: undefined
     }
   | {
-      data: any
       schema: BodySchema
+      data: z.infer<BodySchema>
     }
 )
 
@@ -46,7 +46,7 @@ export async function sendDataAxios<ResponseData, BodySchema extends ZodType = Z
     })
 }
 
-export function validateDataBeforeSendingRequest({ data, schema }: { data: any; schema: ZodType }) {
+export function validateDataBeforeSendingRequest({ data, schema }: { data: unknown; schema: ZodType }) {
   const validationResult = schema.safeParse(data)
 
   if (!validationResult.success) {

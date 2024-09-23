@@ -1,3 +1,5 @@
+'use server'
+
 import { COOKIES_TOKEN_NAME } from '@/constants/cookies'
 import { User } from '@/models/User'
 import { cookies } from 'next/headers'

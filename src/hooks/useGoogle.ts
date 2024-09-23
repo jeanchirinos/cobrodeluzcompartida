@@ -1,15 +1,15 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import { API_ROUTE } from '@/constants/api-routes'
-import { udpdateGoogleSession } from '@/controllers/AuthController/udpdateGoogleSession'
-import { getApiUrl } from '@/utilities/request/env-variables/get'
-import { User } from '@/models/User'
-import { useSWRConfig } from 'swr'
-import { SWR_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
-import { useRouter } from 'next/navigation'
 import { ROUTE } from '@/constants/routes'
+import { SWR_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
+import { createAuthToken } from '@/controllers/AuthController/utils/createAuthToken'
 import { useCreateGroupWithSessionCookie } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
+import { User } from '@/models/User'
+import { getApiUrl } from '@/utilities/request/env-variables/get'
+import { useRouter } from 'next/navigation'
+import { useEffect, useRef } from 'react'
+import { useSWRConfig } from 'swr'
 
 export function useGoogle() {
   const { mutate } = useSWRConfig()
@@ -22,8 +22,9 @@ export function useGoogle() {
     async function handleMessageFromAuthPage(e: MessageEvent<Pick<User, 'token'>>) {
       if (!e.data.token) return
 
-      await udpdateGoogleSession({ token: e.data.token })
+      await createAuthToken({ token: e.data.token })
       await mutate(SWR_KEY_GET_SESSION)
+
       const wasRedirected = await execute()
 
       if (!wasRedirected) {

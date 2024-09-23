@@ -1,7 +1,7 @@
 import { Image } from '@/components/Image'
 import { Menu, MenuContent, MenuSeparator, MenuTrigger } from '@/components/Menu'
-import { ResponseGetSession } from '@/controllers/AuthController/getSession'
 import { Logout } from './Logout'
+import { ResponseGetSession } from '@/controllers/AuthController/getSession/getSession'
 
 type Props = { session: ResponseGetSession }
 
