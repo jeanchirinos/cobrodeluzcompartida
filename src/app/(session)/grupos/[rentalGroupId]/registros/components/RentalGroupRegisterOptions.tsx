@@ -2,7 +2,7 @@
 
 import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
 
-import { deleteRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/deleteRentalGroupRegister'
+import { deleteRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/deleteRentalGroupRegister/deleteRentalGroupRegister'
 import { IconOptions } from '@/icons'
 import { handleResponse } from '@/utilities/handleResponse'
 import { Button } from '@nextui-org/button'

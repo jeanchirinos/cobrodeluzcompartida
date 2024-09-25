@@ -1,47 +1,41 @@
 'use client'
 
-import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
-import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
-import { schemaUpdateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant.schema'
-import { updateParticipant } from '@/controllers/ParticipantController/updateParticipant/updateParticipant'
+import { useReactHookForm } from '@/components/ReactForm/useReactHookForm copy'
+import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
+import {
+  SchemaUpdateParticipant,
+  schemaUpdateParticipant,
+} from '@/controllers/ParticipantController/updateParticipant/updateParticipant.schema'
+import { useUpdateParticipant } from '@/controllers/ParticipantController/updateParticipant/useUpdateParticipant'
+import { handleToast } from '@/utilities/handleToast'
+import { SubmitHandler } from 'react-hook-form'
 
 export function UpdateParticipant() {
-  // CONTEXT
   const {
     data: { participant },
     isLoading,
     isValidating,
-    mutate,
   } = useGetParticipantById()
 
   // HOOKS
-  const { useFormHook } = useReactHookForm({
+  const useFormHook = useReactHookForm({
     schema: schemaUpdateParticipant,
     defaultValues: participant,
     mode: 'onChange',
-    // submitActionFn: data => updateParticipant({ ...data, id: participant.id }),
-    submitActionFn: async data => {
-      const res = await updateParticipant({ ...data, id: participant.id })
-
-      // await mutate(
-      //   {
-      //     participant: {
-      //       id: 0,
-      //     },
-      //   },
-      //   {
-      //     revalidate: false,
-      //   },
-      // )
-
-      await mutate()
-
-      return res
-    },
     defaultValuesDependency: isValidating,
   })
+
+  const { trigger } = useUpdateParticipant()
+
+  const { handleSubmit } = useFormHook
+
+  const onSubmit: SubmitHandler<SchemaUpdateParticipant> = async data => {
+    const res = await trigger({ id: participant.id, ...data })
+
+    handleToast({ res })
+  }
 
   // RENDER
   return (
@@ -50,7 +44,7 @@ export function UpdateParticipant() {
         <h3 className='text-lg font-bold'>Nombre de medidor</h3>
         <p>Identificador único entre tus medidores</p>
       </div>
-      <form className='flex gap-4 max-sm:flex-col' onSubmit={useFormHook.onSubmit}>
+      <form className='flex gap-4 max-sm:flex-col' onSubmit={handleSubmit(onSubmit)}>
         <CustomInput
           useFormHook={useFormHook}
           name='alias'

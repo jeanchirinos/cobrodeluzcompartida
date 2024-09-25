@@ -1,26 +1,27 @@
 'use client'
 
-import { ButtonAction } from '@/components/Button/ButtonAction'
 import { ROUTE } from '@/constants/routes'
-import { createRentalGroup } from '@/controllers/RentalGroupController/createRentalGroup/createRentalGroup'
+import { useCreateRentalGroup } from '@/controllers/RentalGroupController/createRentalGroup/useCreateRentalGroup'
 import { IconAdd } from '@/icons'
+import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 
 export function CreateRentalGroup() {
   const { push } = useRouter()
 
+  const { trigger, isMutating } = useCreateRentalGroup()
+
+  async function handlePress() {
+    await trigger(undefined, {
+      onSuccess(data) {
+        push(ROUTE.GROUPS.REGISTERS.INDEX({ id: data.data.rental_group_id }))
+      },
+    })
+  }
+
   return (
-    <ButtonAction
-      color='primary'
-      action={createRentalGroup}
-      actionProps={{
-        onSuccess(data) {
-          push(ROUTE.GROUPS.REGISTERS.INDEX({ id: data.rental_group_id }))
-        },
-      }}
-      endContent={<IconAdd />}
-    >
+    <Button color='primary' onPress={handlePress} endContent={<IconAdd />} isLoading={isMutating}>
       Crear grupo
-    </ButtonAction>
+    </Button>
   )
 }

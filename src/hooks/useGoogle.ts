@@ -4,7 +4,7 @@ import { API_ROUTE } from '@/constants/api-routes'
 import { ROUTE } from '@/constants/routes'
 import { SWR_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
 import { createAuthToken } from '@/controllers/AuthController/utils/createAuthToken'
-import { useCreateGroupWithSessionCookie } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
+import { useCreateGroupAndRegisterWithSavedData } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
 import { User } from '@/models/User'
 import { getApiUrl } from '@/utilities/request/env-variables/get'
 import { useRouter } from 'next/navigation'
@@ -15,7 +15,7 @@ export function useGoogle() {
   const { mutate } = useSWRConfig()
   const { push } = useRouter()
 
-  const { execute } = useCreateGroupWithSessionCookie()
+  const { createGroupAndRegister } = useCreateGroupAndRegisterWithSavedData()
 
   // EFFECT
   useEffect(() => {
@@ -25,7 +25,7 @@ export function useGoogle() {
       await createAuthToken({ token: e.data.token })
       await mutate(SWR_KEY_GET_SESSION)
 
-      const wasRedirected = await execute()
+      const wasRedirected = await createGroupAndRegister()
 
       if (!wasRedirected) {
         push(ROUTE.GROUPS.INDEX)
@@ -37,7 +37,7 @@ export function useGoogle() {
     window.addEventListener('message', handleMessageFromAuthPage)
 
     return () => window.removeEventListener('message', handleMessageFromAuthPage)
-  }, [mutate, push, execute])
+  }, [mutate, push, createGroupAndRegister])
 
   // FUNCTIONS
   function openGoogleWindow() {

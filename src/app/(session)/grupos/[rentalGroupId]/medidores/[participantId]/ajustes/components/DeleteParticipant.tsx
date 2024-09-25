@@ -2,12 +2,12 @@
 
 import { Dialog, DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { useDialog } from '@/components/Dialog/useDialog'
-import { deleteParticipant } from '@/controllers/ParticipantController/deleteParticipant'
+import { ROUTE } from '@/constants/routes'
+import { useDeleteParticipant } from '@/controllers/ParticipantController/deleteParticipant/useDeleteParticipant'
+import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
+import { handleToast } from '@/utilities/handleToast'
 import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
-import { handleResponse } from '@/utilities/handleResponse'
-import { ROUTE } from '@/constants/routes'
-import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
 
 export function DeleteParticipant() {
   const { push } = useRouter()
@@ -16,18 +16,23 @@ export function DeleteParticipant() {
     data: { participant },
     isLoading,
   } = useGetParticipantById()
-  const deleteParticipantDialog = useDialog()
+
+  const { trigger } = useDeleteParticipant()
 
   async function customHandleClick() {
-    const res = await deleteParticipant({ id: participant.id })
-
-    await handleResponse({
-      res,
-      onSuccess() {
-        push(ROUTE.GROUPS.INDEX)
+    const res = await trigger(
+      { id: participant.id },
+      {
+        onSuccess() {
+          push(ROUTE.GROUPS.PARTICIPANTS.INDEX({ rentalGroupId: participant.rental_group_id }))
+        },
       },
-    })
+    )
+
+    handleToast({ res })
   }
+
+  const deleteParticipantDialog = useDialog()
 
   // RENDER
   return (

@@ -2,10 +2,7 @@
 
 import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
 import { ROUTE } from '@/constants/routes'
-// import { cookies } from 'next/headers'
-// import { redirect } from 'next/navigation'
 import { createRentalGroup } from '../createRentalGroup/createRentalGroup'
-
 import {
   ArgsCreateRentalGroupFn,
   createRentalGroupRegister,
@@ -15,17 +12,14 @@ import { getCookie, removeCookie } from 'typescript-cookie'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
-// export async function createGroupWithSessionCookie() {
-export function useCreateGroupWithSessionCookie() {
+export function useCreateGroupAndRegisterWithSavedData() {
   const { push } = useRouter()
 
-  async function execute() {
-    // const temporalFormDataCookie = cookies().get(COOKIES_TEMPORAL_FORM_DATA)
+  async function createGroupAndRegister() {
     const temporalFormDataCookie = getCookie(COOKIES_TEMPORAL_FORM_DATA)
 
     if (!temporalFormDataCookie) return
 
-    // cookies().delete(COOKIES_TEMPORAL_FORM_DATA)
     removeCookie(COOKIES_TEMPORAL_FORM_DATA)
 
     const temporalFormData: CookiesFormDataAndResults = JSON.parse(temporalFormDataCookie)
@@ -58,12 +52,13 @@ export function useCreateGroupWithSessionCookie() {
     })
 
     if (response.ok) {
-      // redirect(ROUTE.GROUPS.REGISTERS({ id: res.data.rental_group_id }))
       push(ROUTE.GROUPS.REGISTERS.INDEX({ id: res.data.rental_group_id }))
       toast.success('Se creó un grupo con un registro')
       return true
     }
+
+    push(ROUTE.GROUPS.INDEX)
   }
 
-  return { execute }
+  return { createGroupAndRegister }
 }

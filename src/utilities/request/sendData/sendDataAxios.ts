@@ -1,12 +1,10 @@
 import { axios } from '@/lib/axiosInstance'
 import { z, ZodType } from 'zod'
-import { getErrorResponse } from './constants'
-import { CustomResponse } from './types'
-import { AxiosError } from 'axios'
+import { SuccesResponse } from './types'
 
 type DefaultArgs<BodySchema extends ZodType> = {
   url: string
-  method?: 'POST' | 'PUT' | 'DELETE'
+  method?: 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 } & (
   | {
       data?: undefined
@@ -20,7 +18,7 @@ type DefaultArgs<BodySchema extends ZodType> = {
 
 export async function sendDataAxios<ResponseData, BodySchema extends ZodType = ZodType>(
   args: DefaultArgs<BodySchema>,
-): Promise<CustomResponse<ResponseData>> {
+): Promise<SuccesResponse<ResponseData>> {
   const { schema, data, method = 'POST', ...restArgs } = args
 
   // VALIDATIONS BEFORE REQUEST
@@ -28,22 +26,18 @@ export async function sendDataAxios<ResponseData, BodySchema extends ZodType = Z
     const validation = validateDataBeforeSendingRequest({ data, schema })
 
     if (!validation.success) {
-      return getErrorResponse({ message: validation.message })
+      throw new Error(validation.message)
     }
   }
 
   // SEND REQUEST
-  return await axios<CustomResponse<ResponseData>>({
+  return await axios<SuccesResponse<ResponseData>>({
     ...restArgs,
     method,
     data,
+  }).then(res => {
+    return res.data
   })
-    .then(res => {
-      return res.data
-    })
-    .catch((error: AxiosError) => {
-      return getErrorResponse({ message: error.message })
-    })
 }
 
 export function validateDataBeforeSendingRequest({ data, schema }: { data: unknown; schema: ZodType }) {

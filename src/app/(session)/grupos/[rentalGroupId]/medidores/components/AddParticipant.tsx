@@ -1,22 +1,20 @@
 'use client'
 
-import { createParticipant } from '@/controllers/ParticipantController/createParticipant/createParticipant'
-import { useSwrParticipantsConfig } from '@/controllers/ParticipantController/getParticipants/useGetParticipants'
+import { useCreateParticipant } from '@/controllers/ParticipantController/createParticipant/useCreateParticipant'
 import { IconAdd } from '@/icons'
-import { handleResponse } from '@/utilities/handleResponse'
+import { handleToast } from '@/utilities/handleToast'
 import { Button } from '@nextui-org/react'
-import useSWRMutation from 'swr/mutation'
+import { useParams } from 'next/navigation'
 
 export function AddParticipant() {
-  const { key, rentalGroupId } = useSwrParticipantsConfig()
+  const { rentalGroupId } = useParams()
+  const { trigger, isMutating } = useCreateParticipant()
 
-  const { trigger, isMutating } = useSWRMutation(key, async () => {
-    const res = await createParticipant({ rental_group_id: rentalGroupId })
+  async function handlePress() {
+    const res = await trigger({ rental_group_id: Number(rentalGroupId) })
 
-    await handleResponse({
-      res,
-    })
-  })
+    handleToast({ res })
+  }
 
   return (
     <Button
@@ -24,7 +22,7 @@ export function AddParticipant() {
       className='w-fit self-end'
       endContent={<IconAdd />}
       isLoading={isMutating}
-      onPress={() => trigger()}
+      onPress={handlePress}
     >
       Agregar medidor
     </Button>

@@ -1,11 +1,16 @@
 'use client'
 
-import { updateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup'
-import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
-import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
-import { schemaUpdateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup.schema'
+import { useReactHookForm } from '@/components/ReactForm/useReactHookForm copy'
+import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
+import {
+  SchemaUpdateRentalGroup,
+  schemaUpdateRentalGroup,
+} from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup.schema'
+import { useUpdateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/useUpdateRentalGroup'
+import { handleToast } from '@/utilities/handleToast'
+import { SubmitHandler } from 'react-hook-form'
 
 export function UpdateGroup() {
   return (
@@ -20,44 +25,28 @@ export function UpdateGroup() {
 }
 
 function UpdateNameForm() {
-  const {
-    // data: { rentalGroup },
-    data: rentalGroup,
-    isLoading,
-    isValidating,
-    mutate,
-  } = useGetRentalGroupById()
+  const { data: rentalGroup, isLoading, isValidating } = useGetRentalGroupById()
 
   // HOOKS
-  const { useFormHook } = useReactHookForm({
+  const useFormHook = useReactHookForm({
     schema: schemaUpdateRentalGroup,
     defaultValues: rentalGroup,
     mode: 'onChange',
-    // updateRentalGroup({ ...data, id: rentalGroup.id })
-    submitActionFn: async data => {
-      const res = await updateRentalGroup({ ...data, id: rentalGroup.id })
-
-      // await mutate(
-      //   {
-      //     rentalGroup: {
-      //       id: 0,
-      //       name: 'aaa',
-      //     },
-      //   },
-      //   {
-      //     revalidate: false,
-      //   },
-      // )
-
-      await mutate()
-
-      return res
-    },
     defaultValuesDependency: isValidating,
   })
 
+  const { trigger } = useUpdateRentalGroup()
+
+  const { handleSubmit } = useFormHook
+
+  const onSubmit: SubmitHandler<SchemaUpdateRentalGroup> = async data => {
+    const res = await trigger({ id: rentalGroup.id, ...data })
+
+    handleToast({ res })
+  }
+
   return (
-    <form className='flex gap-4 max-sm:flex-col' onSubmit={useFormHook.onSubmit}>
+    <form className='flex gap-4 max-sm:flex-col' onSubmit={handleSubmit(onSubmit)}>
       <CustomInput
         useFormHook={useFormHook}
         name='name'

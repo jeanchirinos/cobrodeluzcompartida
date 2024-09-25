@@ -2,12 +2,12 @@
 
 import { Dialog, DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { useDialog } from '@/components/Dialog/useDialog'
-import { deleteRentalGroup } from '@/controllers/RentalGroupController/deleteRentalGroup'
+import { ROUTE } from '@/constants/routes'
+import { useDeleteRentalGroup } from '@/controllers/RentalGroupController/deleteRentalGroup/useDeleteRentalGroup'
+import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
+import { handleToast } from '@/utilities/handleToast'
 import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
-import { handleResponse } from '@/utilities/handleResponse'
-import { ROUTE } from '@/constants/routes'
-import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
 
 export function DeleteGroup() {
   const { push } = useRouter()
@@ -15,15 +15,19 @@ export function DeleteGroup() {
 
   const { data: rentalGroup, isLoading } = useGetRentalGroupById()
 
-  async function customHandleClick() {
-    const res = await deleteRentalGroup({ id: Number(rentalGroup.id) })
+  const { trigger } = useDeleteRentalGroup()
 
-    await handleResponse({
-      res,
-      onSuccess() {
-        push(ROUTE.GROUPS.INDEX)
+  async function customHandleClick() {
+    const res = await trigger(
+      { id: rentalGroup.id },
+      {
+        onSuccess() {
+          push(ROUTE.GROUPS.INDEX)
+        },
       },
-    })
+    )
+
+    handleToast({ res })
   }
 
   // RENDER

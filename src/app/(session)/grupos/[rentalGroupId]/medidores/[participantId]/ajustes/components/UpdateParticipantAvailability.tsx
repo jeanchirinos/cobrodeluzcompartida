@@ -1,10 +1,9 @@
 'use client'
 
-import { Spinner, Switch } from '@nextui-org/react'
-import { useState } from 'react'
-import { handleResponse } from '@/utilities/handleResponse'
-import { toggleActiveParticipant } from '@/controllers/ParticipantController/toggleActiveParticipant'
 import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
+import { useToggleActiveParticipant } from '@/controllers/ParticipantController/toggleActiveParticipant/useToggleActiveParticipant'
+import { handleToast } from '@/utilities/handleToast'
+import { Spinner, Switch } from '@nextui-org/react'
 
 export function UpdateParticipantAvailability() {
   const {
@@ -12,18 +11,12 @@ export function UpdateParticipantAvailability() {
     isLoading,
   } = useGetParticipantById()
 
-  const [isPending, setIsPending] = useState(false)
+  const { trigger, isMutating } = useToggleActiveParticipant()
 
   async function handleChange() {
-    setIsPending(true)
+    const res = await trigger({ id: participant.id })
 
-    const res = await toggleActiveParticipant({
-      participantId: participant.id,
-    })
-
-    await handleResponse({ res })
-
-    setIsPending(false)
+    handleToast({ res })
   }
 
   return (
@@ -33,7 +26,7 @@ export function UpdateParticipantAvailability() {
         classNames={{
           base: 'flex-row-reverse gap-x-6',
         }}
-        isDisabled={isPending || isLoading}
+        isDisabled={isLoading || isMutating}
         onChange={handleChange}
         defaultSelected={participant.active}
       >
@@ -42,7 +35,7 @@ export function UpdateParticipantAvailability() {
           <p>Si está activo, el medidor será considerado en el cálculo.</p>
         </div>
       </Switch>
-      {isPending && <Spinner />}
+      {isMutating && <Spinner />}
     </section>
   )
 }

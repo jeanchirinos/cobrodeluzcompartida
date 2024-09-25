@@ -6,7 +6,7 @@ import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { ROUTE } from '@/constants/routes'
 import { SchemaLogin, schemaLogin } from '@/controllers/AuthController/login/login.schema'
 import { useLogin } from '@/controllers/AuthController/login/useLogin'
-import { useCreateGroupWithSessionCookie } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
+import { useCreateGroupAndRegisterWithSavedData } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
 import { handleToast } from '@/utilities/handleToast'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler } from 'react-hook-form'
@@ -14,7 +14,7 @@ import { SubmitHandler } from 'react-hook-form'
 export function Login() {
   // HOOKS
   const { push } = useRouter()
-  const { execute } = useCreateGroupWithSessionCookie()
+  const { createGroupAndRegister } = useCreateGroupAndRegisterWithSavedData()
 
   const { trigger } = useLogin()
 
@@ -25,7 +25,7 @@ export function Login() {
   const onSubmit: SubmitHandler<SchemaLogin> = async data => {
     const res = await trigger(data, {
       onSuccess: async () => {
-        const wasRedirected = await execute()
+        const wasRedirected = await createGroupAndRegister()
         if (!wasRedirected) {
           push(ROUTE.GROUPS.INDEX)
         }
