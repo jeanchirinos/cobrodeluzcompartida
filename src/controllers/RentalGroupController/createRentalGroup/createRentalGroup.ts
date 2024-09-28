@@ -1,9 +1,7 @@
-'use server'
-
 import { API_ROUTE } from '@/constants/api-routes'
 import { RentalGroup } from '@/models/RentalGroup'
 import { Tenant } from '@/models/Tenant'
-import { sendDataAxios } from '@/utilities/request/sendData/sendDataAxios'
+import { sendData } from '@/utilities/request/sendData/sendData'
 import { z } from 'zod'
 import { schemaCreateRentalGroup } from './createRentalGroup.schema'
 
@@ -15,7 +13,7 @@ type ResponseCreateRentalGroup = {
 }
 
 export async function createRentalGroup(args?: ArgsCreateRentalGroupFn) {
-  return await sendDataAxios<ResponseCreateRentalGroup>({
+  return await sendData<ResponseCreateRentalGroup>({
     url: API_ROUTE.RENTAL_GROUP.STORE,
     data: args,
     schema: schemaCreateRentalGroup,

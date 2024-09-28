@@ -8,12 +8,11 @@ import { useGetSession } from '@/controllers/AuthController/getSession/useGetSes
 export function NavMenu() {
   const { data, isLoading } = useGetSession()
 
-  const { session } = data ?? {}
   if (isLoading) return null
 
   return (
     <NavbarMenu>
-      {session ? (
+      {data ? (
         <HeaderLinkNavMenuItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavMenuItem>
       ) : (
         <HeaderLinkNavMenuItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavMenuItem>

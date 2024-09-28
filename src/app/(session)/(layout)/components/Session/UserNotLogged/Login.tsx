@@ -1,7 +1,7 @@
 'use client'
 
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
-import { useReactHookForm } from '@/components/ReactForm/useReactHookForm copy'
+import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { ROUTE } from '@/constants/routes'
 import { SchemaLogin, schemaLogin } from '@/controllers/AuthController/login/login.schema'
@@ -23,16 +23,21 @@ export function Login() {
 
   // FUNCTIONS
   const onSubmit: SubmitHandler<SchemaLogin> = async data => {
-    const res = await trigger(data, {
-      onSuccess: async () => {
-        const wasRedirected = await createGroupAndRegister()
-        if (!wasRedirected) {
-          push(ROUTE.GROUPS.INDEX)
-        }
-      },
-    })
+    try {
+      const res = await trigger(data, {
+        onSuccess: async () => {
+          const wasRedirected = await createGroupAndRegister()
+          if (!wasRedirected) {
+            push(ROUTE.GROUPS.INDEX)
+          }
+        },
+      })
 
-    handleToast({ res, showSuccessToast: false })
+      handleToast({ res, showSuccessToast: false })
+    } catch (err) {
+      alert('Error al iniciar sesión')
+      console.log({ err })
+    }
   }
 
   // RENDER

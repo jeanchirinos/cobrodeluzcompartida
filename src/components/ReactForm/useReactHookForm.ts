@@ -1,26 +1,17 @@
 'use client'
 
-import { handleResponse, Options } from '@/utilities/handleResponse'
-import { CustomResponse } from '@/utilities/request/sendData/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
-import { SubmitHandler, useForm, UseFormProps } from 'react-hook-form'
+import { useForm, UseFormProps } from 'react-hook-form'
 import { z, ZodType } from 'zod'
 
-export type UseReactHookFormProps<ActionArgs, ResponseData, FormSchema extends ZodType> = {
-  //! Required if needs response type for options
-  action?: (data: ActionArgs) => Promise<CustomResponse<ResponseData>>
-  actionProps?: Options<ResponseData>
+export type UseReactHookFormProps<FormSchema extends ZodType> = {
   schema: FormSchema
-  //! submitActionFn is required only if FormSchema is not equal to action schema OR action function args are different from FormSchema
-  submitActionFn?: (data: z.infer<FormSchema>) => Promise<CustomResponse<ResponseData>>
   defaultValuesDependency?: unknown
 } & Omit<UseFormProps<z.infer<FormSchema>>, 'resolver'>
 
-export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends ZodType>(
-  props: UseReactHookFormProps<ActionArgs, ResponseData, FormSchema>,
-) {
-  const { schema, action, submitActionFn, actionProps, defaultValuesDependency, ...restProps } = props
+export function useReactHookForm<FormSchema extends ZodType>(props: UseReactHookFormProps<FormSchema>) {
+  const { schema, defaultValuesDependency, ...restProps } = props
 
   // HOOKS
   const useFormHook = useForm<z.infer<FormSchema>>({
@@ -29,9 +20,7 @@ export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends Zo
     resolver: zodResolver(schema),
   })
 
-  const { handleSubmit, reset } = useFormHook
-
-  // EFFECTS
+  const { reset } = useFormHook
 
   // Reset form when defaultValues change
   useEffect(() => {
@@ -42,17 +31,5 @@ export function useReactHookForm<ActionArgs, ResponseData, FormSchema extends Zo
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValuesDependency])
 
-  // FUNCTIONS
-  const onSubmit: SubmitHandler<z.infer<FormSchema>> = async data => {
-    const res = (await submitActionFn?.(data)) ?? (await action?.(data))
-
-    if (!res) return
-
-    await handleResponse({ res, ...actionProps })
-  }
-
-  // RETURN
-  return {
-    useFormHook: { ...useFormHook, onSubmit: handleSubmit(onSubmit) },
-  }
+  return useFormHook
 }

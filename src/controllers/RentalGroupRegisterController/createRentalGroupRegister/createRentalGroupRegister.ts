@@ -1,8 +1,6 @@
-'use server'
-
 import { API_ROUTE } from '@/constants/api-routes'
 import { BillData } from '@/models/BillData'
-import { sendDataAxios } from '@/utilities/request/sendData/sendDataAxios'
+import { sendData } from '@/utilities/request/sendData/sendData'
 import { SetOptional } from 'type-fest'
 import { z } from 'zod'
 import { IGV } from '../calculateResults/calculateResults'
@@ -25,7 +23,7 @@ export async function createRentalGroupRegister(args: ArgsCreateRentalGroupFn) {
     results,
   }
 
-  return await sendDataAxios<ResponseCreateRentalGroup>({
+  return await sendData<ResponseCreateRentalGroup>({
     url: API_ROUTE.RENTAL_GROUP_REGISTER.STORE,
     data: body,
     schema: schemaCreateRentalGroupRegister,

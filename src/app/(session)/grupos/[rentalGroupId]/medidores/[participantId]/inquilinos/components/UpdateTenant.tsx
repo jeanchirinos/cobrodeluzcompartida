@@ -3,7 +3,7 @@
 import { DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { UseDialog } from '@/components/Dialog/useDialog'
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
-import { useReactHookForm } from '@/components/ReactForm/useReactHookForm copy'
+import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { ResponseGetTenants } from '@/controllers/TenatController/getTenants/getTenants'
 import { SWR_KEY_GET_TENANTS } from '@/controllers/TenatController/getTenants/useGetTenants'

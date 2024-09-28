@@ -7,7 +7,6 @@ import { Card, CardFooter, CardHeader } from '@nextui-org/card'
 // import { Avatar } from '@/components/Avatar'
 import { Tooltip } from '@nextui-org/react'
 // import Image from 'next/image'
-
 import { useGetRentalGroups } from '@/controllers/RentalGroupController/getRentalGroups/useGetRentalGroups'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
 

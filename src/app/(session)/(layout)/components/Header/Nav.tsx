@@ -8,12 +8,11 @@ import { useGetSession } from '@/controllers/AuthController/getSession/useGetSes
 export function Nav() {
   const { data, isLoading } = useGetSession()
 
-  const { session } = data ?? {}
   if (isLoading) return null
 
   return (
     <NavbarContent className='hidden gap-x-4 sm:flex' justify='start'>
-      {session ? (
+      {data ? (
         <HeaderLinkNavItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavItem>
       ) : (
         <HeaderLinkNavItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavItem>

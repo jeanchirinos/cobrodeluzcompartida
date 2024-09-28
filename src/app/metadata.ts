@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     default: 'CLC',
   },
   description: 'Calcula el monto a pagar por el consumo de energía eléctrica de tus inquilinos.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ''),
   openGraph: {
     url: process.env.NEXT_PUBLIC_APP_URL,
   },

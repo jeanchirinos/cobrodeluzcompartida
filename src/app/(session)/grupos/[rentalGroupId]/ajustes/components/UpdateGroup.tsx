@@ -1,7 +1,7 @@
 'use client'
 
 import { HookFormButton } from '@/components/ReactForm/HookFormButton'
-import { useReactHookForm } from '@/components/ReactForm/useReactHookForm copy'
+import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
 import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
 import {

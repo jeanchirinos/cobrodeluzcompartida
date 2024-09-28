@@ -20,7 +20,7 @@ export function useGetRentalGroupRegister() {
 
   return useSWR(SWR_KEY_GET_RENTAL_GROUP_REGISTER(Number(rentalGroupId), searchParams.toString()), fetcher, {
     fallbackData: {
-      rentalGroupRegister: null,
+      rentalGroupRegister: undefined,
     },
   })
 }

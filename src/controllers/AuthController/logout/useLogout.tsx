@@ -5,5 +5,8 @@ import { useSWRMutation } from '@/hooks/useSWRMutation'
 import { logout } from './logout'
 
 export function useLogout() {
-  return useSWRMutation({ key: SWR_KEY_GET_SESSION, fn: logout })
+  return useSWRMutation({
+    key: SWR_KEY_GET_SESSION,
+    fn: logout,
+  })
 }
