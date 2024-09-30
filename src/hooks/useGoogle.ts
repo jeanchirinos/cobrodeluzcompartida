@@ -22,6 +22,7 @@ export function useGoogle() {
   // EFFECT
   useEffect(() => {
     async function handleMessageFromAuthPage(e: MessageEvent<Pick<User, 'token'>>) {
+      console.log({ e })
       if (!e.data.token) return
 
       await createAuthToken({ token: e.data.token })
