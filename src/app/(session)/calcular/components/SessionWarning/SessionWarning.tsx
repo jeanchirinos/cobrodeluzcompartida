@@ -11,7 +11,7 @@ export function SessionWarning() {
   return (
     <div className='sticky top-16 z-30 w-fit bg-background'>
       <Chip color='warning' variant='flat' className='h-fit whitespace-normal p-2' radius='sm'>
-        <Skeleton chars={90} isLoading={isPending}>
+        <Skeleton chars={90} isLoading={isPending} className='!bg-warning-100'>
           {data ? (
             <span>Estos resultados serán temporales, se recomienda guardar los datos en un grupo de consumo</span>
           ) : (

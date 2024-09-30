@@ -16,7 +16,7 @@ import { setCookie } from 'typescript-cookie'
 export function useGoogle() {
   // const { mutate } = useSWRConfig()
   // const { resetQueries } = useQueryClient()
-  const { invalidateQueries } = useQueryClient()
+  const queryClient = useQueryClient()
 
   const { push } = useRouter()
 
@@ -31,7 +31,12 @@ export function useGoogle() {
 
       setCookie(COOKIES_TOKEN_NAME, e.data.token)
 
-      await invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
+      try {
+        await queryClient.invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
+      } catch (error) {
+        console.log('error', error)
+      }
+
       // await resetQueries({ queryKey: [SWR_KEY_GET_SESSION] })
 
       // const wasRedirected = await createGroupAndRegister()
@@ -43,13 +48,13 @@ export function useGoogle() {
       console.log('wasRedirected')
       push(ROUTE.GROUPS.INDEX)
 
-      // openedWindow.current?.close()
+      openedWindow.current?.close()
     }
 
     window.addEventListener('message', handleMessageFromAuthPage)
 
     return () => window.removeEventListener('message', handleMessageFromAuthPage)
-  }, [invalidateQueries, push, createGroupAndRegister])
+  }, [queryClient, push, createGroupAndRegister])
 
   // FUNCTIONS
   function openGoogleWindow() {
@@ -68,6 +73,7 @@ export function useGoogle() {
 
     popupWindow({
       url: getApiUrl(API_ROUTE.AUTH.GOOGLE_REDIRECT),
+
       width: 450,
       height: 550,
     })
