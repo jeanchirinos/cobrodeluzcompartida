@@ -40,9 +40,10 @@ export function useGoogle() {
       //   push(ROUTE.GROUPS.INDEX)
       // }
 
+      console.log('wasRedirected')
       push(ROUTE.GROUPS.INDEX)
 
-      openedWindow.current?.close()
+      // openedWindow.current?.close()
     }
 
     window.addEventListener('message', handleMessageFromAuthPage)
