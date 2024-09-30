@@ -8,7 +8,7 @@ import { useGetSession } from '@/controllers/AuthController/getSession/useGetSes
 export function Session() {
   const { data, isPending } = useGetSession()
 
-  if (isPending) return <Skeleton isLoaded={false} className='size-8 rounded-full' />
+  if (isPending) return <Skeleton className='size-8 rounded-full' />
 
   return data ? <UserLogged session={data} /> : <UserNotLogged />
 }

@@ -13,7 +13,7 @@ import { useEffect, useRef } from 'react'
 
 export function useGoogle() {
   // const { mutate } = useSWRConfig()
-  const { invalidateQueries } = useQueryClient()
+  const { resetQueries } = useQueryClient()
 
   const { push } = useRouter()
 
@@ -25,7 +25,8 @@ export function useGoogle() {
       if (!e.data.token) return
 
       await createAuthToken({ token: e.data.token })
-      await invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
+      // await invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
+      await resetQueries({ queryKey: [SWR_KEY_GET_SESSION] })
 
       const wasRedirected = await createGroupAndRegister()
 
@@ -39,7 +40,7 @@ export function useGoogle() {
     window.addEventListener('message', handleMessageFromAuthPage)
 
     return () => window.removeEventListener('message', handleMessageFromAuthPage)
-  }, [invalidateQueries, push, createGroupAndRegister])
+  }, [resetQueries, push, createGroupAndRegister])
 
   // FUNCTIONS
   function openGoogleWindow() {

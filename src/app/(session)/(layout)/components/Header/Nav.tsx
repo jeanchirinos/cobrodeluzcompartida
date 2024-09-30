@@ -11,13 +11,13 @@ export function Nav() {
 
   return (
     <NavbarContent className='hidden gap-x-4 sm:flex' justify='start'>
-      {isPending ? (
-        <Skeleton chars={6} isLoading={isPending} />
-      ) : data ? (
-        <HeaderLinkNavItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavItem>
-      ) : (
-        <HeaderLinkNavItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavItem>
-      )}
+      <Skeleton isLoading={isPending} chars={6}>
+        {data ? (
+          <HeaderLinkNavItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavItem>
+        ) : (
+          <HeaderLinkNavItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavItem>
+        )}
+      </Skeleton>
     </NavbarContent>
   )
 }
