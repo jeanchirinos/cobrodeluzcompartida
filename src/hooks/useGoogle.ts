@@ -1,19 +1,22 @@
 'use client'
 
 import { API_ROUTE } from '@/constants/api-routes'
+import { COOKIES_TOKEN_NAME } from '@/constants/cookies'
 import { ROUTE } from '@/constants/routes'
 import { SWR_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
-import { createAuthToken } from '@/controllers/AuthController/utils/createAuthToken'
+// import { createAuthToken } from '@/controllers/AuthController/utils/createAuthToken'
 import { useCreateGroupAndRegisterWithSavedData } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
 import { User } from '@/models/User'
 import { getApiUrl } from '@/utilities/request/env-variables/get'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
+import { setCookie } from 'typescript-cookie'
 
 export function useGoogle() {
   // const { mutate } = useSWRConfig()
-  const { resetQueries } = useQueryClient()
+  // const { resetQueries } = useQueryClient()
+  const { invalidateQueries } = useQueryClient()
 
   const { push } = useRouter()
 
@@ -22,18 +25,22 @@ export function useGoogle() {
   // EFFECT
   useEffect(() => {
     async function handleMessageFromAuthPage(e: MessageEvent<Pick<User, 'token'>>) {
-      console.log({ e })
       if (!e.data.token) return
 
-      await createAuthToken({ token: e.data.token })
-      // await invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
-      await resetQueries({ queryKey: [SWR_KEY_GET_SESSION] })
+      // await createAuthToken({ token: e.data.token })
 
-      const wasRedirected = await createGroupAndRegister()
+      setCookie(COOKIES_TOKEN_NAME, e.data.token)
 
-      if (!wasRedirected) {
-        push(ROUTE.GROUPS.INDEX)
-      }
+      await invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
+      // await resetQueries({ queryKey: [SWR_KEY_GET_SESSION] })
+
+      // const wasRedirected = await createGroupAndRegister()
+
+      // if (!wasRedirected) {
+      //   push(ROUTE.GROUPS.INDEX)
+      // }
+
+      push(ROUTE.GROUPS.INDEX)
 
       openedWindow.current?.close()
     }
@@ -41,7 +48,7 @@ export function useGoogle() {
     window.addEventListener('message', handleMessageFromAuthPage)
 
     return () => window.removeEventListener('message', handleMessageFromAuthPage)
-  }, [resetQueries, push, createGroupAndRegister])
+  }, [invalidateQueries, push, createGroupAndRegister])
 
   // FUNCTIONS
   function openGoogleWindow() {
