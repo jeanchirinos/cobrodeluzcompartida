@@ -7,5 +7,5 @@ export type ResponseGetSession = {
 } & Pick<User, 'email' | 'image_url' | 'fullname'>
 
 export async function getSession() {
-  return await getDataAxios<ResponseGetSession | null>({ url: API_ROUTE.AUTH.SESSION })
+  return await getDataAxios<ResponseGetSession>({ url: API_ROUTE.AUTH.SESSION })
 }

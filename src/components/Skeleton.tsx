@@ -18,7 +18,8 @@ export function Skeleton(props: SkeletonProps) {
     <NextuiSkeleton
       classNames={{
         ...classNames,
-        base: cnx('before:hidden', classNames?.base, isLoading && 'text-transparent'),
+        // base: cnx('before:hidden', classNames?.base, isLoading && 'text-transparent'),
+        base: cnx(classNames?.base, isLoading && 'text-transparent'),
       }}
       isLoaded={!isLoading}
       {...restProps}

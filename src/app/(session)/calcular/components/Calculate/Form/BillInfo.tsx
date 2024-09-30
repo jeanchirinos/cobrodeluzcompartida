@@ -1,11 +1,15 @@
 'use client'
 
-import { useCalculateContext } from '../../../context/CalculateContext'
-import { CustomInput } from '@/components/ReactForm/withHookForm'
+// import { useCalculateContext } from '../../../context/CalculateContext'
 import { BillOptions } from './BillOptions'
+import { Controller, useFormContext } from 'react-hook-form'
+import { Input } from '@nextui-org/react'
+import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 
 export function BillInfo() {
-  const { useFormHook } = useCalculateContext()
+  // const { useFormHook } = useCalculateContext()
+  // const { control } = useFormHook
+  const { control } = useFormContext<CalculateResults>()
 
   return (
     <section className='flex flex-col gap-y-8'>
@@ -14,40 +18,88 @@ export function BillInfo() {
         <BillOptions />
       </div>
       <div className='flex flex-col gap-y-6'>
-        <CustomInput
-          useFormHook={useFormHook}
+        <Controller
           name='billData.consumption_kwh'
-          label='Consumo kWh'
-          placeholder='0'
-          type='number'
-          endContent='kWh'
+          control={control}
+          render={({ field, fieldState, formState }) => (
+            <Input
+              type='number'
+              label='Consumo kWh'
+              endContent='kWh'
+              placeholder='0'
+              {...field}
+              value={field.value.toString()}
+              onChange={e => field.onChange(Number(e.target.value))}
+              errorMessage={fieldState.error?.message}
+              isInvalid={Boolean(fieldState.error)}
+              isDisabled={formState.isSubmitting}
+              labelPlacement='outside'
+            />
+          )}
         />
-        <CustomInput
-          useFormHook={useFormHook}
+
+        <Controller
           name='billData.kwh_price'
-          label='kWh al precio de'
-          placeholder='0.0000'
-          startContent='S/.'
-          type='number'
-          step={0.0001}
+          control={control}
+          render={({ field, fieldState, formState }) => (
+            <Input
+              type='number'
+              label='kWh al precio de'
+              startContent='S/.'
+              placeholder='0.0000'
+              step={0.0001}
+              {...field}
+              value={field.value.toString()}
+              onChange={e => field.onChange(Number(e.target.value))}
+              errorMessage={fieldState.error?.message}
+              isInvalid={Boolean(fieldState.error)}
+              isDisabled={formState.isSubmitting}
+              labelPlacement='outside'
+            />
+          )}
         />
-        <CustomInput
-          useFormHook={useFormHook}
+
+        <Controller
           name='billData.current_month_total'
-          label='TOTAL mes actual'
-          placeholder='0.00'
-          startContent='S/.'
-          type='number'
-          step={0.01}
+          control={control}
+          render={({ field, fieldState, formState }) => (
+            <Input
+              type='number'
+              label='TOTAL mes actual'
+              startContent='S/.'
+              placeholder='0.00'
+              step={0.01}
+              {...field}
+              value={field.value.toString()}
+              onChange={e => field.onChange(Number(e.target.value))}
+              errorMessage={fieldState.error?.message}
+              isInvalid={Boolean(fieldState.error)}
+              isDisabled={formState.isSubmitting}
+              labelPlacement='outside'
+            />
+          )}
         />
-        <CustomInput
-          useFormHook={useFormHook}
+
+        <Controller
           name='billData.total'
-          label='Total a pagar'
-          placeholder='0.00'
-          startContent='S/.'
-          type='number'
-          step={0.01}
+          control={control}
+          render={({ field, fieldState, formState }) => (
+            <Input
+              type='number'
+              label='Total a pagar'
+              endContent='kWh'
+              startContent='S/.'
+              placeholder='0.00'
+              step={0.01}
+              {...field}
+              value={field.value.toString()}
+              onChange={e => field.onChange(Number(e.target.value))}
+              errorMessage={fieldState.error?.message}
+              isInvalid={Boolean(fieldState.error)}
+              isDisabled={formState.isSubmitting}
+              labelPlacement='outside'
+            />
+          )}
         />
       </div>
     </section>

@@ -6,9 +6,9 @@ import { UserNotLogged } from './UserNotLogged/UserNotLogged'
 import { useGetSession } from '@/controllers/AuthController/getSession/useGetSession'
 
 export function Session() {
-  const { data, isLoading } = useGetSession()
+  const { data, isPending } = useGetSession()
 
-  if (isLoading) return <Skeleton isLoaded={false} className='size-8 rounded-full' />
+  if (isPending) return <Skeleton isLoaded={false} className='size-8 rounded-full' />
 
   return data ? <UserLogged session={data} /> : <UserNotLogged />
 }

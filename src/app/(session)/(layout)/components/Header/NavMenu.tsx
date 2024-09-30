@@ -6,9 +6,9 @@ import { ROUTE } from '@/constants/routes'
 import { useGetSession } from '@/controllers/AuthController/getSession/useGetSession'
 
 export function NavMenu() {
-  const { data, isLoading } = useGetSession()
+  const { data, isPending } = useGetSession()
 
-  if (isLoading) return null
+  if (isPending) return <></>
 
   return (
     <NavbarMenu>

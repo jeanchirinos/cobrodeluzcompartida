@@ -3,12 +3,12 @@
 import { IconOptions } from '@/icons'
 import { DropdownTrigger, DropdownMenu, DropdownItem, Dropdown } from '@nextui-org/dropdown'
 import { Button } from '@nextui-org/button'
-import { useCalculateContext } from '../../../context/CalculateContext'
+// import { useCalculateContext } from '../../../context/CalculateContext'
+import { useFormContext } from 'react-hook-form'
+import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 
 export function BillOptions() {
-  const {
-    useFormHook: { reset },
-  } = useCalculateContext()
+  const { reset } = useFormContext<CalculateResults>()
 
   function handleAddTestData() {
     reset(

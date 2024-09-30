@@ -11,14 +11,11 @@ import { useGetRentalGroups } from '@/controllers/RentalGroupController/getRenta
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
 
 export function RentalGroups() {
-  const {
-    data: { rentalGroups },
-    isLoading,
-  } = useGetRentalGroups()
+  const { data = { rentalGroups: [] }, isPending } = useGetRentalGroups()
 
-  if (isLoading) return <SuspenseFallback />
+  if (isPending) return <SuspenseFallback />
 
-  return rentalGroups.map(group => (
+  return data.rentalGroups.map(group => (
     <Card
       isPressable
       key={group.id}

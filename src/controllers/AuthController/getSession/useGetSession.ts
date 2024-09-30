@@ -1,22 +1,13 @@
 'use client'
 
-import useSWR from 'swr'
 import { getSession } from './getSession'
+import { useQuery } from '@tanstack/react-query'
 
-export const SWR_KEY_GET_SESSION = `GET_SESSION`
-
-const fetcher = getSession
+export const SWR_KEY_GET_SESSION = 'GET_SESSION'
 
 export function useGetSession() {
-  const useSWRHook = useSWR(SWR_KEY_GET_SESSION, fetcher, {
-    onError: async error => {
-      if (error.status === 401) {
-        await mutate(null, { revalidate: false })
-      }
-    },
+  return useQuery({
+    queryKey: [SWR_KEY_GET_SESSION],
+    queryFn: getSession,
   })
-
-  const { mutate } = useSWRHook
-
-  return useSWRHook
 }

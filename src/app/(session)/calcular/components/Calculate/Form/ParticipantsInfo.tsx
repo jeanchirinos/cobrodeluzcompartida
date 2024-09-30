@@ -2,14 +2,12 @@
 
 import { IconAdd, IconDelete } from '@/icons'
 import { Button } from '@nextui-org/button'
-import { useCalculateContext } from '../../../context/CalculateContext'
-import { CustomInput } from '@/components/ReactForm/withHookForm'
-import { FieldArrayWithId, useFieldArray, UseFieldArrayReturn } from 'react-hook-form'
+import { Controller, FieldArrayWithId, useFieldArray, UseFieldArrayReturn, useFormContext } from 'react-hook-form'
 import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
+import { Input } from '@nextui-org/react'
 
 export function ParticipantsInfo() {
-  const { useFormHook } = useCalculateContext()
-  const { control } = useFormHook
+  const { control } = useFormContext<CalculateResults>()
 
   const { fields, append, remove } = useFieldArray({
     name: 'consumptions',
@@ -17,7 +15,7 @@ export function ParticipantsInfo() {
   })
 
   function handleAddConsumption() {
-    const newConsumption = { consumption_kwh: undefined as unknown as number, alias: `Consumo ${fields.length + 1}` }
+    const newConsumption = { consumption_kwh: 0, alias: `Consumo ${fields.length + 1}` }
 
     append(newConsumption)
   }
@@ -28,16 +26,26 @@ export function ParticipantsInfo() {
       <div className='flex flex-col gap-y-6'>
         <div className='flex flex-col gap-y-6'>
           {fields.map((field, i) => (
-            <CustomInput
-              useFormHook={useFormHook}
+            <Controller
               key={field.id}
               name={`consumptions.${i}.consumption_kwh`}
-              registerOptions={{ valueAsNumber: true }}
-              type='number'
-              endContent='kWh'
-              label={<Label fields={fields} index={i} remove={remove} />}
-              placeholder='0.00'
-              step={0.01}
+              control={control}
+              render={({ field, fieldState, formState }) => (
+                <Input
+                  type='number'
+                  label={<Label fields={fields} index={i} remove={remove} />}
+                  endContent='kWh'
+                  placeholder='0.00'
+                  step={0.01}
+                  {...field}
+                  value={field.value.toString()}
+                  onChange={e => field.onChange(Number(e.target.value))}
+                  errorMessage={fieldState.error?.message}
+                  isInvalid={Boolean(fieldState.error)}
+                  isDisabled={formState.isSubmitting}
+                  labelPlacement='outside'
+                />
+              )}
             />
           ))}
         </div>
@@ -65,12 +73,8 @@ type LabelProps = {
 function Label(props: LabelProps) {
   const { fields, remove, index } = props
 
-  const { useFormHook } = useCalculateContext()
-  const { trigger } = useFormHook
-
   async function handleRemoveConsumption() {
     remove(index)
-    await trigger(`consumptions.${index}.consumption_kwh`)
   }
 
   return (

@@ -7,12 +7,14 @@ import { createAuthToken } from '@/controllers/AuthController/utils/createAuthTo
 import { useCreateGroupAndRegisterWithSavedData } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
 import { User } from '@/models/User'
 import { getApiUrl } from '@/utilities/request/env-variables/get'
+import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
-import { useSWRConfig } from 'swr'
 
 export function useGoogle() {
-  const { mutate } = useSWRConfig()
+  // const { mutate } = useSWRConfig()
+  const { invalidateQueries } = useQueryClient()
+
   const { push } = useRouter()
 
   const { createGroupAndRegister } = useCreateGroupAndRegisterWithSavedData()
@@ -23,7 +25,7 @@ export function useGoogle() {
       if (!e.data.token) return
 
       await createAuthToken({ token: e.data.token })
-      await mutate(SWR_KEY_GET_SESSION)
+      await invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
 
       const wasRedirected = await createGroupAndRegister()
 
@@ -37,7 +39,7 @@ export function useGoogle() {
     window.addEventListener('message', handleMessageFromAuthPage)
 
     return () => window.removeEventListener('message', handleMessageFromAuthPage)
-  }, [mutate, push, createGroupAndRegister])
+  }, [invalidateQueries, push, createGroupAndRegister])
 
   // FUNCTIONS
   function openGoogleWindow() {

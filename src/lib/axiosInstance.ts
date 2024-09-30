@@ -10,6 +10,10 @@ const axios = axiosDefault.create({
 axios.interceptors.request.use(async function (config) {
   const token = getCookie(COOKIES_TOKEN_NAME)
 
+  if (!token && config.url !== 'login') {
+    throw new Error('Token not found')
+  }
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }

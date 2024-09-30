@@ -1,16 +1,16 @@
 'use client'
 
-import useSWR from 'swr'
+import { useQuery } from '@tanstack/react-query'
 import { getRentalGroups } from './getRentalGroups'
 
 export const SWR_KEY_GET_RENTAL_GROUPS = 'GET_RENTAL_GROUPS'
 
 export function useGetRentalGroups() {
-  const fetcher = getRentalGroups
-
-  return useSWR(SWR_KEY_GET_RENTAL_GROUPS, fetcher, {
-    fallbackData: {
-      rentalGroups: [],
-    },
+  return useQuery({
+    queryKey: [SWR_KEY_GET_RENTAL_GROUPS],
+    queryFn: getRentalGroups,
+    // initialData: {
+    //   rentalGroups: [],
+    // },
   })
 }
