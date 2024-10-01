@@ -9,8 +9,5 @@ export function useGetRentalGroups() {
   return useQuery({
     queryKey: [SWR_KEY_GET_RENTAL_GROUPS],
     queryFn: getRentalGroups,
-    // initialData: {
-    //   rentalGroups: [],
-    // },
   })
 }

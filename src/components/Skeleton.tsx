@@ -1,3 +1,4 @@
+import { cnx } from '@/lib/utils'
 import { Skeleton as NextuiSkeleton, SkeletonProps as NextuiSkeletonProps } from '@nextui-org/react'
 
 type SkeletonProps = NextuiSkeletonProps & {
@@ -6,16 +7,24 @@ type SkeletonProps = NextuiSkeletonProps & {
 }
 
 export function Skeleton(props: SkeletonProps) {
-  const { isLoading, chars, ...restProps } = props
+  const { isLoading = true, chars = 0, children, classNames, ...restProps } = props
 
   function getRandomWord() {
-    const letters = Array.from({ length: chars ?? 0 }, () => '-')
-    return letters.join('')
+    const letters = Array.from({ length: chars }, () => '-')
+    const word = letters.join('')
+
+    return word
   }
 
+  const isLoaded = !isLoading
+
   return (
-    <NextuiSkeleton isLoaded={isLoading !== undefined && !isLoading} {...restProps}>
-      {chars && isLoading ? getRandomWord() : props.children}
+    <NextuiSkeleton
+      isLoaded={isLoaded}
+      classNames={{ base: cnx(classNames?.base, isLoading && 'text-transparent') }}
+      {...restProps}
+    >
+      {chars > 0 && isLoading ? getRandomWord() : children}
     </NextuiSkeleton>
   )
 }

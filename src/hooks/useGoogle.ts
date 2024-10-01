@@ -1,21 +1,17 @@
 'use client'
 
 import { API_ROUTE } from '@/constants/api-routes'
-import { COOKIES_TOKEN_NAME } from '@/constants/cookies'
 import { ROUTE } from '@/constants/routes'
 import { SWR_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
-// import { createAuthToken } from '@/controllers/AuthController/utils/createAuthToken'
+import { createAuthToken } from '@/controllers/AuthController/utils/createAuthToken'
 import { useCreateGroupAndRegisterWithSavedData } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
 import { User } from '@/models/User'
 import { getApiUrl } from '@/utilities/request/env-variables/get'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
-import { setCookie } from 'typescript-cookie'
 
 export function useGoogle() {
-  // const { mutate } = useSWRConfig()
-  // const { resetQueries } = useQueryClient()
   const queryClient = useQueryClient()
 
   const { push } = useRouter()
@@ -27,25 +23,16 @@ export function useGoogle() {
     async function handleMessageFromAuthPage(e: MessageEvent<Pick<User, 'token'>>) {
       if (!e.data.token) return
 
-      // await createAuthToken({ token: e.data.token })
+      await createAuthToken({ token: e.data.token })
 
-      setCookie(COOKIES_TOKEN_NAME, e.data.token)
+      await queryClient.invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
 
-      try {
-        await queryClient.invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
-      } catch (error) {
-        console.log('error', error)
+      const wasRedirected = await createGroupAndRegister()
+
+      if (!wasRedirected) {
+        push(ROUTE.GROUPS.INDEX)
       }
 
-      // await resetQueries({ queryKey: [SWR_KEY_GET_SESSION] })
-
-      // const wasRedirected = await createGroupAndRegister()
-
-      // if (!wasRedirected) {
-      //   push(ROUTE.GROUPS.INDEX)
-      // }
-
-      console.log('wasRedirected')
       push(ROUTE.GROUPS.INDEX)
 
       openedWindow.current?.close()
@@ -73,7 +60,6 @@ export function useGoogle() {
 
     popupWindow({
       url: getApiUrl(API_ROUTE.AUTH.GOOGLE_REDIRECT),
-
       width: 450,
       height: 550,
     })

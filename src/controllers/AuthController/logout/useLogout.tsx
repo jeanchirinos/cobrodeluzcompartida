@@ -16,7 +16,6 @@ export function useLogout() {
     mutationFn: logout,
     onSuccess: async () => {
       removeCookie(COOKIES_TOKEN_NAME)
-      // await queryClient.invalidateQueries()
       await queryClient.resetQueries()
       queryClient.removeQueries()
 
