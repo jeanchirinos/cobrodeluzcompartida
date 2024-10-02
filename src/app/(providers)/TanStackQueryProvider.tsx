@@ -1,14 +1,23 @@
 'use client'
 
+import { COOKIES_TOKEN_NAME } from '@/constants/cookies'
+import { ROUTE } from '@/constants/routes'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { AxiosError } from 'axios'
 import { toast } from 'sonner'
+import { removeCookie } from 'typescript-cookie'
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry(failureCount, error) {
+      retry(_, error) {
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 401) {
+            removeCookie(COOKIES_TOKEN_NAME)
+            window.location.replace(ROUTE.HOME)
+          }
+        }
         // if (error.status === 404) return false
         // if (failureCount < 2) return true
 

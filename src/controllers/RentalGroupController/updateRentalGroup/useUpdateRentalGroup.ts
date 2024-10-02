@@ -1,15 +1,19 @@
 'use client'
 
-import { useSWRMutation } from '@/hooks/useSWRMutation'
 import { useParams } from 'next/navigation'
 import { SWR_KEY_GET_RENTAL_GROUP_BY_ID } from '../getRentalGroupById/useGetRentalGroupById'
 import { updateRentalGroup } from './updateRentalGroup'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export function useUpdateRentalGroup() {
   const { rentalGroupId } = useParams()
 
-  return useSWRMutation({
-    key: SWR_KEY_GET_RENTAL_GROUP_BY_ID(Number(rentalGroupId)),
-    fn: updateRentalGroup,
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: updateRentalGroup,
+    onSuccess(data) {
+      void queryClient.setQueryData([SWR_KEY_GET_RENTAL_GROUP_BY_ID(Number(rentalGroupId))], data.data)
+    },
   })
 }

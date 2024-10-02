@@ -9,7 +9,7 @@ export function RentalGroupName() {
   return (
     <h1 className='text-2xl font-bold'>
       <Skeleton chars={15} isLoading={isLoading}>
-        {rentalGroup.name}
+        {rentalGroup?.name}
       </Skeleton>
     </h1>
   )

@@ -5,7 +5,6 @@ import { useDialog } from '@/components/Dialog/useDialog'
 import { ROUTE } from '@/constants/routes'
 import { useDeleteRentalGroup } from '@/controllers/RentalGroupController/deleteRentalGroup/useDeleteRentalGroup'
 import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
-import { handleToast } from '@/utilities/handleToast'
 import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 
@@ -15,19 +14,21 @@ export function DeleteGroup() {
 
   const { data: rentalGroup, isLoading } = useGetRentalGroupById()
 
-  const { trigger } = useDeleteRentalGroup()
+  const { mutateAsync } = useDeleteRentalGroup()
 
   async function customHandleClick() {
-    const res = await trigger(
-      { id: rentalGroup.id },
-      {
-        onSuccess() {
-          push(ROUTE.GROUPS.INDEX)
-        },
-      },
-    )
+    if (!rentalGroup) return
 
-    handleToast({ res })
+    try {
+      await mutateAsync(
+        { id: rentalGroup.id },
+        {
+          onSuccess() {
+            push(ROUTE.GROUPS.INDEX)
+          },
+        },
+      )
+    } catch (error) {}
   }
 
   // RENDER
@@ -49,7 +50,7 @@ export function DeleteGroup() {
       <Dialog dialog={deleteRentalGroupDialog} dialogTitle='Eliminar grupo'>
         <DialogBody>
           <p>
-            El grupo <b>{rentalGroup.name}</b> y sus registros se eliminarán permanentemente
+            El grupo <b>{rentalGroup?.name}</b> y sus registros se eliminarán permanentemente
           </p>
           <p className='mt-2'>¿ Estás seguro de que quieres eliminar el grupo ?</p>
         </DialogBody>

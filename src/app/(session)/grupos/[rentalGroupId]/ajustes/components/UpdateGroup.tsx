@@ -9,7 +9,6 @@ import {
   schemaUpdateRentalGroup,
 } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup.schema'
 import { useUpdateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/useUpdateRentalGroup'
-import { handleToast } from '@/utilities/handleToast'
 import { SubmitHandler } from 'react-hook-form'
 
 export function UpdateGroup() {
@@ -25,24 +24,26 @@ export function UpdateGroup() {
 }
 
 function UpdateNameForm() {
-  const { data: rentalGroup, isLoading, isValidating } = useGetRentalGroupById()
+  const { data: rentalGroup, isFetching, isPending: queryIsPending } = useGetRentalGroupById()
 
   // HOOKS
   const useFormHook = useReactHookForm({
     schema: schemaUpdateRentalGroup,
-    defaultValues: rentalGroup,
+    defaultValues: {
+      name: rentalGroup?.name ?? '',
+    },
     mode: 'onChange',
-    defaultValuesDependency: isValidating,
+    defaultValuesDependency: isFetching,
   })
 
-  const { trigger } = useUpdateRentalGroup()
+  const { mutate, isPending } = useUpdateRentalGroup()
 
   const { handleSubmit } = useFormHook
 
-  const onSubmit: SubmitHandler<SchemaUpdateRentalGroup> = async data => {
-    const res = await trigger({ id: rentalGroup.id, ...data })
+  const onSubmit: SubmitHandler<SchemaUpdateRentalGroup> = data => {
+    if (!rentalGroup) return
 
-    handleToast({ res })
+    mutate({ id: rentalGroup.id, ...data })
   }
 
   return (
@@ -50,14 +51,14 @@ function UpdateNameForm() {
       <CustomInput
         useFormHook={useFormHook}
         name='name'
-        isLoading={isLoading}
+        isLoading={queryIsPending}
         registerOptions={{
           onBlur() {
             useFormHook.clearErrors()
           },
         }}
       />
-      <HookFormButton className='shrink-0' useFormHook={useFormHook}>
+      <HookFormButton className='shrink-0' useFormHook={useFormHook} isPending={isPending}>
         Renombrar
       </HookFormButton>
     </form>
