@@ -18,11 +18,6 @@ const queryClient = new QueryClient({
             window.location.replace(ROUTE.HOME)
           }
         }
-        // if (error.status === 404) return false
-        // if (failureCount < 2) return true
-
-        // if instance of error is token not found return false
-        // if error instance of axios error and error is equal to 500 : return true up to 3 times ( this better )
 
         return false
       },
