@@ -14,12 +14,14 @@ export function useLogout() {
 
   return useMutation({
     mutationFn: logout,
-    onSuccess: async () => {
+    onSuccess() {
       removeCookie(COOKIES_TOKEN_NAME)
-      await queryClient.resetQueries()
+
+      void queryClient.resetQueries()
       queryClient.removeQueries()
 
       push(ROUTE.HOME)
     },
+    onMutate: () => ({ showSuccessToast: false }),
   })
 }

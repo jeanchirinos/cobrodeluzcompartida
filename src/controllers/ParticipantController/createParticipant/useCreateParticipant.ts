@@ -1,12 +1,16 @@
 'use client'
 
-import { useSWRMutation } from '@/hooks/useSWRMutation'
-import { useParams } from 'next/navigation'
 import { SWR_KEY_GET_PARTICIPANTS } from '../getParticipants/useGetParticipants'
 import { createParticipant } from './createParticipant'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export function useCreateParticipant() {
-  const { rentalGroupId } = useParams()
+  const queryClient = useQueryClient()
 
-  return useSWRMutation({ key: SWR_KEY_GET_PARTICIPANTS(Number(rentalGroupId)), fn: createParticipant })
+  return useMutation({
+    mutationFn: createParticipant,
+    onSuccess(data) {
+      void queryClient.invalidateQueries({ queryKey: [SWR_KEY_GET_PARTICIPANTS(data.data.rental_group_id)] })
+    },
+  })
 }

@@ -36,9 +36,9 @@ export function CalculateProvider(props: React.PropsWithChildren) {
     },
   })
 
-  const {
-    data: { participants },
-  } = useGetParticipants()
+  const { data = { participants: [] } } = useGetParticipants()
+
+  const { participants } = data
 
   const [results, setResults] = useState<ResultRow[]>([])
 

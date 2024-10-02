@@ -9,10 +9,10 @@ import { useRouter } from 'next/navigation'
 export function CreateRentalGroup() {
   const { push } = useRouter()
 
-  const { trigger, isMutating } = useCreateRentalGroup()
+  const { mutate, isPending } = useCreateRentalGroup()
 
-  async function handlePress() {
-    await trigger(undefined, {
+  function handlePress() {
+    mutate(undefined, {
       onSuccess(data) {
         push(ROUTE.GROUPS.REGISTERS.INDEX({ id: data.data.rental_group_id }))
       },
@@ -20,7 +20,7 @@ export function CreateRentalGroup() {
   }
 
   return (
-    <Button color='primary' onPress={handlePress} endContent={<IconAdd />} isLoading={isMutating}>
+    <Button color='primary' onPress={handlePress} endContent={<IconAdd />} isLoading={isPending}>
       Crear grupo
     </Button>
   )

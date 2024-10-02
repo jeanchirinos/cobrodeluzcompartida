@@ -18,9 +18,9 @@ export function ParticipantsInfo() {
 
   const [myFields, setMyFields] = useState<ResponseGetParticipants>([])
 
-  const {
-    data: { participants },
-  } = useGetParticipants()
+  const { data = { participants: [] } } = useGetParticipants()
+
+  const { participants } = data
 
   useEffect(() => {
     const availableParticipants = participants.filter(participant => !participant.is_main && participant.active)

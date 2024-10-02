@@ -21,21 +21,4 @@ axios.interceptors.request.use(async function (config) {
   return config
 })
 
-// axios.interceptors.response.use(
-//   function (response) {
-//     console.log({ response })
-//     return response
-//   },
-//   function (error) {
-//     console.log({ error })
-//     // // if (error.response?.status === 401) {
-//     // //   // removeCookie(COOKIES_TOKEN_NAME)
-//     // //   // push(ROUTE.HOME)
-//     // // }
-//     // console.log({ error })
-
-//     // return Promise.reject(error)
-//   },
-// )
-
 export { axios }

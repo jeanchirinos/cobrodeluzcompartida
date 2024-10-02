@@ -2,6 +2,8 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { AxiosError } from 'axios'
+import { toast } from 'sonner'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,6 +18,24 @@ const queryClient = new QueryClient({
         return false
       },
       refetchOnWindowFocus: false,
+    },
+    mutations: {
+      onError(error) {
+        if (error instanceof AxiosError) {
+          const customMessage = error.response?.data.msg ?? 'Error en petición'
+
+          toast.error(customMessage)
+        }
+      },
+      onSettled(data, _, __, context) {
+        if (data) {
+          const { showSuccessToast = true } = (context as any) ?? {}
+          if (showSuccessToast) {
+            // @ts-expect-error
+            toast.success(data.msg)
+          }
+        }
+      },
     },
   },
 })

@@ -7,13 +7,3 @@ export function getApiUrl(url: string) {
 
   return new URL(url, baseUrl)
 }
-
-export function getApiKey() {
-  const apiKey = process.env.API_KEY
-
-  if (!apiKey) {
-    throw new Error(`No se ha definido la variable de entorno API_KEY`)
-  }
-
-  return apiKey
-}

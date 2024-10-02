@@ -1,7 +1,7 @@
 'use client'
 
+import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
-import useSWR from 'swr'
 import { getParticipants } from './getParticipants'
 import { RentalGroup } from '@/models/RentalGroup'
 
@@ -11,29 +11,10 @@ export function useGetParticipants() {
   const params = useParams()
   const { rentalGroupId } = params as { rentalGroupId: string }
 
-  // const key = SWR_KEY_GET_PARTICIPANTS(Number(rentalGroupId))
+  const queryFn = () => getParticipants({ rentalGroupId: Number(rentalGroupId) })
 
-  const fetcher = () => getParticipants({ rentalGroupId: Number(rentalGroupId) })
-
-  // const hook = useSWR(SWR_KEY_GET_PARTICIPANTS(Number(rentalGroupId)), fetcher, {
-  //   fallbackData: {
-  //     participants: [],
-  //   },
-  // })
-
-  return useSWR(SWR_KEY_GET_PARTICIPANTS(Number(rentalGroupId)), fetcher, {
-    fallbackData: {
-      participants: [],
-    },
+  return useQuery({
+    queryKey: [SWR_KEY_GET_PARTICIPANTS(Number(rentalGroupId))],
+    queryFn,
   })
-}
-
-export const useSwrParticipantsConfig = () => {
-  const params = useParams()
-  const { rentalGroupId } = params as { rentalGroupId: string }
-
-  return {
-    key: SWR_KEY_GET_PARTICIPANTS(Number(rentalGroupId)),
-    rentalGroupId: Number(rentalGroupId),
-  }
 }

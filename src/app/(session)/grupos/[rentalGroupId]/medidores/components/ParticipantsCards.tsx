@@ -7,16 +7,13 @@ import { SuspenseFallback } from '@/components/other/SuspenseFallback'
 import { useGetParticipants } from '@/controllers/ParticipantController/getParticipants/useGetParticipants'
 
 export function ParticipantsCards() {
-  const {
-    data: { participants },
-    isLoading,
-  } = useGetParticipants()
+  const { data = { participants: [] }, isPending } = useGetParticipants()
 
-  return isLoading ? (
+  return isPending ? (
     <SuspenseFallback />
   ) : (
     <section className='flex flex-wrap gap-5'>
-      {participants.map(participant => (
+      {data.participants.map(participant => (
         <Card
           isPressable
           key={participant.id}

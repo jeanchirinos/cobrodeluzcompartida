@@ -21,7 +21,10 @@ export function Skeleton(props: SkeletonProps) {
   return (
     <NextuiSkeleton
       isLoaded={isLoaded}
-      classNames={{ base: cnx(classNames?.base, isLoading && 'text-transparent') }}
+      classNames={{
+        base: cnx(classNames?.base, isLoading && 'text-transparent rounded-sm'),
+        content: cnx(classNames?.base, isLoading && 'line-clamp-1'),
+      }}
       {...restProps}
     >
       {chars > 0 && isLoading ? getRandomWord() : children}
