@@ -28,7 +28,7 @@ export function BillInfo() {
               value={field.value.toString()}
               onChange={e => field.onChange(Number(e.target.value))}
               errorMessage={fieldState.error?.message}
-              isInvalid={Boolean(fieldState.error)}
+              isInvalid={fieldState.invalid}
               isDisabled={formState.isSubmitting}
               labelPlacement='outside'
             />
@@ -49,7 +49,7 @@ export function BillInfo() {
               value={field.value.toString()}
               onChange={e => field.onChange(Number(e.target.value))}
               errorMessage={fieldState.error?.message}
-              isInvalid={Boolean(fieldState.error)}
+              isInvalid={fieldState.invalid}
               isDisabled={formState.isSubmitting}
               labelPlacement='outside'
             />
@@ -70,7 +70,7 @@ export function BillInfo() {
               value={field.value.toString()}
               onChange={e => field.onChange(Number(e.target.value))}
               errorMessage={fieldState.error?.message}
-              isInvalid={Boolean(fieldState.error)}
+              isInvalid={fieldState.invalid}
               isDisabled={formState.isSubmitting}
               labelPlacement='outside'
             />
@@ -92,7 +92,7 @@ export function BillInfo() {
               value={field.value.toString()}
               onChange={e => field.onChange(Number(e.target.value))}
               errorMessage={fieldState.error?.message}
-              isInvalid={Boolean(fieldState.error)}
+              isInvalid={fieldState.invalid}
               isDisabled={formState.isSubmitting}
               labelPlacement='outside'
             />

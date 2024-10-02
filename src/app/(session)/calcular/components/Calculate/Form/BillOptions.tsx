@@ -30,10 +30,6 @@ export function BillOptions() {
     )
   }
 
-  function handleResetForm() {
-    reset()
-  }
-
   return (
     <Dropdown
       shouldBlockScroll={false}
@@ -55,7 +51,7 @@ export function BillOptions() {
         <DropdownItem key='add' onPress={handleAddTestData}>
           Agregar datos de prueba
         </DropdownItem>
-        <DropdownItem key='reset' onPress={handleResetForm}>
+        <DropdownItem key='reset' onPress={reset}>
           Vaciar formulario
         </DropdownItem>
       </DropdownMenu>

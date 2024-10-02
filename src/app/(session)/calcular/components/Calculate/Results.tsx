@@ -58,6 +58,7 @@ export function Results() {
         })),
       ]
     }
+
     setResults(newResults)
     removeCookie(COOKIES_TEMPORAL_FORM_DATA)
   }, [values])
