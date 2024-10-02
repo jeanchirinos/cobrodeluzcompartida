@@ -1,7 +1,7 @@
 import { Tenant } from '@/models/Tenant'
 import { RentalGroup } from '@/models/RentalGroup'
 import { API_ROUTE } from '@/constants/api-routes'
-import { getDataAxios } from '@/utilities/request/getData/getDataAxios'
+import { getData } from '@/utilities/request/getData/getData'
 
 type ArgsGetTenantByIdFn = Pick<Tenant, 'id'>
 
@@ -12,7 +12,7 @@ type ResponseGetPenantById = Tenant & {
 export async function getTenantById(args: ArgsGetTenantByIdFn) {
   const { id } = args
 
-  const tenant = await getDataAxios<ResponseGetPenantById>({
+  const tenant = await getData<ResponseGetPenantById>({
     url: API_ROUTE.TENANT.SHOW({ id }),
   })
 

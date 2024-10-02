@@ -4,21 +4,18 @@ import { Dialog, DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { UseDialog } from '@/components/Dialog/useDialog'
 import { useDeleteTenant } from '@/controllers/TenatController/deleteTenant/useDeleteTenant'
 import { ResponseGetTenants } from '@/controllers/TenatController/getTenants/getTenants'
-import { handleToast } from '@/utilities/handleToast'
 
 type DeleteTenantDialogProps = { tenant: ResponseGetTenants[0]; dialog: UseDialog }
 
 export function DeleteTenantDialog(props: DeleteTenantDialogProps) {
   const { tenant, dialog } = props
 
-  const { trigger } = useDeleteTenant()
+  const { mutateAsync } = useDeleteTenant()
 
   async function customHandleClick() {
-    const res = await trigger({ id: tenant.id })
-
-    handleToast({
-      res,
-    })
+    try {
+      await mutateAsync({ id: tenant.id })
+    } catch (error) {}
   }
 
   // RENDER

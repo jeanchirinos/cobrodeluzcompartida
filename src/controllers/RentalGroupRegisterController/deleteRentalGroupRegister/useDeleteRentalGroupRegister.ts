@@ -1,11 +1,10 @@
 'use client'
 
-import { useSWRMutation } from '@/hooks/useSWRMutation'
+import { useMutation } from '@tanstack/react-query'
 import { deleteRentalGroupRegister } from './deleteRentalGroupRegister'
 
 export function useDeleteRentalGroupRegister() {
-  return useSWRMutation({
-    key: '',
-    fn: deleteRentalGroupRegister,
+  return useMutation({
+    mutationFn: deleteRentalGroupRegister,
   })
 }

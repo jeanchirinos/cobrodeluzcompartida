@@ -2,8 +2,8 @@
 
 import { Tenant } from '@/models/Tenant'
 import { useParams } from 'next/navigation'
-import useSWR from 'swr'
 import { getTenantById } from './getTenantById'
+import { useQuery } from '@tanstack/react-query'
 
 export const SWR_KEY_GET_TENANT = (id: Tenant['id']) => `GET_TENANT_${id}`
 
@@ -13,5 +13,5 @@ export function useGetTenant() {
 
   const fetcher = () => getTenantById({ id: Number(tenantId) })
 
-  return useSWR(SWR_KEY_GET_TENANT(Number(tenantId)), fetcher)
+  return useQuery({ queryKey: [SWR_KEY_GET_TENANT(Number(tenantId))], queryFn: fetcher })
 }

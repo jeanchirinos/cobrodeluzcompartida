@@ -24,7 +24,7 @@ export function UpdateGroup() {
 }
 
 function UpdateNameForm() {
-  const { data: rentalGroup, isFetching, isPending: queryIsPending } = useGetRentalGroupById()
+  const { data: rentalGroup, dataUpdatedAt, isPending: queryIsPending } = useGetRentalGroupById()
 
   // HOOKS
   const useFormHook = useReactHookForm({
@@ -33,7 +33,7 @@ function UpdateNameForm() {
       name: rentalGroup?.name ?? '',
     },
     mode: 'onChange',
-    defaultValuesDependency: isFetching,
+    defaultValuesDependency: dataUpdatedAt,
   })
 
   const { mutate, isPending } = useUpdateRentalGroup()

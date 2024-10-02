@@ -17,6 +17,10 @@ const queryClient = new QueryClient({
             removeCookie(COOKIES_TOKEN_NAME)
             window.location.replace(ROUTE.HOME)
           }
+
+          if (error.response?.status === 404) {
+            window.location.replace('/404')
+          }
         }
         // if (error.status === 404) return false
         // if (failureCount < 2) return true

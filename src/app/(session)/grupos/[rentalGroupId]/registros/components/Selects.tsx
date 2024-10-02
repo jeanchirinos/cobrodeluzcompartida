@@ -5,13 +5,13 @@ import { Select, SelectItem } from '@nextui-org/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 export function SelectYear() {
-  const {
-    data: { rentalGroupRegister },
-  } = useGetRentalGroupRegister()
+  const { data } = useGetRentalGroupRegister()
 
   // HOOKS
   const searchParams = useSearchParams()
   const { replace } = useRouter()
+
+  const { rentalGroupRegister } = data ?? {}
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const { value } = e.target
@@ -66,13 +66,13 @@ export function SelectYear() {
 }
 
 export function SelectMonth() {
-  const {
-    data: { rentalGroupRegister },
-  } = useGetRentalGroupRegister()
+  const { data } = useGetRentalGroupRegister()
 
   // HOOKS
   const searchParams = useSearchParams()
   const { replace } = useRouter()
+
+  const { rentalGroupRegister } = data ?? {}
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const { value } = e.target

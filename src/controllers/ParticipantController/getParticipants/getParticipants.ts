@@ -2,7 +2,7 @@ import { API_ROUTE } from '@/constants/api-routes'
 import { Participant } from '@/models/Participant'
 import { RentalGroup } from '@/models/RentalGroup'
 import { Tenant } from '@/models/Tenant'
-import { getDataAxios } from '@/utilities/request/getData/getDataAxios'
+import { getData } from '@/utilities/request/getData/getData'
 
 type ArgsGetParticipantsFn = { rentalGroupId: RentalGroup['id'] }
 
@@ -13,7 +13,7 @@ export type ResponseGetParticipants = Array<
 >
 
 export async function getParticipants(args: ArgsGetParticipantsFn) {
-  const participants = await getDataAxios<ResponseGetParticipants>({
+  const participants = await getData<ResponseGetParticipants>({
     url: API_ROUTE.PARTICIPANT.INDEX({ rentalGroupId: args.rentalGroupId }),
   })
 

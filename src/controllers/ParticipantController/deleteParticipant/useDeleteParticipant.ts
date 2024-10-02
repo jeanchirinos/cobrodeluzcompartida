@@ -1,12 +1,8 @@
 'use client'
 
-import { useSWRMutation } from '@/hooks/useSWRMutation'
-import { SWR_KEY_GET_PARTICIPANTS } from '../getParticipants/useGetParticipants'
 import { deleteParticipant } from './deleteParticipant'
-import { useParams } from 'next/navigation'
+import { useMutation } from '@tanstack/react-query'
 
 export function useDeleteParticipant() {
-  const { rentalGroupId } = useParams()
-
-  return useSWRMutation({ key: SWR_KEY_GET_PARTICIPANTS(Number(rentalGroupId)), fn: deleteParticipant })
+  return useMutation({ mutationFn: deleteParticipant })
 }

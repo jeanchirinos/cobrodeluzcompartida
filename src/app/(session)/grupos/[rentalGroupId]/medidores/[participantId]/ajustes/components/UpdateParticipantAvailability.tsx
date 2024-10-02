@@ -2,22 +2,20 @@
 
 import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
 import { useToggleActiveParticipant } from '@/controllers/ParticipantController/toggleActiveParticipant/useToggleActiveParticipant'
-import { handleToast } from '@/utilities/handleToast'
 import { Spinner, Switch } from '@nextui-org/react'
 
 export function UpdateParticipantAvailability() {
-  const {
-    data: { participant },
-    isLoading,
-  } = useGetParticipantById()
+  const { data: participant, isPending: isPendingQuery } = useGetParticipantById()
 
-  const { trigger, isMutating } = useToggleActiveParticipant()
+  const { mutate, isPending } = useToggleActiveParticipant()
 
   async function handleChange() {
-    const res = await trigger({ id: participant.id })
+    if (!participant) return
 
-    handleToast({ res })
+    mutate({ id: participant.id })
   }
+
+  if (!participant) return <></>
 
   return (
     <section className='flex gap-x-6'>
@@ -26,7 +24,7 @@ export function UpdateParticipantAvailability() {
         classNames={{
           base: 'flex-row-reverse gap-x-6',
         }}
-        isDisabled={isLoading || isMutating}
+        isDisabled={isPendingQuery || isPending}
         onChange={handleChange}
         defaultSelected={participant.active}
       >
@@ -35,7 +33,7 @@ export function UpdateParticipantAvailability() {
           <p>Si está activo, el medidor será considerado en el cálculo.</p>
         </div>
       </Switch>
-      {isMutating && <Spinner />}
+      {isPending && <Spinner />}
     </section>
   )
 }

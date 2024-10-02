@@ -3,15 +3,17 @@ import { Participant } from '@/models/Participant'
 import { sendData } from '@/utilities/request/sendData/sendData'
 import { z } from 'zod'
 import { schemaUpdateParticipant } from './updateParticipant.schema'
+import { RentalGroup } from '@/models/RentalGroup'
 
 type ArgsUpdateRentalGroupFn = z.infer<typeof schemaUpdateParticipant> & Pick<Participant, 'id'>
+type ResponseUpdateParticipant = Participant & { rental_group_id: RentalGroup['id'] }
 
 export async function updateParticipant(args: ArgsUpdateRentalGroupFn) {
-  const { id, ...restArgs } = args
+  const { id, ...data } = args
 
-  return await sendData({
+  return await sendData<ResponseUpdateParticipant, typeof schemaUpdateParticipant>({
     url: API_ROUTE.PARTICIPANT.UPDATE({ id }),
-    data: restArgs,
+    data,
     method: 'PUT',
     schema: schemaUpdateParticipant,
   })

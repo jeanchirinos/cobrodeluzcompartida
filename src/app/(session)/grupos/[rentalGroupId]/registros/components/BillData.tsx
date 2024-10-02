@@ -3,11 +3,13 @@
 import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
 
 export function BillData() {
-  const {
-    data: { rentalGroupRegister },
-  } = useGetRentalGroupRegister()
+  const { data } = useGetRentalGroupRegister()
 
-  const { billData } = rentalGroupRegister!
+  if (!data) return <></>
+
+  const { billData } = data.rentalGroupRegister ?? {}
+
+  if (!billData) return <></>
 
   return (
     <div className='flex flex-col gap-y-3'>

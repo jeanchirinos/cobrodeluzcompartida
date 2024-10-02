@@ -1,14 +1,11 @@
 'use client'
 
-// import { useCalculateContext } from '../../../context/CalculateContext'
 import { BillOptions } from './BillOptions'
 import { Controller, useFormContext } from 'react-hook-form'
 import { Input } from '@nextui-org/react'
 import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 
 export function BillInfo() {
-  // const { useFormHook } = useCalculateContext()
-  // const { control } = useFormHook
   const { control } = useFormContext<CalculateResults>()
 
   return (

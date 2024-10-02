@@ -24,7 +24,7 @@ export function useReactHookForm<FormSchema extends ZodType>(props: UseReactHook
 
   // Reset form when defaultValues change
   useEffect(() => {
-    if (defaultValuesDependency) return
+    // if (defaultValuesDependency) return
 
     reset(restProps.defaultValues)
 

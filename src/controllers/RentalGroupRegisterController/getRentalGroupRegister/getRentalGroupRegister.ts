@@ -5,7 +5,7 @@ import { RentalGroup } from '@/models/RentalGroup'
 import { Result } from '@/models/Result'
 import { Tenant } from '@/models/Tenant'
 import { SearchParamsProps } from '@/types'
-import { getDataAxios } from '@/utilities/request/getData/getDataAxios'
+import { getData } from '@/utilities/request/getData/getData'
 import { getUrlWithSearchParams } from '@/utilities/utilities'
 
 export type GetRentalGroupRegisterParams = SearchParamsProps<'year' | 'month'>
@@ -28,9 +28,8 @@ export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn)
     searchParams,
   })
 
-  const rentalGroupRegister = await getDataAxios<ResponseGetRentalGroupRegister | undefined>({
+  const rentalGroupRegister = await getData<ResponseGetRentalGroupRegister | undefined>({
     url: url.toString(),
-    // mode: 'null',
   })
 
   return { rentalGroupRegister }

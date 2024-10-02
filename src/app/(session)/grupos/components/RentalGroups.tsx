@@ -4,18 +4,17 @@ import { Link } from '@/components/Link'
 import { ROUTE } from '@/constants/routes'
 import { Avatar, AvatarGroup } from '@nextui-org/avatar'
 import { Card, CardFooter, CardHeader } from '@nextui-org/card'
-// import { Avatar } from '@/components/Avatar'
 import { Tooltip } from '@nextui-org/react'
-// import Image from 'next/image'
+import Image from 'next/image'
 import { useGetRentalGroups } from '@/controllers/RentalGroupController/getRentalGroups/useGetRentalGroups'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
 
 export function RentalGroups() {
-  const { data = { rentalGroups: [] }, isPending } = useGetRentalGroups()
+  const { data, isPending } = useGetRentalGroups()
 
   if (isPending) return <SuspenseFallback />
 
-  return data.rentalGroups.map(group => (
+  return data?.rentalGroups.map(group => (
     <Card
       isPressable
       key={group.id}
@@ -41,16 +40,13 @@ export function RentalGroups() {
               }}
             >
               <Avatar
-                // ImgComponent={Image}
+                ImgComponent={Image}
                 src={tenant.avatar_url}
                 imgProps={{
-                  loading: 'lazy',
+                  width: 64,
+                  height: 64,
                 }}
-                // title={p.alias}
-                // imgProps={{
-                //   width: 64,
-                //   height: 64,
-                // }}
+                title={tenant.alias}
               />
             </Tooltip>
           ))}

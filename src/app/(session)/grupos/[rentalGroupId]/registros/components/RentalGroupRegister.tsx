@@ -7,12 +7,11 @@ import { ResultsTable } from '@/components/other/ResultsTable/ResultsTable'
 import { ResultRow } from '@/components/other/ResultsTable/ResultsTable.type'
 
 export function RentalGroupRegister() {
-  const {
-    data: { rentalGroupRegister },
-    isLoading,
-  } = useGetRentalGroupRegister()
+  const { data, isPending } = useGetRentalGroupRegister()
 
-  if (isLoading) return <SuspenseFallback />
+  if (isPending) return <SuspenseFallback />
+
+  const { rentalGroupRegister } = data ?? {}
 
   if (!rentalGroupRegister) return <p>No existe un registro en este periodo</p>
 

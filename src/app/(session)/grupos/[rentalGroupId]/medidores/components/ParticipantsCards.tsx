@@ -5,13 +5,14 @@ import { ROUTE } from '@/constants/routes'
 import { Avatar, Card, CardFooter, CardHeader, Chip } from '@nextui-org/react'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
 import { useGetParticipants } from '@/controllers/ParticipantController/getParticipants/useGetParticipants'
+import Image from 'next/image'
 
 export function ParticipantsCards() {
   const { data = { participants: [] }, isPending } = useGetParticipants()
 
-  return isPending ? (
-    <SuspenseFallback />
-  ) : (
+  if (isPending) return <SuspenseFallback />
+
+  return (
     <section className='flex flex-wrap gap-5'>
       {data.participants.map(participant => (
         <Card
@@ -31,11 +32,13 @@ export function ParticipantsCards() {
           <CardFooter className='items-end justify-between'>
             <div className='flex items-end gap-x-2.5'>
               <Avatar
+                ImgComponent={Image}
                 src={participant.tenant.avatar_url}
                 alt={participant.tenant.alias}
                 size='sm'
                 imgProps={{
-                  loading: 'lazy',
+                  width: 64,
+                  height: 64,
                 }}
               />
               <span>{participant.tenant.alias}</span>

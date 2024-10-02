@@ -8,6 +8,9 @@ import { Skeleton } from '@/components/Skeleton'
 export function SessionWarning() {
   const { data, isPending } = useGetSession()
 
+  // TODO: Fix Save data button
+  return <></>
+
   return (
     <div className='sticky top-16 z-30 w-fit bg-background'>
       <Chip color='warning' variant='flat' className='h-fit whitespace-normal p-2' radius='sm'>

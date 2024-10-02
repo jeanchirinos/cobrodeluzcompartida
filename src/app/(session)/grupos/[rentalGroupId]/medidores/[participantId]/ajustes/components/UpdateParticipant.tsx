@@ -9,32 +9,32 @@ import {
   schemaUpdateParticipant,
 } from '@/controllers/ParticipantController/updateParticipant/updateParticipant.schema'
 import { useUpdateParticipant } from '@/controllers/ParticipantController/updateParticipant/useUpdateParticipant'
-import { handleToast } from '@/utilities/handleToast'
 import { SubmitHandler } from 'react-hook-form'
 
 export function UpdateParticipant() {
-  const {
-    data: { participant },
-    isLoading,
-    isValidating,
-  } = useGetParticipantById()
+  const { data: participant, isPending, dataUpdatedAt } = useGetParticipantById()
 
   // HOOKS
   const useFormHook = useReactHookForm({
     schema: schemaUpdateParticipant,
-    defaultValues: participant,
+    defaultValues: {
+      alias: participant?.alias ?? '',
+      is_main: participant?.is_main ?? false,
+    },
     mode: 'onChange',
-    defaultValuesDependency: isValidating,
+    defaultValuesDependency: dataUpdatedAt,
   })
 
-  const { trigger } = useUpdateParticipant()
+  const { mutateAsync } = useUpdateParticipant()
 
   const { handleSubmit } = useFormHook
 
   const onSubmit: SubmitHandler<SchemaUpdateParticipant> = async data => {
-    const res = await trigger({ id: participant.id, ...data })
+    if (!participant) return
 
-    handleToast({ res })
+    try {
+      await mutateAsync({ id: participant.id, ...data })
+    } catch (error) {}
   }
 
   // RENDER
@@ -53,7 +53,7 @@ export function UpdateParticipant() {
               useFormHook.clearErrors()
             },
           }}
-          isLoading={isLoading}
+          isLoading={isPending}
         />
         <HookFormButton className='shrink-0' useFormHook={useFormHook}>
           Renombrar

@@ -3,7 +3,6 @@
 import { ROUTE } from '@/constants/routes'
 import { CalculateResultsAdd } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 import { useCreateRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister/useCreateRentalGroupRegister'
-import { handleToast } from '@/utilities/handleToast'
 import { useParams, useRouter } from 'next/navigation'
 import { useCalculateContext } from '../../../context/CalculateContext'
 import { SaveButton } from '../../SaveButton'
@@ -18,26 +17,26 @@ export function AddRegisterForm() {
   const params = useParams()
   const { rentalGroupId } = params as { rentalGroupId: string }
 
-  const { trigger } = useCreateRentalGroupRegister()
+  const { mutateAsync } = useCreateRentalGroupRegister()
 
   async function handleSave(data: CalculateResultsAdd) {
-    const res = await trigger(
-      {
-        billData: { ...data.billData, rental_group_id: Number(rentalGroupId) },
-        results: results.map(result => ({
-          ...result.result,
-          tenant_id: result.tenant.id!,
-          // TODO
-        })),
-      },
-      {
-        onSuccess() {
-          push(ROUTE.GROUPS.REGISTERS.INDEX({ id: rentalGroupId }))
+    try {
+      await mutateAsync(
+        {
+          billData: { ...data.billData, rental_group_id: Number(rentalGroupId) },
+          results: results.map(result => ({
+            ...result.result,
+            tenant_id: result.tenant.id!,
+            // TODO
+          })),
         },
-      },
-    )
-
-    handleToast({ res })
+        {
+          onSuccess() {
+            push(ROUTE.GROUPS.REGISTERS.INDEX({ id: rentalGroupId }))
+          },
+        },
+      )
+    } catch (error) {}
   }
 
   return (

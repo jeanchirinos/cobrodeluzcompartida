@@ -5,34 +5,33 @@ import { useDialog } from '@/components/Dialog/useDialog'
 import { ROUTE } from '@/constants/routes'
 import { useDeleteParticipant } from '@/controllers/ParticipantController/deleteParticipant/useDeleteParticipant'
 import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
-import { handleToast } from '@/utilities/handleToast'
 import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 
 export function DeleteParticipant() {
   const { push } = useRouter()
 
-  const {
-    data: { participant },
-    isLoading,
-  } = useGetParticipantById()
+  const { data: participant, isPending } = useGetParticipantById()
 
-  const { trigger } = useDeleteParticipant()
+  const { mutateAsync } = useDeleteParticipant()
+  const deleteParticipantDialog = useDialog()
 
   async function customHandleClick() {
-    const res = await trigger(
-      { id: participant.id },
-      {
-        onSuccess() {
-          push(ROUTE.GROUPS.PARTICIPANTS.INDEX({ rentalGroupId: participant.rental_group_id }))
-        },
-      },
-    )
+    if (!participant) return
 
-    handleToast({ res })
+    try {
+      await mutateAsync(
+        { id: participant.id },
+        {
+          onSuccess() {
+            push(ROUTE.GROUPS.PARTICIPANTS.INDEX({ rentalGroupId: participant.rental_group_id }))
+          },
+        },
+      )
+    } catch (error) {}
   }
 
-  const deleteParticipantDialog = useDialog()
+  if (!participant) return <></>
 
   // RENDER
   return (
@@ -46,7 +45,7 @@ export function DeleteParticipant() {
         className='w-fit'
         color='danger'
         variant='flat'
-        isDisabled={isLoading}
+        isDisabled={isPending}
       >
         Eliminar
       </Button>

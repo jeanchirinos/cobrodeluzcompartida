@@ -20,7 +20,6 @@ export function ListboxOptions(props: ListboxOptionsProps) {
   return (
     <HeadlessListboxOptions
       modal={false}
-      // transition
       anchor={{
         to: 'bottom end',
         gap: '0.5rem',
@@ -28,7 +27,6 @@ export function ListboxOptions(props: ListboxOptionsProps) {
       {...props}
       className={cnx(
         'z-40 w-max overflow-auto rounded-md bg-content1 shadow-small focus:outline-none',
-        // 'transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0',
         props.className?.toString(),
       )}
     >

@@ -1,11 +1,10 @@
 'use client'
 
-import { useSWRMutation } from '@/hooks/useSWRMutation'
 import { createRentalGroupRegister } from './createRentalGroupRegister'
+import { useMutation } from '@tanstack/react-query'
 
 export function useCreateRentalGroupRegister() {
-  return useSWRMutation({
-    key: '_',
-    fn: createRentalGroupRegister,
+  return useMutation({
+    mutationFn: createRentalGroupRegister,
   })
 }

@@ -1,9 +1,19 @@
 'use client'
 
-import { useSWRMutation } from '@/hooks/useSWRMutation'
 import { updateTenant } from './updateTenant'
-import { SWR_KEY_GET_TENANT } from '../getTenantById/useGetTenantById'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { SWR_KEY_GET_TENANTS } from '../getTenants/useGetTenants'
+import { useParams } from 'next/navigation'
 
 export function useUpdateTenant() {
-  return useSWRMutation({ key: SWR_KEY_GET_TENANT(0), fn: updateTenant })
+  const queryClient = useQueryClient()
+
+  const { participantId } = useParams()
+
+  return useMutation({
+    mutationFn: updateTenant,
+    onSuccess() {
+      void queryClient.invalidateQueries({ queryKey: [SWR_KEY_GET_TENANTS(Number(participantId))] })
+    },
+  })
 }

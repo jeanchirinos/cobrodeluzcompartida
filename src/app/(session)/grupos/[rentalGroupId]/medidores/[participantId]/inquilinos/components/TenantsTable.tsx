@@ -7,9 +7,9 @@ import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from 
 import { TenantOptions } from './TenantOptions'
 
 export function TenantsTable() {
-  const {
-    data: { tenants },
-  } = useGetTenants()
+  const { data = { tenants: [] } } = useGetTenants()
+
+  const { tenants } = data
 
   return (
     <Table classNames={{ wrapper: 'overflow-x-auto' }}>

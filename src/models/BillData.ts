@@ -9,8 +9,8 @@ export const schemaBillData = z.object({
   current_month_total: z.coerce.number().positive(),
   igv: z.coerce.number().positive(),
   total: z.coerce.number().positive(),
-  year: z.coerce.number(), // should be string ?
-  month: z.coerce.number(), // should be string ?
+  year: z.coerce.number(),
+  month: z.coerce.number(),
 })
 
 export type BillData = z.infer<typeof schemaBillData>

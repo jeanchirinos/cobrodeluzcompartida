@@ -4,7 +4,6 @@ import { useTheme } from 'next-themes'
 import { IconDarkTheme, IconLightTheme, IconSystemTheme } from '@/icons'
 import { useEffect, useState } from 'react'
 import { Listbox, ListboxOption, ListboxOptions, ListboxTrigger } from '@/components/ListBox'
-// import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 
 const themes = [
   {
