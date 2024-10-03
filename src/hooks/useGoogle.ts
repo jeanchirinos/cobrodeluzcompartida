@@ -25,7 +25,7 @@ export function useGoogle() {
 
       await createAuthToken({ token: e.data.token })
 
-      await queryClient.invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
+      void queryClient.invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
 
       const wasRedirected = await createGroupAndRegister()
 

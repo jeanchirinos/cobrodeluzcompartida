@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { COOKIES_TOKEN_NAME } from './constants/cookies'
 
-const NOT_AUTHORIZATION_ROUTES: string[] = [ROUTE.HOME, ROUTE.CALCULATE]
+const NOT_AUTHORIZATION_ROUTES: string[] = [ROUTE.HOME, ROUTE.CALCULATE, ROUTE.AUTH.SOCIAL_AUTH]
 
 export function middleware(request: NextRequest) {
   // TODO: Temporal redirection meanwhile landing is not ready
