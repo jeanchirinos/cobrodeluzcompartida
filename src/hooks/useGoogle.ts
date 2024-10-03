@@ -33,8 +33,6 @@ export function useGoogle() {
         push(ROUTE.GROUPS.INDEX)
       }
 
-      push(ROUTE.GROUPS.INDEX)
-
       openedWindow.current?.close()
     }
 
