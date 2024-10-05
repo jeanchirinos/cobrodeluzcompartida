@@ -1,13 +1,20 @@
 'use client'
 
 import { Chip, Tooltip } from '@nextui-org/react'
-import { ErrorComponent } from 'next/dist/client/components/error-boundary'
 
-export function ErrorUiComponent(props: React.ComponentProps<ErrorComponent>) {
-  const content = process.env.NODE_ENV === 'development' && props.error.message
+type Props = {
+  content?: React.ReactNode
+}
+
+export function ErrorUi(props: Props) {
+  const { content } = props
+
+  const isDisabled = Boolean(!content)
+
+  const tooltipContent = process.env.NODE_ENV === 'development' && content
 
   return (
-    <Tooltip content={content} className='text-danger'>
+    <Tooltip isDisabled={isDisabled} content={tooltipContent} className='text-danger'>
       <Chip variant='dot' color='danger'>
         Error
       </Chip>

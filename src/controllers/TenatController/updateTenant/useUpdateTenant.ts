@@ -2,7 +2,7 @@
 
 import { updateTenant } from './updateTenant'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { SWR_KEY_GET_TENANTS } from '../getTenants/useGetTenants'
+import { QUERY_KEY_GET_TENANTS } from '../getTenants/useGetTenants'
 import { useParams } from 'next/navigation'
 
 export function useUpdateTenant() {
@@ -13,7 +13,7 @@ export function useUpdateTenant() {
   return useMutation({
     mutationFn: updateTenant,
     onSuccess() {
-      void queryClient.invalidateQueries({ queryKey: [SWR_KEY_GET_TENANTS(Number(participantId))] })
+      void queryClient.invalidateQueries({ queryKey: [QUERY_KEY_GET_TENANTS(Number(participantId))] })
     },
   })
 }

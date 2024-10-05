@@ -1,6 +1,7 @@
 'use client'
 
-import { SWR_KEY_GET_SESSION } from '../getSession/useGetSession'
+import { toast } from 'sonner'
+import { QUERY_KEY_GET_SESSION } from '../getSession/useGetSession'
 import { login } from './login'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -10,8 +11,16 @@ export function useLogin() {
   return useMutation({
     mutationFn: login,
     onSuccess() {
-      void queryClient.invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
+      void queryClient.invalidateQueries({ queryKey: [QUERY_KEY_GET_SESSION] })
     },
-    onMutate: () => ({ showSuccessToast: false }),
+    onError(error) {
+      // TODO: Function to get the error message
+      // @ts-expect-error
+      const msg = error.response?.data?.msg
+
+      const message = msg ?? 'Ocurrió un error al intentar iniciar sesión'
+
+      toast.error(message)
+    },
   })
 }

@@ -27,6 +27,10 @@ export async function sendData<ResponseData, BodySchema extends ZodType = ZodTyp
 
     if (!validation.success) {
       throw new Error(validation.message)
+      // const axiosError = new AxiosError('Validation failed', AxiosError.ERR_BAD_REQUEST)
+      // axiosError.status = HttpStatusCode.BadRequest
+
+      // throw axiosError
     }
   }
 

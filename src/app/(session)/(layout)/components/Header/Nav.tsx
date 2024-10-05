@@ -7,16 +7,26 @@ import { useGetSession } from '@/controllers/AuthController/getSession/useGetSes
 import { Skeleton } from '@/components/Skeleton'
 
 export function Nav() {
-  const { data, isPending } = useGetSession()
+  const { isPending, error } = useGetSession()
+
+  const content = () => {
+    if (isPending) return <></>
+
+    if (error) {
+      if (error.status === 401) {
+        return <HeaderLinkNavItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavItem>
+      } else {
+        return <p>Hubo un error</p>
+      }
+    }
+
+    return <HeaderLinkNavItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavItem>
+  }
 
   return (
     <NavbarContent className='hidden gap-x-4 sm:flex' justify='start'>
       <Skeleton isLoading={isPending} chars={6}>
-        {data ? (
-          <HeaderLinkNavItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavItem>
-        ) : (
-          <HeaderLinkNavItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavItem>
-        )}
+        {content()}
       </Skeleton>
     </NavbarContent>
   )

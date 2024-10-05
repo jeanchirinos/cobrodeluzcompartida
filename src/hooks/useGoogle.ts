@@ -2,7 +2,7 @@
 
 import { API_ROUTE } from '@/constants/api-routes'
 import { ROUTE } from '@/constants/routes'
-import { SWR_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
+import { QUERY_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
 import { createAuthToken } from '@/controllers/AuthController/utils/createAuthToken'
 import { useCreateGroupAndRegisterWithSavedData } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
 import { User } from '@/models/User'
@@ -25,7 +25,7 @@ export function useGoogle() {
 
       await createAuthToken({ token: e.data.token })
 
-      void queryClient.invalidateQueries({ queryKey: [SWR_KEY_GET_SESSION] })
+      void queryClient.invalidateQueries({ queryKey: [QUERY_KEY_GET_SESSION] })
 
       const wasRedirected = await createGroupAndRegister()
 

@@ -2,38 +2,46 @@
 
 import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
 import { ROUTE } from '@/constants/routes'
-import { createRentalGroup } from '../createRentalGroup/createRentalGroup'
-import {
-  ArgsCreateRentalGroupFn,
-  createRentalGroupRegister,
-} from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister/createRentalGroupRegister'
-import { CookiesFormDataAndResults, schemaCookiesFormDataAndResults } from './createRentalGroupWithSessionCookie.schema'
-import { getCookie, removeCookie } from 'typescript-cookie'
+import { ArgsCreateRentalGroupFn } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister/createRentalGroupRegister'
+import { useCreateRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister/useCreateRentalGroupRegister'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { getCookie, removeCookie } from 'typescript-cookie'
+import { useCreateRentalGroup } from '../createRentalGroup/useCreateRentalGroup'
+import { CookiesFormDataAndResults, schemaCookiesFormDataAndResults } from './createRentalGroupWithSessionCookie.schema'
 
 export function useCreateGroupAndRegisterWithSavedData() {
   const { push } = useRouter()
 
+  const { mutateAsync: mutateAsyncCreateRentalGroup } = useCreateRentalGroup()
+
+  const { mutateAsync: mutateAsyncCreateRentalGroupRegister } = useCreateRentalGroupRegister()
+
   async function createGroupAndRegister() {
     const temporalFormDataCookie = getCookie(COOKIES_TEMPORAL_FORM_DATA)
 
-    if (!temporalFormDataCookie) return
+    if (!temporalFormDataCookie) return false
 
     removeCookie(COOKIES_TEMPORAL_FORM_DATA)
 
     const temporalFormData: CookiesFormDataAndResults = JSON.parse(temporalFormDataCookie)
     const temporalFormDataValidation = schemaCookiesFormDataAndResults.safeParse(temporalFormData)
 
-    if (temporalFormDataValidation.error) return
+    if (temporalFormDataValidation.error) return false
 
     // Create rental group
-    const res = await createRentalGroup({
-      n_participant: temporalFormData.results.length,
-      return_tenants: true,
-    })
+    let res: Awaited<ReturnType<typeof mutateAsyncCreateRentalGroup>>
 
-    if (!res.ok) return
+    try {
+      res = await mutateAsyncCreateRentalGroup({
+        n_participant: temporalFormData.results.length,
+        return_tenants: true,
+      })
+    } catch (error) {
+      toast.error('No se pudo crear el grupo')
+
+      return false
+    }
 
     // Create rental group register
     const results: ArgsCreateRentalGroupFn['results'] = res.data.tenants_ids.map((tenant_id, i) => {
@@ -46,18 +54,20 @@ export function useCreateGroupAndRegisterWithSavedData() {
       }
     })
 
-    const response = await createRentalGroupRegister({
-      billData: { ...temporalFormData.billData, rental_group_id: res.data.rental_group_id, year: 2024, month: 8 },
-      results,
-    })
-
-    if (response.ok) {
-      push(ROUTE.GROUPS.REGISTERS.INDEX({ id: res.data.rental_group_id }))
-      toast.success('Se creó un grupo con un registro')
-      return true
+    try {
+      await mutateAsyncCreateRentalGroupRegister({
+        billData: { ...temporalFormData.billData, rental_group_id: res.data.rental_group_id, year: 2024, month: 8 },
+        results,
+      })
+    } catch (error) {
+      toast.error('No se pudo crear el registro')
+      return false
     }
 
-    push(ROUTE.GROUPS.INDEX)
+    push(ROUTE.GROUPS.REGISTERS.INDEX({ id: res.data.rental_group_id }))
+    toast.success('Se creó un grupo con un registro')
+
+    return true
   }
 
   return { createGroupAndRegister }

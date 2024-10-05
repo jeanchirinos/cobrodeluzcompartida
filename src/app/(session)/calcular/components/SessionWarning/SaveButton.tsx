@@ -10,29 +10,30 @@ import { useEffect, useState } from 'react'
 import { IconDelete } from '@/icons'
 import { useFormContext } from 'react-hook-form'
 import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
+import { ResultRow } from '@/components/other/ResultsTable/ResultsTable.type'
 
-export function SaveButton() {
-  // const { results, useFormHook } = useCalculateContext()
-  // TODO:
-  const { getValues } = useFormContext<CalculateResults>()
-  // @ts-expect-error
-  const results = []
+type Props = {
+  results: ResultRow[]
+}
 
-  const isDisabled = false
+export function SaveButton(props: Props) {
+  const { results } = props
+
+  const {
+    getValues,
+    formState: { isValid },
+  } = useFormContext<CalculateResults>()
 
   const [dataWasSaved, setDataWasSaved] = useState(false)
 
   useEffect(() => {
     setDataWasSaved(false)
-
-    // @ts-expect-error
   }, [results])
 
   function handleSave() {
     const cookiesFormDataAndResults: CookiesFormDataAndResults = {
       billData: getValues().billData,
 
-      // @ts-expect-error
       results: results.map(result => ({
         amount: result.result.amount,
         consumption_kwh: result.result.consumption_kwh,
@@ -51,11 +52,11 @@ export function SaveButton() {
     setDataWasSaved(false)
   }
 
-  const isDisabledOrSaved = isDisabled || dataWasSaved
+  const isDisabled = !isValid || dataWasSaved
 
   return (
     <>
-      <Button color='secondary' size='sm' onPress={handleSave} className='inline' isDisabled={isDisabledOrSaved}>
+      <Button color='secondary' size='sm' onPress={handleSave} className='inline' isDisabled={isDisabled}>
         {dataWasSaved ? 'Datos guardados' : 'Guardar datos'}
       </Button>
 

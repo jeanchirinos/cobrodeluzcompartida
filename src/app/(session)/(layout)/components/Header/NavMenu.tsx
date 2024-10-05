@@ -1,22 +1,27 @@
 'use client'
 
-import { NavbarMenu } from '@nextui-org/react'
+import { NavbarMenu, Spinner } from '@nextui-org/react'
 import { HeaderLinkNavMenuItem } from './HeaderLink'
 import { ROUTE } from '@/constants/routes'
 import { useGetSession } from '@/controllers/AuthController/getSession/useGetSession'
+import { ErrorUi } from '@/components/other/ComponentError'
 
 export function NavMenu() {
-  const { data, isPending } = useGetSession()
+  const { isPending, error } = useGetSession()
 
-  if (isPending) return <></>
+  const content = () => {
+    if (isPending) return <Spinner />
 
-  return (
-    <NavbarMenu>
-      {data ? (
-        <HeaderLinkNavMenuItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavMenuItem>
-      ) : (
-        <HeaderLinkNavMenuItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavMenuItem>
-      )}
-    </NavbarMenu>
-  )
+    if (error) {
+      if (error.status === 401) {
+        return <HeaderLinkNavMenuItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavMenuItem>
+      } else {
+        return <ErrorUi />
+      }
+    }
+
+    return <HeaderLinkNavMenuItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavMenuItem>
+  }
+
+  return <NavbarMenu>{content()}</NavbarMenu>
 }

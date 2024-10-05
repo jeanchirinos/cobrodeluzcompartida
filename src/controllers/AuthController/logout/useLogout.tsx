@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { removeCookie } from 'typescript-cookie'
 import { logout } from './logout'
+import { QUERY_KEY_GET_SESSION } from '../getSession/useGetSession'
 
 export function useLogout() {
   const queryClient = useQueryClient()
@@ -17,11 +18,10 @@ export function useLogout() {
     onSuccess() {
       removeCookie(COOKIES_TOKEN_NAME)
 
-      void queryClient.resetQueries()
+      void queryClient.resetQueries({ queryKey: [QUERY_KEY_GET_SESSION] })
       queryClient.removeQueries()
 
       push(ROUTE.HOME)
     },
-    onMutate: () => ({ showSuccessToast: false }),
   })
 }

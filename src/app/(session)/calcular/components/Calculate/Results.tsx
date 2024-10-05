@@ -1,22 +1,28 @@
 'use client'
 
 import { ResultsTable } from '@/components/other/ResultsTable/ResultsTable'
-import { useEffect, useState } from 'react'
 import { ResultRow } from '@/components/other/ResultsTable/ResultsTable.type'
-import { useWatch } from 'react-hook-form'
-import {
-  CalculateResults,
-  schemaCalculateResults,
-} from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
+import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
 import {
   calculateAmountPerParticipant,
   getMainParticipantConsumption,
 } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults'
+import {
+  CalculateResults,
+  schemaCalculateResults,
+} from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
+import { SetState } from '@/types'
+import { useEffect } from 'react'
+import { useWatch } from 'react-hook-form'
 import { removeCookie } from 'typescript-cookie'
-import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
 
-export function Results() {
-  const [results, setResults] = useState<ResultRow[]>([])
+type Props = {
+  results: ResultRow[]
+  setResults: SetState<ResultRow[]>
+}
+
+export function Results(props: Props) {
+  const { results, setResults } = props
 
   const values = useWatch<CalculateResults>({})
 
@@ -61,7 +67,7 @@ export function Results() {
 
     setResults(newResults)
     removeCookie(COOKIES_TEMPORAL_FORM_DATA)
-  }, [values])
+  }, [values, setResults])
 
   return (
     <section className='sticky top-40 space-y-10'>

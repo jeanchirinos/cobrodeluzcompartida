@@ -9,3 +9,5 @@ export const schemaCreateRentalGroup = schemaRentalGroup
   })
   .partial()
   .optional()
+
+export type SchemaCreateRentalGroup = z.infer<typeof schemaCreateRentalGroup>

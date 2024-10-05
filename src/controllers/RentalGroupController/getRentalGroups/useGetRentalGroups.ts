@@ -3,11 +3,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { getRentalGroups } from './getRentalGroups'
 
-export const SWR_KEY_GET_RENTAL_GROUPS = 'GET_RENTAL_GROUPS'
+export const QUERY_KEY_GET_RENTAL_GROUPS = 'GET_RENTAL_GROUPS'
 
 export function useGetRentalGroups() {
   return useQuery({
-    queryKey: [SWR_KEY_GET_RENTAL_GROUPS],
+    queryKey: [QUERY_KEY_GET_RENTAL_GROUPS],
     queryFn: getRentalGroups,
   })
 }
