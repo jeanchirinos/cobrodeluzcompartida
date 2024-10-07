@@ -14,25 +14,22 @@ type Props = {
 export function SessionWarning(props: Props) {
   const { results } = props
 
-  const { isPending, error } = useGetSession()
+  const { isPending, data, isError } = useGetSession()
 
   const content = () => {
     if (isPending) return <></>
+    if (isError) return <ErrorUi />
 
-    if (error) {
-      if (error.status === 401) {
-        return (
-          <div className='flex flex-wrap items-center gap-2.5'>
-            <span>Estos resultados serán temporales, guarda los datos e inicia sesión para no perderlos</span>
-            <SaveButton results={results} />
-          </div>
-        )
-      } else {
-        return <ErrorUi />
-      }
+    if (data) {
+      return <span>Estos resultados serán temporales, se recomienda guardar los datos en un grupo de consumo</span>
+    } else {
+      return (
+        <div className='flex flex-wrap items-center gap-2.5'>
+          <span>Estos resultados serán temporales, guarda los datos e inicia sesión para no perderlos</span>
+          <SaveButton results={results} />
+        </div>
+      )
     }
-
-    return <span>Estos resultados serán temporales, se recomienda guardar los datos en un grupo de consumo</span>
   }
 
   return (

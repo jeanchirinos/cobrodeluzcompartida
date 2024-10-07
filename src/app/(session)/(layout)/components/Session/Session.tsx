@@ -7,17 +7,14 @@ import { useGetSession } from '@/controllers/AuthController/getSession/useGetSes
 import { ErrorUi } from '@/components/other/ComponentError'
 
 export function Session() {
-  const { data, isPending, error } = useGetSession()
+  const { data, isPending, isError } = useGetSession()
 
   if (isPending) return <Skeleton className='size-8 rounded-full' />
+  if (isError) return <ErrorUi />
 
-  if (error) {
-    if (error.status === 401) {
-      return <UserNotLogged />
-    } else {
-      return <ErrorUi />
-    }
+  if (data) {
+    return <UserLogged session={data} />
+  } else {
+    return <UserNotLogged />
   }
-
-  return <UserLogged session={data} />
 }

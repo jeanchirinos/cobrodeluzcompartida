@@ -69,15 +69,13 @@ export function Select(props: React.ComponentProps<'select'> & SelectProps) {
   // RENDER
   return (
     <label className={cnx('relative flex flex-col gap-y-1', className)}>
-      {label && (
-        <span className={cnx('text-sm text-foreground-500', classNames?.label)}>{label}</span>
-      )}
+      {label && <span className={cnx('text-sm text-foreground-500', classNames?.label)}>{label}</span>}
       <select
         disabled={!options}
         required={required}
         className={cnx(
           'w-full cursor-pointer rounded-lg border-r-4 border-r-transparent bg-default-100 py-2 pl-1 text-sm focus:outline focus:outline-foreground-400',
-          classNames?.select
+          classNames?.select,
         )}
         value={stringState?.selected ?? numberState?.selected ?? undefined}
         onChange={handleChange}
@@ -87,14 +85,7 @@ export function Select(props: React.ComponentProps<'select'> & SelectProps) {
           Selecciona una opción
         </option>
         {options?.map(option => (
-          <option
-            // key={option[optionKeyValue]}
-            // value={option[optionKeyValue].toString()}
-            key={getOptionValue(option)}
-            value={getOptionValue(option)}
-            className={cn(classNames?.option)}
-          >
-            {/* {option[optionKeyText]} */}
+          <option key={getOptionValue(option)} value={getOptionValue(option)} className={cn(classNames?.option)}>
             {getOptionText(option)}
           </option>
         ))}

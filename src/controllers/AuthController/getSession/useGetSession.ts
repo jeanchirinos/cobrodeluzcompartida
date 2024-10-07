@@ -10,14 +10,4 @@ export function useGetSession() {
     queryKey: [QUERY_KEY_GET_SESSION],
     queryFn: getSession,
   })
-
-  // const {data, ...restAttributes} = useQuery({
-  //   queryKey: [QUERY_KEY_GET_SESSION],
-  //   queryFn: getSession,
-  // })
-
-  // return {
-  //   session: data,
-  //   ...restAttributes,
-  // }
 }

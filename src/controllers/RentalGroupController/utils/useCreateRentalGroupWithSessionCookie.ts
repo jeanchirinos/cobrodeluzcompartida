@@ -6,7 +6,6 @@ import { ArgsCreateRentalGroupFn } from '@/controllers/RentalGroupRegisterContro
 import { useCreateRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister/useCreateRentalGroupRegister'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-// import { getCookie, removeCookie } from 'typescript-cookie'
 import { useCreateRentalGroup } from '../createRentalGroup/useCreateRentalGroup'
 import { CookiesFormDataAndResults, schemaCookiesFormDataAndResults } from './createRentalGroupWithSessionCookie.schema'
 
@@ -18,13 +17,9 @@ export function useCreateGroupAndRegisterWithSavedData() {
   const { mutateAsync: mutateAsyncCreateRentalGroupRegister } = useCreateRentalGroupRegister()
 
   async function createGroupAndRegister() {
-    // const temporalFormDataCookie = getCookie(SSTORAGE_TEMPORAL_FORM_DATA)
     const temporalFormDataCookie = sessionStorage.getItem(SSTORAGE_TEMPORAL_FORM_DATA)
 
     if (!temporalFormDataCookie) return false
-
-    // removeCookie(SSTORAGE_TEMPORAL_FORM_DATA)
-    // sessionStorage.removeItem(SSTORAGE_TEMPORAL_FORM_DATA)
 
     const temporalFormData: CookiesFormDataAndResults = JSON.parse(temporalFormDataCookie)
     const temporalFormDataValidation = schemaCookiesFormDataAndResults.safeParse(temporalFormData)
@@ -57,8 +52,16 @@ export function useCreateGroupAndRegisterWithSavedData() {
     })
 
     try {
+      const year = new Date().getFullYear()
+      const month = new Date().getMonth() + 1
+
       await mutateAsyncCreateRentalGroupRegister({
-        billData: { ...temporalFormData.billData, rental_group_id: res.data.rental_group_id, year: 2024, month: 8 },
+        billData: {
+          ...temporalFormData.billData,
+          rental_group_id: res.data.rental_group_id,
+          year,
+          month,
+        },
         results,
       })
     } catch (error) {

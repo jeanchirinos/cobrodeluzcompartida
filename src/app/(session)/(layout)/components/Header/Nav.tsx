@@ -5,22 +5,20 @@ import { HeaderLinkNavItem } from './HeaderLink'
 import { ROUTE } from '@/constants/routes'
 import { useGetSession } from '@/controllers/AuthController/getSession/useGetSession'
 import { Skeleton } from '@/components/Skeleton'
+import { ErrorUi } from '@/components/other/ComponentError'
 
 export function Nav() {
-  const { isPending, error } = useGetSession()
+  const { isPending, isError, data } = useGetSession()
 
   const content = () => {
     if (isPending) return <></>
+    if (isError) return <ErrorUi />
 
-    if (error) {
-      if (error.status === 401) {
-        return <HeaderLinkNavItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavItem>
-      } else {
-        return <p>Hubo un error</p>
-      }
+    if (data) {
+      return <HeaderLinkNavItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavItem>
+    } else {
+      return <HeaderLinkNavItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavItem>
     }
-
-    return <HeaderLinkNavItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavItem>
   }
 
   return (

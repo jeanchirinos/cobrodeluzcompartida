@@ -7,20 +7,17 @@ import { useGetSession } from '@/controllers/AuthController/getSession/useGetSes
 import { ErrorUi } from '@/components/other/ComponentError'
 
 export function NavMenu() {
-  const { isPending, error } = useGetSession()
+  const { isPending, isError, data } = useGetSession()
 
   const content = () => {
     if (isPending) return <Spinner />
+    if (isError) return <ErrorUi />
 
-    if (error) {
-      if (error.status === 401) {
-        return <HeaderLinkNavMenuItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavMenuItem>
-      } else {
-        return <ErrorUi />
-      }
+    if (data) {
+      return <HeaderLinkNavMenuItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavMenuItem>
+    } else {
+      return <HeaderLinkNavMenuItem href={ROUTE.CALCULATE}>Calcular</HeaderLinkNavMenuItem>
     }
-
-    return <HeaderLinkNavMenuItem href={ROUTE.GROUPS.INDEX}>Grupos</HeaderLinkNavMenuItem>
   }
 
   return <NavbarMenu>{content()}</NavbarMenu>
