@@ -4,7 +4,7 @@ import { schemaCalculateResults } from '@/controllers/RentalGroupRegisterControl
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
 
-export function MyFormProvider(props: React.PropsWithChildren) {
+export function CalculateFormProvider(props: React.PropsWithChildren) {
   const methods = useForm({
     mode: 'onTouched',
     resolver: zodResolver(schemaCalculateResults),
