@@ -1,21 +1,16 @@
-'use client'
-
 import { IconArrowBack } from '@/icons'
 import { ROUTE } from '@/constants/routes'
-import { Button } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
+import { ButtonLink } from '@/components/Button/ButtonLink'
 
 export default function NotFound() {
-  const { push } = useRouter()
-
   return (
     <main className='h-dvh flex-col gap-y-4 flex-center'>
       <h1 className='text-8xl font-bold'>404</h1>
-      <p>Recurso no encontrado</p>
+      <p>Página no encontrada</p>
 
-      <Button startContent={<IconArrowBack />} onClick={() => push(ROUTE.HOME)}>
+      <ButtonLink startContent={<IconArrowBack />} href={ROUTE.HOME}>
         Ir a inicio
-      </Button>
+      </ButtonLink>
     </main>
   )
 }

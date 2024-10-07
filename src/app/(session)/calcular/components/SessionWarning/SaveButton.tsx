@@ -1,9 +1,7 @@
 'use client'
 
 import { Button } from '@nextui-org/button'
-import { setCookie, removeCookie } from 'typescript-cookie'
-import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
-// import { useCalculateContext } from '../../context/CalculateContext'
+import { SSTORAGE_TEMPORAL_FORM_DATA } from '@/constants/session-storage'
 import { $BUTTON_LOGIN_ID } from '@/constants/elements'
 import { CookiesFormDataAndResults } from '@/controllers/RentalGroupController/utils/createRentalGroupWithSessionCookie.schema'
 import { useEffect, useState } from 'react'
@@ -27,20 +25,29 @@ export function SaveButton(props: Props) {
   const [dataWasSaved, setDataWasSaved] = useState(false)
 
   useEffect(() => {
+    return () => {
+      sessionStorage.removeItem(SSTORAGE_TEMPORAL_FORM_DATA)
+    }
+  }, [])
+
+  useEffect(() => {
     setDataWasSaved(false)
   }, [results])
 
   function handleSave() {
     const cookiesFormDataAndResults: CookiesFormDataAndResults = {
       billData: getValues().billData,
+      results: results.map(result => {
+        const { consumption_kwh, amount } = result.result
 
-      results: results.map(result => ({
-        amount: result.result.amount,
-        consumption_kwh: result.result.consumption_kwh,
-      })),
+        return {
+          amount,
+          consumption_kwh,
+        }
+      }),
     }
 
-    setCookie(COOKIES_TEMPORAL_FORM_DATA, JSON.stringify(cookiesFormDataAndResults))
+    sessionStorage.setItem(SSTORAGE_TEMPORAL_FORM_DATA, JSON.stringify(cookiesFormDataAndResults))
     setDataWasSaved(true)
 
     const loginButton = document.getElementById($BUTTON_LOGIN_ID)
@@ -48,7 +55,7 @@ export function SaveButton(props: Props) {
   }
 
   function handleRemoveSavedData() {
-    removeCookie(COOKIES_TEMPORAL_FORM_DATA)
+    sessionStorage.removeItem(SSTORAGE_TEMPORAL_FORM_DATA)
     setDataWasSaved(false)
   }
 

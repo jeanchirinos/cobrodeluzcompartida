@@ -7,9 +7,9 @@ const NOT_AUTHORIZATION_ROUTES: string[] = [ROUTE.HOME, ROUTE.CALCULATE, ROUTE.A
 
 export function middleware(request: NextRequest) {
   // TODO: Temporal redirection meanwhile landing is not ready
-  if (request.nextUrl.pathname === ROUTE.HOME) {
-    return NextResponse.rewrite(new URL(ROUTE.CALCULATE, request.url))
-  }
+  // if (request.nextUrl.pathname === ROUTE.HOME) {
+  //   return NextResponse.rewrite(new URL(ROUTE.CALCULATE, request.url))
+  // }
 
   // Validation for routes that require / do not require authentication
   if (NOT_AUTHORIZATION_ROUTES.includes(request.nextUrl.pathname)) {

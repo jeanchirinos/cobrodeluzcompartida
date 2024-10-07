@@ -1,12 +1,12 @@
 'use client'
 
-import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
+import { SSTORAGE_TEMPORAL_FORM_DATA } from '@/constants/session-storage'
 import { ROUTE } from '@/constants/routes'
 import { ArgsCreateRentalGroupFn } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister/createRentalGroupRegister'
 import { useCreateRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister/useCreateRentalGroupRegister'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { getCookie, removeCookie } from 'typescript-cookie'
+// import { getCookie, removeCookie } from 'typescript-cookie'
 import { useCreateRentalGroup } from '../createRentalGroup/useCreateRentalGroup'
 import { CookiesFormDataAndResults, schemaCookiesFormDataAndResults } from './createRentalGroupWithSessionCookie.schema'
 
@@ -18,11 +18,13 @@ export function useCreateGroupAndRegisterWithSavedData() {
   const { mutateAsync: mutateAsyncCreateRentalGroupRegister } = useCreateRentalGroupRegister()
 
   async function createGroupAndRegister() {
-    const temporalFormDataCookie = getCookie(COOKIES_TEMPORAL_FORM_DATA)
+    // const temporalFormDataCookie = getCookie(SSTORAGE_TEMPORAL_FORM_DATA)
+    const temporalFormDataCookie = sessionStorage.getItem(SSTORAGE_TEMPORAL_FORM_DATA)
 
     if (!temporalFormDataCookie) return false
 
-    removeCookie(COOKIES_TEMPORAL_FORM_DATA)
+    // removeCookie(SSTORAGE_TEMPORAL_FORM_DATA)
+    // sessionStorage.removeItem(SSTORAGE_TEMPORAL_FORM_DATA)
 
     const temporalFormData: CookiesFormDataAndResults = JSON.parse(temporalFormDataCookie)
     const temporalFormDataValidation = schemaCookiesFormDataAndResults.safeParse(temporalFormData)

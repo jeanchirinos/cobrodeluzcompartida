@@ -25,8 +25,8 @@ export function BillInfo() {
               endContent='kWh'
               placeholder='0'
               {...field}
-              value={field.value.toString()}
-              onChange={e => field.onChange(Number(e.target.value))}
+              value={field.value?.toString() ?? ''}
+              onChange={e => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
               errorMessage={fieldState.error?.message}
               isInvalid={fieldState.invalid}
               isDisabled={formState.isSubmitting}
@@ -46,8 +46,8 @@ export function BillInfo() {
               placeholder='0.0000'
               step={0.0001}
               {...field}
-              value={field.value.toString()}
-              onChange={e => field.onChange(Number(e.target.value))}
+              value={field.value?.toString() ?? ''}
+              onChange={e => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
               errorMessage={fieldState.error?.message}
               isInvalid={fieldState.invalid}
               isDisabled={formState.isSubmitting}
@@ -67,8 +67,8 @@ export function BillInfo() {
               placeholder='0.00'
               step={0.01}
               {...field}
-              value={field.value.toString()}
-              onChange={e => field.onChange(Number(e.target.value))}
+              value={field.value?.toString() ?? ''}
+              onChange={e => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
               errorMessage={fieldState.error?.message}
               isInvalid={fieldState.invalid}
               isDisabled={formState.isSubmitting}
@@ -89,8 +89,8 @@ export function BillInfo() {
               placeholder='0.00'
               step={0.01}
               {...field}
-              value={field.value.toString()}
-              onChange={e => field.onChange(Number(e.target.value))}
+              value={field.value?.toString() ?? ''}
+              onChange={e => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
               errorMessage={fieldState.error?.message}
               isInvalid={fieldState.invalid}
               isDisabled={formState.isSubmitting}

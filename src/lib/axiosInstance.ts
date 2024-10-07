@@ -1,3 +1,4 @@
+import { API_ROUTE } from '@/constants/api-routes'
 import { COOKIES_TOKEN_NAME } from '@/constants/cookies'
 import axiosDefault, { AxiosError, HttpStatusCode } from 'axios'
 import { getCookie } from 'typescript-cookie'
@@ -10,9 +11,9 @@ const axios = axiosDefault.create({
 axios.interceptors.request.use(async function (config) {
   const token = getCookie(COOKIES_TOKEN_NAME)
 
-  // if (!token && config.url !== 'login') {
-  if (!token) {
-    const axiosError = new AxiosError('Validation failed', AxiosError.ERR_BAD_REQUEST, config)
+  if (!token && config.url !== API_ROUTE.AUTH.LOGIN) {
+    const axiosError = new AxiosError('Token not found', AxiosError.ERR_BAD_REQUEST, config)
+
     axiosError.status = HttpStatusCode.Unauthorized
 
     throw axiosError

@@ -10,28 +10,32 @@ export function BillOptions() {
   const { reset } = useFormContext<CalculateResults>()
 
   function handleAddTestData() {
-    reset(
-      {
-        billData: {
-          consumption_kwh: 257,
-          kwh_price: 0.6624,
-          current_month_total: 218.49,
-          total: 221,
+    const newData: CalculateResults = {
+      billData: {
+        consumption_kwh: 257,
+        kwh_price: 0.6624,
+        current_month_total: 218.49,
+        total: 221,
+      },
+      consumptions: [
+        {
+          consumption_kwh: 30.43,
         },
-        consumptions: [
-          {
-            consumption_kwh: 30.43,
-          },
-        ],
-      },
-      {
-        keepDefaultValues: true,
-      },
-    )
+      ],
+    }
+
+    reset(newData, {
+      keepDefaultValues: true,
+    })
   }
 
   function handleResetForm() {
-    reset()
+    reset(
+      {
+        consumptions: [{ consumption_kwh: 0 }],
+      },
+      { keepDefaultValues: true },
+    )
   }
 
   return (

@@ -1,5 +1,6 @@
 import { type Metadata } from 'next'
 import { Calculate } from './components/Calculate'
+import { MyFormProvider } from './components/MyFormProvider'
 
 export const metadata: Metadata = {
   title: 'Calcular',
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className='flex flex-col gap-y-10 main-container'>
-      <Calculate />
+      <MyFormProvider>
+        <Calculate />
+      </MyFormProvider>
     </main>
   )
 }

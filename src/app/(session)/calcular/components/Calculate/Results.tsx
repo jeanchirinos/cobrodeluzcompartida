@@ -2,7 +2,7 @@
 
 import { ResultsTable } from '@/components/other/ResultsTable/ResultsTable'
 import { ResultRow } from '@/components/other/ResultsTable/ResultsTable.type'
-import { COOKIES_TEMPORAL_FORM_DATA } from '@/constants/cookies'
+import { SSTORAGE_TEMPORAL_FORM_DATA } from '@/constants/session-storage'
 import {
   calculateAmountPerParticipant,
   getMainParticipantConsumption,
@@ -14,60 +14,66 @@ import {
 import { SetState } from '@/types'
 import { useEffect } from 'react'
 import { useWatch } from 'react-hook-form'
-import { removeCookie } from 'typescript-cookie'
+import { FieldWithData } from './Form/ParticipantsInfo'
 
 type Props = {
   results: ResultRow[]
   setResults: SetState<ResultRow[]>
+  fieldsWithData: FieldWithData[]
 }
 
 export function Results(props: Props) {
-  const { results, setResults } = props
+  const { results, setResults, fieldsWithData } = props
 
-  const values = useWatch<CalculateResults>({})
+  const values = useWatch<CalculateResults>()
 
   useEffect(() => {
+    const isValid = schemaCalculateResults.safeParse(values).success
+
+    if (!isValid) return setResults([])
+
     const { billData, consumptions } = values as CalculateResults
 
-    let newResults: ResultRow[] = []
-    const validation = schemaCalculateResults.safeParse(values)
+    const nConsumptions = consumptions.length + 1
+
     const mainParticipantConsumption = getMainParticipantConsumption({ billData, consumptions })
-    if (validation.success) {
-      newResults = [
-        {
-          id: 1,
-          result: {
-            amount: calculateAmountPerParticipant({
-              billData,
-              nConsumptions: consumptions.length + 1,
-              consumption_kwh: mainParticipantConsumption,
-            }),
-            consumption_kwh: mainParticipantConsumption,
-          },
-          tenant: {
-            alias: 'Administrador',
-          },
-        },
-        ...consumptions.map((consumption, i) => ({
-          id: i + 2,
-          result: {
-            amount: calculateAmountPerParticipant({
-              billData,
-              nConsumptions: consumptions.length + 1,
-              consumption_kwh: consumption.consumption_kwh,
-            }),
-            consumption_kwh: consumption.consumption_kwh,
-          },
-          tenant: {
-            alias: `Consumo ${i + 1}`,
-          },
-        })),
-      ]
+
+    const adminResult: ResultRow = {
+      id: 1,
+      result: {
+        amount: calculateAmountPerParticipant({
+          billData,
+          nConsumptions,
+          consumption_kwh: mainParticipantConsumption,
+        }),
+        consumption_kwh: mainParticipantConsumption,
+      },
+      tenant: {
+        alias: 'Admistrador',
+      },
     }
 
+    const participantsResults: ResultRow[] = consumptions.map((field, i) => ({
+      id: i,
+      result: {
+        amount: calculateAmountPerParticipant({
+          billData,
+          nConsumptions,
+          consumption_kwh: field.consumption_kwh,
+        }),
+        consumption_kwh: field.consumption_kwh,
+      },
+      tenant: {
+        alias: fieldsWithData[i].alias,
+      },
+    }))
+
+    const newResults: ResultRow[] = [adminResult, ...participantsResults]
+
     setResults(newResults)
-    removeCookie(COOKIES_TEMPORAL_FORM_DATA)
-  }, [values, setResults])
+
+    sessionStorage.removeItem(SSTORAGE_TEMPORAL_FORM_DATA)
+  }, [values, setResults, fieldsWithData])
 
   return (
     <section className='sticky top-40 space-y-10'>
