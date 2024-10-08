@@ -44,7 +44,7 @@ export async function sendData<ResponseData, BodySchema extends ZodType = ZodTyp
   return response.data
 }
 
-function validateDataBeforeSendingRequest({ data, schema }: { data: unknown; schema: ZodType }) {
+export function validateDataBeforeSendingRequest({ data, schema }: { data: unknown; schema: ZodType }) {
   const validationResult = schema.safeParse(data)
 
   if (!validationResult.success) {

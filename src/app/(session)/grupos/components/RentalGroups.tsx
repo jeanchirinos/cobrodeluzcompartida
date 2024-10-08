@@ -20,11 +20,11 @@ export function RentalGroups() {
 
   return rentalGroups.map(group => (
     <Card
-      isPressable
       key={group.id}
-      className='w-80 max-w-full gap-y-5 py-1'
       as={Link}
       href={ROUTE.GROUPS.REGISTERS.INDEX({ id: group.id })}
+      isPressable
+      className='w-80 max-w-full gap-y-5 py-1'
     >
       <CardHeader className='flex-col items-start'>
         <p className='font-bold uppercase'>{group.name}</p>

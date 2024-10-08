@@ -1,14 +1,14 @@
 'use client'
 
-import { Button } from '@nextui-org/button'
-import { SSTORAGE_TEMPORAL_FORM_DATA } from '@/constants/session-storage'
-import { $BUTTON_LOGIN_ID } from '@/constants/elements'
-import { CookiesFormDataAndResults } from '@/controllers/RentalGroupController/utils/createRentalGroupWithSessionCookie.schema'
-import { useEffect, useState } from 'react'
-import { IconDelete } from '@/icons'
-import { useFormContext } from 'react-hook-form'
-import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 import { ResultRow } from '@/components/other/ResultsTable/ResultsTable.type'
+import { $BUTTON_LOGIN_ID } from '@/constants/elements'
+import { SSTORAGE_TEMPORAL_FORM_DATA } from '@/constants/session-storage'
+import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
+import { SchemaCreateRentalGroupWithRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupWithRegister/createRentalGroupWithRegister.schema'
+import { IconDelete } from '@/icons'
+import { Button } from '@nextui-org/button'
+import { useEffect, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 type Props = {
   results: ResultRow[]
@@ -35,7 +35,7 @@ export function SaveButton(props: Props) {
   }, [results])
 
   function handleSave() {
-    const cookiesFormDataAndResults: CookiesFormDataAndResults = {
+    const cookiesFormDataAndResults: SchemaCreateRentalGroupWithRegister = {
       billData: getValues().billData,
       results: results.map(result => {
         const { consumption_kwh, amount } = result.result

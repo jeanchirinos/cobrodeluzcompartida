@@ -2,9 +2,10 @@
 
 import { API_ROUTE } from '@/constants/api-routes'
 import { ROUTE } from '@/constants/routes'
+import { SSTORAGE_TEMPORAL_FORM_DATA } from '@/constants/session-storage'
 import { QUERY_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/useGetSession'
 import { createAuthToken } from '@/controllers/AuthController/utils/createAuthToken'
-import { useCreateGroupAndRegisterWithSavedData } from '@/controllers/RentalGroupController/utils/useCreateRentalGroupWithSessionCookie'
+import { useCreateRentalGroupWithRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupWithRegister/useCreateRentalGroupWithRegister'
 import { User } from '@/models/User'
 import { getApiUrl } from '@/utilities/request/env-variables/get'
 import { useQueryClient } from '@tanstack/react-query'
@@ -16,20 +17,24 @@ export function useGoogle() {
 
   const { push } = useRouter()
 
-  const { createGroupAndRegister } = useCreateGroupAndRegisterWithSavedData()
+  const { mutate: mutateCreateRentalGroupWithRegister } = useCreateRentalGroupWithRegister()
 
   // EFFECT
   useEffect(() => {
     async function handleMessageFromAuthPage(e: MessageEvent<Pick<User, 'token'>>) {
-      if (!e.data.token) return
+      const { token } = e.data
 
-      await createAuthToken({ token: e.data.token })
+      if (!token) return
+
+      await createAuthToken({ token })
 
       void queryClient.invalidateQueries({ queryKey: [QUERY_KEY_GET_SESSION] })
 
-      const wasRedirected = await createGroupAndRegister()
+      const temporalFormData = sessionStorage.getItem(SSTORAGE_TEMPORAL_FORM_DATA)
 
-      if (!wasRedirected) {
+      if (temporalFormData) {
+        mutateCreateRentalGroupWithRegister(JSON.parse(temporalFormData))
+      } else {
         push(ROUTE.GROUPS.INDEX)
       }
 
@@ -39,7 +44,7 @@ export function useGoogle() {
     window.addEventListener('message', handleMessageFromAuthPage)
 
     return () => window.removeEventListener('message', handleMessageFromAuthPage)
-  }, [queryClient, push, createGroupAndRegister])
+  }, [queryClient, push, mutateCreateRentalGroupWithRegister])
 
   // FUNCTIONS
   function openGoogleWindow() {
