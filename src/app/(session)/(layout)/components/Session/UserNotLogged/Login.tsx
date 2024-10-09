@@ -1,6 +1,6 @@
 'use client'
 
-import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
+import { useReactHookForm } from '@/hooks/useReactHookForm'
 import { ROUTE } from '@/constants/routes'
 import { SSTORAGE_TEMPORAL_FORM_DATA } from '@/constants/session-storage'
 import { SchemaLogin, schemaLogin } from '@/controllers/AuthController/login/login.schema'
@@ -44,7 +44,7 @@ export function Login() {
       <Controller
         name='email'
         control={control}
-        render={({ field, fieldState, formState }) => (
+        render={({ field, fieldState }) => (
           <Input
             type='email'
             label='Correo'
@@ -55,7 +55,6 @@ export function Login() {
             value={field.value ?? ''}
             errorMessage={fieldState.error?.message}
             isInvalid={fieldState.invalid}
-            isDisabled={formState.isSubmitting}
             labelPlacement='outside'
           />
         )}
@@ -64,7 +63,7 @@ export function Login() {
       <Controller
         name='password'
         control={control}
-        render={({ field, fieldState, formState }) => (
+        render={({ field, fieldState }) => (
           <Input
             type='password'
             label='Contraseña'
@@ -73,7 +72,6 @@ export function Login() {
             value={field.value ?? ''}
             errorMessage={fieldState.error?.message}
             isInvalid={fieldState.invalid}
-            isDisabled={formState.isSubmitting}
             labelPlacement='outside'
           />
         )}

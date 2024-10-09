@@ -2,14 +2,12 @@
 
 import { DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { UseDialog } from '@/components/Dialog/useDialog'
-import { HookFormButton } from '@/components/ReactForm/HookFormButton'
-import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
-import { CustomInput } from '@/components/ReactForm/withHookForm'
+import { useReactHookForm } from '@/hooks/useReactHookForm'
 import { ResponseGetTenants } from '@/controllers/TenatController/getTenants/getTenants'
 import { SchemaUpdateTenant, schemaUpdateTenant } from '@/controllers/TenatController/updateTenant/updateTenant.schema'
 import { useUpdateTenant } from '@/controllers/TenatController/updateTenant/useUpdateTenant'
-import { Switch } from '@nextui-org/react'
-import { SubmitHandler } from 'react-hook-form'
+import { Button, Input, Switch } from '@nextui-org/react'
+import { Controller, SubmitHandler } from 'react-hook-form'
 
 type UpdateTenantDialogProps = { tenant: ResponseGetTenants[0]; dialog: UseDialog }
 
@@ -17,34 +15,48 @@ export function UpdateTenantDialog(props: UpdateTenantDialogProps) {
   const { tenant, dialog } = props
 
   // HOOKS
-  const { mutateAsync } = useUpdateTenant()
+  const { mutate, isPending } = useUpdateTenant()
 
-  const useFormHook = useReactHookForm({
+  const {
+    handleSubmit,
+    control,
+    register,
+    formState: { isDirty, isValid },
+  } = useReactHookForm({
     schema: schemaUpdateTenant,
-    defaultValues: tenant,
+    values: tenant,
   })
 
-  const { handleSubmit } = useFormHook
-
   // FUNCTIONS
-  const onSubmit: SubmitHandler<SchemaUpdateTenant> = async data => {
-    try {
-      await mutateAsync({ ...data, id: tenant.id })
-    } catch (error) {}
+  const onSubmit: SubmitHandler<SchemaUpdateTenant> = data => {
+    mutate({ ...data, id: tenant.id }, { onSuccess: dialog.close })
   }
 
   return (
     <>
       <DialogBody>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-y-5'>
-          <CustomInput useFormHook={useFormHook} name='alias' label='Alias' />
+          <Controller
+            name='alias'
+            control={control}
+            render={({ field, fieldState }) => (
+              <Input
+                label='Alias'
+                {...field}
+                value={field.value ?? ''}
+                errorMessage={fieldState.error?.message}
+                isInvalid={fieldState.invalid}
+                labelPlacement='outside'
+              />
+            )}
+          />
+
           <Switch
             classNames={{
               base: 'flex-row-reverse gap-x-2',
             }}
-            {...useFormHook.register('active')}
+            {...register('active')}
             size='sm'
-            name='active'
             defaultSelected={tenant.active}
           >
             <div className='flex flex-col gap-1'>
@@ -54,17 +66,22 @@ export function UpdateTenantDialog(props: UpdateTenantDialogProps) {
               </p>
             </div>
           </Switch>
-          <HookFormButton useFormHook={useFormHook} className='hidden' />
         </form>
       </DialogBody>
-      <DialogFooter
-        useFormHook={{ ...useFormHook, onSubmit: handleSubmit(onSubmit) }}
-        dialog={dialog}
-        variant='3'
-        mainButtonProps={{
-          children: 'Actualizar',
-        }}
-      />
+
+      <DialogFooter>
+        <Button onPress={dialog.close} variant='flat'>
+          Cancelar
+        </Button>
+        <Button
+          color='primary'
+          isLoading={isPending}
+          onPress={() => handleSubmit(onSubmit)()}
+          isDisabled={!isDirty || !isValid}
+        >
+          Actualizar
+        </Button>
+      </DialogFooter>
     </>
   )
 }

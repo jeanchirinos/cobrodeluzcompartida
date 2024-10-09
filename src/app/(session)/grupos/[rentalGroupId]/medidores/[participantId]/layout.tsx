@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   },
 }
 
-type LayoutProps = React.PropsWithChildren & PagePropsParams<'rentalGroupId' | 'participantId'>
+type LayoutProps = React.PropsWithChildren & PagePropsParams<'rentalGroupId'>
 
 export default function Layout(props: LayoutProps) {
   const { rentalGroupId } = props.params

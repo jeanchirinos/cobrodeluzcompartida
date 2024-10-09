@@ -32,7 +32,7 @@ export function AddRegisterForm() {
         },
         {
           onSuccess() {
-            push(ROUTE.GROUPS.REGISTERS.INDEX({ id: rentalGroupId }))
+            push(ROUTE.GROUPS.REGISTERS.INDEX({ rentalGroupId }))
           },
         },
       )
@@ -45,7 +45,7 @@ export function AddRegisterForm() {
         <BillInfo />
         <ParticipantsInfo />
       </div>
-      <SaveButton />
+      {/* <SaveButton /> */}
     </form>
   )
 }

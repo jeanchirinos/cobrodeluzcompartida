@@ -22,7 +22,7 @@ export function RentalGroups() {
     <Card
       key={group.id}
       as={Link}
-      href={ROUTE.GROUPS.REGISTERS.INDEX({ id: group.id })}
+      href={ROUTE.GROUPS.REGISTERS.INDEX({ rentalGroupId: group.id })}
       isPressable
       className='w-80 max-w-full gap-y-5 py-1'
     >

@@ -1,66 +1,79 @@
 'use client'
 
-import { HookFormButton } from '@/components/ReactForm/HookFormButton'
-import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
-import { CustomInput } from '@/components/ReactForm/withHookForm'
+import { ErrorUi } from '@/components/other/ComponentError'
+import { useReactHookForm } from '@/hooks/useReactHookForm'
 import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
 import {
   SchemaUpdateRentalGroup,
   schemaUpdateRentalGroup,
 } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup.schema'
 import { useUpdateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/useUpdateRentalGroup'
-import { SubmitHandler } from 'react-hook-form'
+import { Button, Input } from '@nextui-org/react'
+import { Controller, SubmitHandler } from 'react-hook-form'
 
 export function UpdateGroup() {
   return (
-    <section className='flex w-fit flex-col gap-y-6'>
+    <label className='flex w-fit flex-col gap-y-6'>
       <div>
         <h3 className='text-lg font-bold'>Nombre de grupo</h3>
         <p>Identificador único entre tus grupos de consumo</p>
       </div>
       <UpdateNameForm />
-    </section>
+    </label>
   )
 }
 
 function UpdateNameForm() {
-  const { data: rentalGroup, dataUpdatedAt, isPending: queryIsPending } = useGetRentalGroupById()
+  const { data: rentalGroup, isPending: queryIsPending, isError } = useGetRentalGroupById()
 
-  // HOOKS
-  const useFormHook = useReactHookForm({
+  const {
+    handleSubmit,
+    control,
+    formState: { isDirty, isValid },
+  } = useReactHookForm({
     schema: schemaUpdateRentalGroup,
-    defaultValues: {
+    values: {
       name: rentalGroup?.name ?? '',
     },
     mode: 'onChange',
-    defaultValuesDependency: dataUpdatedAt,
   })
 
-  const { mutate, isPending } = useUpdateRentalGroup()
+  const { mutate, isPending: mutationIsPending } = useUpdateRentalGroup()
 
-  const { handleSubmit } = useFormHook
+  if (isError) return <ErrorUi />
 
   const onSubmit: SubmitHandler<SchemaUpdateRentalGroup> = data => {
-    if (!rentalGroup) return
+    if (queryIsPending) return
 
     mutate({ id: rentalGroup.id, ...data })
   }
 
   return (
     <form className='flex gap-4 max-sm:flex-col' onSubmit={handleSubmit(onSubmit)}>
-      <CustomInput
-        useFormHook={useFormHook}
+      <Controller
         name='name'
-        isLoading={queryIsPending}
-        registerOptions={{
-          onBlur() {
-            useFormHook.clearErrors()
-          },
-        }}
+        control={control}
+        render={({ field, fieldState }) => (
+          <Input
+            type='text'
+            {...field}
+            value={field.value ?? ''}
+            errorMessage={fieldState.error?.message}
+            isInvalid={fieldState.invalid}
+            isDisabled={queryIsPending}
+          />
+        )}
       />
-      <HookFormButton className='shrink-0' useFormHook={useFormHook} isPending={isPending}>
+
+      <Button
+        color='primary'
+        type='submit'
+        isLoading={mutationIsPending}
+        isDisabled={queryIsPending || !isDirty || !isValid}
+        className='shrink-0'
+      >
         Renombrar
-      </HookFormButton>
+      </Button>
     </form>
   )
 }

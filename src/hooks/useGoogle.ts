@@ -7,7 +7,7 @@ import { QUERY_KEY_GET_SESSION } from '@/controllers/AuthController/getSession/u
 import { createAuthToken } from '@/controllers/AuthController/utils/createAuthToken'
 import { useCreateRentalGroupWithRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupWithRegister/useCreateRentalGroupWithRegister'
 import { User } from '@/models/User'
-import { getApiUrl } from '@/utilities/request/env-variables/get'
+import { getApiUrl } from '@/utilities/utilities'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'

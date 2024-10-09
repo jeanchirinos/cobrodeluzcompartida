@@ -10,7 +10,7 @@ export default function Page(props: PagePropsParams<'rentalGroupId'>) {
   return (
     <>
       <section className='flex items-center gap-x-2'>
-        <ButtonBack href={ROUTE.GROUPS.REGISTERS.INDEX({ id: props.params.rentalGroupId })} />
+        <ButtonBack href={ROUTE.GROUPS.REGISTERS.INDEX({ rentalGroupId: props.params.rentalGroupId })} />
         <h2 className='text-xl font-bold'>Agregar registro</h2>
       </section>
       <CalculateProvider>

@@ -2,6 +2,7 @@
 
 import { Dialog, DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { useDialog } from '@/components/Dialog/useDialog'
+import { ErrorUi } from '@/components/other/ComponentError'
 import { ROUTE } from '@/constants/routes'
 import { useDeleteRentalGroup } from '@/controllers/RentalGroupController/deleteRentalGroup/useDeleteRentalGroup'
 import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
@@ -12,23 +13,24 @@ export function DeleteGroup() {
   const { push } = useRouter()
   const deleteRentalGroupDialog = useDialog()
 
-  const { data: rentalGroup, isLoading } = useGetRentalGroupById()
+  const { data: rentalGroup, isPending, isError, isSuccess } = useGetRentalGroupById()
 
-  const { mutateAsync } = useDeleteRentalGroup()
+  const { mutate, isPending: deleteRentalGroupIsPending } = useDeleteRentalGroup()
 
-  async function customHandleClick() {
+  if (isError) return <ErrorUi />
+
+  function handleDelete() {
     if (!rentalGroup) return
 
-    try {
-      await mutateAsync(
-        { id: rentalGroup.id },
-        {
-          onSuccess() {
-            push(ROUTE.GROUPS.INDEX)
-          },
+    mutate(
+      { id: rentalGroup.id },
+      {
+        onSuccess() {
+          deleteRentalGroupDialog.close()
+          push(ROUTE.GROUPS.INDEX)
         },
-      )
-    } catch (error) {}
+      },
+    )
   }
 
   // RENDER
@@ -39,7 +41,7 @@ export function DeleteGroup() {
         <p>El proyecto se eliminará permanentemente, incluyendo sus registros.</p>
       </div>
       <Button
-        isDisabled={isLoading}
+        isDisabled={isPending}
         onClick={deleteRentalGroupDialog.open}
         className='w-fit'
         color='danger'
@@ -47,23 +49,25 @@ export function DeleteGroup() {
       >
         Eliminar
       </Button>
-      <Dialog dialog={deleteRentalGroupDialog} dialogTitle='Eliminar grupo'>
-        <DialogBody>
-          <p>
-            El grupo <b>{rentalGroup?.name}</b> y sus registros se eliminarán permanentemente
-          </p>
-          <p className='mt-2'>¿ Estás seguro de que quieres eliminar el grupo ?</p>
-        </DialogBody>
-        <DialogFooter
-          dialog={deleteRentalGroupDialog}
-          variant='2'
-          customHandleClick={customHandleClick}
-          mainButtonProps={{
-            color: 'danger',
-            children: 'Sí, Eliminar',
-          }}
-        />
-      </Dialog>
+      {isSuccess && (
+        <Dialog dialog={deleteRentalGroupDialog} dialogTitle='Eliminar grupo'>
+          <DialogBody>
+            <p>
+              El grupo <b>{rentalGroup.name}</b> y sus registros se eliminarán permanentemente
+            </p>
+            <p className='mt-2'>¿ Estás seguro de que quieres eliminar el grupo ?</p>
+          </DialogBody>
+
+          <DialogFooter>
+            <Button onPress={deleteRentalGroupDialog.close} variant='flat'>
+              Cancelar
+            </Button>
+            <Button color='danger' isLoading={deleteRentalGroupIsPending} onPress={handleDelete}>
+              Sí, Eliminar
+            </Button>
+          </DialogFooter>
+        </Dialog>
+      )}
     </section>
   )
 }

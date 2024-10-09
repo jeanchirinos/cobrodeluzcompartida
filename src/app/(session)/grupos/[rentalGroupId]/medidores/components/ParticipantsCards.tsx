@@ -6,23 +6,27 @@ import { Avatar, Card, CardFooter, CardHeader, Chip } from '@nextui-org/react'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
 import { useGetParticipants } from '@/controllers/ParticipantController/getParticipants/useGetParticipants'
 import Image from 'next/image'
+import { ErrorUi } from '@/components/other/ComponentError'
 
 export function ParticipantsCards() {
-  const { data = { participants: [] }, isPending } = useGetParticipants()
+  const { data, isPending, isError } = useGetParticipants()
 
   if (isPending) return <SuspenseFallback />
+  if (isError) return <ErrorUi />
+
+  const { participants } = data
 
   return (
     <section className='flex flex-wrap gap-5'>
-      {data.participants.map(participant => (
+      {participants.map(participant => (
         <Card
-          isPressable
           key={participant.id}
-          className='w-80 max-w-full gap-y-5 border-default-100 py-1'
           as={Link}
+          isPressable
+          className='w-80 max-w-full gap-y-5 border-default-100 py-1'
           href={ROUTE.GROUPS.PARTICIPANTS.TENANTS({
             rentalGroupId: participant.rental_group_id,
-            id: participant.id,
+            participantId: participant.id,
           })}
         >
           <CardHeader className='flex justify-between'>

@@ -2,10 +2,10 @@
 
 import { DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { UseDialog } from '@/components/Dialog/useDialog'
-import { Snippet } from '@nextui-org/react'
-import { ResponseGetTenants } from '@/controllers/TenatController/getTenants/getTenants'
-import { ROUTE } from '@/constants/routes'
 import { Link } from '@/components/Link'
+import { ROUTE } from '@/constants/routes'
+import { ResponseGetTenants } from '@/controllers/TenatController/getTenants/getTenants'
+import { Button, Snippet } from '@nextui-org/react'
 
 type ShareParticipantDialogProps = { tenant: ResponseGetTenants[0]; dialog: UseDialog }
 
@@ -33,7 +33,11 @@ export function ShareTenantDialog(props: ShareParticipantDialogProps) {
           {href}
         </Snippet>
       </DialogBody>
-      <DialogFooter variant='1' dialog={dialog} />
+      <DialogFooter>
+        <Button onPress={dialog.close} variant='flat'>
+          Entendido
+        </Button>
+      </DialogFooter>
     </>
   )
 }

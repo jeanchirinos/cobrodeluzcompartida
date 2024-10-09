@@ -1,13 +1,16 @@
 'use client'
 
+import { ErrorUi } from '@/components/other/ComponentError'
 import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
 import { useToggleActiveParticipant } from '@/controllers/ParticipantController/toggleActiveParticipant/useToggleActiveParticipant'
 import { Spinner, Switch } from '@nextui-org/react'
 
 export function UpdateParticipantAvailability() {
-  const { data: participant, isPending: isPendingQuery } = useGetParticipantById()
+  const { data: participant, isPending: isPendingQuery, isError } = useGetParticipantById()
 
-  const { mutate, isPending } = useToggleActiveParticipant()
+  const { mutate, isPending: isMutating } = useToggleActiveParticipant()
+
+  if (isError) return <ErrorUi />
 
   async function handleChange() {
     if (!participant) return
@@ -15,25 +18,24 @@ export function UpdateParticipantAvailability() {
     mutate({ id: participant.id })
   }
 
-  if (!participant) return <></>
+  const { active = false } = participant ?? {}
 
   return (
     <section className='flex gap-x-6'>
       <Switch
-        key={String(participant.active)}
         classNames={{
           base: 'flex-row-reverse gap-x-6',
         }}
-        isDisabled={isPendingQuery || isPending}
+        isDisabled={isPendingQuery || isMutating}
         onChange={handleChange}
-        defaultSelected={participant.active}
+        defaultSelected={active}
       >
         <div className='flex flex-col gap-y-1'>
           <h3 className='text-lg font-bold'>Disponibilidad</h3>
           <p>Si está activo, el medidor será considerado en el cálculo.</p>
         </div>
       </Switch>
-      {isPending && <Spinner />}
+      {isMutating && <Spinner />}
     </section>
   )
 }

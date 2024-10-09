@@ -18,7 +18,7 @@ export function BillInfo() {
         <Controller
           name='billData.consumption_kwh'
           control={control}
-          render={({ field, fieldState, formState }) => (
+          render={({ field, fieldState }) => (
             <Input
               type='number'
               label='Consumo kWh'
@@ -29,7 +29,6 @@ export function BillInfo() {
               onChange={e => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
               errorMessage={fieldState.error?.message}
               isInvalid={fieldState.invalid}
-              isDisabled={formState.isSubmitting}
               labelPlacement='outside'
             />
           )}
@@ -38,7 +37,7 @@ export function BillInfo() {
         <Controller
           name='billData.kwh_price'
           control={control}
-          render={({ field, fieldState, formState }) => (
+          render={({ field, fieldState }) => (
             <Input
               type='number'
               label='kWh al precio de'
@@ -50,7 +49,6 @@ export function BillInfo() {
               onChange={e => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
               errorMessage={fieldState.error?.message}
               isInvalid={fieldState.invalid}
-              isDisabled={formState.isSubmitting}
               labelPlacement='outside'
             />
           )}
@@ -59,7 +57,7 @@ export function BillInfo() {
         <Controller
           name='billData.current_month_total'
           control={control}
-          render={({ field, fieldState, formState }) => (
+          render={({ field, fieldState }) => (
             <Input
               type='number'
               label='TOTAL mes actual'
@@ -71,7 +69,6 @@ export function BillInfo() {
               onChange={e => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
               errorMessage={fieldState.error?.message}
               isInvalid={fieldState.invalid}
-              isDisabled={formState.isSubmitting}
               labelPlacement='outside'
             />
           )}
@@ -80,7 +77,7 @@ export function BillInfo() {
         <Controller
           name='billData.total'
           control={control}
-          render={({ field, fieldState, formState }) => (
+          render={({ field, fieldState }) => (
             <Input
               type='number'
               label='Total a pagar'
@@ -93,7 +90,6 @@ export function BillInfo() {
               onChange={e => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
               errorMessage={fieldState.error?.message}
               isInvalid={fieldState.invalid}
-              isDisabled={formState.isSubmitting}
               labelPlacement='outside'
             />
           )}

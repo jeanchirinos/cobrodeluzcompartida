@@ -1,7 +1,6 @@
 'use client'
 
 import { useCalculateContext } from '../../../context/CalculateContext'
-import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { useFieldArray } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { useGetParticipants } from '@/controllers/ParticipantController/getParticipants/useGetParticipants'
@@ -47,7 +46,7 @@ export function ParticipantsInfo() {
       <h3 className='text-large font-semibold'>Datos de los medidores</h3>
       <div className='flex flex-col gap-y-6'>
         <div className='flex flex-col gap-y-6'>
-          {myFields.map((field, i) => (
+          {/* {myFields.map((field, i) => (
             <CustomInput
               useFormHook={useFormHook}
               key={field.id}
@@ -59,7 +58,7 @@ export function ParticipantsInfo() {
               placeholder='0.00'
               step={0.01}
             />
-          ))}
+          ))} */}
         </div>
       </div>
     </section>

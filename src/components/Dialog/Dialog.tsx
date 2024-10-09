@@ -1,19 +1,18 @@
-import { type ComponentProps, type ReactNode, type PropsWithChildren, useState, useEffect } from 'react'
-import { type UseDialog } from './useDialog'
+import { IconClose } from '@/icons'
+import { cnx } from '@/lib/utils'
 import {
+  Description,
+  DialogTitleProps,
   Dialog as HeadlessDialog,
   DialogPanel as HeadlessDialogPanel,
-  TransitionChild,
-  Transition,
   DialogTitle as HeadlessDialogTitle,
-  DialogTitleProps,
-  Description,
+  Transition,
+  TransitionChild,
 } from '@headlessui/react'
-import { DialogContent } from './DialogContent'
-import { cnx } from '@/lib/utils'
 import { Button } from '@nextui-org/react'
-import { IconClose } from '@/icons'
-import { HookFormButton } from '../ReactForm/HookFormButton'
+import { type ComponentProps, type PropsWithChildren, type ReactNode } from 'react'
+import { DialogContent } from './DialogContent'
+import { type UseDialog } from './useDialog'
 
 type DialogProps = PropsWithChildren & {
   dialog: UseDialog
@@ -93,90 +92,6 @@ export function DialogBody(props: DialogBodyProps) {
   )
 }
 
-type DialogFooterProps = (
-  | {
-      variant: '1'
-      dialog: UseDialog
-      customHandleClick?: undefined
-      useFormHook?: undefined
-      mainButtonProps?: undefined
-    }
-  | {
-      variant: '2'
-      dialog: UseDialog
-      customHandleClick: () => void | Promise<void>
-      useFormHook?: undefined
-      mainButtonProps?: ComponentProps<typeof Button>
-    }
-  | {
-      variant?: '3'
-      dialog: UseDialog
-      customHandleClick?: undefined
-      useFormHook: ComponentProps<typeof HookFormButton>['useFormHook']
-      mainButtonProps?: Omit<ComponentProps<typeof HookFormButton>, 'useFormHook'>
-    }
-) &
-  ComponentProps<'footer'>
-
-export function DialogFooter(props: DialogFooterProps) {
-  const { variant = '1', dialog, customHandleClick, mainButtonProps, useFormHook, ...restProps } = props
-
-  const [isPending, setIsPending] = useState(false)
-
-  async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-    setIsPending(true)
-    await customHandleClick?.()
-    setIsPending(false)
-    dialog.close()
-  }
-
-  useEffect(() => {
-    // Close dialog when form is submitted successfully
-    if (useFormHook?.formState.isSubmitSuccessful) {
-      dialog.close()
-    }
-  }, [useFormHook?.formState.isSubmitSuccessful, dialog])
-
-  return (
-    <footer {...restProps} className={cnx('mt-4 flex justify-end gap-x-4 px-6', props.className)}>
-      {variant === '1' && (
-        <>
-          <Button onPress={dialog?.close} variant='flat'>
-            Cerrar
-          </Button>
-          <Button onPress={dialog?.close} color='primary'>
-            Entendido
-          </Button>
-        </>
-      )}
-
-      {variant === '2' && (
-        <>
-          <Button onPress={dialog?.close} variant='flat'>
-            Cancelar
-          </Button>
-          <Button color='primary' isLoading={isPending} {...mainButtonProps} onClick={handleClick}>
-            {mainButtonProps?.children ?? 'Aceptar'}
-          </Button>
-        </>
-      )}
-
-      {variant === '3' && (
-        <>
-          <Button onPress={dialog?.close} variant='flat'>
-            Cancelar
-          </Button>
-          <HookFormButton
-            {...mainButtonProps}
-            useFormHook={useFormHook!}
-            onClick={async () => {
-              await useFormHook?.onSubmit?.()
-            }}
-          >
-            {mainButtonProps?.children ?? 'Aceptar'}
-          </HookFormButton>
-        </>
-      )}
-    </footer>
-  )
+export function DialogFooter(props: React.PropsWithChildren) {
+  return <footer className={cnx('mt-4 flex justify-end gap-x-4 px-6')}>{props.children}</footer>
 }

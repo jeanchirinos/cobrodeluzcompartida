@@ -12,18 +12,18 @@ const AUTH = {
 const GROUPS = {
   INDEX: '/grupos',
   REGISTERS: {
-    INDEX: ({ id }: { id: RouteId }) => `/grupos/${id}/registros` as const,
-    ADD: ({ id }: { id: RouteId }) => `/grupos/${id}/registros/agregar` as const,
+    INDEX: ({ rentalGroupId }: { rentalGroupId: RouteId }) => `/grupos/${rentalGroupId}/registros` as const,
+    ADD: ({ rentalGroupId }: { rentalGroupId: RouteId }) => `/grupos/${rentalGroupId}/registros/agregar` as const,
   },
-  SETTINGS: ({ id }: { id: RouteId }) => `/grupos/${id}/ajustes` as const,
+  SETTINGS: ({ rentalGroupId }: { rentalGroupId: RouteId }) => `/grupos/${rentalGroupId}/ajustes` as const,
   PARTICIPANTS: {
     INDEX: ({ rentalGroupId }: { rentalGroupId: RouteId }) => `/grupos/${rentalGroupId}/medidores` as const,
-    ID: ({ rentalGroupId, id }: { rentalGroupId: RouteId; id: RouteId }) =>
-      `/grupos/${rentalGroupId}/medidores/${id}` as const,
-    TENANTS: ({ rentalGroupId, id }: { rentalGroupId: RouteId; id: RouteId }) =>
-      `/grupos/${rentalGroupId}/medidores/${id}/inquilinos` as const,
-    SETTINGS: ({ rentalGroupId, id }: { rentalGroupId: RouteId; id: RouteId }) =>
-      `/grupos/${rentalGroupId}/medidores/${id}/ajustes` as const,
+    ID: ({ rentalGroupId, participantId }: { rentalGroupId: RouteId; participantId: RouteId }) =>
+      `/grupos/${rentalGroupId}/medidores/${participantId}` as const,
+    TENANTS: ({ rentalGroupId, participantId }: { rentalGroupId: RouteId; participantId: RouteId }) =>
+      `/grupos/${rentalGroupId}/medidores/${participantId}/inquilinos` as const,
+    SETTINGS: ({ rentalGroupId, participantId }: { rentalGroupId: RouteId; participantId: RouteId }) =>
+      `/grupos/${rentalGroupId}/medidores/${participantId}/ajustes` as const,
   },
 } as const
 

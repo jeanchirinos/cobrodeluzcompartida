@@ -14,7 +14,7 @@ export function CreateRentalGroup() {
   function handlePress() {
     mutate(undefined, {
       onSuccess(data) {
-        push(ROUTE.GROUPS.REGISTERS.INDEX({ id: data.data.rental_group_id }))
+        push(ROUTE.GROUPS.REGISTERS.INDEX({ rentalGroupId: data.data.rental_group_id }))
       },
     })
   }

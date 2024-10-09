@@ -1,40 +1,41 @@
 'use client'
 
-import { HookFormButton } from '@/components/ReactForm/HookFormButton'
-import { useReactHookForm } from '@/components/ReactForm/useReactHookForm'
-import { CustomInput } from '@/components/ReactForm/withHookForm'
+import { ErrorUi } from '@/components/other/ComponentError'
+import { useReactHookForm } from '@/hooks/useReactHookForm'
 import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
 import {
   SchemaUpdateParticipant,
   schemaUpdateParticipant,
 } from '@/controllers/ParticipantController/updateParticipant/updateParticipant.schema'
 import { useUpdateParticipant } from '@/controllers/ParticipantController/updateParticipant/useUpdateParticipant'
-import { SubmitHandler } from 'react-hook-form'
+import { Button, Input } from '@nextui-org/react'
+import { Controller, SubmitHandler } from 'react-hook-form'
 
 export function UpdateParticipant() {
-  const { data: participant, isPending, dataUpdatedAt } = useGetParticipantById()
+  const { data: participant, isPending: queryIsPending, isError } = useGetParticipantById()
 
   // HOOKS
-  const useFormHook = useReactHookForm({
+  const {
+    handleSubmit,
+    control,
+    formState: { isDirty, isValid },
+    clearErrors,
+  } = useReactHookForm({
     schema: schemaUpdateParticipant,
-    defaultValues: {
+    values: {
       alias: participant?.alias ?? '',
-      is_main: participant?.is_main ?? false,
     },
     mode: 'onChange',
-    defaultValuesDependency: dataUpdatedAt,
   })
 
-  const { mutateAsync } = useUpdateParticipant()
+  const { mutate, isPending: mutationIsPending } = useUpdateParticipant()
 
-  const { handleSubmit } = useFormHook
+  if (isError) return <ErrorUi />
 
-  const onSubmit: SubmitHandler<SchemaUpdateParticipant> = async data => {
+  const onSubmit: SubmitHandler<SchemaUpdateParticipant> = data => {
     if (!participant) return
 
-    try {
-      await mutateAsync({ id: participant.id, ...data })
-    } catch (error) {}
+    mutate({ id: participant.id, ...data })
   }
 
   // RENDER
@@ -45,19 +46,34 @@ export function UpdateParticipant() {
         <p>Identificador único entre tus medidores</p>
       </div>
       <form className='flex gap-4 max-sm:flex-col' onSubmit={handleSubmit(onSubmit)}>
-        <CustomInput
-          useFormHook={useFormHook}
+        <Controller
           name='alias'
-          registerOptions={{
-            onBlur() {
-              useFormHook.clearErrors()
-            },
-          }}
-          isLoading={isPending}
+          control={control}
+          render={({ field, fieldState }) => (
+            <Input
+              type='text'
+              {...field}
+              value={field.value ?? ''}
+              errorMessage={fieldState.error?.message}
+              isInvalid={fieldState.invalid}
+              isDisabled={queryIsPending}
+              onBlur={() => {
+                field.onBlur()
+                clearErrors()
+              }}
+            />
+          )}
         />
-        <HookFormButton className='shrink-0' useFormHook={useFormHook}>
+
+        <Button
+          color='primary'
+          type='submit'
+          isLoading={mutationIsPending}
+          isDisabled={queryIsPending || !isDirty || !isValid}
+          className='shrink-0'
+        >
           Renombrar
-        </HookFormButton>
+        </Button>
       </form>
     </section>
   )

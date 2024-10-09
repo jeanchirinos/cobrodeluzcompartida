@@ -1,6 +1,5 @@
 'use client'
 
-import { CustomInput } from '@/components/ReactForm/withHookForm'
 import { useCalculateContext } from '../../../context/CalculateContext'
 
 export function BillInfo() {
@@ -12,7 +11,7 @@ export function BillInfo() {
         <h3 className='text-large font-semibold'>Datos del recibo</h3>
       </div>
       <div className='flex flex-col gap-y-6'>
-        <CustomInput
+        {/* <CustomInput
           useFormHook={useFormHook}
           name='billData.consumption_kwh'
           label='Consumo kWh'
@@ -46,7 +45,7 @@ export function BillInfo() {
           startContent='S/.'
           type='number'
           step={0.01}
-        />
+        /> */}
       </div>
     </section>
   )

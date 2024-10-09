@@ -7,7 +7,6 @@ import { useParams } from 'next/navigation'
 
 export function AddTenant() {
   const { participantId } = useParams()
-
   const { mutate, isPending } = useCreateTenant()
 
   return (

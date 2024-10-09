@@ -26,11 +26,11 @@ export function useCreateRentalGroupWithRegister() {
     onSuccess(data) {
       const { rental_group_id } = data.data
 
-      push(ROUTE.GROUPS.REGISTERS.INDEX({ id: rental_group_id }))
+      push(ROUTE.GROUPS.REGISTERS.INDEX({ rentalGroupId: rental_group_id }))
     },
 
     onError(error) {
-      console.log({ error })
+      toast.warning(error.message)
       push(ROUTE.GROUPS.INDEX)
     },
     onSettled() {

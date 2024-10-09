@@ -23,7 +23,7 @@ export default function Page(props: PagePropsParams<'rentalGroupId'>) {
           <RentalGroupRegisterOptions />
         </section>
         <ButtonLink
-          href={ROUTE.GROUPS.REGISTERS.ADD({ id: props.params.rentalGroupId })}
+          href={ROUTE.GROUPS.REGISTERS.ADD({ rentalGroupId: props.params.rentalGroupId })}
           variant='flat'
           color='primary'
           endContent={<IconAdd />}

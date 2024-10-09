@@ -62,7 +62,7 @@ export function ParticipantsInfo(props: Props) {
               key={item.id}
               name={`consumptions.${i}.consumption_kwh`}
               control={control}
-              render={({ field, fieldState, formState }) => {
+              render={({ field, fieldState }) => {
                 return (
                   <Input
                     type='number'
@@ -81,7 +81,6 @@ export function ParticipantsInfo(props: Props) {
                     onChange={e => field.onChange(e.target.value === '' ? 0 : Number(e.target.value))}
                     errorMessage={fieldState.error?.message}
                     isInvalid={fieldState.invalid}
-                    isDisabled={formState.isSubmitting}
                     labelPlacement='outside'
                   />
                 )
