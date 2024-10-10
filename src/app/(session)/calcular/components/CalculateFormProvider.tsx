@@ -1,13 +1,13 @@
 'use client'
 
 import { schemaCalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, FormProvider } from 'react-hook-form'
+import { useReactHookForm } from '@/hooks/useReactHookForm'
+import { FormProvider } from 'react-hook-form'
 
 export function CalculateFormProvider(props: React.PropsWithChildren) {
-  const methods = useForm({
+  const methods = useReactHookForm({
     mode: 'onTouched',
-    resolver: zodResolver(schemaCalculateResults),
+    schema: schemaCalculateResults,
     defaultValues: {
       consumptions: [{ consumption_kwh: undefined }],
     },

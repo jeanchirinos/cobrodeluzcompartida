@@ -4,33 +4,38 @@ import { Participant } from '@/models/Participant'
 import { RentalGroup } from '@/models/RentalGroup'
 import { Result } from '@/models/Result'
 import { Tenant } from '@/models/Tenant'
-import { SearchParamsProps } from '@/types'
 import { getData } from '@/utilities/request/getData/getData'
 import { getUrlWithSearchParams } from '@/utilities/utilities'
-
-export type GetRentalGroupRegisterParams = SearchParamsProps<'year' | 'month'>
+import { AxiosError } from 'axios'
 
 type ArgsGetRentalGroupRegisterFn = {
-  params: { rentalGroupId: RentalGroup['id'] }
-  searchParams: GetRentalGroupRegisterParams
-}
+  rentalGroupId: RentalGroup['id']
+} & Partial<Pick<BillData, 'year' | 'month'>>
 
-export type ResponseGetRentalGroupRegister = {
+type ResponseGetRentalGroupRegister = {
   billData: BillData
   results: Array<Result & { participant: Participant; tenant: Tenant }>
 }
 
 export async function getRentalGroupRegister(args: ArgsGetRentalGroupRegisterFn) {
-  const { params, searchParams } = args
+  const { rentalGroupId, ...searchParams } = args
 
-  const { url } = getUrlWithSearchParams<GetRentalGroupRegisterParams>({
-    hostname: API_ROUTE.RENTAL_GROUP_REGISTER.SHOW({ rentalGroupId: params.rentalGroupId }),
+  const { url } = getUrlWithSearchParams({
+    hostname: API_ROUTE.RENTAL_GROUP_REGISTER.SHOW({ rentalGroupId }),
     searchParams,
   })
 
-  const rentalGroupRegister = await getData<ResponseGetRentalGroupRegister | undefined>({
-    url: url.toString(),
-  })
+  try {
+    const rentalGroupRegister = await getData<ResponseGetRentalGroupRegister>({
+      url: url.toString(),
+    })
 
-  return { rentalGroupRegister }
+    return { rentalGroupRegister }
+  } catch (error) {
+    if (error instanceof AxiosError && error.status === 404) {
+      return null
+    }
+
+    throw error
+  }
 }

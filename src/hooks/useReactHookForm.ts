@@ -11,7 +11,6 @@ export type UseReactHookFormProps<FormSchema extends ZodType> = {
 export function useReactHookForm<FormSchema extends ZodType>(props: UseReactHookFormProps<FormSchema>) {
   const { schema, ...restProps } = props
 
-  // HOOKS
   return useForm<z.infer<FormSchema>>({
     mode: 'onTouched',
     ...restProps,

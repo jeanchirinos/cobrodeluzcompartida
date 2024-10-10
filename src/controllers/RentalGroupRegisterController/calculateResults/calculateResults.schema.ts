@@ -9,33 +9,20 @@ export const schemaCalculateResults = z.object({
     month: true,
     rental_group_id: true,
   }),
-  consumptions: z.array(
-    schemaCreateRentalGroupRegister.shape.results.element.pick({ consumption_kwh: true }),
-    // .merge(schemaTenant.pick({ alias: true })),
-  ),
+  consumptions: z.array(schemaCreateRentalGroupRegister.shape.results.element.pick({ consumption_kwh: true })),
 })
 
 export type CalculateResults = z.infer<typeof schemaCalculateResults>
 
-export const schemaResponseCalculateResults = z.array(
-  schemaResult.pick({ amount: true, consumption_kwh: true }),
-  // .extend({
-  //   participant: schemaParticipant.pick({ is_main: true }),
-  //   tenant: schemaTenant.pick({ id: true, alias: true }),
-  // }),
-)
+export const schemaResponseCalculateResults = z.array(schemaResult.pick({ amount: true, consumption_kwh: true }))
 
 // Add
-
 export const schemaCalculateResultsAdd = z.object({
   billData: schemaCreateRentalGroupRegister.shape.billData.omit({
     igv: true,
     rental_group_id: true,
   }),
-  consumptions: z.array(
-    schemaCreateRentalGroupRegister.shape.results.element.pick({ consumption_kwh: true }),
-    // .merge(schemaTenant.pick({ alias: true })),
-  ),
+  consumptions: z.array(schemaCreateRentalGroupRegister.shape.results.element.pick({ consumption_kwh: true })),
 })
 
-export type CalculateResultsAdd = z.infer<typeof schemaCalculateResultsAdd>
+export type SchemaCalculateResultsAdd = z.infer<typeof schemaCalculateResultsAdd>

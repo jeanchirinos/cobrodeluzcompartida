@@ -12,10 +12,14 @@ export function useGetRentalGroupRegister() {
   const { rentalGroupId } = useParams()
   const searchParams = useSearchParams()
 
+  const yearSearchParam = searchParams.get('year')
+  const monthSearchParam = searchParams.get('month')
+
   const fetcher = () =>
     getRentalGroupRegister({
-      params: { rentalGroupId: Number(rentalGroupId) },
-      searchParams: Object.fromEntries(searchParams.entries()),
+      rentalGroupId: Number(rentalGroupId),
+      year: yearSearchParam ? Number(yearSearchParam) : undefined,
+      month: monthSearchParam ? Number(monthSearchParam) : undefined,
     })
 
   return useQuery({

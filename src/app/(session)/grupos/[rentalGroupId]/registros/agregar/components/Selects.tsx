@@ -1,12 +1,11 @@
 'use client'
 
+import { SchemaCalculateResultsAdd } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 import { Select, SelectItem } from '@nextui-org/react'
-import { useCalculateContext } from '../context/CalculateContext'
+import { Controller, useFormContext } from 'react-hook-form'
 
 export function SelectYear() {
-  const {
-    useFormHook: { register },
-  } = useCalculateContext()
+  const { control } = useFormContext<SchemaCalculateResultsAdd>()
 
   function getYearsUntilNow() {
     const currentYear = new Date().getFullYear()
@@ -25,27 +24,32 @@ export function SelectYear() {
   }
 
   return (
-    <Select
-      selectionMode='single'
-      {...register('billData.year')}
-      classNames={{ base: 'max-w-full w-24' }}
-      placeholder='Selecciona una opción'
-      label='Año'
-      labelPlacement='outside'
-      defaultSelectedKeys={[new Date().getFullYear().toString()]}
-      disallowEmptySelection
-    >
-      {getYearsUntilNow().map(year => (
-        <SelectItem key={year.key}>{year.label}</SelectItem>
-      ))}
-    </Select>
+    <Controller
+      name='billData.year'
+      control={control}
+      render={({ field }) => (
+        <Select
+          {...field}
+          selectedKeys={field.value ? [field.value.toString()] : undefined}
+          onChange={e => field.onChange(Number(e.target.value))}
+          selectionMode='single'
+          classNames={{ base: 'max-w-full w-24' }}
+          placeholder='Selecciona una opción'
+          label='Año'
+          labelPlacement='outside'
+          disallowEmptySelection
+        >
+          {getYearsUntilNow().map(year => (
+            <SelectItem key={year.key}>{year.label}</SelectItem>
+          ))}
+        </Select>
+      )}
+    />
   )
 }
 
 export function SelectMonth() {
-  const {
-    useFormHook: { register },
-  } = useCalculateContext()
+  const { control } = useFormContext<SchemaCalculateResultsAdd>()
 
   const months = [
     { key: '1', label: 'Enero' },
@@ -63,19 +67,26 @@ export function SelectMonth() {
   ]
 
   return (
-    <Select
-      selectionMode='single'
-      {...register('billData.month')}
-      classNames={{ base: 'w-36 max-w-full' }}
-      placeholder='Selecciona una opción'
-      label='Mes'
-      labelPlacement='outside'
-      defaultSelectedKeys={[(new Date().getMonth() + 1).toString()]}
-      disallowEmptySelection
-    >
-      {months.map(month => (
-        <SelectItem key={month.key}>{month.label}</SelectItem>
-      ))}
-    </Select>
+    <Controller
+      name='billData.month'
+      control={control}
+      render={({ field }) => (
+        <Select
+          {...field}
+          selectedKeys={field.value ? [field.value.toString()] : undefined}
+          onChange={e => field.onChange(Number(e.target.value))}
+          selectionMode='single'
+          classNames={{ base: 'w-36 max-w-full' }}
+          placeholder='Selecciona una opción'
+          label='Mes'
+          labelPlacement='outside'
+          disallowEmptySelection
+        >
+          {months.map(month => (
+            <SelectItem key={month.key}>{month.label}</SelectItem>
+          ))}
+        </Select>
+      )}
+    />
   )
 }

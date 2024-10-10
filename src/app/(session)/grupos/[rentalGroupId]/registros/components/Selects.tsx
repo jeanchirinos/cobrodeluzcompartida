@@ -1,15 +1,17 @@
 'use client'
 
+import { ErrorUi } from '@/components/other/ComponentError'
 import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
 import { Select, SelectItem } from '@nextui-org/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 export function SelectYear() {
-  const { data } = useGetRentalGroupRegister()
+  const { data, isError } = useGetRentalGroupRegister()
 
-  // HOOKS
   const searchParams = useSearchParams()
   const { replace } = useRouter()
+
+  if (isError) return <ErrorUi />
 
   const { rentalGroupRegister } = data ?? {}
 
@@ -47,7 +49,6 @@ export function SelectYear() {
 
   return (
     <Select
-      key={billDataYear}
       selectionMode='single'
       name='year'
       onChange={handleChange}
@@ -56,7 +57,7 @@ export function SelectYear() {
       placeholder='Selecciona una opción'
       label='Año'
       labelPlacement='outside'
-      defaultSelectedKeys={defaultSelectedKeys}
+      selectedKeys={defaultSelectedKeys}
     >
       {getYearsUntilNow().map(year => (
         <SelectItem key={year.key}>{year.label}</SelectItem>
@@ -66,11 +67,12 @@ export function SelectYear() {
 }
 
 export function SelectMonth() {
-  const { data } = useGetRentalGroupRegister()
+  const { data, isError } = useGetRentalGroupRegister()
 
-  // HOOKS
   const searchParams = useSearchParams()
   const { replace } = useRouter()
+
+  if (isError) return <ErrorUi />
 
   const { rentalGroupRegister } = data ?? {}
 
@@ -107,7 +109,6 @@ export function SelectMonth() {
 
   return (
     <Select
-      key={billDataMonth}
       selectionMode='single'
       name='month'
       onChange={handleChange}
@@ -116,7 +117,7 @@ export function SelectMonth() {
       placeholder='Selecciona una opción'
       label='Mes'
       labelPlacement='outside'
-      defaultSelectedKeys={defaultSelectedKeys}
+      selectedKeys={defaultSelectedKeys}
     >
       {months.map(month => (
         <SelectItem key={month.key}>{month.label}</SelectItem>

@@ -1,15 +1,16 @@
 'use client'
 
+import { ErrorUi } from '@/components/other/ComponentError'
 import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
 
 export function BillData() {
-  const { data } = useGetRentalGroupRegister()
+  const { data, isError, isPending } = useGetRentalGroupRegister()
 
+  if (isError) return <ErrorUi />
+  if (isPending) return <></>
   if (!data) return <></>
 
-  const { billData } = data.rentalGroupRegister ?? {}
-
-  if (!billData) return <></>
+  const { billData } = data.rentalGroupRegister
 
   return (
     <div className='flex flex-col gap-y-3'>

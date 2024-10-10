@@ -1,64 +1,88 @@
 'use client'
 
-import { useCalculateContext } from '../../../context/CalculateContext'
-import { useFieldArray } from 'react-hook-form'
-import { useEffect, useState } from 'react'
-import { useGetParticipants } from '@/controllers/ParticipantController/getParticipants/useGetParticipants'
+import { ErrorUi } from '@/components/other/ComponentError'
 import { ResponseGetParticipants } from '@/controllers/ParticipantController/getParticipants/getParticipants'
+import { useGetParticipants } from '@/controllers/ParticipantController/getParticipants/useGetParticipants'
+import { SchemaCalculateResultsAdd } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
+import { SetState } from '@/types'
+import { Input, Spinner } from '@nextui-org/react'
+import { useEffect, useMemo } from 'react'
+import { Controller, FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form'
 
-export function ParticipantsInfo() {
-  const { useFormHook } = useCalculateContext()
-  const { control } = useFormHook
+export type FieldWithData = Omit<FieldArrayWithId<SchemaCalculateResultsAdd, 'consumptions'>, 'id'> &
+  ResponseGetParticipants[0]
 
-  const { append, remove } = useFieldArray({
+type Props = {
+  setFieldsWithData: SetState<FieldWithData[]>
+}
+
+export function ParticipantsInfo(props: Props) {
+  const { setFieldsWithData } = props
+  const { control, watch } = useFormContext<SchemaCalculateResultsAdd>()
+
+  const { data, isError, isPending } = useGetParticipants()
+
+  const { participants } = data ?? {}
+
+  const { fields } = useFieldArray({
     name: 'consumptions',
     control,
   })
 
-  const [myFields, setMyFields] = useState<ResponseGetParticipants>([])
+  const watchFieldArray = watch('consumptions')
 
-  const { data = { participants: [] } } = useGetParticipants()
+  const controlledFields: FieldWithData[] = useMemo(() => {
+    if (!participants) return []
 
-  const { participants } = data
+    const availableParticipants = participants.filter(participant => participant.active && !participant.is_main)
 
-  useEffect(() => {
-    const availableParticipants = participants.filter(participant => !participant.is_main && participant.active)
-
-    availableParticipants.forEach(participant => {
-      const newConsumption = {
-        consumption_kwh: undefined as unknown as number,
-      }
-
-      append(newConsumption, { shouldFocus: false })
-    })
-
-    setMyFields(availableParticipants)
-  }, [append, participants])
+    return fields.map((field, index) => ({
+      ...field,
+      ...watchFieldArray[index],
+      ...availableParticipants[index],
+      id: availableParticipants[index]?.id ?? Number(field.id),
+    }))
+  }, [fields, watchFieldArray, participants])
 
   useEffect(() => {
-    return () => {
-      remove()
-    }
-  }, [remove])
+    setFieldsWithData(controlledFields)
+  }, [controlledFields, setFieldsWithData])
+
+  if (isError) return <ErrorUi />
 
   return (
     <section className='flex flex-col gap-y-8'>
       <h3 className='text-large font-semibold'>Datos de los medidores</h3>
       <div className='flex flex-col gap-y-6'>
         <div className='flex flex-col gap-y-6'>
-          {/* {myFields.map((field, i) => (
-            <CustomInput
-              useFormHook={useFormHook}
-              key={field.id}
-              name={`consumptions.${i}.consumption_kwh`}
-              registerOptions={{ valueAsNumber: true }}
-              type='number'
-              endContent='kWh'
-              label={<Label field={field} />}
-              placeholder='0.00'
-              step={0.01}
-            />
-          ))} */}
+          {isPending ? (
+            <Spinner />
+          ) : (
+            controlledFields.map((item, i) => (
+              <Controller
+                key={item.id}
+                name={`consumptions.${i}.consumption_kwh`}
+                control={control}
+                render={({ field, fieldState }) => {
+                  return (
+                    <Input
+                      type='number'
+                      label={<Label field={item} />}
+                      endContent='kWh'
+                      placeholder='0.00'
+                      step={0.01}
+                      {...field}
+                      value={field.value?.toString() ?? ''}
+                      onChange={e => field.onChange(e.target.value === '' ? 0 : Number(e.target.value))}
+                      errorMessage={fieldState.error?.message}
+                      isInvalid={fieldState.invalid}
+                      labelPlacement='outside'
+                    />
+                  )
+                }}
+              />
+            ))
+          )}
         </div>
       </div>
     </section>
@@ -66,7 +90,7 @@ export function ParticipantsInfo() {
 }
 
 type LabelProps = {
-  field: ResponseGetParticipants[0]
+  field: FieldWithData
 }
 
 function Label(props: LabelProps) {

@@ -10,3 +10,5 @@ export const schemaCreateRentalGroupRegister = z.object({
       .partial({ meter_reading: true }),
   ),
 })
+
+export type SchemaCreateRentalGroupRegister = z.infer<typeof schemaCreateRentalGroupRegister>

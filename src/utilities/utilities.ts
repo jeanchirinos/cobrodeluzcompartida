@@ -1,9 +1,21 @@
 /** Get a URL with search params */
-export function getUrlWithSearchParams<T extends Record<string, string>>(args: { hostname: string; searchParams: T }) {
-  const url = getApiUrl(args.hostname)
+export function getUrlWithSearchParams<T extends Record<string, string | number | undefined>>(args: {
+  hostname: string
+  searchParams: T
+}) {
+  const { searchParams, hostname } = args
 
-  const searchParams = new URLSearchParams(args.searchParams).toString()
-  url.search = searchParams
+  const url = getApiUrl(hostname)
+
+  const searchParamsParsed = Object.entries(searchParams).reduce<Record<string, string>>((acc, [key, value]) => {
+    if (!value) return acc
+
+    acc[key] = value.toString()
+    return acc
+  }, {})
+
+  const newSearchParams = new URLSearchParams(searchParamsParsed).toString()
+  url.search = newSearchParams
 
   return { url }
 }
