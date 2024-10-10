@@ -38,7 +38,7 @@ export function DeleteGroup() {
     <section className='flex flex-col gap-y-6'>
       <div>
         <h3 className='text-lg font-bold'>Eliminar grupo</h3>
-        <p>El proyecto se eliminará permanentemente, incluyendo sus registros.</p>
+        <p>El grupo se eliminará permanentemente, incluyendo sus registros.</p>
       </div>
       <Button
         isDisabled={isPending}
