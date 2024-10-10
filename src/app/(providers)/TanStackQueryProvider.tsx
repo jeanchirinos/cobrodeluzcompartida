@@ -23,6 +23,7 @@ const queryClient = new QueryClient({
         return false
       },
       refetchOnWindowFocus: false,
+      staleTime: 2000,
     },
   },
 })

@@ -5,17 +5,17 @@ import { BillData } from './BillData'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
 import { ResultsTable } from '@/components/other/ResultsTable/ResultsTable'
 import { ResultRow } from '@/components/other/ResultsTable/ResultsTable.type'
+import { ErrorUi } from '@/components/other/ComponentError'
 
 export function RentalGroupRegister() {
-  const { data, isPending } = useGetRentalGroupRegister()
+  const { data, isError, isPending } = useGetRentalGroupRegister()
 
   if (isPending) return <SuspenseFallback />
+  if (isError) return <ErrorUi />
 
-  const { rentalGroupRegister } = data ?? {}
+  if (data === null) return <p>No existe un registro en este periodo</p>
 
-  if (!rentalGroupRegister) return <p>No existe un registro en este periodo</p>
-
-  const results: ResultRow[] = rentalGroupRegister.results.map(result => ({
+  const results: ResultRow[] = data.rentalGroupRegister.results.map(result => ({
     ...result,
     result: {
       amount: result.amount,
