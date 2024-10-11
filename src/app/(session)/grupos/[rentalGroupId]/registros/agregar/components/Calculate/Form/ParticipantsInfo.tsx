@@ -40,7 +40,6 @@ export function ParticipantsInfo(props: Props) {
       ...field,
       ...watchFieldArray[index],
       ...availableParticipants[index],
-      id: availableParticipants[index]?.id ?? Number(field.id),
     }))
   }, [fields, watchFieldArray, participants])
 
