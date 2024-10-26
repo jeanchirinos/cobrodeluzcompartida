@@ -18,7 +18,7 @@ export function Calculate() {
         <SelectMonth />
       </section>
       <section className='flex gap-14 max-md:flex-col lg:gap-x-16'>
-        <AddRegisterForm results={results} setFieldsWithData={setFieldsWithData} />
+        <AddRegisterForm results={results} fieldsWithData={fieldsWithData} setFieldsWithData={setFieldsWithData} />
         <Results results={results} setResults={setResults} fieldsWithData={fieldsWithData} />
       </section>
     </>

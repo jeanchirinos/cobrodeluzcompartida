@@ -1,7 +1,9 @@
 'use client'
 
+import { ErrorUi } from '@/components/other/ComponentError'
 import { ResultsTable } from '@/components/other/ResultsTable/ResultsTable'
 import { ResultRow } from '@/components/other/ResultsTable/ResultsTable.type'
+import { useGetParticipants } from '@/controllers/ParticipantController/getParticipants/useGetParticipants'
 import {
   calculateAmountPerParticipant,
   getMainParticipantConsumption,
@@ -13,9 +15,8 @@ import {
 import { SetState } from '@/types'
 import { useEffect } from 'react'
 import { useWatch } from 'react-hook-form'
+import { useFormIsValidStore } from '../../stores/formIsValid-store'
 import { FieldWithData } from './Form/ParticipantsInfo'
-import { useGetParticipants } from '@/controllers/ParticipantController/getParticipants/useGetParticipants'
-import { ErrorUi } from '@/components/other/ComponentError'
 
 type Props = {
   results: ResultRow[]
@@ -27,15 +28,19 @@ export function Results(props: Props) {
   const { results, setResults, fieldsWithData } = props
 
   const values = useWatch<SchemaCalculateResultsAdd>()
+  const { isValid } = useFormIsValidStore()
 
   const { data, isError } = useGetParticipants()
 
   const { participants } = data ?? {}
 
+  // Calculate results when values change
   useEffect(() => {
-    const isValid = schemaCalculateResultsAdd.safeParse(values).success
+    // TODO: Add debouncing and make request to API to get the results
 
-    if (!isValid) return setResults([])
+    const validationSuccess = schemaCalculateResultsAdd.safeParse(values).success
+
+    if (!isValid || !validationSuccess) return setResults([])
 
     const { billData, consumptions } = values as SchemaCalculateResultsAdd
 
@@ -46,7 +51,11 @@ export function Results(props: Props) {
     const mainParticipant = participants.find(participant => participant.is_main)
     if (!mainParticipant) return
 
-    const mainParticipantConsumption = getMainParticipantConsumption({ billData, consumptions })
+    const consumptions2 = fieldsWithData.map(field => ({
+      consumption_kwh: field.consumption_kwh,
+    }))
+
+    const mainParticipantConsumption = getMainParticipantConsumption({ billData, consumptions: consumptions2 })
 
     const adminResult: ResultRow = {
       result: {
@@ -60,22 +69,29 @@ export function Results(props: Props) {
       ...mainParticipant,
     }
 
-    const participantsResults: ResultRow[] = consumptions.map((field, i) => ({
+    const participantsResults: ResultRow[] = consumptions.map((_, i) => ({
       result: {
         amount: calculateAmountPerParticipant({
           billData,
           nConsumptions,
-          consumption_kwh: field.consumption_kwh,
+          consumption_kwh: fieldsWithData[i].consumption_kwh,
         }),
-        consumption_kwh: field.consumption_kwh,
+        consumption_kwh: fieldsWithData[i].consumption_kwh,
       },
-      ...fieldsWithData[i],
+      id: fieldsWithData[i].id,
+      participant: {
+        active: fieldsWithData[i].active,
+        alias: fieldsWithData[i].alias,
+        id: fieldsWithData[i].id,
+        is_main: fieldsWithData[i].is_main,
+      },
+      tenant: fieldsWithData[i].tenant,
     }))
 
     const newResults: ResultRow[] = [adminResult, ...participantsResults]
 
     setResults(newResults)
-  }, [values, setResults, fieldsWithData, participants])
+  }, [values, setResults, fieldsWithData, participants, isValid])
 
   if (isError) return <ErrorUi />
 

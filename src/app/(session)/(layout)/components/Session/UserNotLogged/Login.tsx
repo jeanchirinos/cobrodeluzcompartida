@@ -9,6 +9,8 @@ import { useCreateRentalGroupWithRegister } from '@/controllers/RentalGroupRegis
 import { Button, Input } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler } from 'react-hook-form'
+import { toast } from 'sonner'
+import { AxiosError } from 'axios'
 
 export function Login() {
   // HOOKS
@@ -27,7 +29,13 @@ export function Login() {
   const onSubmit: SubmitHandler<SchemaLogin> = async data => {
     try {
       await mutateAsyncLogin(data)
-    } catch (error) {}
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data?.message)
+      }
+
+      toast.error('Error al iniciar sesión, intente nuevamente')
+    }
 
     const temporalFormData = sessionStorage.getItem(SSTORAGE_TEMPORAL_FORM_DATA)
 

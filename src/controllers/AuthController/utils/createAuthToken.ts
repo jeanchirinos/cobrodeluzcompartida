@@ -8,5 +8,7 @@ export async function createAuthToken(args: Pick<User, 'token'>) {
   const expires = new Date()
   expires.setDate(expires.getDate() + 7)
 
-  cookies().set(COOKIES_TOKEN_NAME, args.token, { expires })
+  const cookieStore = await cookies()
+
+  cookieStore.set(COOKIES_TOKEN_NAME, args.token, { expires })
 }

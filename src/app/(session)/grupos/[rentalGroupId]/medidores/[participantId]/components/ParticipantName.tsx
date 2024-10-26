@@ -9,8 +9,8 @@ import { notFound } from 'next/navigation'
 export function ParticipantName() {
   const { data: participant, isPending, error } = useGetParticipantById()
 
-  if (error instanceof AxiosError) {
-    error.status === 404 && notFound()
+  if (error instanceof AxiosError && error.status === 404) {
+    notFound()
   }
 
   const content = () => {

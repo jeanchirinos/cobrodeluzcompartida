@@ -3,11 +3,11 @@ import { AlreadyLinked } from './components/already-linked'
 import { User } from '@/models/User'
 
 type Props = {
-  searchParams: (Pick<User, 'token'> & { status: 'success' }) | { status: 'error' }
+  searchParams: Promise<(Pick<User, 'token'> & { status: 'success' }) | { status: 'error' }>
 }
 
-export default function Page(props: Props) {
-  const { searchParams } = props
+export default async function Page(props: Props) {
+  const searchParams = await props.searchParams
   const { status } = searchParams
 
   return (

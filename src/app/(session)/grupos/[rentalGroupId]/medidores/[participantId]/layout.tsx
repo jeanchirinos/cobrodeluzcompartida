@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 type LayoutProps = React.PropsWithChildren & PagePropsParams<'rentalGroupId'>
 
-export default function Layout(props: LayoutProps) {
-  const { rentalGroupId } = props.params
+export default async function Layout(props: LayoutProps) {
+  const { rentalGroupId } = await props.params
 
   return (
     <main className='flex flex-col gap-y-6 !px-0 main-container'>

@@ -15,7 +15,7 @@ export function useLogin() {
     },
     onError(error) {
       // TODO: Function to get the error message
-      // @ts-expect-error
+      // @ts-expect-error : This is a TODO
       const msg = error.response?.data?.msg
 
       const message = msg ?? 'Ocurrió un error al intentar iniciar sesión'

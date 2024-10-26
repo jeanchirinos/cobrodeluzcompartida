@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: 'Registros',
 }
 
-export default function Page(props: PagePropsParams<'rentalGroupId'>) {
+export default async function Page(props: PagePropsParams<'rentalGroupId'>) {
   return (
     <>
       <header className='flex flex-wrap items-end justify-between gap-6'>
@@ -23,7 +23,7 @@ export default function Page(props: PagePropsParams<'rentalGroupId'>) {
           <RentalGroupRegisterOptions />
         </section>
         <ButtonLink
-          href={ROUTE.GROUPS.REGISTERS.ADD({ rentalGroupId: props.params.rentalGroupId })}
+          href={ROUTE.GROUPS.REGISTERS.ADD({ rentalGroupId: (await props.params).rentalGroupId })}
           variant='flat'
           color='primary'
           endContent={<IconAdd />}

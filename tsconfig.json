@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "ES2017",
     "lib": [
       "dom",
       "dom.iterable",
@@ -33,7 +34,6 @@
         "public/*"
       ]
     },
-    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",

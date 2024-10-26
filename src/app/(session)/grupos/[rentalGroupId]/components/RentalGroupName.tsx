@@ -9,8 +9,8 @@ import { notFound } from 'next/navigation'
 export function RentalGroupName() {
   const { data, isPending, error } = useGetRentalGroupById()
 
-  if (error instanceof AxiosError) {
-    error.status === 404 && notFound()
+  if (error instanceof AxiosError && error.status === 404) {
+    notFound()
   }
 
   const content = () => {

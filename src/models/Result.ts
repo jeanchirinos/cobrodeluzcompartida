@@ -6,7 +6,7 @@ export const schemaResult = z.object({
   id: z.number().int().positive(),
   amount: z.number().nonnegative(),
   consumption_kwh: z.number().nonnegative(),
-  meter_reading: z.number().nonnegative(),
+  meter_reading: z.number().nonnegative().optional(),
   tenant_id: schemaTenant.shape.id,
   bill_data_id: schemaBillData.shape.id,
 })

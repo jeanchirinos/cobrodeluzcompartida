@@ -22,7 +22,9 @@ export const schemaCalculateResultsAdd = z.object({
     igv: true,
     rental_group_id: true,
   }),
-  consumptions: z.array(schemaCreateRentalGroupRegister.shape.results.element.pick({ consumption_kwh: true })),
+  consumptions: z.array(
+    schemaCreateRentalGroupRegister.shape.results.element.pick({ consumption_kwh: true, meter_reading: true }),
+  ),
 })
 
 export type SchemaCalculateResultsAdd = z.infer<typeof schemaCalculateResultsAdd>
