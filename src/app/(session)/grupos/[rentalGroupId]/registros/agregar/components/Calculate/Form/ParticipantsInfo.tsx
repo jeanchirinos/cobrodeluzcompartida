@@ -32,7 +32,7 @@ type Props = {
 
 export function ParticipantsInfo(props: Props) {
   const { fieldsWithData, setFieldsWithData } = props
-  const { control, trigger } = useFormContext<SchemaCalculateResultsAdd>()
+  const { control } = useFormContext<SchemaCalculateResultsAdd>()
 
   const { data, isError, isPending } = useGetParticipants()
   const { data: rentalGroupRegisterData, isPending: isPendingRentalGroupRegistarData } = useGetRentalGroupRegister({
@@ -73,7 +73,6 @@ export function ParticipantsInfo(props: Props) {
 
   return (
     <section className='flex flex-col gap-y-8'>
-      <button onClick={() => trigger()}>Trigger</button>
       <h3 className='text-large font-semibold'>Datos de los medidores</h3>
       <div className='flex flex-col gap-y-6'>
         <div className='flex flex-col gap-y-6'>
