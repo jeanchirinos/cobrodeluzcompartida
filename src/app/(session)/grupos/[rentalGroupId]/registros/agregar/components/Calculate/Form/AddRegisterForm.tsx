@@ -76,7 +76,7 @@ export function AddRegisterForm(props: Props) {
         color='primary'
         className='w-fit'
         isLoading={isMutating}
-        isDisabled={isPending || !isDirty || !isValid}
+        isDisabled={isPending || !isDirty || !isValid.all}
       >
         Guardar registro
       </Button>

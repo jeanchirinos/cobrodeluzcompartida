@@ -1,20 +1,32 @@
 'use client'
 
-import { Dialog } from '@/components/Dialog/Dialog'
-import { useDialog } from '@/components/Dialog/useDialog'
+import { SchemaCalculateResultsAdd } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
+// import { Dialog } from '@/components/Dialog/Dialog'
+// import { useDialog } from '@/components/Dialog/useDialog'
 import { IconOptions } from '@/icons'
 import { SetState } from '@/types'
 import { Button } from '@nextui-org/button'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown'
-import { ChangeModeDialog } from './ChangeModeDialog'
+import { useFormContext } from 'react-hook-form'
 
 type ParticipantOptionsProps = {
-  currentMode: 'meter_reading' | 'consumption_kwh'
-  setCurrentMode: SetState<'meter_reading' | 'consumption_kwh'>
+  setCurrentMode: SetState<'meter_reading' | 'consumption_kwh' | undefined>
+  isFirstRegister: boolean
+  index: number
 }
 
 export function ParticipantOptions(props: ParticipantOptionsProps) {
-  const editDialog = useDialog()
+  const { isFirstRegister, setCurrentMode, index } = props
+
+  const disabledKeys = isFirstRegister ? ['changeMode'] : []
+
+  const { resetField } = useFormContext<SchemaCalculateResultsAdd>()
+
+  function handleChangeMode() {
+    resetField(`consumptions.${index}`)
+
+    setCurrentMode(prev => (prev === 'meter_reading' ? 'consumption_kwh' : 'meter_reading'))
+  }
 
   return (
     <>
@@ -34,16 +46,13 @@ export function ParticipantOptions(props: ParticipantOptionsProps) {
           classNames={{
             list: '*:pr-8',
           }}
+          disabledKeys={disabledKeys}
         >
-          <DropdownItem key='edit' onPress={editDialog.open}>
+          <DropdownItem key='changeMode' onPress={handleChangeMode}>
             Cambiar modo
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-
-      <Dialog dialog={editDialog} dialogTitle='Cambiar modo'>
-        <ChangeModeDialog dialog={editDialog} currentMode={props.currentMode} setCurrentMode={props.setCurrentMode} />
-      </Dialog>
     </>
   )
 }

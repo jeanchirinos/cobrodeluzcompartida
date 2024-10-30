@@ -40,7 +40,7 @@ export function Results(props: Props) {
 
     const validationSuccess = schemaCalculateResultsAdd.safeParse(values).success
 
-    if (!isValid || !validationSuccess) return setResults([])
+    if (!isValid.all || !validationSuccess) return setResults([])
 
     const { billData, consumptions } = values as SchemaCalculateResultsAdd
 

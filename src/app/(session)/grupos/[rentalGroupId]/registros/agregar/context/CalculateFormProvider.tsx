@@ -6,15 +6,13 @@ import {
   SchemaCalculateResultsAdd,
   schemaCalculateResultsAdd,
 } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
-import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
 import { useReactHookForm } from '@/hooks/useReactHookForm'
 import { useEffect } from 'react'
-import { FieldErrors, FormProvider, useFormState, useWatch } from 'react-hook-form'
+import { FormProvider, useFormState, useWatch } from 'react-hook-form'
 import { useFormIsValidStore } from '../stores/formIsValid-store'
 
 export function CalculateFormProvider(props: React.PropsWithChildren) {
   const { data, isError } = useGetParticipants()
-  const { data: rentalGroupRegisterData } = useGetRentalGroupRegister({ lastMonth: true })
 
   const consumptions: SchemaCalculateResultsAdd['consumptions'] | undefined =
     data?.participants
@@ -40,38 +38,16 @@ export function CalculateFormProvider(props: React.PropsWithChildren) {
     },
   })
 
-  const { setIsValid, setCustomErrors } = useFormIsValidStore()
+  const { setIsValid } = useFormIsValidStore()
 
   const formData = useWatch({ control: methods.control })
-  const { isValid, errors } = useFormState({ control: methods.control })
+  const { isValid } = useFormState({ control: methods.control })
 
   useEffect(() => {
-    const availableResults = rentalGroupRegisterData?.rentalGroupRegister.results.filter(
-      result => !result.participant.is_main,
-    )
-
-    const customConsumptionsErrors: Array<FieldErrors<SchemaCalculateResultsAdd['consumptions'][0]>> = []
-
-    formData.consumptions?.forEach((field, i) => {
-      const lastMeterReading = availableResults?.[i].meter_reading ?? 0
-      const currentMeterReading = field.meter_reading ?? 0
-
-      if (currentMeterReading < lastMeterReading) {
-        customConsumptionsErrors.push({
-          meter_reading: {
-            type: 'min',
-            message: 'La medición actual no puede ser menor a la anterior',
-          },
-        })
-      }
+    setIsValid({
+      form: isValid,
     })
-
-    const newIsValid = isValid && customConsumptionsErrors.length === 0
-
-    setCustomErrors(customConsumptionsErrors)
-
-    setIsValid(newIsValid)
-  }, [setIsValid, isValid, errors, formData, rentalGroupRegisterData, setCustomErrors])
+  }, [isValid, setIsValid, formData])
 
   if (isError) return <ErrorUi />
 
