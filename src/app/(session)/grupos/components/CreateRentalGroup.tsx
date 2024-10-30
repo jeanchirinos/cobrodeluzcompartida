@@ -8,13 +8,15 @@ import { useRouter } from 'next/navigation'
 
 export function CreateRentalGroup() {
   const { push } = useRouter()
-
   const { mutate, isPending } = useCreateRentalGroup()
 
   function handlePress() {
     mutate(undefined, {
       onSuccess(data) {
         push(ROUTE.GROUPS.REGISTERS.INDEX({ rentalGroupId: data.data.rental_group_id }))
+      },
+      onError(error) {
+        console.log({ error })
       },
     })
   }

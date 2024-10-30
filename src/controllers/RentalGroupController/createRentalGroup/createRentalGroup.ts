@@ -13,6 +13,7 @@ export async function createRentalGroup(args?: SchemaCreateRentalGroup) {
   return await sendData<ResponseCreateRentalGroup, typeof schemaCreateRentalGroup>({
     url: API_ROUTE.RENTAL_GROUP.STORE,
     data: args,
+    // data: { n_participant: '' },
     schema: schemaCreateRentalGroup,
   })
 }

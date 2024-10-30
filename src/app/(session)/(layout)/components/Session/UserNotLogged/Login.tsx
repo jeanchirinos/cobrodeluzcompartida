@@ -81,6 +81,7 @@ export function Login() {
             errorMessage={fieldState.error?.message}
             isInvalid={fieldState.invalid}
             labelPlacement='outside'
+            placeholder=''
           />
         )}
       />

@@ -42,9 +42,10 @@ export function AddRegisterForm(props: Props) {
     mutate(
       {
         billData: { ...data.billData, rental_group_id: Number(rentalGroupId) },
-        results: results.map(result => ({
+        results: results.map((result, i) => ({
           ...result.result,
           tenant_id: result.tenant.id!,
+          meter_reading: data.consumptions[i - 1]?.meter_reading,
         })),
       },
       {
