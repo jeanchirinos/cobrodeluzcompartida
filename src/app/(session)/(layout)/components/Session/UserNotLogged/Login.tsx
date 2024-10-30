@@ -56,7 +56,7 @@ export function Login() {
           <Input
             type='email'
             label='Correo'
-            autoComplete='username'
+            // autoComplete='username'
             autoFocus
             placeholder='example@gmail.com'
             {...field}
@@ -75,7 +75,7 @@ export function Login() {
           <Input
             type='password'
             label='Contraseña'
-            autoComplete='current-password'
+            // autoComplete='current-password'
             {...field}
             value={field.value ?? ''}
             errorMessage={fieldState.error?.message}
