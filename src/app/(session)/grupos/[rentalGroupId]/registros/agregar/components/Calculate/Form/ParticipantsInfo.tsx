@@ -121,13 +121,12 @@ function FieldWithData(props: { field: FieldWithData; index: number }) {
   })
 
   const isFirstRegister =
-    rentalGroupRegisterData === null ||
-    rentalGroupRegisterData?.rentalGroupRegister.results[index + 1].meter_reading === 0
+    rentalGroupRegisterData === null || !rentalGroupRegisterData?.rentalGroupRegister.results[index + 1]
 
   const availableResults = rentalGroupRegisterData?.rentalGroupRegister.results.filter(
     result => !result.participant.is_main,
   )
-  const lastMeterReading = availableResults?.[index].meter_reading ?? 0
+  const lastMeterReading = availableResults?.[index]?.meter_reading ?? 0
 
   const [currentMode, setCurrentMode] = useState<'meter_reading' | 'consumption_kwh' | undefined>(undefined)
 
