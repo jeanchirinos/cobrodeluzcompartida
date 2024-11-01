@@ -7,6 +7,9 @@ const ROOT = {
 
 const AUTH = {
   SOCIAL_AUTH: '/social_auth',
+  PASSWORD_FORGOT: (params?: { email?: string }) =>
+    `/recuperar${params?.email ? '?email=' + params?.email : ''}` as const,
+  PASSWORD_RESET: '/restablecer_contrasena',
 } as const
 
 const GROUPS = {

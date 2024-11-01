@@ -8,10 +8,17 @@ const axios = axiosDefault.create({
   headers: { 'X-API-KEY': process.env.NEXT_PUBLIC_API_KEY },
 })
 
+const NOT_AUTHORIZATION_ROUTES = [
+  API_ROUTE.AUTH.LOGIN,
+  API_ROUTE.AUTH.REGISTER,
+  API_ROUTE.AUTH.PASSWORD_RECOVER,
+  API_ROUTE.AUTH.PASSWORD_RESET,
+]
+
 axios.interceptors.request.use(async function (config) {
   const token = getCookie(COOKIES_TOKEN_NAME)
 
-  if (!token && config.url !== API_ROUTE.AUTH.LOGIN) {
+  if (!token && !NOT_AUTHORIZATION_ROUTES.includes(config.url!)) {
     const axiosError = new AxiosError('Token not found', AxiosError.ERR_BAD_REQUEST, config)
 
     axiosError.status = HttpStatusCode.Unauthorized

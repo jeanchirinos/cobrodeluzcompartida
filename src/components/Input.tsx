@@ -2,12 +2,7 @@ import { IconPasswordHidden, IconPasswordVisible } from '@/icons'
 import { Input as NextUiInput, type InputProps as NextUiInputProps } from '@nextui-org/input'
 import { forwardRef, useState } from 'react'
 
-export type InputProps = NextUiInputProps & {
-  sensitive?: boolean
-  isLoading?: boolean
-}
-
-export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(props, ref) {
+export const Input = forwardRef<HTMLInputElement, NextUiInputProps>(function Input(props, ref) {
   const [isVisible, setIsVisible] = useState(false)
 
   const toggleVisibility = () => setIsVisible(!isVisible)
@@ -28,16 +23,5 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(pro
         }
       : {}
 
-  const isDisabled = props.isLoading ?? props.isDisabled
-
-  return (
-    <NextUiInput
-      placeholder=' '
-      labelPlacement='outside'
-      {...props}
-      ref={ref}
-      {...passwordVisibility}
-      isDisabled={isDisabled}
-    />
-  )
+  return <NextUiInput placeholder=' ' labelPlacement='outside' {...props} ref={ref} {...passwordVisibility} />
 })

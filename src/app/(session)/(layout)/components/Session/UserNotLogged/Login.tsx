@@ -6,11 +6,13 @@ import { SSTORAGE_TEMPORAL_FORM_DATA } from '@/constants/session-storage'
 import { SchemaLogin, schemaLogin } from '@/controllers/AuthController/login/login.schema'
 import { useLogin } from '@/controllers/AuthController/login/useLogin'
 import { useCreateRentalGroupWithRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupWithRegister/useCreateRentalGroupWithRegister'
-import { Button, Input } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler } from 'react-hook-form'
 import { toast } from 'sonner'
 import { AxiosError } from 'axios'
+import { Input } from '@/components/Input'
+import { Link } from '@/components/Link'
 
 export function Login() {
   // HOOKS
@@ -23,7 +25,10 @@ export function Login() {
     handleSubmit,
     control,
     formState: { isValid },
-  } = useReactHookForm({ schema: schemaLogin })
+    watch,
+  } = useReactHookForm({ schema: schemaLogin, mode: 'onSubmit' })
+
+  const { email } = watch()
 
   // FUNCTIONS
   const onSubmit: SubmitHandler<SchemaLogin> = async data => {
@@ -52,7 +57,7 @@ export function Login() {
       <Controller
         name='email'
         control={control}
-        render={({ field, fieldState }) => (
+        render={({ field }) => (
           <Input
             type='email'
             label='Correo'
@@ -60,9 +65,6 @@ export function Login() {
             placeholder='example@gmail.com'
             {...field}
             value={field.value ?? ''}
-            errorMessage={fieldState.error?.message}
-            isInvalid={fieldState.invalid}
-            labelPlacement='outside'
           />
         )}
       />
@@ -70,19 +72,12 @@ export function Login() {
       <Controller
         name='password'
         control={control}
-        render={({ field, fieldState }) => (
-          <Input
-            type='password'
-            label='Contraseña'
-            {...field}
-            value={field.value ?? ''}
-            errorMessage={fieldState.error?.message}
-            isInvalid={fieldState.invalid}
-            labelPlacement='outside'
-            placeholder=' '
-          />
-        )}
+        render={({ field }) => <Input type='password' label='Contraseña' {...field} value={field.value ?? ''} />}
       />
+
+      <Link href={ROUTE.AUTH.PASSWORD_FORGOT({ email })} className='mx-auto' size='sm' isDisabled>
+        ¿Olvidaste tu contraseña?
+      </Link>
 
       <Button type='submit' isLoading={isPending} isDisabled={!isValid} color='primary'>
         Ingresar

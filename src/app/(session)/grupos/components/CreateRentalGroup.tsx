@@ -16,7 +16,7 @@ export function CreateRentalGroup() {
         push(ROUTE.GROUPS.REGISTERS.INDEX({ rentalGroupId: data.data.rental_group_id }))
       },
       onError(error) {
-        console.log({ error })
+        // console.log({ error })
       },
     })
   }

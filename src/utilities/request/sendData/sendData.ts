@@ -35,6 +35,7 @@ export async function sendData<ResponseData, BodySchema extends ZodType = ZodTyp
   }
 
   // SEND REQUEST
+  // try {
   const response = await axios<SuccesResponse<ResponseData>>({
     ...restArgs,
     method,
@@ -42,6 +43,12 @@ export async function sendData<ResponseData, BodySchema extends ZodType = ZodTyp
   })
 
   return response.data
+  // } catch (error) {
+  //   console.log({ error })
+  //   return {}
+  // }
+
+  // return response.data
 }
 
 export function validateDataBeforeSendingRequest({ data, schema }: { data: unknown; schema: ZodType }) {

@@ -26,6 +26,9 @@ const AUTH = {
   SESSION: 'session',
   LOGOUT: 'logout',
   GOOGLE_REDIRECT: 'auth/google/redirect',
+  REGISTER: 'register', // TODO: Implement in backend
+  PASSWORD_RECOVER: '/recover-password', // TODO: Implement in backend
+  PASSWORD_RESET: '/restore-password', // TODO: Implement in backend
 }
 
 //* RENTAL GROUP
