@@ -26,6 +26,8 @@ const eslintConfig = [
       'no-useless-rename': 'warn',
       'no-return-await': 'off',
       'no-unneeded-ternary': 'warn',
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   }),
 ]
