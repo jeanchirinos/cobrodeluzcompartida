@@ -1,7 +1,7 @@
 import { cnx } from '@/lib/utils'
-import { Skeleton as NextuiSkeleton, SkeletonProps as NextuiSkeletonProps } from '@heroui/react'
+import { Skeleton as HerouiSkeleton, SkeletonProps as HerouiSkeletonProps } from '@heroui/react'
 
-type SkeletonProps = NextuiSkeletonProps & {
+type SkeletonProps = HerouiSkeletonProps & {
   isLoading?: boolean
   chars?: number
 }
@@ -19,7 +19,7 @@ export function Skeleton(props: SkeletonProps) {
   const isLoaded = !isLoading
 
   return (
-    <NextuiSkeleton
+    <HerouiSkeleton
       isLoaded={isLoaded}
       classNames={{
         base: cnx(classNames?.base, isLoading && 'text-transparent rounded-sm'),
@@ -28,6 +28,6 @@ export function Skeleton(props: SkeletonProps) {
       {...restProps}
     >
       {chars > 0 && isLoading ? getRandomWord() : children}
-    </NextuiSkeleton>
+    </HerouiSkeleton>
   )
 }

@@ -1,15 +1,15 @@
 'use client'
 
 import { NextThemesProvider } from './NextThemesProvider'
-import { NextUIProvider } from './NextUIProvider'
+import { HeroUIProvider } from './HeroUIProvider'
 import { TanStackQueryProvider } from './TanStackQueryProvider'
 
 export function Providers(props: Required<React.PropsWithChildren>) {
   return (
     <TanStackQueryProvider>
-      <NextUIProvider>
+      <HeroUIProvider>
         <NextThemesProvider>{props.children}</NextThemesProvider>
-      </NextUIProvider>
+      </HeroUIProvider>
     </TanStackQueryProvider>
   )
 }

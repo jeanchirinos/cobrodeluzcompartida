@@ -1,8 +1,8 @@
 import { IconPasswordHidden, IconPasswordVisible } from '@/icons'
-import { Input as NextUiInput, type InputProps as NextUiInputProps } from '@heroui/input'
+import { Input as HeroUiInput, type InputProps as HeroUiInputProps } from '@heroui/input'
 import { forwardRef, useState } from 'react'
 
-export const Input = forwardRef<HTMLInputElement, NextUiInputProps>(function Input(props, ref) {
+export const Input = forwardRef<HTMLInputElement, HeroUiInputProps>(function Input(props, ref) {
   const [isVisible, setIsVisible] = useState(false)
 
   const toggleVisibility = () => setIsVisible(!isVisible)
@@ -23,5 +23,5 @@ export const Input = forwardRef<HTMLInputElement, NextUiInputProps>(function Inp
         }
       : {}
 
-  return <NextUiInput placeholder=' ' labelPlacement='outside' {...props} ref={ref} {...passwordVisibility} />
+  return <HeroUiInput placeholder=' ' labelPlacement='outside' {...props} ref={ref} {...passwordVisibility} />
 })

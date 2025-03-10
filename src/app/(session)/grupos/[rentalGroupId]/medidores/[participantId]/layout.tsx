@@ -18,7 +18,7 @@ export default async function Layout(props: LayoutProps) {
   const { rentalGroupId } = await props.params
 
   return (
-    <main className='flex flex-col gap-y-6 !px-0 main-container'>
+    <main className='main-container flex flex-col gap-y-6 !px-0'>
       <section className='flex items-center gap-x-2'>
         <ButtonBack href={ROUTE.GROUPS.PARTICIPANTS.INDEX({ rentalGroupId })} />
         <ParticipantName />
@@ -26,7 +26,7 @@ export default async function Layout(props: LayoutProps) {
       <ParticipantTabs classNames={{ base: 'md:hidden' }} />
 
       <div className='relative flex gap-x-6'>
-        <ParticipantTabs isVertical classNames={{ wrapper: 'max-md:hidden' }} />
+        <ParticipantTabs isVertical classNames={{ tabWrapper: 'max-md:hidden' }} />
         {props.children}
       </div>
     </main>

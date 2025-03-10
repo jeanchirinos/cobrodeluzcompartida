@@ -3,7 +3,7 @@
 import { Link } from '@/components/Link'
 import { IconParticipant, IconReceipt, IconSettings } from '@/icons'
 import { ROUTE } from '@/constants/routes'
-import { Tabs as NextuiTabs, Tab } from '@heroui/tabs'
+import { Tabs as HerouiTabs, Tab } from '@heroui/tabs'
 import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 
 const tabs = [
@@ -34,7 +34,7 @@ export function Tabs() {
   const selectedLayoutSegment = useSelectedLayoutSegment()
 
   return (
-    <NextuiTabs
+    <HerouiTabs
       variant='underlined'
       aria-label='Opciones del grupo'
       selectedKey={selectedLayoutSegment}
@@ -53,6 +53,6 @@ export function Tabs() {
           }
         />
       ))}
-    </NextuiTabs>
+    </HerouiTabs>
   )
 }
