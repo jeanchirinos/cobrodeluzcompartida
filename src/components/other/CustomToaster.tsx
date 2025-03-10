@@ -1,7 +1,6 @@
 'use client'
 
-import { useTheme } from 'next-themes'
-import { type UseThemeProps } from 'next-themes/dist/types'
+import { useTheme, type UseThemeProps } from 'next-themes'
 import { Toaster as SonnerToaster, type ToasterProps } from 'sonner'
 
 export function Toaster() {
