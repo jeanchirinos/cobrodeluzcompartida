@@ -9,7 +9,7 @@ import {
   Transition,
   TransitionChild,
 } from '@headlessui/react'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { type ComponentProps, type PropsWithChildren, type ReactNode } from 'react'
 import { DialogContent } from './DialogContent'
 import { type UseDialog } from './useDialog'

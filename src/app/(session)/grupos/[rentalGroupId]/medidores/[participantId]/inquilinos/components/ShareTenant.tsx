@@ -5,7 +5,7 @@ import { UseDialog } from '@/components/Dialog/useDialog'
 import { Link } from '@/components/Link'
 import { ROUTE } from '@/constants/routes'
 import { ResponseGetTenants } from '@/controllers/TenatController/getTenants/getTenants'
-import { Button, Snippet } from '@nextui-org/react'
+import { Button, Snippet } from '@heroui/react'
 
 type ShareParticipantDialogProps = { tenant: ResponseGetTenants[0]; dialog: UseDialog }
 

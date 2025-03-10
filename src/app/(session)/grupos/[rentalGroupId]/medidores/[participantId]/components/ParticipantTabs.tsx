@@ -3,7 +3,7 @@
 import { Link } from '@/components/Link'
 import { ROUTE } from '@/constants/routes'
 import { IconParticipants, IconSettings } from '@/icons'
-import { Tabs, Tab, TabsProps } from '@nextui-org/tabs'
+import { Tabs, Tab, TabsProps } from '@heroui/tabs'
 import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 
 const tabs = [

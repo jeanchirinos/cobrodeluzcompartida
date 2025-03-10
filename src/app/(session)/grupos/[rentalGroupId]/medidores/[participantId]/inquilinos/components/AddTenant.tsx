@@ -2,7 +2,7 @@
 
 import { useCreateTenant } from '@/controllers/TenatController/createTenant/useCreateTenant'
 import { IconAdd } from '@/icons'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { useParams } from 'next/navigation'
 
 export function AddTenant() {

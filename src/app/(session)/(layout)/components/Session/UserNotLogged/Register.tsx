@@ -5,7 +5,7 @@ import { $BUTTON_LOGIN_ID } from '@/constants/elements'
 import { SchemaRegister, schemaRegister } from '@/controllers/AuthController/register/register.schema'
 import { useRegister } from '@/controllers/AuthController/register/useRegister'
 import { useReactHookForm } from '@/hooks/useReactHookForm'
-import { Button } from '@nextui-org/button'
+import { Button } from '@heroui/button'
 import { Controller, SubmitHandler } from 'react-hook-form'
 
 export function Register() {

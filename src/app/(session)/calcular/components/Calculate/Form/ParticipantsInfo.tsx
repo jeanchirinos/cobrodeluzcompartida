@@ -3,8 +3,8 @@
 import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 import { IconAdd, IconDelete } from '@/icons'
 import { SetState } from '@/types'
-import { Button } from '@nextui-org/button'
-import { Input } from '@nextui-org/react'
+import { Button } from '@heroui/button'
+import { Input } from '@heroui/react'
 import { useEffect, useMemo } from 'react'
 import { Controller, FieldArrayWithId, useFieldArray, useFormContext } from 'react-hook-form'
 

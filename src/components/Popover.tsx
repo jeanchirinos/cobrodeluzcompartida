@@ -8,7 +8,7 @@ import {
   Transition,
 } from '@headlessui/react'
 import { cnx } from '@/lib/utils'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 
 export function Popover(props: PopoverProps) {
   return <HeadlessPopover {...props} className={cnx('z-50', props.className?.toString())} />

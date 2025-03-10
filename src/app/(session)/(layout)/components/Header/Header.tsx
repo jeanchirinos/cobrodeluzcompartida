@@ -1,4 +1,4 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarMenuToggle } from '@nextui-org/navbar'
+import { Navbar, NavbarBrand, NavbarContent, NavbarMenuToggle } from '@heroui/navbar'
 import Logo from '@/public/img/logo.svg'
 import { ROUTE } from '@/constants/routes'
 import { Session } from '../Session/Session'

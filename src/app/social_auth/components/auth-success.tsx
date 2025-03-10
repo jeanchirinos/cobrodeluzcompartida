@@ -1,7 +1,7 @@
 'use client'
 
 import { User } from '@/models/User'
-import { Spinner } from '@nextui-org/spinner'
+import { Spinner } from '@heroui/spinner'
 import { useEffect } from 'react'
 
 type Props = Pick<User, 'token'>

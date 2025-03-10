@@ -8,7 +8,7 @@ import {
   schemaUpdateParticipant,
 } from '@/controllers/ParticipantController/updateParticipant/updateParticipant.schema'
 import { useUpdateParticipant } from '@/controllers/ParticipantController/updateParticipant/useUpdateParticipant'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@heroui/react'
 import { Controller, SubmitHandler } from 'react-hook-form'
 
 export function UpdateParticipant() {

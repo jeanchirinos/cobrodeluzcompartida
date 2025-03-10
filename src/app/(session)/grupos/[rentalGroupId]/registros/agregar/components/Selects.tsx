@@ -1,7 +1,7 @@
 'use client'
 
 import { SchemaCalculateResultsAdd } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
-import { Select, SelectItem } from '@nextui-org/react'
+import { Select, SelectItem } from '@heroui/react'
 import { Controller, useFormContext } from 'react-hook-form'
 
 export function SelectYear() {

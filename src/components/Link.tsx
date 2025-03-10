@@ -1,6 +1,6 @@
 'use client'
 
-import { Link as NextUiLink, type LinkProps as NextUiLinkProps } from '@nextui-org/link'
+import { Link as NextUiLink, type LinkProps as NextUiLinkProps } from '@heroui/link'
 import NextLink from 'next/link'
 import { forwardRef } from 'react'
 

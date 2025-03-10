@@ -1,8 +1,8 @@
 'use client'
 
 import { IconOptions } from '@/icons'
-import { DropdownTrigger, DropdownMenu, DropdownItem, Dropdown } from '@nextui-org/dropdown'
-import { Button } from '@nextui-org/button'
+import { DropdownTrigger, DropdownMenu, DropdownItem, Dropdown } from '@heroui/dropdown'
+import { Button } from '@heroui/button'
 import { useFormContext } from 'react-hook-form'
 import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 

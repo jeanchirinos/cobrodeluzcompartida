@@ -1,9 +1,9 @@
 'use client'
 
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/table'
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@heroui/table'
 import { Image } from '@/components/Image'
 import { Key, useCallback, useMemo } from 'react'
-import { Chip, Tooltip } from '@nextui-org/react'
+import { Chip, Tooltip } from '@heroui/react'
 import { ResultRow } from './ResultsTable.type'
 
 type ResultsTableProps = {

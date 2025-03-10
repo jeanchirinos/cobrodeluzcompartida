@@ -1,5 +1,5 @@
 import { cnx } from '@/lib/utils'
-import { Skeleton as NextuiSkeleton, SkeletonProps as NextuiSkeletonProps } from '@nextui-org/react'
+import { Skeleton as NextuiSkeleton, SkeletonProps as NextuiSkeletonProps } from '@heroui/react'
 
 type SkeletonProps = NextuiSkeletonProps & {
   isLoading?: boolean

@@ -6,7 +6,7 @@ import { ErrorUi } from '@/components/other/ComponentError'
 import { ROUTE } from '@/constants/routes'
 import { useDeleteRentalGroup } from '@/controllers/RentalGroupController/deleteRentalGroup/useDeleteRentalGroup'
 import { useGetRentalGroupById } from '@/controllers/RentalGroupController/getRentalGroupById/useGetRentalGroupById'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { useRouter } from 'next/navigation'
 
 export function DeleteGroup() {

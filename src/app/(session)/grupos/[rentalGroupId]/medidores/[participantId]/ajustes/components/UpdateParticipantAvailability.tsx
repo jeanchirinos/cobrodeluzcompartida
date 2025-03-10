@@ -3,7 +3,7 @@
 import { ErrorUi } from '@/components/other/ComponentError'
 import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
 import { useToggleActiveParticipant } from '@/controllers/ParticipantController/toggleActiveParticipant/useToggleActiveParticipant'
-import { Spinner, Switch } from '@nextui-org/react'
+import { Spinner, Switch } from '@heroui/react'
 
 export function UpdateParticipantAvailability() {
   const { data: participant, isPending: isPendingQuery, isError } = useGetParticipantById()

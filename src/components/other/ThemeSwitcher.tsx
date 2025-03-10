@@ -38,7 +38,7 @@ export function ThemeSwitcher() {
 
   return (
     <Listbox value={selectedTheme} onChange={theme => setTheme(theme.id)}>
-      <ListboxTrigger isIconOnly size='sm' aria-label={`Tema ${selectedTheme.name}`}>
+      <ListboxTrigger size='sm' aria-label={`Tema ${selectedTheme.name}`}>
         {selectedTheme.icon}
       </ListboxTrigger>
       <ListboxOptions className='max-h-60 text-small'>

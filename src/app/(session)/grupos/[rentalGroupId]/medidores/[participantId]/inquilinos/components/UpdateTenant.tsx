@@ -6,7 +6,7 @@ import { useReactHookForm } from '@/hooks/useReactHookForm'
 import { ResponseGetTenants } from '@/controllers/TenatController/getTenants/getTenants'
 import { SchemaUpdateTenant, schemaUpdateTenant } from '@/controllers/TenatController/updateTenant/updateTenant.schema'
 import { useUpdateTenant } from '@/controllers/TenatController/updateTenant/useUpdateTenant'
-import { Button, Input, Switch } from '@nextui-org/react'
+import { Button, Input, Switch } from '@heroui/react'
 import { Controller, SubmitHandler } from 'react-hook-form'
 
 type UpdateTenantDialogProps = { tenant: ResponseGetTenants[0]; dialog: UseDialog }

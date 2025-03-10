@@ -1,5 +1,5 @@
 import { IconPasswordHidden, IconPasswordVisible } from '@/icons'
-import { Input as NextUiInput, type InputProps as NextUiInputProps } from '@nextui-org/input'
+import { Input as NextUiInput, type InputProps as NextUiInputProps } from '@heroui/input'
 import { forwardRef, useState } from 'react'
 
 export const Input = forwardRef<HTMLInputElement, NextUiInputProps>(function Input(props, ref) {

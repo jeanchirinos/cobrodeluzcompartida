@@ -6,7 +6,7 @@ import { SSTORAGE_TEMPORAL_FORM_DATA } from '@/constants/session-storage'
 import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 import { SchemaCreateRentalGroupWithRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupWithRegister/createRentalGroupWithRegister.schema'
 import { IconDelete } from '@/icons'
-import { Button } from '@nextui-org/button'
+import { Button } from '@heroui/button'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 

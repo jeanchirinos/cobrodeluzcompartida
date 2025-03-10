@@ -5,8 +5,8 @@ import { SchemaCalculateResultsAdd } from '@/controllers/RentalGroupRegisterCont
 // import { useDialog } from '@/components/Dialog/useDialog'
 import { IconOptions } from '@/icons'
 import { SetState } from '@/types'
-import { Button } from '@nextui-org/button'
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown'
+import { Button } from '@heroui/button'
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/dropdown'
 import { useFormContext } from 'react-hook-form'
 
 type ParticipantOptionsProps = {

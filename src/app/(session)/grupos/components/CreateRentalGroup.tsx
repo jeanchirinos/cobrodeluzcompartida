@@ -3,7 +3,7 @@
 import { ROUTE } from '@/constants/routes'
 import { useCreateRentalGroup } from '@/controllers/RentalGroupController/createRentalGroup/useCreateRentalGroup'
 import { IconAdd } from '@/icons'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { useRouter } from 'next/navigation'
 
 export function CreateRentalGroup() {

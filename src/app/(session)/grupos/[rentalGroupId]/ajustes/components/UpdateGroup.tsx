@@ -8,7 +8,7 @@ import {
   schemaUpdateRentalGroup,
 } from '@/controllers/RentalGroupController/updateRentalGroup/updateRentalGroup.schema'
 import { useUpdateRentalGroup } from '@/controllers/RentalGroupController/updateRentalGroup/useUpdateRentalGroup'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@heroui/react'
 import { Controller, SubmitHandler } from 'react-hook-form'
 
 export function UpdateGroup() {

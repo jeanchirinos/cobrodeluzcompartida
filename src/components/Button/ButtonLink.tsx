@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/button'
+import { Button } from '@heroui/button'
 import Link from 'next/link'
 
 type Props = React.ComponentProps<typeof Button<typeof Link>>

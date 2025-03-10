@@ -7,7 +7,7 @@ import { useGetParticipants } from '@/controllers/ParticipantController/getParti
 import { SchemaCalculateResultsAdd } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 import { useCreateRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/createRentalGroupRegister/useCreateRentalGroupRegister'
 import { SetState } from '@/types'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { useParams, useRouter } from 'next/navigation'
 import { SubmitHandler, useFormContext } from 'react-hook-form'
 import { toast } from 'sonner'

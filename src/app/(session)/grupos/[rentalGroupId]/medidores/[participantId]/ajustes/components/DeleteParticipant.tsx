@@ -6,7 +6,7 @@ import { ErrorUi } from '@/components/other/ComponentError'
 import { ROUTE } from '@/constants/routes'
 import { useDeleteParticipant } from '@/controllers/ParticipantController/deleteParticipant/useDeleteParticipant'
 import { useGetParticipantById } from '@/controllers/ParticipantController/getParticipantById/useGetParticipantById'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { useRouter } from 'next/navigation'
 
 export function DeleteParticipant() {

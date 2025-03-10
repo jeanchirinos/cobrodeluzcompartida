@@ -1,6 +1,6 @@
 'use client'
 
-import { Chip } from '@nextui-org/chip'
+import { Chip } from '@heroui/chip'
 import { SaveButton } from './SaveButton'
 import { useGetSession } from '@/controllers/AuthController/getSession/useGetSession'
 import { Skeleton } from '@/components/Skeleton'

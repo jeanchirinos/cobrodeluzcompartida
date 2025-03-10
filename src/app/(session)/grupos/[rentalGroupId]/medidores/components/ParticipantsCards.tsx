@@ -2,7 +2,7 @@
 import { IconCrown } from '@/icons'
 import { Link } from '@/components/Link'
 import { ROUTE } from '@/constants/routes'
-import { Avatar, Card, CardFooter, CardHeader, Chip } from '@nextui-org/react'
+import { Avatar, Card, CardFooter, CardHeader, Chip } from '@heroui/react'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
 import { useGetParticipants } from '@/controllers/ParticipantController/getParticipants/useGetParticipants'
 import Image from 'next/image'

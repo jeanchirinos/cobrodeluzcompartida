@@ -2,7 +2,7 @@
 import { Link } from '@/components/Link'
 import { usePathname } from 'next/navigation'
 import { cnx } from '@/lib/utils'
-import { NavbarItem, NavbarMenuItem } from '@nextui-org/navbar'
+import { NavbarItem, NavbarMenuItem } from '@heroui/navbar'
 import { ComponentProps, ComponentType } from 'react'
 import { $NAV_MENU_TOGGLE } from '@/constants/elements'
 

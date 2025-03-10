@@ -1,6 +1,6 @@
 'use client'
 
-import { NavbarContent } from '@nextui-org/react'
+import { NavbarContent } from '@heroui/react'
 import { HeaderLinkNavItem } from './HeaderLink'
 import { ROUTE } from '@/constants/routes'
 import { useGetSession } from '@/controllers/AuthController/getSession/useGetSession'

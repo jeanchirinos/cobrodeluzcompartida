@@ -1,6 +1,6 @@
 'use client'
 
-import { NextUIProvider as DefaultNextUIProvider } from '@nextui-org/react'
+import { HeroUIProvider as DefaultNextUIProvider } from '@heroui/react'
 import { useRouter } from 'next/navigation'
 
 export function NextUIProvider(props: Required<React.PropsWithChildren>) {

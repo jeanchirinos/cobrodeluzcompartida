@@ -2,7 +2,7 @@
 
 import { ErrorUi } from '@/components/other/ComponentError'
 import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
-import { Select, SelectItem } from '@nextui-org/react'
+import { Select, SelectItem } from '@heroui/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 export function SelectYear() {

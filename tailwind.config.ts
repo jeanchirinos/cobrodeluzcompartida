@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { nextui } from '@nextui-org/react'
+import { heroui } from '@heroui/react'
 import plugin from 'tailwindcss/plugin'
 
 const tailwindPlugin = plugin(plugin => {
@@ -20,16 +20,13 @@ const tailwindPlugin = plugin(plugin => {
   })
 })
 
-const nextuiPlugin = nextui({ addCommonColors: true })
+const herouiPlugin = heroui({ addCommonColors: true })
 
 const config: Config = {
-  content: [
-    './src/app/**/*.tsx',
-    './src/components/**/*.tsx',
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: ['./src/**/*.{tsx,mdx}', './node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}'],
   theme: {},
   darkMode: 'class',
-  plugins: [nextuiPlugin, tailwindPlugin, require('@headlessui/tailwindcss')],
+  plugins: [herouiPlugin, tailwindPlugin, require('@headlessui/tailwindcss')],
 }
+
 export default config

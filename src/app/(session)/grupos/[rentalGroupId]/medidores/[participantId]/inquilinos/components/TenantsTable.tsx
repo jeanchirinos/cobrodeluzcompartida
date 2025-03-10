@@ -2,8 +2,8 @@
 
 import { Image } from '@/components/Image'
 import { useGetTenants } from '@/controllers/TenatController/getTenants/useGetTenants'
-import { Chip, Spinner } from '@nextui-org/react'
-import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/table'
+import { Chip, Spinner } from '@heroui/react'
+import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@heroui/table'
 import { TenantOptions } from './TenantOptions'
 import { ErrorUi } from '@/components/other/ComponentError'
 

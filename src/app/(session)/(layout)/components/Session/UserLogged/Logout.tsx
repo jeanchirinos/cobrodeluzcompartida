@@ -1,7 +1,7 @@
 'use client'
 
 import { useLogout } from '@/controllers/AuthController/logout/useLogout'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 
 export function Logout() {
   const { mutate, isPending } = useLogout()

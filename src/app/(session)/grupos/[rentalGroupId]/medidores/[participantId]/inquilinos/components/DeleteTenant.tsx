@@ -4,7 +4,7 @@ import { Dialog, DialogBody, DialogFooter } from '@/components/Dialog/Dialog'
 import { UseDialog } from '@/components/Dialog/useDialog'
 import { useDeleteTenant } from '@/controllers/TenatController/deleteTenant/useDeleteTenant'
 import { ResponseGetTenants } from '@/controllers/TenatController/getTenants/getTenants'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 
 type DeleteTenantDialogProps = { tenant: ResponseGetTenants[0]; dialog: UseDialog }
 

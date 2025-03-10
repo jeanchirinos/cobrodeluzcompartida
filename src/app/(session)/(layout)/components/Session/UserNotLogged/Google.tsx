@@ -2,7 +2,7 @@
 
 import { useGoogle } from '@/hooks/useGoogle'
 import { IconGoogle } from '@/icons'
-import { Button } from '@nextui-org/button'
+import { Button } from '@heroui/button'
 
 export function Google() {
   const { openGoogleWindow } = useGoogle()

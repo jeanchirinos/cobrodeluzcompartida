@@ -9,7 +9,7 @@ import {
 } from '@/controllers/AuthController/recoverPassword/recoverPassword.schema'
 import { useRecoverPassword } from '@/controllers/AuthController/recoverPassword/useRecoverPassword'
 import { useReactHookForm } from '@/hooks/useReactHookForm'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import { Controller, SubmitHandler } from 'react-hook-form'

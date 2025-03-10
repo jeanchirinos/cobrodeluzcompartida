@@ -7,13 +7,13 @@ import {
   type ListboxOptionProps,
 } from '@headlessui/react'
 import { cnx } from '@/lib/utils'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { IconCheck } from '@/icons'
 
 export { Listbox } from '@headlessui/react'
 
 export function ListboxTrigger(props: ListboxButtonProps<typeof Button>) {
-  return <HeadlessListBoxButton {...props} as={Button} className={cnx('bg-default-100', props.className?.toString())} />
+  return <HeadlessListBoxButton {...props} className={cnx('bg-default-100', props.className?.toString())} />
 }
 
 export function ListboxOptions(props: ListboxOptionsProps) {
@@ -40,12 +40,12 @@ export function ListboxOption(props: Omit<ListboxOptionProps, 'value'> & { value
     <HeadlessListboxOption
       {...props}
       className={cnx(
-        'flex cursor-pointer items-center gap-x-2 px-3 py-1.5 ui-active:bg-foreground-100',
+        'ui-active:bg-foreground-100 flex cursor-pointer items-center gap-x-2 px-3 py-1.5',
         props.className?.toString(),
       )}
     >
       {props.children as React.ReactNode}
-      <IconCheck className='invisible ui-selected:visible' />
+      <IconCheck className='ui-selected:visible invisible' />
     </HeadlessListboxOption>
   )
 }

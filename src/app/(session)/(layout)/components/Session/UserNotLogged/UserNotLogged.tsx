@@ -4,7 +4,7 @@ import { Popover, PopoverTrigger, PopoverContent } from '@/components/Popover'
 import { Google } from './Google'
 import { Login } from './Login'
 import { $BUTTON_LOGIN_ID } from '@/constants/elements'
-import { Tab, Tabs } from '@nextui-org/react'
+import { Tab, Tabs } from '@heroui/react'
 import { Register } from './Register'
 
 export function UserNotLogged() {

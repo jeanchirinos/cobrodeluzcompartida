@@ -2,7 +2,7 @@
 
 import { BillOptions } from './BillOptions'
 import { Controller, useFormContext } from 'react-hook-form'
-import { Input } from '@nextui-org/react'
+import { Input } from '@heroui/react'
 import { CalculateResults } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 
 export function BillInfo() {

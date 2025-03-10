@@ -2,7 +2,7 @@
 
 import { SchemaCalculateResultsAdd } from '@/controllers/RentalGroupRegisterController/calculateResults/calculateResults.schema'
 import { Controller, useFormContext } from 'react-hook-form'
-import { Input } from '@nextui-org/react'
+import { Input } from '@heroui/react'
 
 export function BillInfo() {
   const { control } = useFormContext<SchemaCalculateResultsAdd>()

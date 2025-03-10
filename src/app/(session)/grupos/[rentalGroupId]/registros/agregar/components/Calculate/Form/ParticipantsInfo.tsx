@@ -7,7 +7,7 @@ import { SchemaCalculateResultsAdd } from '@/controllers/RentalGroupRegisterCont
 import { useGetRentalGroupRegister } from '@/controllers/RentalGroupRegisterController/getRentalGroupRegister/useGetRentalRegister'
 import { Result } from '@/models/Result'
 import { SetState } from '@/types'
-import { Input, Spinner } from '@nextui-org/react'
+import { Input, Spinner } from '@heroui/react'
 import { ChangeEvent, useEffect, useState } from 'react'
 import {
   Controller,

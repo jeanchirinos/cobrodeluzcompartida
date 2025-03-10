@@ -2,9 +2,9 @@
 
 import { Link } from '@/components/Link'
 import { ROUTE } from '@/constants/routes'
-import { Avatar, AvatarGroup } from '@nextui-org/avatar'
-import { Card, CardFooter, CardHeader } from '@nextui-org/card'
-import { Tooltip } from '@nextui-org/react'
+import { Avatar, AvatarGroup } from '@heroui/avatar'
+import { Card, CardFooter, CardHeader } from '@heroui/card'
+import { Tooltip } from '@heroui/react'
 import Image from 'next/image'
 import { useGetRentalGroups } from '@/controllers/RentalGroupController/getRentalGroups/useGetRentalGroups'
 import { SuspenseFallback } from '@/components/other/SuspenseFallback'
