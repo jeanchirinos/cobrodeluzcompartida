@@ -31,7 +31,7 @@ export function Header() {
 
       <NavbarContent justify='end'>
         <ThemeSwitcher />
-        <Session />
+        {/* <Session /> */}
       </NavbarContent>
 
       <NavMenu />

@@ -13,7 +13,7 @@ export function Calculate() {
 
   return (
     <>
-      <SessionWarning results={results} />
+      {/* <SessionWarning results={results} /> */}
       <section className='flex gap-14 max-md:flex-col lg:gap-x-16'>
         <form className='flex gap-12 max-lg:flex-col'>
           <BillInfo />
